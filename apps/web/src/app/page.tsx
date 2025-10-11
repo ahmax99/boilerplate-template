@@ -1,6 +1,13 @@
-'use client'
-import { Button } from '@/components/atoms'
+import { prisma, User } from '@repo/database'
 
-export default function Home() {
-  return <Button>Home</Button>
+export default async function Home() {
+  const users = await prisma.user.findMany()
+
+  return (
+    <div>
+      {users.map((user: User) => (
+        <p key={user.id}>{user.name ?? user.email}</p>
+      ))}
+    </div>
+  )
 }
