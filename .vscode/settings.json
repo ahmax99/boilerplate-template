@@ -3,5 +3,9 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "sonarlint.connectedMode.project": {
+    "connectionId": "ahmax99",
+    "projectKey": "ahmax99_boilerplate-template"
+  }
 }
