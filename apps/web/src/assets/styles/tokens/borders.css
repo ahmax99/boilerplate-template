@@ -1,16 +1,16 @@
 :root {
-  --radius: 1.3rem;
+  --radius-base: 1.3rem;
 }
 
 .dark {
-  --radius: 1.3rem;
+  --radius-base: 1.3rem;
 }
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: calc(var(--radius-base) - 4px);
+  --radius-md: calc(var(--radius-base) - 2px);
+  --radius-lg: var(--radius-base);
+  --radius-xl: calc(var(--radius-base) + 4px);
 }
 
 .rounded-sm {

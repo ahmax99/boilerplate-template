@@ -1,13 +1,13 @@
 :root {
-  --font-sans: ABeeZee, ui-sans-serif, sans-serif, system-ui;
-  --font-serif: Adamina, ui-serif, serif;
-  --font-mono: Azeret Mono, ui-monospace, monospace;
+  --font-sans: 'ABeeZee', ui-sans-serif, sans-serif, system-ui;
+  --font-serif: 'Adamina', ui-serif, serif;
+  --font-mono: 'Azeret Mono', ui-monospace, monospace;
 }
 
 .dark {
-  --font-sans: ABeeZee, ui-sans-serif, sans-serif, system-ui;
-  --font-serif: Adamina, ui-serif, serif;
-  --font-mono: Azeret Mono, ui-monospace, monospace;
+  --font-sans: 'ABeeZee', ui-sans-serif, sans-serif, system-ui;
+  --font-serif: 'Adamina', ui-serif, serif;
+  --font-mono: 'Azeret Mono', ui-monospace, monospace;
 }
 
 @theme inline {
@@ -18,6 +18,6 @@
 
 @layer base {
   body {
-    @apply font-sans;
+    font-family: var(--font-sans);
   }
 }

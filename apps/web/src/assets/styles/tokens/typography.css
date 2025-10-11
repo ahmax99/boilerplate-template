@@ -1,29 +1,29 @@
 :root {
-  --tracking-normal: 0.025em;
-  --leading-normal: 1.5;
+  --tracking-base: 0.025em;
+  --leading-base: 1.5;
 }
 
 @theme inline {
   /* Letter spacing (tracking) */
-  --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
-  --tracking-tight: calc(var(--tracking-normal) - 0.025em);
-  --tracking-normal: var(--tracking-normal);
-  --tracking-wide: calc(var(--tracking-normal) + 0.025em);
-  --tracking-wider: calc(var(--tracking-normal) + 0.05em);
-  --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+  --tracking-tighter: calc(var(--tracking-base) - 0.05em);
+  --tracking-tight: calc(var(--tracking-base) - 0.025em);
+  --tracking-normal: var(--tracking-base);
+  --tracking-wide: calc(var(--tracking-base) + 0.025em);
+  --tracking-wider: calc(var(--tracking-base) + 0.05em);
+  --tracking-widest: calc(var(--tracking-base) + 0.1em);
 
   /* Line height (leading) */
   --leading-none: 1;
   --leading-tight: 1.25;
   --leading-snug: 1.375;
-  --leading-normal: var(--leading-normal);
+  --leading-normal: var(--leading-base);
   --leading-relaxed: 1.625;
   --leading-loose: 2;
 }
 
 @layer base {
   body {
-    letter-spacing: var(--tracking-normal);
-    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-base);
+    line-height: var(--leading-base);
   }
 }
