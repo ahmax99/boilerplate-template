@@ -3,5 +3,11 @@ import { prisma, User } from '@repo/database'
 export default async function Home() {
   const users = await prisma.user.findMany()
 
-  return <h1>{users.map((user: User) => user.name)}</h1>
+  return (
+    <div>
+      {users.map((user: User) => (
+        <p key={user.id}>{user.name ?? user.email}</p>
+      ))}
+    </div>
+  )
 }
