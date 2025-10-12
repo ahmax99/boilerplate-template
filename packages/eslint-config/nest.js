@@ -1,4 +1,5 @@
 import pluginNestTyped from '@darraghor/eslint-plugin-nestjs-typed'
+import importPlugin from 'eslint-plugin-import'
 import { eslintConfig as baseConfig } from './base.js'
 
 /** @type {import("eslint").Linter.Config[]} */
@@ -10,7 +11,8 @@ export const eslintConfig = [
   {
     files: ['**/*.ts'],
     plugins: {
-      '@nestjs-typed': pluginNestTyped
+      '@nestjs-typed': pluginNestTyped,
+      import: importPlugin
     },
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
@@ -20,7 +22,39 @@ export const eslintConfig = [
         'error',
         { argsIgnorePattern: '^_' }
       ],
-      'prefer-const': 'warn'
+      'prefer-const': 'warn',
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type'
+          ],
+          pathGroups: [
+            {
+              pattern: '@nestjs/**',
+              group: 'builtin',
+              position: 'before'
+            },
+            {
+              pattern: '@/**',
+              group: 'internal',
+              position: 'before'
+            }
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
+          alphabetize: {
+            order: 'asc'
+          },
+          'newlines-between': 'always'
+        }
+      ]
     }
   }
 ]

@@ -11,13 +11,13 @@
         "dist/**",
         "storybook-static/**"
       ],
-      "env": ["DATABASE_URL"]
+      "env": ["DATABASE_URL", "PORT"]
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
     "check-types": {
-      "dependsOn": ["^check-types", "^db:generate"]
+      "dependsOn": ["^check-types", "^build"]
     },
     "dev": {
       "cache": false,
