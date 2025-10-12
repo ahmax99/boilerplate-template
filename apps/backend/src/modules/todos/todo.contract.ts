@@ -29,7 +29,7 @@ export const updateTodoContract = oc
   .route({ method: 'PATCH', path: '/todos/{id}' })
   .input(
     z.object({
-      id: z.number().int().positive(),
+      id: z.coerce.number().int().positive(),
       title: z.string().optional(),
       description: z.string().nullable().optional(),
       isDone: z.boolean().optional()
