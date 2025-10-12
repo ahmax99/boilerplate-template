@@ -1,8 +1,7 @@
 import { oc } from '@orpc/contract'
-import { populateContractRouterPaths } from '@orpc/nest'
 import { z } from 'zod'
 
-import { TodoSchema } from './todos.schema'
+import { TodoSchema } from '../schemas'
 
 export const listTodosContract = oc
   .route({ method: 'GET', path: '/todos' })
@@ -42,7 +41,7 @@ export const deleteTodoContract = oc
   .input(TodoSchema.pick({ id: true }))
   .output(z.object({ success: z.boolean() }))
 
-export const todosContract = populateContractRouterPaths({
+export const todosContract = {
   todos: {
     list: listTodosContract,
     find: findTodoContract,
@@ -50,4 +49,4 @@ export const todosContract = populateContractRouterPaths({
     update: updateTodoContract,
     delete: deleteTodoContract
   }
-})
+}

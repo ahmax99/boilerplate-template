@@ -1,17 +1,19 @@
 import { Controller } from '@nestjs/common'
 
-import { Implement, implement } from '@orpc/nest'
+import { Implement, implement, populateContractRouterPaths } from '@orpc/nest'
+import { usersContract } from '@repo/contract'
 
-import { usersContract } from './users.contract'
 import { UsersService } from './users.service'
+
+const usersContractWithPaths = populateContractRouterPaths(usersContract)
 
 @Controller()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Implement(usersContract.users.list)
+  @Implement(usersContractWithPaths.users.list)
   listUsers() {
-    return implement(usersContract.users.list).handler(({ input }) => {
+    return implement(usersContractWithPaths.users.list).handler(({ input }) => {
       return this.usersService.findAll({
         skip: input.offset,
         take: input.limit
@@ -19,31 +21,33 @@ export class UsersController {
     })
   }
 
-  @Implement(usersContract.users.find)
+  @Implement(usersContractWithPaths.users.find)
   findUser() {
-    return implement(usersContract.users.find).handler(({ input }) =>
+    return implement(usersContractWithPaths.users.find).handler(({ input }) =>
       this.usersService.findOne({ id: input.id })
     )
   }
 
-  @Implement(usersContract.users.create)
+  @Implement(usersContractWithPaths.users.create)
   createUser() {
-    return implement(usersContract.users.create).handler(({ input }) =>
+    return implement(usersContractWithPaths.users.create).handler(({ input }) =>
       this.usersService.create(input)
     )
   }
 
-  @Implement(usersContract.users.update)
+  @Implement(usersContractWithPaths.users.update)
   updateUser() {
-    return implement(usersContract.users.update).handler(({ input }) => {
-      const { id, ...data } = input
-      return this.usersService.update({ id }, data)
-    })
+    return implement(usersContractWithPaths.users.update).handler(
+      ({ input }) => {
+        const { id, ...data } = input
+        return this.usersService.update({ id }, data)
+      }
+    )
   }
 
-  @Implement(usersContract.users.delete)
+  @Implement(usersContractWithPaths.users.delete)
   deleteUser() {
-    return implement(usersContract.users.delete).handler(({ input }) =>
+    return implement(usersContractWithPaths.users.delete).handler(({ input }) =>
       this.usersService.delete({ id: input.id })
     )
   }

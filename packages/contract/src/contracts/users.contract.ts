@@ -1,8 +1,7 @@
 import { oc } from '@orpc/contract'
-import { populateContractRouterPaths } from '@orpc/nest'
 import { z } from 'zod'
 
-import { UserSchema } from './users.schema'
+import { UserSchema } from '../schemas'
 
 export const listUsersContract = oc
   .route({ method: 'GET', path: '/users' })
@@ -29,7 +28,7 @@ export const updateUserContract = oc
   .input(
     z.object({
       id: z.coerce.number().int().positive(),
-      email: z.email().optional(),
+      email: z.string().email().optional(),
       name: z.string().nullable().optional()
     })
   )
@@ -40,7 +39,7 @@ export const deleteUserContract = oc
   .input(UserSchema.pick({ id: true }))
   .output(z.object({ success: z.boolean() }))
 
-export const usersContract = populateContractRouterPaths({
+export const usersContract = {
   users: {
     list: listUsersContract,
     find: findUserContract,
@@ -48,4 +47,4 @@ export const usersContract = populateContractRouterPaths({
     update: updateUserContract,
     delete: deleteUserContract
   }
-})
+}
