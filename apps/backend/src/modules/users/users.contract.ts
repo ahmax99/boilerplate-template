@@ -2,14 +2,14 @@ import { oc } from '@orpc/contract'
 import { populateContractRouterPaths } from '@orpc/nest'
 import { z } from 'zod'
 
-import { UserSchema } from './user.schema'
+import { UserSchema } from './users.schema'
 
 export const listUsersContract = oc
   .route({ method: 'GET', path: '/users' })
   .input(
     z.object({
-      limit: z.number().int().min(1).max(100).optional(),
-      offset: z.number().int().min(0).default(0)
+      limit: z.coerce.number().int().min(1).max(100).optional(),
+      offset: z.coerce.number().int().min(0).default(0)
     })
   )
   .output(z.array(UserSchema))

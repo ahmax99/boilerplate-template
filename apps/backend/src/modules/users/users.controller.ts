@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common'
 
 import { Implement, implement } from '@orpc/nest'
 
-import { usersContract } from './user.contract'
+import { usersContract } from './users.contract'
 import { UsersService } from './users.service'
 
 @Controller()

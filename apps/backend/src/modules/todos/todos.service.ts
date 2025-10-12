@@ -34,20 +34,25 @@ export class TodosService {
     where: Prisma.TodoWhereUniqueInput,
     data: Prisma.TodoUpdateInput
   ): Promise<Todo> {
-    const todo = await this.prisma.todo.update({ where, data })
-
-    if (!todo) throw new NotFoundException('Todo not found')
-
-    return todo
+    try {
+      return await this.prisma.todo.update({ where, data })
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError)
+        throw new NotFoundException('Todo not found')
+      throw error
+    }
   }
 
   async delete(
     where: Prisma.TodoWhereUniqueInput
   ): Promise<{ success: boolean }> {
-    const todo = await this.prisma.todo.delete({ where })
-
-    if (!todo) throw new NotFoundException('Todo not found')
-
-    return { success: true }
+    try {
+      await this.prisma.todo.delete({ where })
+      return { success: true }
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError)
+        throw new NotFoundException('Todo not found')
+      throw error
+    }
   }
 }

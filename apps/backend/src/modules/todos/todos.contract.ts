@@ -2,15 +2,15 @@ import { oc } from '@orpc/contract'
 import { populateContractRouterPaths } from '@orpc/nest'
 import { z } from 'zod'
 
-import { TodoSchema } from './todo.schema'
+import { TodoSchema } from './todos.schema'
 
 export const listTodosContract = oc
   .route({ method: 'GET', path: '/todos' })
   .input(
     z.object({
-      userId: z.number().int().positive().optional(),
-      limit: z.number().int().min(1).max(100).optional(),
-      offset: z.number().int().min(0).default(0)
+      userId: z.coerce.number().int().positive().optional(),
+      limit: z.coerce.number().int().min(1).max(100).optional(),
+      offset: z.coerce.number().int().min(0).default(0)
     })
   )
   .output(z.array(TodoSchema))
