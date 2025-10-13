@@ -1,10 +1,13 @@
 import { oc } from '@orpc/contract'
 import { z } from 'zod'
 
-import { TodoSchema } from '../schemas'
+import { TodoSchema } from '../schemas/index.js'
 
 export const listTodosContract = oc
-  .route({ method: 'GET', path: '/todos' })
+  .route({
+    summary: 'List todos',
+    tags: ['Todos']
+  })
   .input(
     z.object({
       userId: z.coerce.number().int().positive().optional(),
@@ -15,17 +18,26 @@ export const listTodosContract = oc
   .output(z.array(TodoSchema))
 
 export const findTodoContract = oc
-  .route({ method: 'GET', path: '/todos/{id}' })
+  .route({
+    summary: 'Find todo by id',
+    tags: ['Todos']
+  })
   .input(TodoSchema.pick({ id: true }))
   .output(TodoSchema)
 
 export const createTodoContract = oc
-  .route({ method: 'POST', path: '/todos' })
+  .route({
+    summary: 'Create todo',
+    tags: ['Todos']
+  })
   .input(TodoSchema.omit({ id: true }))
   .output(TodoSchema)
 
 export const updateTodoContract = oc
-  .route({ method: 'PATCH', path: '/todos/{id}' })
+  .route({
+    summary: 'Update todo',
+    tags: ['Todos']
+  })
   .input(
     z.object({
       id: z.coerce.number().int().positive(),
@@ -37,7 +49,10 @@ export const updateTodoContract = oc
   .output(TodoSchema)
 
 export const deleteTodoContract = oc
-  .route({ method: 'DELETE', path: '/todos/{id}' })
+  .route({
+    summary: 'Delete todo',
+    tags: ['Todos']
+  })
   .input(TodoSchema.pick({ id: true }))
   .output(z.object({ success: z.boolean() }))
 

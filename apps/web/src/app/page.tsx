@@ -1,3 +1,5 @@
-export default async function Home() {
-  return <div>Hello World</div>
+import { Todos } from '@/features/todos/client/components/Todos'
+
+export default function Home() {
+  return <Todos />
 }

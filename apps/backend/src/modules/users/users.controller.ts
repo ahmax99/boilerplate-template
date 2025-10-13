@@ -13,32 +13,34 @@ export class UsersController {
 
   @Implement(usersContractWithPaths.users.list)
   listUsers() {
-    return implement(usersContractWithPaths.users.list).handler(({ input }) => {
-      return this.usersService.findAll({
-        skip: input.offset,
-        take: input.limit
-      })
-    })
+    return implement(usersContractWithPaths.users.list).handler(
+      async ({ input }) => {
+        return this.usersService.findAll({
+          skip: input.offset,
+          take: input.limit
+        })
+      }
+    )
   }
 
   @Implement(usersContractWithPaths.users.find)
   findUser() {
-    return implement(usersContractWithPaths.users.find).handler(({ input }) =>
-      this.usersService.findOne({ id: input.id })
+    return implement(usersContractWithPaths.users.find).handler(
+      async ({ input }) => this.usersService.findOne({ id: input.id })
     )
   }
 
   @Implement(usersContractWithPaths.users.create)
   createUser() {
-    return implement(usersContractWithPaths.users.create).handler(({ input }) =>
-      this.usersService.create(input)
+    return implement(usersContractWithPaths.users.create).handler(
+      async ({ input }) => this.usersService.create(input)
     )
   }
 
   @Implement(usersContractWithPaths.users.update)
   updateUser() {
     return implement(usersContractWithPaths.users.update).handler(
-      ({ input }) => {
+      async ({ input }) => {
         const { id, ...data } = input
         return this.usersService.update({ id }, data)
       }
@@ -47,8 +49,8 @@ export class UsersController {
 
   @Implement(usersContractWithPaths.users.delete)
   deleteUser() {
-    return implement(usersContractWithPaths.users.delete).handler(({ input }) =>
-      this.usersService.delete({ id: input.id })
+    return implement(usersContractWithPaths.users.delete).handler(
+      async ({ input }) => this.usersService.delete({ id: input.id })
     )
   }
 }

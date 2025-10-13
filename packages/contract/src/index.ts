@@ -1,3 +1,4 @@
-export * from './schemas'
-export * from './contracts'
-export * from './router'
+export * from './schemas/index.js'
+export * from './contracts/index.js'
+export * from './router.js'
+export * from './client/index.js'

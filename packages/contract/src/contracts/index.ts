@@ -1,2 +1,2 @@
-export * from './users.contract'
-export * from './todos.contract'
+export * from './users.contract.js'
+export * from './todos.contract.js'

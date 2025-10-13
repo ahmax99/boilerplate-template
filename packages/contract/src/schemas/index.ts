@@ -1,2 +1,2 @@
-export * from './user.schema'
-export * from './todo.schema'
+export * from './user.schema.js'
+export * from './todo.schema.js'
