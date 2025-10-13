@@ -1,5 +1,7 @@
 import localFont from 'next/font/local'
 
+import { Providers } from './providers'
+
 import type { Metadata } from 'next'
 import '@/assets/styles/globals.css'
 
@@ -23,9 +25,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
