@@ -14,6 +14,8 @@ interface Todo {
   userId: number
 }
 
+const TODOS_QUERY_INPUT = { limit: 50, offset: 0 } as const
+
 export const Todos = () => {
   const queryClient = useQueryClient()
   const [editingId, setEditingId] = useState<number | null>(null)
@@ -23,7 +25,7 @@ export const Todos = () => {
   const [newDescription, setNewDescription] = useState('')
 
   const queryOptions = orpcClient.todos.list.queryOptions({
-    input: { limit: 50, offset: 0 }
+    input: TODOS_QUERY_INPUT
   })
 
   const {
@@ -40,7 +42,7 @@ export const Todos = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: orpcClient.todos.list.queryKey({
-          input: { limit: 50, offset: 0 }
+          input: TODOS_QUERY_INPUT
         })
       })
       setNewTitle('')
@@ -53,7 +55,7 @@ export const Todos = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: orpcClient.todos.list.queryKey({
-          input: { limit: 50, offset: 0 }
+          input: TODOS_QUERY_INPUT
         })
       })
       setEditingId(null)
@@ -65,7 +67,7 @@ export const Todos = () => {
     onSuccess: () =>
       queryClient.invalidateQueries({
         queryKey: orpcClient.todos.list.queryKey({
-          input: { limit: 50, offset: 0 }
+          input: TODOS_QUERY_INPUT
         })
       })
   })
@@ -75,7 +77,7 @@ export const Todos = () => {
     onSuccess: () =>
       queryClient.invalidateQueries({
         queryKey: orpcClient.todos.list.queryKey({
-          input: { limit: 50, offset: 0 }
+          input: TODOS_QUERY_INPUT
         })
       })
   })
@@ -87,7 +89,7 @@ export const Todos = () => {
       title: newTitle,
       description: newDescription || null,
       isDone: false,
-      userId: 1
+      userId: 3 // TODO: get user id from auth
     })
   }
 
