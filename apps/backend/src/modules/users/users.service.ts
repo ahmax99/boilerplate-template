@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { Prisma, type User } from '@repo/database'
 
-import type { PrismaService } from '../../database/prisma.service'
+// biome-ignore lint/style/useImportType: prevent class to exists at runtime
+import { PrismaService } from '../../database/prisma.service'
 
 @Injectable()
 export class UsersService {

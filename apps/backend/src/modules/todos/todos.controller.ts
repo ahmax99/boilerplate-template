@@ -2,7 +2,8 @@ import { Controller } from '@nestjs/common'
 import { Implement, implement, populateContractRouterPaths } from '@orpc/nest'
 import { todosContract } from '@repo/contract'
 
-import type { TodosService } from './todos.service'
+// biome-ignore lint/style/useImportType: prevent class to exists at runtime
+import { TodosService } from './todos.service'
 
 const todosContractWithPaths = populateContractRouterPaths(todosContract)
 
