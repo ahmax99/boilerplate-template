@@ -199,16 +199,6 @@
           }
         }
       }
-    },
-    {
-      "includes": ["**/*.ts"],
-      "linter": {
-        "rules": {
-          "correctness": { "noUnusedVariables": "error" },
-          "style": { "useConst": "error" },
-          "suspicious": { "noExplicitAny": "error" }
-        }
-      }
     }
   ],
   "assist": {
