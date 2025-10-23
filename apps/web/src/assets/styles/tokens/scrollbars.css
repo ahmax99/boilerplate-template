@@ -1,3 +1,5 @@
+/* biome-ignore-all lint/suspicious/noUnknownAtRules: default tailwind config */
+
 html {
   scroll-behavior: smooth;
 }

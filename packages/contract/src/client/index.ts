@@ -1,11 +1,10 @@
 import { createORPCClient } from '@orpc/client'
-import { OpenAPILink } from '@orpc/openapi-client/fetch'
-
-import { appContract } from '../router.js'
-
-import type { AppContract } from '../router.js'
 import type { ContractRouterClient } from '@orpc/contract'
 import type { JsonifiedClient } from '@orpc/openapi-client'
+import { OpenAPILink } from '@orpc/openapi-client/fetch'
+
+import type { AppContract } from '../router.js'
+import { appContract } from '../router.js'
 
 const createORPCLink = (url: string, headers?: Record<string, string>) =>
   new OpenAPILink(appContract, {

@@ -1,9 +1,8 @@
 import { Controller } from '@nestjs/common'
-
 import { Implement, implement, populateContractRouterPaths } from '@orpc/nest'
 import { usersContract } from '@repo/contract'
 
-import { UsersService } from './users.service'
+import type { UsersService } from './users.service'
 
 const usersContractWithPaths = populateContractRouterPaths(usersContract)
 
