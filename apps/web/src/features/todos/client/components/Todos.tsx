@@ -1,8 +1,7 @@
 'use client'
 import { useState } from 'react'
-
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Trash2, Edit2, Plus, Check, X } from 'lucide-react'
+import { Check, Edit2, Plus, Trash2, X } from 'lucide-react'
 
 import { orpcClient } from '@/lib/api/orpc.client'
 
@@ -158,22 +157,23 @@ export const Todos = () => {
         <div className="space-y-3">
           <input
             className="bg-background focus:ring-ring w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2"
+            onChange={(e) => setNewTitle(e.target.value)}
             placeholder="Title"
             type="text"
             value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
           />
           <input
             className="bg-background focus:ring-ring w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2"
+            onChange={(e) => setNewDescription(e.target.value)}
             placeholder="Description (optional)"
             type="text"
             value={newDescription}
-            onChange={(e) => setNewDescription(e.target.value)}
           />
           <button
             className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-50"
             disabled={!newTitle.trim() || createMutation.isPending}
             onClick={handleCreate}
+            type="button"
           >
             {createMutation.isPending ? 'Creating...' : 'Add Todo'}
           </button>
@@ -196,29 +196,30 @@ export const Todos = () => {
           <div className="space-y-2">
             {todos.map((todo) => (
               <div
-                key={todo.id}
                 className="bg-card hover:bg-accent/50 rounded-lg border p-4 shadow-sm transition-colors"
+                key={todo.id}
               >
                 {editingId === todo.id ? (
                   // UPDATE Form
                   <div className="space-y-3">
                     <input
                       className="bg-background focus:ring-ring w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2"
+                      onChange={(e) => setEditTitle(e.target.value)}
                       type="text"
                       value={editTitle}
-                      onChange={(e) => setEditTitle(e.target.value)}
                     />
                     <input
                       className="bg-background focus:ring-ring w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2"
+                      onChange={(e) => setEditDescription(e.target.value)}
                       type="text"
                       value={editDescription}
-                      onChange={(e) => setEditDescription(e.target.value)}
                     />
                     <div className="flex gap-2">
                       <button
                         className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-1 rounded-md px-3 py-1.5 text-sm"
                         disabled={updateMutation.isPending}
                         onClick={() => handleUpdate(todo.id)}
+                        type="button"
                       >
                         <Check className="h-4 w-4" />
                         Save
@@ -226,6 +227,7 @@ export const Todos = () => {
                       <button
                         className="hover:bg-accent flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm"
                         onClick={cancelEdit}
+                        type="button"
                       >
                         <X className="h-4 w-4" />
                         Cancel
@@ -240,8 +242,8 @@ export const Todos = () => {
                         <input
                           checked={todo.isDone}
                           className="h-4 w-4 cursor-pointer rounded border-gray-300"
-                          type="checkbox"
                           onChange={() => handleToggle(todo)}
+                          type="checkbox"
                         />
                         <h3
                           className={`font-medium ${
@@ -266,16 +268,18 @@ export const Todos = () => {
                     <div className="flex gap-2">
                       <button
                         className="hover:bg-accent rounded-md p-2"
-                        title="Edit"
                         onClick={() => startEdit(todo)}
+                        title="Edit"
+                        type="button"
                       >
                         <Edit2 className="h-4 w-4" />
                       </button>
                       <button
                         className="text-destructive hover:bg-destructive/10 rounded-md p-2"
                         disabled={deleteMutation.isPending}
-                        title="Delete"
                         onClick={() => handleDelete(todo.id)}
+                        title="Delete"
+                        type="button"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>

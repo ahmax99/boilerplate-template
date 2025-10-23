@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
+import { Prisma, type Todo } from '@repo/database'
 
-import { Todo, Prisma } from '@repo/database'
-
+// biome-ignore lint/style/useImportType: keep class available at runtime for NestJS DI
 import { PrismaService } from '../../database/prisma.service'
 
 @Injectable()

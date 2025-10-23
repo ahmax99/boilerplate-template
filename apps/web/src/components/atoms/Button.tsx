@@ -1,9 +1,9 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { Loader2 } from 'lucide-react'
 
-import { IconWrapper, type IconSize } from './IconWrapper'
-
 import { cn } from '@/lib/utils'
+
+import { type IconSize, IconWrapper } from './IconWrapper'
 
 const buttonBase =
   // layout & typography

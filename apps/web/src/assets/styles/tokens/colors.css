@@ -1,3 +1,5 @@
+/* biome-ignore-all lint/suspicious/noUnknownAtRules: default tailwind config */
+
 :root {
   --background: #ffffff;
   --foreground: #191a19;

@@ -1,8 +1,8 @@
 import { Controller } from '@nestjs/common'
-
 import { Implement, implement, populateContractRouterPaths } from '@orpc/nest'
 import { usersContract } from '@repo/contract'
 
+// biome-ignore lint/style/useImportType: keep class available at runtime for NestJS DI
 import { UsersService } from './users.service'
 
 const usersContractWithPaths = populateContractRouterPaths(usersContract)

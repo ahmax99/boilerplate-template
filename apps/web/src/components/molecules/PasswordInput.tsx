@@ -1,10 +1,9 @@
 'use client'
 
 import { useId, useState } from 'react'
-
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 
-import { Input, IconWrapper } from '@/components/atoms'
+import { IconWrapper, Input } from '@/components/atoms'
 import { cn } from '@/lib/utils'
 
 const toggleButtonBase =
@@ -42,9 +41,9 @@ export function PasswordInput({
         <Input
           className={cn('pe-9', className)}
           id={id}
+          onChange={externalOnChange}
           type={isVisible ? 'text' : 'password'}
           value={externalValue}
-          onChange={externalOnChange}
           {...props}
         />
         <button
@@ -52,8 +51,8 @@ export function PasswordInput({
           aria-label={isVisible ? 'Hide password' : 'Show password'}
           aria-pressed={isVisible}
           className={toggleButtonBase}
-          type="button"
           onClick={toggleVisibility}
+          type="button"
         >
           {isVisible ? (
             <IconWrapper size={4}>

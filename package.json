@@ -6,8 +6,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "pnpm exec prettier --write .",
-    "format-check": "pnpm exec prettier --check .",
+    "format": "pnpm exec biome format --write",
+    "format-check": "pnpm exec biome check",
     "check-types": "turbo run check-types",
     "sync-packages": "pnpm dlx syncpack fix-mismatches",
     "prepare": "husky",
@@ -15,10 +15,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
-      "pnpm exec eslint --fix"
-    ],
-    "*.{ts,tsx,js,jsx,css,md,json}": [
-      "pnpm exec prettier --write"
+      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
     ]
   },
   "repository": {
@@ -26,12 +23,9 @@
     "url": "https://github.com/ahmax99/boilerplate-template.git"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "eslint": "^9.34.0",
+    "@biomejs/biome": "2.2.7",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
-    "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.6.14",
     "turbo": "^2.5.8",
     "typescript": "^5.9.2"
   },

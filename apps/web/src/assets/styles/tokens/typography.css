@@ -1,3 +1,5 @@
+/* biome-ignore-all lint/suspicious/noUnknownAtRules: default tailwind config */
+
 :root {
   --tracking-base: 0.025em;
   --leading-base: 1.5;

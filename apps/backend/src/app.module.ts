@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-
 import { ORPCModule } from '@orpc/nest'
 
 import { DatabaseModule } from './database/prisma.module'

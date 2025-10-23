@@ -1,17 +1,16 @@
 'use client'
 
 import { createContext, useContext, useId, useMemo } from 'react'
-
-import * as LabelPrimitive from '@radix-ui/react-label'
+import type * as LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
 import {
   Controller,
-  FormProvider,
-  useFormContext,
-  useFormState,
   type ControllerProps,
   type FieldPath,
-  type FieldValues
+  type FieldValues,
+  FormProvider,
+  useFormContext,
+  useFormState
 } from 'react-hook-form'
 
 import { Label } from '@/components/atoms'
@@ -82,7 +81,7 @@ function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <FormItemContext.Provider value={value}>
       <div
-        className={cn('gap-md grid', className)}
+        className={cn('grid gap-md', className)}
         data-slot="form-item"
         {...props}
       />

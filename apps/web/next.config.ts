@@ -2,7 +2,8 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@repo/database'],
+  cacheComponents: true,
+  reactCompiler: true,
   headers: async () => [
     {
       source: '/(.*)',
@@ -32,9 +33,6 @@ const nextConfig: NextConfig = {
         exclude: ['error', 'warn']
       }
     })
-  },
-  eslint: {
-    ignoreDuringBuilds: true
   },
   webpack: (config) => {
     config.module.rules.push({
