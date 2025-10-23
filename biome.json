@@ -125,15 +125,7 @@
       "!**/yarn.lock",
       "!packages/trpc/src/server/**",
       "!**/storybook-static/**",
-      "!dist/**",
-      "!.next/**",
-      "!node_modules/**",
-      "!dist/**",
-      "!node_modules/**",
-      "!dist/**",
-      "!build/**",
-      "!**/*.js",
-      "!**/*.d.ts"
+      "!**/*.js"
     ]
   },
   "javascript": {
