@@ -14,24 +14,26 @@ This package contains the oRPC contract definitions and client implementation ba
 ### Creating a Client
 
 ```typescript
-import { orpcClient } from '@repo/contract'
+import { orpcClientInstance } from '@repo/contract'
 
 // Create a client instance with URL and optional headers
-const client = orpcClient('http://localhost:3001', {
+const client = orpcClientInstance('http://localhost:3001', {
   Authorization: 'Bearer your-token'
 })
 
-// List users
-const users = await client.users.list({ limit: 10 })
+// Users
+await client.users.list({ limit: 10, offset: 0 })
+await client.users.find({ id: 1 })
+await client.users.create({ email: 'john@example.com', name: 'John Doe' })
+await client.users.update({ id: 1, name: 'Johnny' })
+await client.users.delete({ id: 1 })
 
-// Find a specific user
-const user = await client.users.find({ id: 1 })
-
-// Create a new user
-const newUser = await client.users.create({
-  email: 'john@example.com',
-  name: 'John Doe'
-})
+// Todos
+await client.todos.list({ userId: 1, limit: 10, offset: 0 })
+await client.todos.find({ id: 1 })
+await client.todos.create({ title: 'Buy milk', description: null, isDone: false, userId: 1 })
+await client.todos.update({ id: 1, isDone: true })
+await client.todos.delete({ id: 1 })
 ```
 
 ### Client Configuration
@@ -42,13 +44,13 @@ The `orpcClient` function accepts two parameters:
 - **`headers`** (optional) - Custom headers to include with requests
 
 ```typescript
-import { orpcClient } from '@repo/contract'
+import { orpcClientInstance } from '@repo/contract'
 
 // Basic client
-const client = orpcClient('https://api.example.com')
+const client = orpcClientInstance('https://api.example.com')
 
 // Client with custom headers
-const authenticatedClient = orpcClient('https://api.example.com', {
+const authenticatedClient = orpcClientInstance('https://api.example.com', {
   Authorization: 'Bearer your-token',
   'X-Custom-Header': 'value'
 })
@@ -80,3 +82,37 @@ The client provides access to the following endpoints:
 - `todos.create(todoData)` - Create a new todo
 - `todos.update({ id, ...updates })` - Update todo
 - `todos.delete({ id })` - Delete todo
+
+## HTTP Methods with oRPC/OpenAPI
+
+- This package uses the OpenAPI client (`OpenAPILink`), so procedures are exposed over standard HTTP endpoints.
+- If a contract route does not specify an HTTP method, the client will default to using `POST` when calling it.
+- To opt into `GET` for read-only procedures (e.g., list/find), add `method: 'GET'` to the route in your contract and redeploy.
+
+Example (Users):
+
+```typescript
+import { oc } from '@orpc/contract'
+
+export const listUsersContract = oc
+  .route({
+    method: 'GET',
+    summary: 'List users',
+    tags: ['Users']
+  })
+  // ... input/output
+```
+
+Example (Todos):
+
+```typescript
+import { oc } from '@orpc/contract'
+
+export const listTodosContract = oc
+  .route({
+    method: 'GET',
+    summary: 'List todos',
+    tags: ['Todos']
+  })
+  // ... input/output
+```
