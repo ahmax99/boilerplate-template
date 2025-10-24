@@ -33,7 +33,7 @@ export const Providers = ({ children, ...props }: ProvidersProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <NextThemesProvider {...providerProps}>{children}</NextThemesProvider>
-      {env.NEXT_PUBLIC_NODE_ENV === 'development' && ( //
+      {env.NEXT_PUBLIC_NODE_ENV === 'development' && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
     </QueryClientProvider>

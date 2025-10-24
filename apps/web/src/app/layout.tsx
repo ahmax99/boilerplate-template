@@ -1,5 +1,6 @@
 import localFont from 'next/font/local'
 import type { Metadata } from 'next'
+import '@/lib/api/orpc.server' // for pre-rendering
 
 import { Providers } from './providers'
 import '@/assets/styles/globals.css'
