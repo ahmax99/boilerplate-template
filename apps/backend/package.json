@@ -35,7 +35,7 @@
     "@swc/core": "^1.13.5",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.10.7",
+    "@types/node": "^22.15.3",
     "@types/supertest": "^6.0.2",
     "globals": "^16.0.0",
     "jest": "^30.0.0",
@@ -44,7 +44,7 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.9.2"
   },
   "jest": {
     "moduleFileExtensions": ["js", "json", "ts"],

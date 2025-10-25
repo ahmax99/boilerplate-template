@@ -1,82 +1,144 @@
 # oRPC Contract
 
-This package contains the oRPC contract definitions and client implementation based on the [oRPC documentation](https://orpc.unnoq.com/docs/getting-started).
+Shared oRPC contract definitions and client factory functions for type-safe API communication.
 
-## Structure
+## Overview
 
-- **`src/contracts/`** - Contract definitions for API endpoints
-- **`src/schemas/`** - Zod schemas for data validation
-- **`src/client/index.ts`** - Client factory function
-- **`src/router.ts`** - Application contract router
+This package provides:
+- **Contract definitions** - Type-safe API endpoint specifications
+- **Zod schemas** - Input/output validation schemas
+- **Client factories** - Reusable functions for creating oRPC clients
+- **Type exports** - Shared TypeScript types
 
-## Usage
+## Client Factory Functions
 
-### Creating a Client
+### `createServerClient(config)`
 
-```typescript
-import { orpcClient } from '@repo/contract'
+Creates an oRPC client for **server-side** usage (Server Components, API routes, etc.).
 
-// Create a client instance with URL and optional headers
-const client = orpcClient('http://localhost:3001', {
-  Authorization: 'Bearer your-token'
-})
-
-// List users
-const users = await client.users.list({ limit: 10 })
-
-// Find a specific user
-const user = await client.users.find({ id: 1 })
-
-// Create a new user
-const newUser = await client.users.create({
-  email: 'john@example.com',
-  name: 'John Doe'
-})
-```
-
-### Client Configuration
-
-The `orpcClient` function accepts two parameters:
-
-- **`url`** (required) - The base URL of your API server
-- **`headers`** (optional) - Custom headers to include with requests
+**Configuration:**
 
 ```typescript
-import { orpcClient } from '@repo/contract'
-
-// Basic client
-const client = orpcClient('https://api.example.com')
-
-// Client with custom headers
-const authenticatedClient = orpcClient('https://api.example.com', {
-  Authorization: 'Bearer your-token',
-  'X-Custom-Header': 'value'
-})
+interface ServerClientConfig {
+  url: string
+  headers?: () => Promise<Record<string, string>> | Record<string, string>
+}
 ```
 
-## Features
+**Example:**
 
-- **Type Safety** - Full TypeScript support with end-to-end type safety
-- **Simple API** - Single factory function for creating clients
-- **Flexible Headers** - Easy to add authentication and custom headers
-- **Contract-First** - Contracts define both server and client behavior
+```typescript
+import { createServerClient } from '@repo/contract'
 
-## API Endpoints
+const client = createServerClient({
+  url: 'http://api-service:4000/api',
+  headers: async () => ({
+    'Content-Type': 'application/json',
+    cookie: 'session=abc123',
+    authorization: 'Bearer token'
+  })
+})
 
-The client provides access to the following endpoints:
+// Use the client
+const todos = await client.todos.list({ limit: 10 })
+```
+---
 
-### Users
+### `createBrowserClient(config)`
 
-- `users.list(params)` - List users with pagination
-- `users.find({ id })` - Find user by ID
-- `users.create(userData)` - Create a new user
-- `users.update({ id, ...updates })` - Update user
-- `users.delete({ id })` - Delete user
+Creates an oRPC client for **browser-side** usage (Client Components).
 
-### Todos
+**Configuration:**
 
-- `todos.list(params)` - List todos with optional user filtering
-- `todos.find({ id })` - Find todo by ID
-- `todos.create(todoData)` - Create a new todo
-- `todos.update({ id, ...updates })` - Update todo
-- `todos.delete({ id })` - Delete todo
+```typescript
+interface BrowserClientConfig {
+  url: string
+  headers?: Record<string, string>
+}
+```
+
+**Example:**
+
+```typescript
+import { createBrowserClient } from '@repo/contract'
+
+const client = createBrowserClient({
+  url: 'https://api.example.com/api',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+
+// Use the client
+const todos = await client.todos.list({ limit: 10 })
+```
+---
+
+### Server-Side (Next.js Server Components)
+
+```typescript
+// apps/web/src/lib/api/orpc.server.ts
+import 'server-only'
+import { headers } from 'next/headers'
+import { createServerClient, type ORPCClient } from '@repo/contract'
+
+const client: ORPCClient = createServerClient({
+  url: process.env.API_URL,
+  headers: async () => {
+    const h = await headers()
+    return {
+      'Content-Type': 'application/json',
+      cookie: h.get('cookie') ?? '',
+      authorization: h.get('authorization') ?? ''
+    }
+  }
+})
+
+export const orpcServer = client
+```
+
+## Available Contracts
+
+### Users Contract
+
+```typescript
+import { usersContract } from '@repo/contract'
+
+// Available endpoints:
+usersContract.users.list      // List users with pagination
+usersContract.users.find      // Find user by ID
+usersContract.users.create    // Create a new user
+usersContract.users.update    // Update user
+usersContract.users.delete    // Delete user
+```
+
+### Todos Contract
+
+```typescript
+import { todosContract } from '@repo/contract'
+
+// Available endpoints:
+todosContract.todos.list      // List todos with optional user filtering
+todosContract.todos.find      // Find todo by ID
+todosContract.todos.create    // Create a new todo
+todosContract.todos.update    // Update todo
+todosContract.todos.delete    // Delete todo
+```
+
+## HTTP Methods
+
+The factory functions use `OpenAPILink`, which maps contracts to HTTP endpoints:
+
+- **`GET`** - Read-only operations (list, find)
+- **`POST`** - Create operations and mutations
+- **`PUT`/`PATCH`** - Update operations
+- **`DELETE`** - Delete operations
+
+If no method is specified in the contract, it defaults to `POST`.
+
+## References
+
+- [oRPC Documentation](https://orpc.unnoq.com)
+- [oRPC OpenAPILink](https://orpc.unnoq.com/docs/openapi/client/openapi-link)
+- [oRPC Contract First](https://orpc.unnoq.com/docs/contract-first/getting-started)
+- [Zod Documentation](https://zod.dev)

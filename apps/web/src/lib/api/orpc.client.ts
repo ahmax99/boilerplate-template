@@ -1,10 +1,15 @@
 import { createTanstackQueryUtils } from '@orpc/tanstack-query'
-import { orpcClientInstance } from '@repo/contract'
+import { createBrowserClient, type ORPCClient } from '@repo/contract'
 
 import { env } from '@/config/env'
 
-const clientSideOrpcClient = orpcClientInstance(env.NEXT_PUBLIC_API_URL, {
-  'Content-Type': 'application/json'
+const browserClient: ORPCClient = createBrowserClient({
+  url: env.NEXT_PUBLIC_API_URL,
+  headers: {
+    'Content-Type': 'application/json'
+  }
 })
 
-export const orpcClient = createTanstackQueryUtils(clientSideOrpcClient)
+const baseClient = globalThis.$client ?? browserClient
+
+export const orpcClient = createTanstackQueryUtils(baseClient)
