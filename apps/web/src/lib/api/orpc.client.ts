@@ -4,8 +4,7 @@ import { createTanstackQueryUtils } from '@orpc/tanstack-query'
 import { appContract } from '@repo/contract'
 
 import { env } from '@/config/env'
-
-import type { ORPCClient } from '../../types/orpc'
+import type { ORPCClient } from '@/types/orpc'
 
 const link = new OpenAPILink(appContract, {
   url: () => {
@@ -21,6 +20,6 @@ const link = new OpenAPILink(appContract, {
 
 const browserClient: ORPCClient = createORPCClient(link)
 
-const baseClient = globalThis.$orpcServer ?? browserClient
+const baseClient = globalThis.$client ?? browserClient
 
 export const orpcClient = createTanstackQueryUtils(baseClient)

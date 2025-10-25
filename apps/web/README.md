@@ -1,36 +1,99 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
 
-## Getting Started
+## oRPC Architecture
 
-First, run the development server:
+This application uses [oRPC](https://orpc.unnoq.com) for type-safe API communication with a separated backend service.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Next.js Web App (apps/web)                                 │
+│                                                             │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │  Server Components                                 │     │
+│  │  - Uses: orpcServer (from lib/api/orpc.server.ts)  │     │
+│  │  - Makes HTTP requests with server-side headers    │     │
+│  │  - Forwards cookies, authorization                 │     │
+│  └────────────────────────────────────────────────────┘     │
+│                                                             │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │  Client Components                                 │     │
+│  │  - Uses: orpcClient (from lib/api/orpc.client.ts)  │     │
+│  │  - Unified client (SSR-aware)                      │     │
+│  │  - TanStack Query integration                      │     │
+│  └────────────────────────────────────────────────────┘     │
+└─────────────────────────────────────────────────────────────┘
+                          ↓ HTTP
+┌─────────────────────────────────────────────────────────────┐
+│  Backend API (separate service)                             │
+│  - OpenAPI-compatible endpoints                             │
+│  - Shared contract from @repo/contract                      │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Key Files
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### 1. `lib/api/orpc.server.ts` - Server-Side Client
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load Inter, a custom Google Font.
+**Purpose:**
+- Makes HTTP requests to backend API from server
+- Forwards per-request headers (cookies, authorization)
+- Used exclusively in Server Components
 
-## Learn More
+**Usage:**
+```typescript
+// In Server Components
+import { orpcServer } from '@/lib/api/orpc.server'
 
-To learn more about Next.js, take a look at the following resources:
+export async function TodosList() {
+  const todos = await orpcServer.todos.list({ limit: 50 })
+  return <div>{/* render */}</div>
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### 2. `lib/api/orpc.client.ts` - Unified Client (SSR-Aware)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Purpose:**
+- Unified client that works on both server and browser
+- During SSR: Uses `globalThis.$client` (server client with headers)
+- In browser: Uses `browserClient` (regular HTTP requests)
+- Integrated with TanStack Query for mutations and queries
 
-## Deploy on Vercel
+**Usage:**
+```typescript
+// In Client Components
+'use client'
+import { orpcClient } from '@/lib/api'
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+export function TodoCreate() {
+  const createMutation = useMutation({
+    ...orpcClient.todos.create.mutationOptions(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ ... })
+      router.refresh() // Refresh server components
+    }
+  })
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Why This Architecture?
+
+#### ✅ Separated Backend
+- Backend is a separate service (not in Next.js app)
+- Must use `OpenAPILink` for HTTP communication
+
+#### ✅ SSR Optimization
+- Server-side client forwards cookies/auth headers
+- Enables authenticated SSR requests
+- Unified client prevents accidental browser client usage on server
+
+#### ✅ Type Safety
+- End-to-end type safety via shared `@repo/contract`
+- Contract defines input/output schemas
+- Both server and client use same types
+
+#### ⚠️ Trade-offs
+- **HTTP overhead**: Server makes HTTP calls to backend (not direct function calls)
+- **Requires `router.refresh()`**: Server Component data outside TanStack Query cache
+- **Two clients**: Need separate `orpcServer` and `orpcClient` imports

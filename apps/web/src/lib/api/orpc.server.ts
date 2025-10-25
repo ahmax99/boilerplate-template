@@ -9,18 +9,20 @@ import { env } from '@/config/env'
 import type { ORPCClient } from '@/types/orpc'
 
 const link = new OpenAPILink(appContract, {
-  url: env.NEXT_PUBLIC_API_URL,
+  url: env.API_URL,
   headers: async () => {
     const headersList = await headers()
     return {
       'Content-Type': 'application/json',
-      cookie: headersList.get('cookie') ?? ''
+      cookie: headersList.get('cookie') ?? '',
+      authorization: headersList.get('authorization') ?? ''
     }
   }
 })
 
 const client: ORPCClient = createORPCClient(link)
 
-globalThis.$orpcServer = client
+// The unified client (lib/api/orpc.client.ts) uses this during SSR and falls back to the browser OpenAPI client on the client.
+globalThis.$client = client
 
 export const orpcServer = client
