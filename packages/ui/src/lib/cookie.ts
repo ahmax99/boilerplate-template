@@ -14,7 +14,8 @@ export const setCookie = (
 ): void => {
   if (typeof document === 'undefined') return
 
-  const { maxAge, expires, path, domain, secure, sameSite = 'lax' } = options
+  let { maxAge, expires, path, domain, secure, sameSite = 'lax' } = options
+  if (sameSite === 'none' && !secure) secure = true // Modern browsers reject SameSite=None cookies without Secure
 
   let cookieString = `${encodeURIComponent(name)}=${encodeURIComponent(String(state))}`
 

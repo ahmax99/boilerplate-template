@@ -66,10 +66,10 @@ function InputGroupAddon({
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>
   ) => {
-    if ((e.target as HTMLElement).closest('button') !== e.currentTarget) {
-      return
-    }
-    e.currentTarget.parentElement?.querySelector('input')?.focus()
+    if ((e.target as HTMLElement).closest('button') !== e.currentTarget) return
+    e.currentTarget.parentElement
+      ?.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea')
+      ?.focus()
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {

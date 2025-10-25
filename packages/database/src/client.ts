@@ -1,8 +1,8 @@
 import { withAccelerate } from '@prisma/extension-accelerate'
 
-import { PrismaClient } from '../generated/client'
+import { PrismaClient } from '../generated/client/index.js'
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient }
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
 
 export const prisma =
   globalForPrisma.prisma || new PrismaClient().$extends(withAccelerate())

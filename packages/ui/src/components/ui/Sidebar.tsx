@@ -105,7 +105,9 @@ function SidebarProvider({
         event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
         (event.metaKey || event.ctrlKey)
       ) {
-        event.preventDefault()
+        const target = event.target as HTMLElement | null
+        if (target?.closest('input, textarea, [contenteditable="true"]'))
+          return event.preventDefault() // Avoid hijacking Cmd/Ctrl+B while typing.
         toggleSidebar()
       }
     }

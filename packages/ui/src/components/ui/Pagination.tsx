@@ -111,8 +111,11 @@ function PaginationEllipsis({
       data-slot="pagination-ellipsis"
       {...props}
     >
-      <MoreHorizontalIcon className="size-4" />
-      <span className="sr-only">More pages</span>
+      <MoreHorizontalIcon
+        aria-hidden="true"
+        className="size-4"
+        focusable="false"
+      />
     </span>
   )
 }
