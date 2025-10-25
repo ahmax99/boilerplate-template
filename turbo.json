@@ -21,7 +21,7 @@
     },
     "dev": {
       "cache": false,
-      "dependsOn": ["^db:generate", "^build"],
+      "dependsOn": ["^db:generate"],
       "persistent": true
     },
     "db:generate": {
