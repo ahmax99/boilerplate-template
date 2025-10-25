@@ -2,6 +2,14 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input
+} from '@repo/ui/components'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
 
@@ -41,35 +49,34 @@ export function TodoCreate() {
   }
 
   return (
-    <div className="bg-card rounded-lg border p-4 shadow-sm">
-      <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
-        <Plus className="h-5 w-5" />
-        Create New Todo
-      </h2>
-      <div className="space-y-3">
-        <input
-          className="bg-background focus:ring-ring w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2"
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Plus className="h-5 w-5" />
+          Create New Todo
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        <Input
           onChange={(e) => setNewTitle(e.target.value)}
           placeholder="Title"
           type="text"
           value={newTitle}
         />
-        <input
-          className="bg-background focus:ring-ring w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2"
+        <Input
           onChange={(e) => setNewDescription(e.target.value)}
           placeholder="Description (optional)"
           type="text"
           value={newDescription}
         />
-        <button
-          className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-50"
+        <Button
           disabled={!newTitle.trim() || createMutation.isPending}
           onClick={handleCreate}
           type="button"
         >
           {createMutation.isPending ? 'Creating...' : 'Add Todo'}
-        </button>
-      </div>
-    </div>
+        </Button>
+      </CardContent>
+    </Card>
   )
 }

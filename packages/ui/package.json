@@ -5,7 +5,9 @@
   "type": "module",
   "sideEffects": ["**/*.css"],
   "exports": {
-    ".": "./dist/index.js",
+    "./components": "./dist/components/ui/index.js",
+    "./hooks": "./dist/hooks/useMobile.js",
+    "./lib": "./dist/lib/index.js",
     "./styles": "./dist/index.css"
   },
   "scripts": {
