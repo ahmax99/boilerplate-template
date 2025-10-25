@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Plus } from '@repo/ui'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Plus } from 'lucide-react'
 
 import { orpcClient } from '@/lib/api/orpc.client'
 
