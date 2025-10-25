@@ -1,14 +1,11 @@
 import 'server-only'
 
 import { headers } from 'next/headers'
-import { createORPCClient } from '@orpc/client'
-import { OpenAPILink } from '@orpc/openapi-client/fetch'
-import { appContract } from '@repo/contract'
+import { createServerClient, type ORPCClient } from '@repo/contract'
 
 import { env } from '@/config/env'
-import type { ORPCClient } from '@/types/orpc'
 
-const link = new OpenAPILink(appContract, {
+const client: ORPCClient = createServerClient({
   url: env.API_URL,
   headers: async () => {
     const headersList = await headers()
@@ -20,9 +17,7 @@ const link = new OpenAPILink(appContract, {
   }
 })
 
-const client: ORPCClient = createORPCClient(link)
-
 // The unified client (lib/api/orpc.client.ts) uses this during SSR and falls back to the browser OpenAPI client on the client.
 globalThis.$client = client
 
-export const orpcServer = client
+export const orpcServer: ORPCClient = client

@@ -64,7 +64,7 @@ export async function TodosList() {
 ```typescript
 // In Client Components
 'use client'
-import { orpcClient } from '@/lib/api'
+import { orpcClient } from '@/lib/api/orpc.client'
 
 export function TodoCreate() {
   const createMutation = useMutation({
