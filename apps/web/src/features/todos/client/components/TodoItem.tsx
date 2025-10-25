@@ -2,6 +2,22 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  Button,
+  Card,
+  CardContent,
+  Checkbox,
+  Input
+} from '@repo/ui/components'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Check, Edit2, Trash2, X } from 'lucide-react'
 
@@ -72,11 +88,7 @@ export function TodoItem({ todo }: TodoItemProps) {
       description: editDescription || null
     })
 
-  const handleDelete = () => {
-    if (confirm('Are you sure you want to delete this todo?')) {
-      deleteMutation.mutate({ id: todo.id })
-    }
-  }
+  const handleDelete = () => deleteMutation.mutate({ id: todo.id })
 
   const handleToggle = () =>
     toggleMutation.mutate({
@@ -97,92 +109,111 @@ export function TodoItem({ todo }: TodoItemProps) {
   }
 
   return (
-    <div className="bg-card hover:bg-accent/50 rounded-lg border p-4 shadow-sm transition-colors">
-      {isEditing ? (
-        // UPDATE Form
-        <div className="space-y-3">
-          <input
-            className="bg-background focus:ring-ring w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2"
-            onChange={(e) => setEditTitle(e.target.value)}
-            type="text"
-            value={editTitle}
-          />
-          <input
-            className="bg-background focus:ring-ring w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2"
-            onChange={(e) => setEditDescription(e.target.value)}
-            type="text"
-            value={editDescription}
-          />
-          <div className="flex gap-2">
-            <button
-              className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-1 rounded-md px-3 py-1.5 text-sm"
-              disabled={updateMutation.isPending}
-              onClick={handleUpdate}
-              type="button"
-            >
-              <Check className="h-4 w-4" />
-              Save
-            </button>
-            <button
-              className="hover:bg-accent flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm"
-              onClick={cancelEdit}
-              type="button"
-            >
-              <X className="h-4 w-4" />
-              Cancel
-            </button>
-          </div>
-        </div>
-      ) : (
-        // Display Mode
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1 space-y-1">
-            <div className="flex items-center gap-2">
-              <input
-                checked={todo.isDone}
-                className="h-4 w-4 cursor-pointer rounded border-gray-300"
-                onChange={handleToggle}
-                type="checkbox"
-              />
-              <h3
-                className={`font-medium ${
-                  todo.isDone ? 'text-muted-foreground line-through' : ''
-                }`}
+    <Card className="hover:bg-accent/50 transition-colors">
+      <CardContent className="p-4">
+        {isEditing ? (
+          // UPDATE Form
+          <div className="space-y-3">
+            <Input
+              onChange={(e) => setEditTitle(e.target.value)}
+              type="text"
+              value={editTitle}
+            />
+            <Input
+              onChange={(e) => setEditDescription(e.target.value)}
+              type="text"
+              value={editDescription}
+            />
+            <div className="flex gap-2">
+              <Button
+                disabled={updateMutation.isPending}
+                onClick={handleUpdate}
+                size="sm"
+                type="button"
               >
-                {todo.title}
-              </h3>
+                <Check className="h-4 w-4" />
+                Save
+              </Button>
+              <Button
+                onClick={cancelEdit}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <X className="h-4 w-4" />
+                Cancel
+              </Button>
             </div>
-            {todo.description && (
-              <p className="text-muted-foreground text-sm">
-                {todo.description}
+          </div>
+        ) : (
+          // Display Mode
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1 space-y-1">
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  checked={todo.isDone}
+                  onCheckedChange={handleToggle}
+                />
+                <h3
+                  className={`font-medium ${
+                    todo.isDone ? 'text-muted-foreground line-through' : ''
+                  }`}
+                >
+                  {todo.title}
+                </h3>
+              </div>
+              {todo.description && (
+                <p className="text-muted-foreground text-sm">
+                  {todo.description}
+                </p>
+              )}
+              <p className="text-muted-foreground text-xs">
+                ID: {todo.id} | User: {todo.userId}
               </p>
-            )}
-            <p className="text-muted-foreground text-xs">
-              ID: {todo.id} | User: {todo.userId}
-            </p>
-          </div>
+            </div>
 
-          <div className="flex gap-2">
-            <button
-              className="hover:bg-accent rounded-md p-2"
-              onClick={startEdit}
-              title="Edit"
-              type="button"
-            >
-              <Edit2 className="h-4 w-4" />
-            </button>
-            <button
-              className="text-destructive hover:bg-destructive/10 rounded-md p-2"
-              disabled={deleteMutation.isPending}
-              onClick={handleDelete}
-              title="Delete"
-              type="button"
-            >
-              <Trash2 className="h-4 w-4" />
-            </button>
+            <div className="flex gap-2">
+              <Button
+                onClick={startEdit}
+                size="icon"
+                title="Edit"
+                type="button"
+                variant="ghost"
+              >
+                <Edit2 className="h-4 w-4" />
+              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    disabled={deleteMutation.isPending}
+                    size="icon"
+                    title="Delete"
+                    type="button"
+                    variant="ghost"
+                  >
+                    <Trash2 className="text-destructive h-4 w-4" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="sm:max-w-2xs">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete Todo</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to delete this todo? This action
+                      cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete}>
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </CardContent>
+    </Card>
   )
 }

@@ -1,3 +1,5 @@
+import { Empty, EmptyDescription } from '@repo/ui/components'
+
 import { orpcServer } from '@/lib/api/orpc.server'
 
 import { TodoItem } from '../../client/components/TodoItem'
@@ -17,9 +19,9 @@ export async function TodosList({
 
   if (!todos || todos.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed p-8 text-center">
-        <p className="text-muted-foreground">No todos yet. Create one above!</p>
-      </div>
+      <Empty>
+        <EmptyDescription>No todos yet. Create one above!</EmptyDescription>
+      </Empty>
     )
   }
 

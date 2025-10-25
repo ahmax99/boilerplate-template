@@ -1,9 +1,11 @@
 import localFont from 'next/font/local'
 import type { Metadata } from 'next'
 import '@/lib/api/orpc.server' // for pre-rendering
+import '@repo/ui/styles'
+
+import './globals.css'
 
 import { Providers } from './providers'
-import '@/assets/styles/globals.css'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',

@@ -1,5 +1,0 @@
-export * from './Avatar'
-export * from './Card'
-export * from './DarkModeToggle'
-export * from './PasswordInput'
-export * from './Table'
