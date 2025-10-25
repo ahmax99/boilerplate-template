@@ -1,6 +1,6 @@
 import { orpcServer } from '@/lib/api/orpc.server'
 
-import { TodoItem } from '../client/components/TodoItem'
+import { TodoItem } from '../../client/components/TodoItem'
 
 interface TodosListProps {
   readonly limit?: number

@@ -1,13 +1,11 @@
 import type { ContractRouterClient } from '@orpc/contract'
 import type { JsonifiedClient } from '@orpc/openapi-client'
-import type { appContract } from '@repo/contract'
+import type { AppContract } from '@repo/contract'
 
 declare global {
   var $orpcServer:
-    | JsonifiedClient<ContractRouterClient<typeof appContract>>
+    | JsonifiedClient<ContractRouterClient<AppContract>>
     | undefined
 }
 
-export type ORPCClient = JsonifiedClient<
-  ContractRouterClient<typeof appContract>
->
+export type ORPCClient = JsonifiedClient<ContractRouterClient<AppContract>>

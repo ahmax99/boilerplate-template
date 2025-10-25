@@ -6,8 +6,7 @@ import { OpenAPILink } from '@orpc/openapi-client/fetch'
 import { appContract } from '@repo/contract'
 
 import { env } from '@/config/env'
-
-import type { ORPCClient } from '../../types/orpc'
+import type { ORPCClient } from '@/types/orpc'
 
 const link = new OpenAPILink(appContract, {
   url: env.NEXT_PUBLIC_API_URL,

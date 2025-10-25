@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
 
-import { orpcClient } from '@/lib/api/orpc'
+import { orpcClient } from '@/lib/api'
 
 const TODOS_QUERY_INPUT = { limit: 50, offset: 0 } as const
 

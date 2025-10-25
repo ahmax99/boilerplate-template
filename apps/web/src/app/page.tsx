@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 
 import { TodoCreate } from '@/features/todos/client/components/TodoCreate'
-import { TodosList } from '@/features/todos/components/TodosList'
+import { TodosList } from '@/features/todos/server/components/TodosList'
 
 export default function Home() {
   return (
