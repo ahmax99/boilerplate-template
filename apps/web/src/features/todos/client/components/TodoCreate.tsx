@@ -12,6 +12,7 @@ import {
 } from '@repo/ui/components'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { orpcClient } from '@/lib/api/orpc.client'
 
@@ -34,6 +35,7 @@ export function TodoCreate() {
       router.refresh()
       setNewTitle('')
       setNewDescription('')
+      toast.success('Todo created successfully')
     }
   })
 

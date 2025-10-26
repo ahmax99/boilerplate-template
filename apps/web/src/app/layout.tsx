@@ -2,6 +2,7 @@ import localFont from 'next/font/local'
 import type { Metadata } from 'next'
 import '@/lib/api/orpc.server' // for pre-rendering
 import '@repo/ui/styles'
+import { Toaster } from '@repo/ui/components'
 
 import './globals.css'
 
@@ -29,7 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   )
