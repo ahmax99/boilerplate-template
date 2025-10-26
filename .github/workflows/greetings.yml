@@ -4,10 +4,13 @@ on: [pull_request_target, issues]
 
 jobs:
   greeting:
+    name: Greetings
     runs-on: ubuntu-latest
+
     permissions:
       issues: write
       pull-requests: write
+      
     steps:
       - uses: actions/first-interaction@v1
         with:

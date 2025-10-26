@@ -106,8 +106,8 @@ function SidebarProvider({
         (event.metaKey || event.ctrlKey)
       ) {
         const target = event.target as HTMLElement | null
-        if (target?.closest('input, textarea, [contenteditable="true"]'))
-          return event.preventDefault() // Avoid hijacking Cmd/Ctrl+B while typing.
+        if (target?.closest('input, textarea, [contenteditable="true"]')) return
+        event.preventDefault() // Avoid hijacking Cmd/Ctrl+B while typing.
         toggleSidebar()
       }
     }
