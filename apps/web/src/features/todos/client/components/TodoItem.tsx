@@ -20,6 +20,7 @@ import {
 } from '@repo/ui/components'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Check, Edit2, Trash2, X } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { orpcClient } from '@/lib/api/orpc.client'
 
@@ -54,6 +55,7 @@ export function TodoItem({ todo }: TodoItemProps) {
       })
       router.refresh()
       setIsEditing(false)
+      toast.success('Todo updated successfully')
     }
   })
 
@@ -66,6 +68,7 @@ export function TodoItem({ todo }: TodoItemProps) {
         })
       })
       router.refresh()
+      toast.success('Todo deleted successfully')
     }
   })
 
