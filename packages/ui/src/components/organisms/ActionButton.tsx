@@ -3,6 +3,7 @@
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 
+import { Button } from '../atoms'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,10 +13,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
-} from './AlertDialog'
-import { Button } from './Button'
-import { LoadingSwap } from './LoadingSwap'
+  AlertDialogTrigger,
+  LoadingSwap
+} from '../molecules'
 
 function ActionButton({
   action,

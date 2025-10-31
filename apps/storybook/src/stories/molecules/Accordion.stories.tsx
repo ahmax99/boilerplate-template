@@ -3,11 +3,11 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@repo/ui/components'
+} from '@repo/ui/components/molecules'
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 const meta = {
-  title: 'ui/Accordion',
+  title: 'molecules/Accordion',
   component: Accordion,
   tags: ['autodocs'],
   argTypes: {

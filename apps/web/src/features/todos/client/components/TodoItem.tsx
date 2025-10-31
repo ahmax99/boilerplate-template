@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Button, Checkbox, Input } from '@repo/ui/components/atoms'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,12 +13,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
   Card,
-  CardContent,
-  Checkbox,
-  Input
-} from '@repo/ui/components'
+  CardContent
+} from '@repo/ui/components/molecules'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Check, Edit2, Trash2, X } from 'lucide-react'
 import { toast } from 'sonner'

@@ -14,8 +14,7 @@ import {
 import { CheckIcon, ChevronsUpDownIcon, XIcon } from 'lucide-react'
 
 import { cn } from '../../lib/utils'
-import { Badge } from './Badge'
-import { Button } from './Button'
+import { Badge, Button } from '../atoms'
 import {
   Command,
   CommandEmpty,
@@ -23,9 +22,11 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator
-} from './Command'
-import { Popover, PopoverContent, PopoverTrigger } from './Popover'
+  CommandSeparator,
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '../molecules'
 
 interface MultiSelectContextType {
   open: boolean

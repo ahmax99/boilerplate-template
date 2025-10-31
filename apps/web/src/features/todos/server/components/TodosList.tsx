@@ -1,4 +1,4 @@
-import { Empty, EmptyDescription } from '@repo/ui/components'
+import { Empty, EmptyDescription } from '@repo/ui/components/molecules'
 
 import { orpcServer } from '@/lib/api/orpc.server'
 

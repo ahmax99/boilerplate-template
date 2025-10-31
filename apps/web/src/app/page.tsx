@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
-import { Card, CardHeader, CardTitle, Spinner } from '@repo/ui/components'
+import { Spinner } from '@repo/ui/components/atoms'
+import { Card, CardHeader, CardTitle } from '@repo/ui/components/molecules'
 
 import { TodoCreate } from '@/features/todos/client/components/TodoCreate'
 import { TodosList } from '@/features/todos/server/components/TodosList'

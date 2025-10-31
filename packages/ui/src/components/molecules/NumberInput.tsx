@@ -1,5 +1,5 @@
 import { cn } from '../../lib/utils'
-import { Input } from './Input'
+import { Input } from '../atoms'
 
 function NumberInput({
   onChange,

@@ -1,5 +1,5 @@
 import { cn } from '../../lib/utils'
-import { Spinner } from './Spinner'
+import { Spinner } from '../atoms'
 
 interface LoadingSwapProps {
   isLoading: boolean

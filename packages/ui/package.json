@@ -5,7 +5,9 @@
   "type": "module",
   "sideEffects": ["**/*.css"],
   "exports": {
-    "./components": "./dist/components/ui/index.js",
+    "./components/atoms": "./dist/components/atoms/index.js",
+    "./components/molecules": "./dist/components/molecules/index.js",
+    "./components/organisms": "./dist/components/organisms/index.js",
     "./hooks": "./dist/hooks/useMobile.js",
     "./lib": "./dist/lib/index.js",
     "./styles": "./dist/index.css"

@@ -15,23 +15,18 @@ import { PanelLeftIcon } from 'lucide-react'
 import { useIsMobile } from '../../hooks/useMobile'
 import { setCookie } from '../../lib/cookie'
 import { cn } from '../../lib/utils'
-import { Button } from './Button'
-import { Input } from './Input'
-import { Separator } from './Separator'
+import { Button, Input, Separator, Skeleton } from '../atoms'
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
-  SheetTitle
-} from './Sheet'
-import { Skeleton } from './Skeleton'
-import {
+  SheetTitle,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
-} from './Tooltip'
+} from '../molecules'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

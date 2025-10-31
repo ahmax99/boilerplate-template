@@ -2,14 +2,13 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Button, Input } from '@repo/ui/components/atoms'
 import {
-  Button,
   Card,
   CardContent,
   CardHeader,
-  CardTitle,
-  Input
-} from '@repo/ui/components'
+  CardTitle
+} from '@repo/ui/components/molecules'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
 import { toast } from 'sonner'

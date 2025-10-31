@@ -1,9 +1,9 @@
-import { Button } from '@repo/ui/components'
+import { Button } from '@repo/ui/components/atoms'
 import type { Meta, StoryObj } from '@storybook/nextjs'
 import { Loader2, Mail } from 'lucide-react'
 
 const meta = {
-  title: 'ui/Button',
+  title: 'atoms/Button',
   component: Button,
   tags: ['autodocs'],
   argTypes: {

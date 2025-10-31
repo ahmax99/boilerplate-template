@@ -12,14 +12,14 @@ import { zxcvbn, zxcvbnOptions } from '@zxcvbn-ts/core'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 
 import { cn } from '../../lib/utils'
-import type { Input } from './Input'
+import type { Input } from '../atoms'
+import { Tooltip, TooltipContent, TooltipTrigger } from '../molecules'
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput
 } from './InputGroup'
-import { Tooltip, TooltipContent, TooltipTrigger } from './Tooltip'
 
 const PasswordInputContext = createContext<{ password: string } | null>(null)
 
