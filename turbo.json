@@ -25,7 +25,7 @@
       "persistent": true
     },
     "db:generate": {
-      "cache": false,
+      "cache": true,
       "outputs": ["generated/**"]
     },
     "db:migrate": {

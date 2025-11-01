@@ -2,7 +2,7 @@ import localFont from 'next/font/local'
 import type { Metadata } from 'next'
 import '@/lib/api/orpc.server' // for pre-rendering
 import '@repo/ui/styles'
-import { Toaster } from '@repo/ui/components'
+import { Toaster } from '@repo/ui/components/molecules'
 
 import './globals.css'
 
