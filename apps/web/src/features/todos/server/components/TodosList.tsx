@@ -1,8 +1,9 @@
 import { Empty, EmptyDescription } from '@repo/ui/components/molecules'
+import { DataTable } from '@repo/ui/components/organisms/DataTable'
 
 import { orpcServer } from '@/lib/api/orpc.server'
 
-import { TodoItem } from '../../client/components/TodoItem'
+import { todosTableColumns } from '../../client/components/TodosTableColumn'
 
 interface TodosListProps {
   readonly limit?: number
@@ -17,19 +18,12 @@ export async function TodosList({
 }: TodosListProps) {
   const todos = await orpcServer.todos.list({ limit, offset, userId })
 
-  if (!todos || todos.length === 0) {
+  if (!todos || todos.length === 0)
     return (
       <Empty>
         <EmptyDescription>No todos yet. Create one above!</EmptyDescription>
       </Empty>
     )
-  }
 
-  return (
-    <div className="space-y-2">
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
-    </div>
-  )
+  return <DataTable columns={todosTableColumns} data={todos} />
 }

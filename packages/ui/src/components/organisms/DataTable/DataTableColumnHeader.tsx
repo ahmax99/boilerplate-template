@@ -21,9 +21,7 @@ const resolveSortIcon = (
   sortedState: false | 'asc' | 'desc'
 ): React.ReactElement => {
   if (sortedState === 'desc') return <ArrowDown />
-
   if (sortedState === 'asc') return <ArrowUp />
-
   return <ChevronsUpDown />
 }
 
@@ -32,9 +30,7 @@ function DataTableColumnHeader<TData, TValue>({
   title,
   className
 }: Readonly<DataTableColumnHeaderProps<TData, TValue>>) {
-  if (!column.getCanSort()) {
-    return <div className={cn(className)}>{title}</div>
-  }
+  if (!column.getCanSort()) return <div className={cn(className)}>{title}</div>
 
   const sortIcon = resolveSortIcon(column.getIsSorted())
 

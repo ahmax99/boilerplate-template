@@ -10,15 +10,8 @@ import { toast } from 'sonner'
 
 import { orpcClient } from '@/lib/api/orpc.client'
 
+import type { Todo } from '../../schemas/todo.schema'
 import { TodoFormContainer } from './TodoFormContainer'
-
-interface Todo {
-  id: number
-  title: string
-  description: string | null
-  isDone: boolean
-  userId: number
-}
 
 interface TodoItemProps {
   readonly todo: Todo

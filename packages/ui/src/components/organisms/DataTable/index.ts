@@ -1,6 +1,4 @@
 export * from './DataTable'
 export * from './DataTableColumnHeader'
-export * from './DataTableFilter'
 export * from './DataTablePagination'
-export * from './DataTableToolbar'
 export * from './DataTableViewOptions'
