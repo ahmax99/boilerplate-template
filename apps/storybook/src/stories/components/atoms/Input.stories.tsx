@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react'
 import { useId } from 'react'
 import { Button, Input, Label } from '@repo/ui/components/atoms'
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { expect, userEvent } from 'storybook/test'
+import { expect, userEvent, within } from 'storybook/test'
 
 const meta: Meta<typeof Input> = {
   title: 'atoms/Input',
@@ -75,7 +75,8 @@ export const WithButton: Story = {
 export const ShouldEnterText: Story = {
   name: 'when user enters text, should see it in the input field',
   tags: ['!dev', '!autodocs'],
-  play: async ({ canvas, step }) => {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement)
     const input = await canvas.findByPlaceholderText(/email/i)
     const mockedInput = 'mocked@shadcn.com'
 

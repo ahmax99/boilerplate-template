@@ -46,10 +46,7 @@ export const ShouldOpenClose: Story = {
       await userEvent.click(
         await canvasBody.findByRole('button', { name: /open/i })
       )
-      expect(await canvasBody.findByRole('dialog')).toHaveAttribute(
-        'data-state',
-        'closed'
-      )
+      expect(await canvasBody.findByRole('dialog')).not.toBeInTheDocument()
     })
   }
 }

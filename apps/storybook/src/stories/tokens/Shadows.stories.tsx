@@ -40,7 +40,7 @@ const meta: Meta<{
         <TableRow>
           <TableHead>Name</TableHead>
           <TableHead>
-            <span className="sr-only shadow-2xl">Preview</span>
+            <span className="sr-only">Preview</span>
           </TableHead>
         </TableRow>
       </TableHeader>

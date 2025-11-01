@@ -3,19 +3,8 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Button, Checkbox, Input } from '@repo/ui/components/atoms'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-  Card,
-  CardContent
-} from '@repo/ui/components/molecules'
+import { Card, CardContent } from '@repo/ui/components/molecules'
+import { ActionButton } from '@repo/ui/components/organisms'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Check, Edit2, Trash2, X } from 'lucide-react'
 import { toast } from 'sonner'
@@ -157,7 +146,7 @@ export function TodoItem({ todo }: TodoItemProps) {
                 />
                 <h3
                   className={`font-medium ${
-                    todo.isDone ? 'text-muted-foreground line-through' : ''
+                    todo.isDone && 'text-muted-foreground line-through'
                   }`}
                 >
                   {todo.title}
@@ -183,34 +172,20 @@ export function TodoItem({ todo }: TodoItemProps) {
               >
                 <Edit2 className="h-4 w-4" />
               </Button>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    disabled={deleteMutation.isPending}
-                    size="icon"
-                    title="Delete"
-                    type="button"
-                    variant="ghost"
-                  >
-                    <Trash2 className="text-destructive h-4 w-4" />
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent className="sm:max-w-2xs">
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Delete Todo</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Are you sure you want to delete this todo? This action
-                      cannot be undone.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete}>
-                      Delete
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+              <ActionButton
+                action={async () => {
+                  handleDelete()
+                  return { error: false }
+                }}
+                areYouSureDescription="Are you sure you want to delete this todo? This action cannot be undone."
+                requireAreYouSure
+                size="icon"
+                title="Delete"
+                type="button"
+                variant="ghost"
+              >
+                <Trash2 className="text-destructive h-4 w-4" />
+              </ActionButton>
             </div>
           </div>
         )}

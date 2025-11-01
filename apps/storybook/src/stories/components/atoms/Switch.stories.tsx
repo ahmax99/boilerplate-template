@@ -1,6 +1,6 @@
 import { Label, Switch } from '@repo/ui/components/atoms'
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { expect, userEvent } from 'storybook/test'
+import { expect, userEvent, within } from 'storybook/test'
 
 const meta: Meta<typeof Switch> = {
   title: 'atoms/Switch',
@@ -38,7 +38,11 @@ export const Disabled: Story = {
 export const ShouldToggle: Story = {
   name: 'when clicking the switch, should toggle it on and off',
   tags: ['!dev', '!autodocs'],
-  play: async ({ canvas, step }) => {
+  args: {
+    id: 'should-toggle-switch'
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement)
     const switchBtn = await canvas.findByRole('switch')
 
     await step('toggle the switch on', async () => {

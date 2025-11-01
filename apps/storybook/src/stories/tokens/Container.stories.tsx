@@ -14,7 +14,7 @@ const BREAKPOINTS = [
   { label: 'md', minWidth: '768px', maxWidth: '768px' },
   { label: 'lg', minWidth: '1024px', maxWidth: '1024px' },
   { label: 'xl', minWidth: '1280px', maxWidth: '1280px' },
-  { label: '2xl', minWidth: '1536px', maxWidth: '1400px' }
+  { label: '2xl', minWidth: '1536px', maxWidth: '1536px' }
 ] as const
 
 const ContainerRow = ({

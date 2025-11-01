@@ -81,10 +81,9 @@ export const ShouldOnlyOpenOneWhenSingleType: Story = {
     // Open the tabs one at a time
     for (const trigger of accordions) {
       await userEvent.click(trigger)
-      await waitFor(() => {
-        const content = canvas.findAllByRole('region')
-        return expect(content).toHaveLength(1)
-      })
+      await waitFor(() =>
+        expect(canvas.queryAllByRole('region')).toHaveLength(1)
+      )
     }
 
     // Close the last opened tab
@@ -93,10 +92,7 @@ export const ShouldOnlyOpenOneWhenSingleType: Story = {
       throw new Error('Accordion triggers were not rendered in closing step')
 
     await userEvent.click(lastAccordion)
-    await waitFor(() => {
-      const content = canvas.queryByRole('region')
-      return expect(content).toBeFalsy()
-    })
+    await waitFor(() => expect(canvas.queryByRole('region')).toBeFalsy())
   }
 }
 
@@ -121,10 +117,9 @@ export const ShouldOpenAllWhenMultipleType: Story = {
         throw new Error('Accordion trigger missing during open step')
 
       await userEvent.click(accordionToOpen)
-      await waitFor(() => {
-        const content = canvas.findAllByRole('region')
-        return expect(content).toHaveLength(i + 1)
-      })
+      await waitFor(() =>
+        expect(canvas.findAllByRole('region')).toHaveLength(i + 1)
+      )
     }
 
     // Close all tabs one at a time
@@ -134,10 +129,9 @@ export const ShouldOpenAllWhenMultipleType: Story = {
         throw new Error('Accordion trigger missing during close step')
 
       await userEvent.click(accordionToClose)
-      await waitFor(() => {
-        const content = canvas.findAllByRole('region')
-        return expect(content).toHaveLength(i)
-      })
+      await waitFor(() =>
+        expect(canvas.findAllByRole('region')).toHaveLength(i)
+      )
     }
 
     // Close the last opened tab
@@ -148,9 +142,6 @@ export const ShouldOpenAllWhenMultipleType: Story = {
       )
 
     await userEvent.click(firstAccordion)
-    await waitFor(() => {
-      const content = canvas.queryByRole('region')
-      return expect(content).toBeFalsy()
-    })
+    await waitFor(() => expect(canvas.queryByRole('region')).toBeFalsy())
   }
 }

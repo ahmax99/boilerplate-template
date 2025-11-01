@@ -17,16 +17,18 @@ import {
   LoadingSwap
 } from '../molecules'
 
+interface ActionButtonProps extends React.ComponentProps<typeof Button> {
+  action: () => Promise<{ error: boolean; message?: string }>
+  requireAreYouSure?: boolean
+  areYouSureDescription?: React.ReactNode
+}
+
 function ActionButton({
   action,
   requireAreYouSure = false,
   areYouSureDescription = 'This action cannot be undone.',
   ...props
-}: React.ComponentProps<typeof Button> & {
-  action: () => Promise<{ error: boolean; message?: string }>
-  requireAreYouSure?: boolean
-  areYouSureDescription?: React.ReactNode
-}) {
+}: Readonly<ActionButtonProps>) {
   const [isLoading, startTransition] = useTransition()
 
   const performAction = () =>
