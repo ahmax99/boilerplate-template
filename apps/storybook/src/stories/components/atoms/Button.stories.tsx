@@ -1,8 +1,9 @@
+import type { ComponentProps } from 'react'
 import { Button } from '@repo/ui/components/atoms'
-import type { Meta, StoryObj } from '@storybook/nextjs'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { Loader2, Mail } from 'lucide-react'
 
-const meta = {
+const meta: Meta<typeof Button> = {
   title: 'atoms/Button',
   component: Button,
   tags: ['autodocs'],
@@ -19,7 +20,7 @@ const meta = {
     size: 'default',
     children: 'Button'
   }
-} satisfies Meta<typeof Button>
+}
 
 export default meta
 
@@ -58,7 +59,7 @@ export const Link: Story = {
 }
 
 export const Loading: Story = {
-  render: (args) => (
+  render: (args: ComponentProps<typeof Button>) => (
     <Button {...args}>
       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       Button
@@ -71,7 +72,7 @@ export const Loading: Story = {
 }
 
 export const WithIcon: Story = {
-  render: (args) => (
+  render: (args: ComponentProps<typeof Button>) => (
     <Button {...args}>
       <Mail className="mr-2 h-4 w-4" /> Login with Email Button
     </Button>
