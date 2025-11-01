@@ -24,7 +24,7 @@ export function createServerClient(config: ServerClientConfig): ORPCClient {
     headers: config.headers
   })
 
-  return createORPCClient(link) as ORPCClient
+  return createORPCClient(link)
 }
 
 export function createBrowserClient(config: BrowserClientConfig): ORPCClient {
@@ -40,5 +40,5 @@ export function createBrowserClient(config: BrowserClientConfig): ORPCClient {
     headers: config.headers
   })
 
-  return createORPCClient(link) as ORPCClient
+  return createORPCClient(link)
 }

@@ -7,7 +7,7 @@ import {
 } from '../../molecules'
 import { FormBase, type FormControlProps } from './FormBase'
 
-export function FormSelect({
+function FormSelect({
   children,
   ...props
 }: FormControlProps & { children: React.ReactNode }) {
@@ -33,3 +33,5 @@ export function FormSelect({
     </FormBase>
   )
 }
+
+export { FormSelect }
