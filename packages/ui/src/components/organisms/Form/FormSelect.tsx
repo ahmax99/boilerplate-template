@@ -23,6 +23,7 @@ export function FormSelect({
         <SelectTrigger
           aria-invalid={isInvalid}
           id={field.name}
+          name={field.name}
           onBlur={field.handleBlur}
         >
           <SelectValue />
