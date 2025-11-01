@@ -1,8 +1,13 @@
 import { Suspense } from 'react'
 import { Spinner } from '@repo/ui/components/atoms'
-import { Card, CardHeader, CardTitle } from '@repo/ui/components/molecules'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from '@repo/ui/components/molecules'
 
-import { TodoCreate } from '@/features/todos/client/components/TodoCreate'
+import { TodoFormContainer } from '@/features/todos/client/components/TodoFormContainer'
 import { TodosList } from '@/features/todos/server/components/TodosList'
 
 export default function Home() {
@@ -14,8 +19,6 @@ export default function Home() {
         </CardHeader>
       </Card>
 
-      <TodoCreate />
-
       <div className="space-y-3">
         <Suspense
           fallback={
@@ -24,7 +27,16 @@ export default function Home() {
             </div>
           }
         >
-          <TodosList limit={50} offset={0} />
+          <Card>
+            <CardContent>
+              <TodoFormContainer mode="create" />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <TodosList limit={50} offset={0} />
+            </CardContent>
+          </Card>
         </Suspense>
       </div>
     </div>
