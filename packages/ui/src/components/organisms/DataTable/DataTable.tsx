@@ -17,12 +17,7 @@ import {
 } from '@tanstack/react-table'
 
 import { cn } from '../../../lib/utils'
-import { Button } from '../../atoms'
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
   Table,
   TableBody,
   TableCell,
@@ -32,6 +27,7 @@ import {
 } from '../../molecules'
 import { DataTablePagination } from './DataTablePagination'
 import { DataTableSearch } from './DataTableSearch'
+import { DataTableViewOptions } from './DataTableViewOptions'
 
 export interface DataTableProps<TData, TValue> {
   readonly columns: ColumnDef<TData, TValue>[]
@@ -82,28 +78,10 @@ function DataTable<TData, TValue>({
     <div className="flex flex-col gap-lg">
       <div className="flex items-center py-4 gap-lg">
         <DataTableSearch columnFilters={columnFilters} table={table} />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className="ml-auto" variant="outline">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => (
-                <DropdownMenuCheckboxItem
-                  checked={column.getIsVisible()}
-                  className="capitalize"
-                  key={column.id}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                >
-                  {column.id}
-                </DropdownMenuCheckboxItem>
-              ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <DataTableViewOptions
+          columnVisibility={columnVisibility}
+          table={table}
+        />
       </div>
       <div className={cn('w-full flex flex-col gap-4', tableHeight)}>
         <div className="flex flex-2/3 overflow-hidden rounded-md border">
