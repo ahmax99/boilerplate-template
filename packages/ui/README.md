@@ -112,15 +112,8 @@ Powerful, composable data tables with sorting, filtering, and pagination.
 ```tsx
 'use client'
 
-import { useState } from 'react'
 import { type ColumnDef } from '@tanstack/react-table'
-import { useAppTable } from '@repo/ui/hooks'
-import {
-  DataTable,
-  DataTablePagination,
-  DataTableToolbar,
-  DataTableColumnHeader
-} from '@repo/ui/components/organisms/DataTable'
+import { DataTable, DataTableColumnHeader } from '@repo/ui/components/organisms/DataTable'
 
 // 1. Define your data type
 type User = {
@@ -143,43 +136,28 @@ const columns: ColumnDef<User>[] = [
   }
 ]
 
-// 3. Create table component
+// 3. Use DataTable
 export function UserTable({ data }: { data: User[] }) {
-  const [sorting, setSorting] = useState([])
-  const [columnFilters, setColumnFilters] = useState([])
-  const [columnVisibility, setColumnVisibility] = useState({})
-
-  const table = useAppTable({
-    data,
-    columns,
-    state: { sorting, columnFilters, columnVisibility },
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility
-  })
-
   return (
-    <div className="space-y-4">
-      <DataTableToolbar
-        table={table}
-        filterColumnId="name"
-        filterPlaceholder="Search names..."
-      />
-      <DataTable table={table} />
-      <DataTablePagination table={table} />
-    </div>
+    <DataTable
+      columns={columns}
+      data={data}
+      enablePagination
+      enableSearch
+      enableViewOptions
+      initialState={{
+        sorting: [{ id: 'name', desc: false }]
+      }}
+      tableHeight="h-[300px]"
+    />
   )
 }
 ```
 
 ### Available DataTable Components
 
-- `<DataTable />` - Main table component
-- `<DataTablePagination />` - Pagination controls with page size
-- `<DataTableToolbar />` - Filter and column visibility
+- `<DataTable />` - Main table component (with built-in search, pagination, and column visibility when enabled via props)
 - `<DataTableColumnHeader />` - Sortable column header
-- `<DataTableFilter />` - Individual column filter
-- `<DataTableViewOptions />` - Column visibility toggle
 
 ### DataTable Features
 
@@ -218,14 +196,6 @@ const columns: ColumnDef<User>[] = [
   },
   // ... other columns
 ]
-
-// Add rowSelection state
-const [rowSelection, setRowSelection] = useState({})
-const table = useAppTable({
-  // ... other options
-  state: { sorting, columnFilters, columnVisibility, rowSelection },
-  onRowSelectionChange: setRowSelection
-})
 ```
 
 #### Custom Cell Formatting

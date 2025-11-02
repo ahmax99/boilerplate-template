@@ -65,16 +65,16 @@ function DataTableColumnHeader<TData, TValue>({
           align="start"
           onCloseAutoFocus={(e) => e.preventDefault()}
         >
-          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+          <DropdownMenuItem onSelect={() => column.toggleSorting(false)}>
             <ArrowUp />
             Asc
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+          <DropdownMenuItem onSelect={() => column.toggleSorting(true)}>
             <ArrowDown />
             Desc
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
+          <DropdownMenuItem onSelect={() => column.toggleVisibility(false)}>
             <EyeOff />
             Hide
           </DropdownMenuItem>

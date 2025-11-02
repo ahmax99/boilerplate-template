@@ -117,7 +117,7 @@ export function useDataTable<TData>({
       colSizes[`--col-${header.column.id}-size`] = header.column.getSize()
     }
     return colSizes
-  }, [table.getState().columnSizingInfo, table.getState().columnSizing])
+  }, [columnSizing, table])
 
   return {
     table,
