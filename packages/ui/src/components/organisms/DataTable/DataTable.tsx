@@ -9,6 +9,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  type PaginationState,
   type RowSelectionState,
   type SortingState,
   useReactTable,
@@ -29,24 +30,31 @@ import {
   TableHeader,
   TableRow
 } from '../../molecules'
+import { DataTablePagination } from './DataTablePagination'
 
 export interface DataTableProps<TData, TValue> {
   readonly columns: ColumnDef<TData, TValue>[]
   readonly data: TData[]
   readonly tableHeight?: string
-  readonly enableSelectedRowsCount?: boolean
+  readonly enablePagination?: boolean
+  readonly pageSize?: number
 }
 
 function DataTable<TData, TValue>({
   columns,
   data,
   tableHeight,
-  enableSelectedRowsCount = false
+  enablePagination,
+  pageSize = 10
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize
+  })
 
   const table = useReactTable({
     data,
@@ -59,19 +67,18 @@ function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection
+      rowSelection,
+      pagination
     }
   })
 
-  const selectedRowCount = table.getSelectedRowModel().rows.length
-  const filteredRowCount = table.getFilteredRowModel().rows.length
-
   return (
-    <>
+    <div className="flex flex-col gap-lg">
       <div className="flex items-center py-4 gap-lg">
         <Input
           onChange={(event) =>
@@ -154,31 +161,15 @@ function DataTable<TData, TValue>({
             </TableBody>
           </Table>
         </div>
-        {enableSelectedRowsCount && (
-          <div className="flex-1 text-sm text-muted-foreground">
-            {`${selectedRowCount} of ${filteredRowCount} rows selected`}
-          </div>
-        )}
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          disabled={!table.getCanPreviousPage()}
-          onClick={() => table.previousPage()}
-          size="sm"
-          variant="outline"
-        >
-          Previous
-        </Button>
-        <Button
-          disabled={!table.getCanNextPage()}
-          onClick={() => table.nextPage()}
-          size="sm"
-          variant="outline"
-        >
-          Next
-        </Button>
-      </div>
-    </>
+      {enablePagination && (
+        <DataTablePagination
+          pagination={pagination}
+          rowSelection={rowSelection}
+          table={table}
+        />
+      )}
+    </div>
   )
 }
 
