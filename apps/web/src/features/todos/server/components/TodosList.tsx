@@ -22,6 +22,8 @@ export async function TodosList({
       columns={todosTableColumns}
       data={todos}
       enablePagination
+      enableSearch
+      enableViewOptions
       tableHeight="h-[300px]"
     />
   )
