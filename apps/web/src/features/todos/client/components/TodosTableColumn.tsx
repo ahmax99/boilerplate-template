@@ -42,15 +42,19 @@ export const todosTableColumns = [
     size: 10
   }),
   columnHelper.accessor('title', {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+    header: ({ column, table }) => (
+      <DataTableColumnHeader column={column} table={table} title="Title" />
     ),
     cell: (info) => info.getValue(),
     enableHiding: false
   }),
   columnHelper.accessor('description', {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description" />
+    header: ({ column, table }) => (
+      <DataTableColumnHeader
+        column={column}
+        table={table}
+        title="Description"
+      />
     ),
     cell: (info) =>
       info.getValue() ?? (
@@ -83,6 +87,6 @@ export const todosTableColumns = [
     ),
     enableSorting: false,
     enableHiding: false,
-    size: 40
+    size: 10
   })
 ] as ColumnDef<TodoTableData>[]

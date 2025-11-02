@@ -1,4 +1,6 @@
-import type { Column } from '@tanstack/react-table'
+'use client'
+
+import type { Column, Table } from '@tanstack/react-table'
 import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from 'lucide-react'
 
 import { cn } from '../../../lib/utils'
@@ -14,6 +16,7 @@ import {
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   readonly column: Column<TData, TValue>
+  readonly table: Table<TData>
   readonly title: string
 }
 
@@ -25,14 +28,25 @@ const resolveSortIcon = (
   return <ChevronsUpDown />
 }
 
+const getSortState = (
+  sortedColumn: { desc: boolean } | undefined
+): false | 'asc' | 'desc' => {
+  if (!sortedColumn) return false
+  return sortedColumn.desc ? 'desc' : 'asc'
+}
+
 function DataTableColumnHeader<TData, TValue>({
   column,
+  table,
   title,
   className
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) return <div className={cn(className)}>{title}</div>
 
-  const sortIcon = resolveSortIcon(column.getIsSorted())
+  const sorting = table.getState().sorting
+  const sortedColumn = sorting.find((s) => s.id === column.id)
+  const currentSort = getSortState(sortedColumn)
+  const sortIcon = resolveSortIcon(currentSort)
 
   return (
     <div className={cn('flex items-center gap-2', className)}>

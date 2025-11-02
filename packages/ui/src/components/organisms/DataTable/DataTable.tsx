@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   type ColumnDef,
   type ColumnFiltersState,
+  type ColumnSizingState,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -42,6 +43,7 @@ function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  const [columnSizing, setColumnSizing] = useState<ColumnSizingState>({})
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize
@@ -58,15 +60,33 @@ function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onColumnSizingChange: setColumnSizing,
     onPaginationChange: setPagination,
+    enableColumnResizing: true,
+    columnResizeMode: 'onChange',
+    defaultColumn: {
+      minSize: 10,
+      maxSize: 800
+    },
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
-      pagination
+      pagination,
+      columnSizing
     }
   })
+
+  const columnSizeVars = useMemo(() => {
+    const headers = table.getFlatHeaders()
+    const colSizes: { [key: string]: number } = {}
+    for (const header of headers) {
+      colSizes[`--header-${header.id}-size`] = header.getSize()
+      colSizes[`--col-${header.column.id}-size`] = header.column.getSize()
+    }
+    return colSizes
+  }, [table.getState().columnSizingInfo, table.getState().columnSizing])
 
   return (
     <div className="flex flex-col gap-lg">
@@ -79,9 +99,9 @@ function DataTable<TData, TValue>({
       </div>
       <div className={cn('w-full flex flex-col gap-4', tableHeight)}>
         <div className="flex flex-2/3 overflow-hidden rounded-md border">
-          <Table>
+          <Table style={columnSizeVars}>
             <DataTableHeader
-              columnFilters={columnFilters}
+              columnSizeVars={columnSizeVars}
               columnVisibility={columnVisibility}
               pagination={pagination}
               rowSelection={rowSelection}
@@ -90,11 +110,14 @@ function DataTable<TData, TValue>({
             />
             <DataTableBody
               columnFilters={columnFilters}
+              columnSizeVars={columnSizeVars}
               columnVisibility={columnVisibility}
               columns={columns}
               pagination={pagination}
               rowSelection={rowSelection}
+              sorting={sorting}
               table={table}
+              tableHeight={tableHeight}
             />
           </Table>
         </div>
