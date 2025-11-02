@@ -15,6 +15,7 @@ import {
   type VisibilityState
 } from '@tanstack/react-table'
 
+import { cn } from '../../../lib/utils'
 import { Button, Input } from '../../atoms'
 import {
   DropdownMenu,
@@ -32,11 +33,15 @@ import {
 export interface DataTableProps<TData, TValue> {
   readonly columns: ColumnDef<TData, TValue>[]
   readonly data: TData[]
+  readonly tableHeight?: string
+  readonly enableSelectedRowsCount?: boolean
 }
 
 function DataTable<TData, TValue>({
   columns,
-  data
+  data,
+  tableHeight,
+  enableSelectedRowsCount = false
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -62,11 +67,13 @@ function DataTable<TData, TValue>({
     }
   })
 
+  const selectedRowCount = table.getSelectedRowModel().rows.length
+  const filteredRowCount = table.getFilteredRowModel().rows.length
+
   return (
     <>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 gap-lg">
         <Input
-          className="max-w-sm"
           onChange={(event) =>
             table.getColumn('title')?.setFilterValue(event.target.value)
           }
@@ -96,55 +103,62 @@ function DataTable<TData, TValue>({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="overflow-hidden rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  data-state={row.getIsSelected() && 'selected'}
-                  key={row.id}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+      <div className={cn('w-full flex flex-col gap-4', tableHeight)}>
+        <div className="flex flex-2/3 overflow-hidden rounded-md border">
+          <Table>
+            <TableHeader className="sticky top-0 z-10 bg-background shadow-md">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    )
+                  })}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  className="h-24 text-center"
-                  colSpan={columns.length}
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    data-state={row.getIsSelected() && 'selected'}
+                    key={row.id}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    className="h-24 text-center"
+                    colSpan={columns.length}
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+        {enableSelectedRowsCount && (
+          <div className="flex-1 text-sm text-muted-foreground">
+            {`${selectedRowCount} of ${filteredRowCount} rows selected`}
+          </div>
+        )}
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button

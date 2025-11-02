@@ -25,5 +25,12 @@ export async function TodosList({
       </Empty>
     )
 
-  return <DataTable columns={todosTableColumns} data={todos} />
+  return (
+    <DataTable
+      columns={todosTableColumns}
+      data={todos}
+      enableSelectedRowsCount
+      tableHeight="h-[300px]"
+    />
+  )
 }
