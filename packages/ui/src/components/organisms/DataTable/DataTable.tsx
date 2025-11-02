@@ -1,6 +1,13 @@
 'use client'
 
-import type { ColumnDef } from '@tanstack/react-table'
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  PaginationState,
+  RowSelectionState,
+  SortingState,
+  VisibilityState
+} from '@tanstack/react-table'
 
 import { useDataTable } from '../../../hooks/useDataTable'
 import { cn } from '../../../lib/utils'
@@ -19,6 +26,13 @@ export interface DataTableProps<TData> {
   readonly enableSearch?: boolean
   readonly enableViewOptions?: boolean
   readonly pageSize?: number
+  readonly initialState?: {
+    sorting?: SortingState
+    columnFilters?: ColumnFiltersState
+    columnVisibility?: VisibilityState
+    rowSelection?: RowSelectionState
+    pagination?: PaginationState
+  }
 }
 
 function DataTable<TData>({
@@ -28,7 +42,8 @@ function DataTable<TData>({
   enablePagination,
   enableSearch,
   enableViewOptions,
-  pageSize = 10
+  pageSize = 10,
+  initialState
 }: DataTableProps<TData>) {
   const {
     table,
@@ -45,7 +60,8 @@ function DataTable<TData>({
     enablePagination,
     enableSorting: true,
     enableFiltering: true,
-    enableColumnResizing: true
+    enableColumnResizing: true,
+    initialState
   })
 
   return (

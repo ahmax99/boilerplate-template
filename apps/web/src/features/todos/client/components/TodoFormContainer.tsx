@@ -10,9 +10,8 @@ import { toast } from 'sonner'
 import { orpcClient } from '@/lib/api/orpc.client'
 
 import { type TodoFormData, todoFormSchema } from '../../schemas/todo.schema'
+import { TODOS_QUERY_INPUT } from '../constants'
 import { TodoForm } from './TodoForm'
-
-const TODOS_QUERY_INPUT = { limit: 50, offset: 0 } as const
 
 interface TodoFormContainerCreateProps {
   readonly mode: 'create'

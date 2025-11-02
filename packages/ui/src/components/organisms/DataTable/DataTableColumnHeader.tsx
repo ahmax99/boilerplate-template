@@ -61,7 +61,10 @@ function DataTableColumnHeader<TData, TValue>({
             {sortIcon}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent
+          align="start"
+          onCloseAutoFocus={(e) => e.preventDefault()}
+        >
           <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
             <ArrowUp />
             Asc

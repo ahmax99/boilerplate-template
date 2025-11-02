@@ -1,21 +1,14 @@
 'use client'
 
-import { Button, Checkbox } from '@repo/ui/components/atoms'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@repo/ui/components/molecules'
+import { Checkbox } from '@repo/ui/components/atoms'
 import { DataTableColumnHeader } from '@repo/ui/components/organisms/DataTable'
 import { type ColumnDef, createColumnHelper } from '@tanstack/react-table'
-import { Edit2, MoreVertical, Trash2 } from 'lucide-react'
 
 import type { Todo } from '../../schemas/todo.schema'
+import { TodoStatusCell } from './TodoStatusCell'
+import { TodoTableActions } from './TodoTableActions'
 
-type TodoTableData = Omit<Todo, 'id' | 'userId'>
-
-const columnHelper = createColumnHelper<TodoTableData>()
+const columnHelper = createColumnHelper<Todo>()
 
 export const todosTableColumns = [
   columnHelper.display({
@@ -45,7 +38,15 @@ export const todosTableColumns = [
     header: ({ column, table }) => (
       <DataTableColumnHeader column={column} table={table} title="Title" />
     ),
-    cell: (info) => info.getValue(),
+    cell: ({ row }) => (
+      <span
+        className={
+          row.original.isDone ? 'text-muted-foreground line-through' : ''
+        }
+      >
+        {row.original.title}
+      </span>
+    ),
     enableHiding: false
   }),
   columnHelper.accessor('description', {
@@ -56,37 +57,36 @@ export const todosTableColumns = [
         title="Description"
       />
     ),
-    cell: (info) =>
-      info.getValue() ?? (
+    cell: ({ row }) =>
+      row.original.description ? (
+        <span
+          className={
+            row.original.isDone ? 'text-muted-foreground line-through' : ''
+          }
+        >
+          {row.original.description}
+        </span>
+      ) : (
         <em className="text-muted-foreground/60">No description</em>
       )
   }),
+  columnHelper.accessor('isDone', {
+    header: ({ column, table }) => (
+      <DataTableColumnHeader column={column} table={table} title="Status" />
+    ),
+    cell: ({ row }) => <TodoStatusCell todo={row.original} />,
+    sortingFn: (rowA, rowB) => {
+      // Sort: pending (false) first, completed (true) last
+      if (rowA.original.isDone === rowB.original.isDone) return 0
+      return rowA.original.isDone ? 1 : -1
+    },
+    size: 30
+  }),
   columnHelper.display({
     id: 'actions',
-    cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className="h-8 w-8" size="icon" variant="ghost">
-            <MoreVertical />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="end"
-          onCloseAutoFocus={(e) => e.preventDefault()}
-        >
-          <DropdownMenuItem>
-            <Edit2 className="mr-2 h-4 w-4" />
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Trash2 className="mr-2 h-4 w-4" />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    cell: ({ row }) => <TodoTableActions todo={row.original} />,
     enableSorting: false,
     enableHiding: false,
     size: 10
   })
-] as ColumnDef<TodoTableData>[]
+] as ColumnDef<Todo>[]

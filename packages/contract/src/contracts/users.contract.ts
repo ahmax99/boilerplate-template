@@ -1,7 +1,7 @@
 import { oc } from '@orpc/contract'
 import { z } from 'zod'
 
-import { UserSchema } from '../schemas/index.js'
+import { userSchema } from '../schemas/index.js'
 
 export const listUsersContract = oc
   .route({
@@ -14,23 +14,23 @@ export const listUsersContract = oc
       offset: z.coerce.number().int().min(0).default(0)
     })
   )
-  .output(z.array(UserSchema))
+  .output(z.array(userSchema))
 
 export const findUserContract = oc
   .route({
     summary: 'Find user by id',
     tags: ['Users']
   })
-  .input(UserSchema.pick({ id: true }))
-  .output(UserSchema)
+  .input(userSchema.pick({ id: true }))
+  .output(userSchema)
 
 export const createUserContract = oc
   .route({
     summary: 'Create user',
     tags: ['Users']
   })
-  .input(UserSchema.omit({ id: true }))
-  .output(UserSchema)
+  .input(userSchema.omit({ id: true }))
+  .output(userSchema)
 
 export const updateUserContract = oc
   .route({
@@ -40,18 +40,18 @@ export const updateUserContract = oc
   .input(
     z.object({
       id: z.coerce.number().int().positive(),
-      email: z.string().email().optional(),
+      email: z.email().optional(),
       name: z.string().nullable().optional()
     })
   )
-  .output(UserSchema)
+  .output(userSchema)
 
 export const deleteUserContract = oc
   .route({
     summary: 'Delete user',
     tags: ['Users']
   })
-  .input(UserSchema.pick({ id: true }))
+  .input(userSchema.pick({ id: true }))
   .output(z.object({ success: z.boolean() }))
 
 export const usersContract = {

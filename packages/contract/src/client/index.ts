@@ -30,11 +30,11 @@ export function createServerClient(config: ServerClientConfig): ORPCClient {
 export function createBrowserClient(config: BrowserClientConfig): ORPCClient {
   const link = new OpenAPILink(appContract, {
     url: () => {
-      if (globalThis.window === undefined) {
+      if (globalThis.window === undefined)
         throw new TypeError(
           'Browser client cannot be used on the server side. Use createServerClient instead.'
         )
-      }
+
       return config.url
     },
     headers: config.headers
