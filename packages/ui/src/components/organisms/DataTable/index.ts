@@ -1,5 +1,7 @@
 export * from './DataTable'
+export * from './DataTableBody'
 export * from './DataTableColumnHeader'
+export * from './DataTableHeader'
 export * from './DataTablePagination'
 export * from './DataTableSearch'
 export * from './DataTableViewOptions'
