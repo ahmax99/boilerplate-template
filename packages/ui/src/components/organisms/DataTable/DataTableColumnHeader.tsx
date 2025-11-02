@@ -13,8 +13,8 @@ import {
 
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
-  column: Column<TData, TValue>
-  title: string
+  readonly column: Column<TData, TValue>
+  readonly title: string
 }
 
 const resolveSortIcon = (
@@ -29,7 +29,7 @@ function DataTableColumnHeader<TData, TValue>({
   column,
   title,
   className
-}: Readonly<DataTableColumnHeaderProps<TData, TValue>>) {
+}: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) return <div className={cn(className)}>{title}</div>
 
   const sortIcon = resolveSortIcon(column.getIsSorted())

@@ -17,7 +17,7 @@ import {
 } from '@tanstack/react-table'
 
 import { cn } from '../../../lib/utils'
-import { Button, Input } from '../../atoms'
+import { Button } from '../../atoms'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -31,6 +31,7 @@ import {
   TableRow
 } from '../../molecules'
 import { DataTablePagination } from './DataTablePagination'
+import { DataTableSearch } from './DataTableSearch'
 
 export interface DataTableProps<TData, TValue> {
   readonly columns: ColumnDef<TData, TValue>[]
@@ -80,13 +81,7 @@ function DataTable<TData, TValue>({
   return (
     <div className="flex flex-col gap-lg">
       <div className="flex items-center py-4 gap-lg">
-        <Input
-          onChange={(event) =>
-            table.getColumn('title')?.setFilterValue(event.target.value)
-          }
-          placeholder="Filter..."
-          value={(table.getColumn('title')?.getFilterValue() ?? '') as string}
-        />
+        <DataTableSearch columnFilters={columnFilters} table={table} />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className="ml-auto" variant="outline">

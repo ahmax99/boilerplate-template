@@ -16,16 +16,16 @@ import {
 } from '../../molecules'
 
 interface DataTablePaginationProps<TData> {
-  table: Table<TData>
-  rowSelection: Record<string, boolean>
-  pagination: PaginationState
+  readonly table: Table<TData>
+  readonly rowSelection: Record<string, boolean>
+  readonly pagination: PaginationState
 }
 
 function DataTablePagination<TData>({
   table,
   rowSelection,
   pagination
-}: Readonly<DataTablePaginationProps<TData>>) {
+}: DataTablePaginationProps<TData>) {
   const selectedRowCount = Object.keys(rowSelection).filter(
     (key) => rowSelection[key]
   ).length
