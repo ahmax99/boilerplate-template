@@ -18,7 +18,7 @@ type FormBaseProps = FormControlProps & {
   controlFirst?: boolean
 }
 
-export function FormBase({
+function FormBase({
   children,
   label,
   description,
@@ -58,3 +58,5 @@ export function FormBase({
     </Field>
   )
 }
+
+export { FormBase }

@@ -16,10 +16,11 @@ model User {
 }
 
 model Todo {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   title     String
   description String?
-  isDone Boolean @default(false)
-  userId  Int
-  user    User    @relation(fields: [userId], references: [id])
+  isDone    Boolean  @default(false)
+  userId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }

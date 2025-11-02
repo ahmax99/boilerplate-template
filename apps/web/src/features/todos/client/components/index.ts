@@ -1,3 +1,5 @@
 export * from './TodoForm'
 export * from './TodoFormContainer'
-export * from './TodoItem'
+export * from './TodoStatusCell'
+export * from './TodosTableColumn'
+export * from './TodoTableActions'

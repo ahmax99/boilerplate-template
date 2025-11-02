@@ -9,6 +9,7 @@
     "./components/molecules": "./dist/components/molecules/index.js",
     "./components/organisms": "./dist/components/organisms/index.js",
     "./components/organisms/Form": "./dist/components/organisms/Form/index.js",
+    "./components/organisms/DataTable": "./dist/components/organisms/DataTable/index.js",
     "./hooks": "./dist/hooks/index.js",
     "./lib": "./dist/lib/index.js",
     "./styles": "./dist/index.css"
@@ -43,6 +44,7 @@
     "@radix-ui/react-toggle-group": "^1.1.11",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@tanstack/react-form": "^1.23.8",
+    "@tanstack/react-table": "^8.21.3",
     "@zxcvbn-ts/core": "^3.0.4",
     "@zxcvbn-ts/language-common": "^3.0.4",
     "@zxcvbn-ts/language-en": "^3.0.2",

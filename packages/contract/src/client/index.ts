@@ -24,21 +24,21 @@ export function createServerClient(config: ServerClientConfig): ORPCClient {
     headers: config.headers
   })
 
-  return createORPCClient(link) as ORPCClient
+  return createORPCClient(link)
 }
 
 export function createBrowserClient(config: BrowserClientConfig): ORPCClient {
   const link = new OpenAPILink(appContract, {
     url: () => {
-      if (globalThis.window === undefined) {
+      if (globalThis.window === undefined)
         throw new TypeError(
           'Browser client cannot be used on the server side. Use createServerClient instead.'
         )
-      }
+
       return config.url
     },
     headers: config.headers
   })
 
-  return createORPCClient(link) as ORPCClient
+  return createORPCClient(link)
 }

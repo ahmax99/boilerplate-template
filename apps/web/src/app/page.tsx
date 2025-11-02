@@ -1,23 +1,14 @@
 import { Suspense } from 'react'
 import { Spinner } from '@repo/ui/components/atoms'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle
-} from '@repo/ui/components/molecules'
+import { Card, CardContent, CardTitle } from '@repo/ui/components/molecules'
 
-import { TodoFormContainer } from '@/features/todos/client/components/TodoFormContainer'
-import { TodosList } from '@/features/todos/server/components/TodosList'
+import { TodoFormContainer } from '@/features/todos/client/components'
+import { TodosList } from '@/features/todos/server/components'
 
 export default function Home() {
   return (
-    <div className="mx-auto w-full max-w-4xl space-y-6 p-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-3xl">Todos CRUD Demo</CardTitle>
-        </CardHeader>
-      </Card>
+    <div className="mx-auto w-full max-w-4xl space-y-0.5 p-6">
+      <CardTitle className="text-3xl text-center">Todos CRUD Demo</CardTitle>
 
       <div className="space-y-3">
         <Suspense

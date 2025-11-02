@@ -1,8 +1,9 @@
-import { Empty, EmptyDescription } from '@repo/ui/components/molecules'
+import { DataTable } from '@repo/ui/components/organisms/DataTable'
 
 import { orpcServer } from '@/lib/api/orpc.server'
 
-import { TodoItem } from '../../client/components/TodoItem'
+import { todosTableColumns } from '../../client/components'
+import { todoSchema } from '../../schemas/todo.schema'
 
 interface TodosListProps {
   readonly limit?: number
@@ -15,21 +16,30 @@ export async function TodosList({
   offset = 0,
   userId
 }: TodosListProps) {
-  const todos = await orpcServer.todos.list({ limit, offset, userId })
-
-  if (!todos || todos.length === 0) {
-    return (
-      <Empty>
-        <EmptyDescription>No todos yet. Create one above!</EmptyDescription>
-      </Empty>
-    )
-  }
+  const response = await orpcServer.todos.list({ limit, offset, userId })
+  const todos = todoSchema.array().parse(response)
+  const dataKey = JSON.stringify(
+    todos.map(({ id, title, isDone, description, createdAt }) => ({
+      id,
+      title,
+      isDone,
+      description,
+      createdAt
+    }))
+  )
 
   return (
-    <div className="space-y-2">
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
-    </div>
+    <DataTable
+      columns={todosTableColumns}
+      data={todos}
+      enablePagination
+      enableSearch
+      enableViewOptions
+      initialState={{
+        sorting: [{ id: 'isDone', desc: false }]
+      }}
+      key={dataKey}
+      tableHeight="h-[300px]"
+    />
   )
 }

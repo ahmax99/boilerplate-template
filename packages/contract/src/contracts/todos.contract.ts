@@ -1,7 +1,7 @@
 import { oc } from '@orpc/contract'
 import { z } from 'zod'
 
-import { TodoSchema } from '../schemas/index.js'
+import { todoSchema } from '../schemas/index.js'
 
 export const listTodosContract = oc
   .route({
@@ -15,23 +15,23 @@ export const listTodosContract = oc
       offset: z.coerce.number().int().min(0).default(0)
     })
   )
-  .output(z.array(TodoSchema))
+  .output(z.array(todoSchema))
 
 export const findTodoContract = oc
   .route({
     summary: 'Find todo by id',
     tags: ['Todos']
   })
-  .input(TodoSchema.pick({ id: true }))
-  .output(TodoSchema)
+  .input(todoSchema.pick({ id: true }))
+  .output(todoSchema)
 
 export const createTodoContract = oc
   .route({
     summary: 'Create todo',
     tags: ['Todos']
   })
-  .input(TodoSchema.omit({ id: true }))
-  .output(TodoSchema)
+  .input(todoSchema.omit({ id: true, createdAt: true }))
+  .output(todoSchema)
 
 export const updateTodoContract = oc
   .route({
@@ -46,14 +46,14 @@ export const updateTodoContract = oc
       isDone: z.boolean().optional()
     })
   )
-  .output(TodoSchema)
+  .output(todoSchema)
 
 export const deleteTodoContract = oc
   .route({
     summary: 'Delete todo',
     tags: ['Todos']
   })
-  .input(TodoSchema.pick({ id: true }))
+  .input(todoSchema.pick({ id: true }))
   .output(z.object({ success: z.boolean() }))
 
 export const todosContract = {
