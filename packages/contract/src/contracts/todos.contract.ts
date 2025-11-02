@@ -30,7 +30,7 @@ export const createTodoContract = oc
     summary: 'Create todo',
     tags: ['Todos']
   })
-  .input(todoSchema.omit({ id: true }))
+  .input(todoSchema.omit({ id: true, createdAt: true }))
   .output(todoSchema)
 
 export const updateTodoContract = oc

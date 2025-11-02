@@ -2,8 +2,8 @@ import { Suspense } from 'react'
 import { Spinner } from '@repo/ui/components/atoms'
 import { Card, CardContent, CardTitle } from '@repo/ui/components/molecules'
 
-import { TodoFormContainer } from '@/features/todos/client/components/TodoFormContainer'
-import { TodosList } from '@/features/todos/server/components/TodosList'
+import { TodoFormContainer } from '@/features/todos/client/components'
+import { TodosList } from '@/features/todos/server/components'
 
 export default function Home() {
   return (

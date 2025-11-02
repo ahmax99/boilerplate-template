@@ -76,9 +76,14 @@ export const todosTableColumns = [
     ),
     cell: ({ row }) => <TodoStatusCell todo={row.original} />,
     sortingFn: (rowA, rowB) => {
-      // Sort: pending (false) first, completed (true) last
-      if (rowA.original.isDone === rowB.original.isDone) return 0
-      return rowA.original.isDone ? 1 : -1
+      // First sort by completion status: pending (false) first, completed (true) last
+      if (rowA.original.isDone !== rowB.original.isDone) {
+        return rowA.original.isDone ? 1 : -1
+      }
+      // Then sort by creation date: newest first
+      return (
+        rowB.original.createdAt.getTime() - rowA.original.createdAt.getTime()
+      )
     },
     size: 30
   }),
