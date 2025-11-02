@@ -1,5 +1,7 @@
 import type {
   ColumnFiltersState,
+  PaginationState,
+  RowSelectionState,
   SortingState,
   Table,
   VisibilityState
@@ -13,25 +15,30 @@ interface DataTableHeaderProps<TData> {
   readonly sorting: SortingState
   readonly columnVisibility: VisibilityState
   readonly columnFilters: ColumnFiltersState
+  readonly rowSelection: RowSelectionState
+  readonly pagination: PaginationState
 }
 
 function DataTableHeader<TData>({
   table,
   sorting,
   columnVisibility,
-  columnFilters
+  columnFilters,
+  rowSelection,
+  pagination
 }: DataTableHeaderProps<TData>) {
   const sortedColumnCount = sorting.length
   const filterCount = columnFilters.length
-
+  const currentPage = pagination.pageIndex
   const visibilitySignature = JSON.stringify(columnVisibility)
+  const rowSelectionSignature = JSON.stringify(rowSelection)
 
   const headerGroups = table.getHeaderGroups()
 
   return (
     <TableHeader
       className="sticky top-0 z-10 bg-background shadow-md"
-      key={`header-${sortedColumnCount}-${visibilitySignature}-${filterCount}`}
+      key={`header-${sortedColumnCount}-${visibilitySignature}-${filterCount}-${rowSelectionSignature}-${currentPage}`}
     >
       {headerGroups.map((headerGroup) => (
         <TableRow key={headerGroup.id}>

@@ -83,6 +83,8 @@ function DataTable<TData, TValue>({
             <DataTableHeader
               columnFilters={columnFilters}
               columnVisibility={columnVisibility}
+              pagination={pagination}
+              rowSelection={rowSelection}
               sorting={sorting}
               table={table}
             />

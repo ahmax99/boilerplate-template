@@ -23,7 +23,10 @@ export const todosTableColumns = [
     header: ({ table }) => (
       <Checkbox
         aria-label="Select all"
-        checked={table.getIsAllPageRowsSelected()}
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
+        }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
       />
     ),
