@@ -52,6 +52,8 @@ pnpm build # Uses SWC with optimizations
 
 ## Benchmarks
 
+*Note: Benchmarks are illustrative and may vary based on project size and environment.*
+
 | Compiler | Cold Build | Incremental Build |
 |----------|------------|-------------------|
 | TypeScript | 4200ms | 1800ms |

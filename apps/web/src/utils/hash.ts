@@ -49,7 +49,7 @@ export function hashDataSync(data: unknown): string {
   for (let i = 0; i < jsonString.length; i++) {
     const char = jsonString.codePointAt(i) ?? 0
     hash = (hash << 5) - hash + char
-    hash = hash & hash // Convert to 32-bit integer
+    hash = hash >>> 0 // Convert to 32-bit integer
   }
 
   // Convert to hexadecimal and ensure positive value
