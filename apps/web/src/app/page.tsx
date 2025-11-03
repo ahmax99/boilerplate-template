@@ -25,7 +25,7 @@ export default function Home() {
           </Card>
           <Card>
             <CardContent>
-              <TodosList limit={50} offset={0} />
+              <TodosList />
             </CardContent>
           </Card>
         </Suspense>

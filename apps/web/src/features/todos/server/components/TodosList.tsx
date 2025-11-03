@@ -1,23 +1,15 @@
 import { DataTable } from '@repo/ui/components/organisms/DataTable'
 
-import { orpcServer } from '@/lib/api/orpc.server'
-
 import { todosTableColumns } from '../../client/components'
-import { todoSchema } from '../../schemas/todo.schema'
-
-interface TodosListProps {
-  readonly limit?: number
-  readonly offset?: number
-  readonly userId?: number
-}
+import type { FetchAllTodosInput } from '../../schemas/todo.schema'
+import { fetchAllTodos } from '../api/fetchAllTodos'
 
 export async function TodosList({
-  limit = 50,
+  limit = 10,
   offset = 0,
-  userId
-}: TodosListProps) {
-  const response = await orpcServer.todos.list({ limit, offset, userId })
-  const todos = todoSchema.array().parse(response)
+  userId = 3
+}: FetchAllTodosInput) {
+  const todos = await fetchAllTodos({ limit, offset, userId })
   const dataKey = JSON.stringify(
     todos.map(({ id, title, isDone, description, createdAt }) => ({
       id,
