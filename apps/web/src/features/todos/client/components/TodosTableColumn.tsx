@@ -82,7 +82,8 @@ export const todosTableColumns = [
       }
       // Then sort by creation date: newest first
       return (
-        rowB.original.createdAt.getTime() - rowA.original.createdAt.getTime()
+        new Date(rowB.original.createdAt).getTime() -
+        new Date(rowA.original.createdAt).getTime()
       )
     },
     size: 30

@@ -6,7 +6,7 @@ import { todoSchema } from '../schemas/index.js'
 export const listTodosInput = z.object({
   userId: z.coerce.number().int().positive().optional(),
   limit: z.coerce.number().int().min(1).max(100).optional(),
-  offset: z.coerce.number().int().min(0).default(0).optional()
+  offset: z.coerce.number().int().min(0).optional()
 })
 export const listTodosOutput = z.array(todoSchema)
 

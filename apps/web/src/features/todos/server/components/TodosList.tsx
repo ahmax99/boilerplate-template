@@ -1,24 +1,18 @@
 import { DataTable } from '@repo/ui/components/organisms/DataTable'
 
+import { hashDataSync } from '@/utils/hash'
+
 import { todosTableColumns } from '../../client/components'
 import type { FetchAllTodosInput } from '../../schemas/todo.schema'
 import { fetchAllTodos } from '../api/fetchAllTodos'
 
 export async function TodosList({
-  limit = 10,
+  limit = 50,
   offset = 0,
   userId = 3
-}: FetchAllTodosInput) {
+}: Readonly<FetchAllTodosInput>) {
   const todos = await fetchAllTodos({ limit, offset, userId })
-  const dataKey = JSON.stringify(
-    todos.map(({ id, title, isDone, description, createdAt }) => ({
-      id,
-      title,
-      isDone,
-      description,
-      createdAt
-    }))
-  )
+  const dataKey = `todos-${userId}-${offset}-${hashDataSync(todos)}`
 
   return (
     <DataTable

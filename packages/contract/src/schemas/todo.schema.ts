@@ -6,9 +6,7 @@ export const todoSchema = z.object({
   description: z.string().nullable(),
   isDone: z.boolean(),
   userId: z.coerce.number().int().positive(),
-  createdAt: z
-    .union([z.coerce.date(), z.string()])
-    .transform((val) => new Date(val))
+  createdAt: z.union([z.date(), z.string()])
 })
 
-export type Todo = z.infer<typeof todoSchema>
+export type Todo = z.input<typeof todoSchema>
