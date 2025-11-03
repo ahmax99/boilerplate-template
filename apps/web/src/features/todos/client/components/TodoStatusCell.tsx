@@ -23,7 +23,7 @@ export function TodoStatusCell({ todo }: TodoStatusCellProps) {
     <div className="flex items-center gap-2">
       <Checkbox
         checked={todo.isDone}
-        disabled={useUpdateTodo().isPending}
+        disabled={updateMutation.isPending}
         onCheckedChange={handleToggle}
       />
       <Badge variant={todo.isDone ? 'secondary' : 'default'}>

@@ -1,15 +1,15 @@
 import { DataTable } from '@repo/ui/components/organisms/DataTable'
 
 import { todosTableColumns } from '../../client/components'
+import type { FetchAllTodosInput } from '../../schemas/todo.schema'
 import { fetchAllTodos } from '../api/fetchAllTodos'
 
-interface TodosListProps {
-  readonly userId?: number
-  readonly offset?: number
-}
-
-export async function TodosList({ userId = 3, offset = 0 }: TodosListProps) {
-  const todos = await fetchAllTodos({ userId, offset })
+export async function TodosList({
+  limit = 10,
+  offset = 0,
+  userId = 3
+}: FetchAllTodosInput) {
+  const todos = await fetchAllTodos({ limit, offset, userId })
   const dataKey = JSON.stringify(
     todos.map(({ id, title, isDone, description, createdAt }) => ({
       id,
