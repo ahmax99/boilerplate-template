@@ -6,7 +6,7 @@ import { toast } from 'sonner'
 
 import { orpcClient } from '@/lib/api/orpc.client'
 
-import { TODOS_QUERY_INPUT } from '../constants'
+import { TODOS_QUERY_INPUT } from '../../constants'
 
 interface UseCreateTodoOptions {
   readonly onSuccess?: () => void

@@ -2,14 +2,10 @@
 
 import { orpcServer } from '@/lib/api/orpc.server'
 
-import { type FetchAllTodosInput, todoSchema } from '../../schemas/todo.schema'
+import type { FetchAllTodosInput } from '../../schemas/todo.schema'
 
-export async function fetchAllTodos({
+export const fetchAllTodos = async ({
   limit,
   offset,
   userId
-}: FetchAllTodosInput) {
-  const response = await orpcServer.todos.list({ limit, offset, userId })
-
-  return todoSchema.array().parse(response)
-}
+}: FetchAllTodosInput) => orpcServer.todos.list({ limit, offset, userId })

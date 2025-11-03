@@ -1,5 +1,29 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
 
+## Getting Started
+
+1. Install dependencies:
+```sh
+pnpm install
+```
+
+2. Start development server:
+```sh
+pnpm dev
+```
+
+3. Open [http://localhost:3000](http://localhost:3000)
+
+## Features
+
+- React Server Components with oRPC
+- Type-safe API contracts
+- TanStack Query for data fetching
+- Dark mode support (next-themes)
+- Framer Motion animations
+- Radix UI primitives
+- TailwindCSS styling
+
 ## oRPC Architecture
 
 This application uses [oRPC](https://orpc.unnoq.com) for type-safe API communication with a separated backend service.
@@ -97,3 +121,24 @@ export function TodoCreate() {
 - **HTTP overhead**: Server makes HTTP calls to backend (not direct function calls)
 - **Requires `router.refresh()`**: Server Component data outside TanStack Query cache
 - **Two clients**: Need separate `orpcServer` and `orpcClient` imports
+
+## Development Scripts
+
+- `pnpm dev`: Start development server
+- `pnpm build`: Create production build
+- `pnpm start`: Run production server
+- `pnpm check-types`: Run TypeScript type checking
+
+## Folder Structure
+
+Key directories:
+- `src/app`: Application routes
+- `src/features`: Feature-based modules
+- `src/lib`: Shared utilities and API clients
+- `src/styles`: Global styles
+
+## Learn More
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [oRPC Documentation](https://orpc.unnoq.com)
+- [TanStack Query](https://tanstack.com/query/latest)
