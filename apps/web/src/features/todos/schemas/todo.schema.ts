@@ -1,5 +1,10 @@
-import { todoSchema as todoContractSchema } from '@repo/contract'
+import {
+  type listTodosInput,
+  todoSchema as todoContractSchema
+} from '@repo/contract'
 import { z } from 'zod'
+
+export type FetchAllTodosInput = z.infer<typeof listTodosInput>
 
 export const todoSchema = todoContractSchema
 

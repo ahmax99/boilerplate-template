@@ -1,16 +1,11 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Button } from '@repo/ui/components/atoms'
 import { useAppForm } from '@repo/ui/hooks'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Check, X } from 'lucide-react'
-import { toast } from 'sonner'
-
-import { orpcClient } from '@/lib/api/orpc.client'
 
 import { type TodoFormData, todoFormSchema } from '../../schemas/todo.schema'
-import { TODOS_QUERY_INPUT } from '../constants'
+import { useTodoMutations } from '../hooks/useTodoMutations'
 import { TodoForm } from './TodoForm'
 
 interface TodoFormContainerCreateProps {
@@ -31,35 +26,14 @@ type TodoFormContainerProps =
   | TodoFormContainerEditProps
 
 export function TodoFormContainer(props: TodoFormContainerProps) {
-  const router = useRouter()
-  const queryClient = useQueryClient()
   const isCreateMode = props.mode === 'create'
 
-  const invalidateQueries = () => {
-    queryClient.invalidateQueries({
-      queryKey: orpcClient.todos.list.queryKey({
-        input: TODOS_QUERY_INPUT
-      })
-    })
-    router.refresh()
-  }
-
-  const createMutation = useMutation({
-    ...orpcClient.todos.create.mutationOptions(),
-    onSuccess: () => {
-      invalidateQueries()
-      toast.success('Todo created successfully')
-      props.onSuccess?.()
-    }
+  const { useCreateTodo, useUpdateTodo } = useTodoMutations()
+  const createMutation = useCreateTodo({
+    onSuccess: props.onSuccess
   })
-
-  const updateMutation = useMutation({
-    ...orpcClient.todos.update.mutationOptions(),
-    onSuccess: () => {
-      invalidateQueries()
-      toast.success('Todo updated successfully')
-      props.onSuccess?.()
-    }
+  const updateMutation = useUpdateTodo({
+    onSuccess: props.onSuccess
   })
 
   const mutation = isCreateMode ? createMutation : updateMutation

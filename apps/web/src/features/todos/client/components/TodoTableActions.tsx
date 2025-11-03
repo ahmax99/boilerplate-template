@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Button } from '@repo/ui/components/atoms'
 import {
@@ -14,14 +13,10 @@ import {
   DropdownMenuTrigger
 } from '@repo/ui/components/molecules'
 import { ActionButton } from '@repo/ui/components/organisms'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Edit2, MoreVertical, Trash2 } from 'lucide-react'
-import { toast } from 'sonner'
-
-import { orpcClient } from '@/lib/api/orpc.client'
 
 import type { Todo } from '../../schemas/todo.schema'
-import { TODOS_QUERY_INPUT } from '../constants'
+import { useTodoMutations } from '../hooks/useTodoMutations'
 import { TodoFormContainer } from './TodoFormContainer'
 
 interface TodoTableActionsProps {
@@ -29,22 +24,10 @@ interface TodoTableActionsProps {
 }
 
 export function TodoTableActions({ todo }: TodoTableActionsProps) {
-  const router = useRouter()
-  const queryClient = useQueryClient()
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
-  const deleteMutation = useMutation({
-    ...orpcClient.todos.delete.mutationOptions(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: orpcClient.todos.list.queryKey({
-          input: TODOS_QUERY_INPUT
-        })
-      })
-      router.refresh()
-      toast.success('Todo deleted successfully')
-    }
-  })
+  const { useDeleteTodo } = useTodoMutations()
+  const deleteMutation = useDeleteTodo()
 
   const handleDelete = () => deleteMutation.mutate({ id: todo.id })
 
