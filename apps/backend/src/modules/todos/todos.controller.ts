@@ -1,16 +1,55 @@
 import { Controller } from '@nestjs/common'
+import { ApiBody, ApiOperation } from '@nestjs/swagger'
 import { Implement, implement, populateContractRouterPaths } from '@orpc/nest'
 import { todosContract } from '@repo/contract'
 
+import {
+  ApiCreateResponse,
+  ApiDeleteResponse,
+  ApiFindResponse,
+  ApiListResponse,
+  ApiResource,
+  ApiUpdateResponse
+} from '../../shared/decorators'
+import {
+  CreateTodoDto,
+  CreateTodoResponseDto,
+  DeleteTodoDto,
+  DeleteTodoResponseDto,
+  FindTodoDto,
+  FindTodoResponseDto,
+  ListTodosDto,
+  ListTodosResponseDto,
+  UpdateTodoDto,
+  UpdateTodoResponseDto
+} from './dtos'
 // biome-ignore lint/style/useImportType: keep class available at runtime for NestJS DI
 import { TodosService } from './todos.service'
 
 const todosContractWithPaths = populateContractRouterPaths(todosContract)
 
+@ApiResource(
+  'Todos',
+  ListTodosDto,
+  ListTodosResponseDto,
+  FindTodoDto,
+  FindTodoResponseDto,
+  CreateTodoDto,
+  CreateTodoResponseDto,
+  UpdateTodoDto,
+  UpdateTodoResponseDto,
+  DeleteTodoDto,
+  DeleteTodoResponseDto
+)
 @Controller()
 export class TodosController {
   constructor(private readonly todosService: TodosService) {}
 
+  @ApiOperation({
+    summary: 'List todos'
+  })
+  @ApiListResponse(ListTodosResponseDto, 'Successfully retrieved todos list')
+  @ApiBody({ type: ListTodosDto })
   @Implement(todosContractWithPaths.todos.list)
   listTodos() {
     return implement(todosContractWithPaths.todos.list).handler(
@@ -26,6 +65,11 @@ export class TodosController {
     )
   }
 
+  @ApiOperation({
+    summary: 'Find todo by ID'
+  })
+  @ApiFindResponse(FindTodoResponseDto, 'Todo')
+  @ApiBody({ type: FindTodoDto })
   @Implement(todosContractWithPaths.todos.find)
   findTodo() {
     return implement(todosContractWithPaths.todos.find).handler(
@@ -33,6 +77,11 @@ export class TodosController {
     )
   }
 
+  @ApiOperation({
+    summary: 'Create new todo'
+  })
+  @ApiCreateResponse(CreateTodoResponseDto, 'Todo')
+  @ApiBody({ type: CreateTodoDto })
   @Implement(todosContractWithPaths.todos.create)
   createTodo() {
     return implement(todosContractWithPaths.todos.create).handler(
@@ -40,6 +89,11 @@ export class TodosController {
     )
   }
 
+  @ApiOperation({
+    summary: 'Update todo'
+  })
+  @ApiUpdateResponse(UpdateTodoResponseDto, 'Todo')
+  @ApiBody({ type: UpdateTodoDto })
   @Implement(todosContractWithPaths.todos.update)
   updateTodo() {
     return implement(todosContractWithPaths.todos.update).handler(
@@ -50,6 +104,11 @@ export class TodosController {
     )
   }
 
+  @ApiOperation({
+    summary: 'Delete todo'
+  })
+  @ApiDeleteResponse(DeleteTodoResponseDto, 'Todo')
+  @ApiBody({ type: DeleteTodoDto })
   @Implement(todosContractWithPaths.todos.delete)
   deleteTodo() {
     return implement(todosContractWithPaths.todos.delete).handler(
