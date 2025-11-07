@@ -45,8 +45,17 @@ The API will be available at `http://localhost:4000/api`
 
 The API follows the OpenAPI specification. After starting the server:
 
-1. Access Swagger UI at `http://localhost:4000/api/docs`
-2. Or import the OpenAPI spec from `http://localhost:4000/api-json`
+### Swagger UI
+Access the interactive API documentation at `http://localhost:4000/api/docs`
+
+Features:
+- Complete endpoint documentation with examples
+- Request/response schemas with validation rules
+- Organized by tags (Users, Todos)
+- Export OpenAPI JSON specification
+
+### OpenAPI JSON
+Access the OpenAPI JSON specification at `http://localhost:4000/api/docs-json`
 
 ## Resources
 
