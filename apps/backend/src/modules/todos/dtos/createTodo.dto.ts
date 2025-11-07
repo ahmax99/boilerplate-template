@@ -14,7 +14,7 @@ export class CreateTodoDto {
     type: String,
     nullable: true
   })
-  readonly description?: string | null
+  readonly description?: string
 
   @ApiProperty({
     description: 'Whether the todo is completed',

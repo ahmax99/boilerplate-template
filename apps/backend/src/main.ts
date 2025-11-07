@@ -18,7 +18,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api')
 
-  // biome-ignore lint/correctness/useHookAtTopLevel: this is a NestJS hook, not a React hook
+  // biome-ignore lint/correctness/useHookAtTopLevel: this is a NestJS method, not a React hook
   app.useGlobalInterceptors(new LoggingInterceptor())
 
   setupSwagger(app)

@@ -21,7 +21,7 @@ export class UpdateUserDto {
     type: String,
     nullable: true
   })
-  readonly name?: string | null
+  readonly name?: string
 }
 
 export class UpdateUserResponseDto {
@@ -45,5 +45,5 @@ export class UpdateUserResponseDto {
     type: String,
     nullable: true
   })
-  readonly name!: string | null
+  readonly name!: string
 }

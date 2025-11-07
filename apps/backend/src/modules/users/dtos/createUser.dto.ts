@@ -14,7 +14,7 @@ export class CreateUserDto {
     type: String,
     nullable: true
   })
-  readonly name?: string | null
+  readonly name?: string
 }
 
 export class CreateUserResponseDto {
