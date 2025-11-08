@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import '@/lib/api/orpc.server' // for pre-rendering
 import '@repo/ui/styles'
 import { Toaster } from '@repo/ui/components/molecules'
+import { cn } from '@repo/ui/lib'
 
 import './globals.css'
-import { cn } from '@repo/ui/lib'
 
 import { Providers } from './providers'
 
