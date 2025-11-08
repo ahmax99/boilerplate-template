@@ -1,30 +1,22 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 
-export class UpdateUserDto {
-  @ApiProperty({
-    description: 'Unique identifier of the user',
+export class FindUserDto {
+  @ApiPropertyOptional({
+    description: 'User ID to find',
     example: 1,
     type: Number
   })
-  readonly id!: number
+  readonly id?: number
 
   @ApiPropertyOptional({
-    description: 'Email address of the user',
+    description: 'Email address to find user by',
     example: 'user@example.com',
     type: String
   })
   readonly email?: string
-
-  @ApiPropertyOptional({
-    description: 'Full name of the user',
-    example: 'John Doe',
-    type: String,
-    nullable: true
-  })
-  readonly name?: string
 }
 
-export class UpdateUserResponseDto {
+export class FindUserResponseDto {
   @ApiProperty({
     description: 'Unique identifier of the user',
     example: 1,
@@ -45,5 +37,5 @@ export class UpdateUserResponseDto {
     type: String,
     nullable: true
   })
-  readonly name!: string
+  readonly name!: string | null
 }

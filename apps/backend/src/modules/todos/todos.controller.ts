@@ -107,12 +107,14 @@ export class TodosController {
   @ApiOperation({
     summary: 'Delete todo'
   })
-  @ApiDeleteResponse(DeleteTodoResponseDto, 'Todo')
+  @ApiDeleteResponse('Todo')
   @ApiBody({ type: DeleteTodoDto })
   @Implement(todosContractWithPaths.todos.delete)
   deleteTodo() {
     return implement(todosContractWithPaths.todos.delete).handler(
-      async ({ input }) => this.todosService.delete({ id: input.id })
+      async ({ input }) => {
+        await this.todosService.delete({ id: input.id })
+      }
     )
   }
 }

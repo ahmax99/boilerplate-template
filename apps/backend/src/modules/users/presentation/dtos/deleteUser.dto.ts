@@ -8,12 +8,3 @@ export class DeleteUserDto {
   })
   readonly id!: number
 }
-
-export class DeleteUserResponseDto {
-  @ApiProperty({
-    description: 'Indicates whether the deletion was successful',
-    example: true,
-    type: Boolean
-  })
-  readonly success!: boolean
-}
