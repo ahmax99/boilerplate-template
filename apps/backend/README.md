@@ -8,7 +8,7 @@ A production-ready NestJS backend with:
 - **oRPC** for type-safe API contracts
 - **Prisma** for database access
 - **SWC** for fast compilation (72ms builds) - [Configuration Guide](../../docs/swc-configuration.md)
-- **Modular architecture** with feature separation
+- **Hexagonal Architecture** - [Hexagonal Architecture Guide](../../docs/hexagonal-architecture.md)
 
 ## Quick Start
 

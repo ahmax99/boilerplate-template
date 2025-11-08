@@ -2,19 +2,18 @@ import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 
 import { AppModule } from './app.module'
+import { Env } from './config/env'
 import { setupSwagger } from './config/swagger'
+import { getCorsConfig } from './constants'
 import { LoggingInterceptor } from './shared/interceptors'
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap')
   const app = await NestFactory.create(AppModule, { bodyParser: false })
 
-  app.enableCors({
-    origin: process.env.WEB_URL || 'http://localhost:3000', // TODO: add check for env
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  })
+  const env = app.get(Env)
+
+  app.enableCors(getCorsConfig(env))
 
   app.setGlobalPrefix('api')
 
@@ -23,7 +22,7 @@ async function bootstrap() {
 
   setupSwagger(app)
 
-  const port = process.env.PORT ?? 4000
+  const port = env.port
   await app.listen(port)
 
   logger.log(`🚀 Application is running on: http://localhost:${port}/api`)

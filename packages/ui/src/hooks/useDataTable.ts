@@ -116,7 +116,7 @@ export function useDataTable<TData>({
     }
   })
 
-  // Compute column size CSS variables
+  // biome-ignore lint/correctness/useExhaustiveDependencies: needed for table to work
   const columnSizeVars = useMemo(() => {
     const headers = table.getFlatHeaders()
     const colSizes: Record<string, number> = {}
