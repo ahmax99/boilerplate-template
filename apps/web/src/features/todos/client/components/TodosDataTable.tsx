@@ -36,7 +36,7 @@ export interface DataTableProps<TData> {
   }
 }
 
-function TodosDataTable<TData>({
+export function TodosDataTable<TData>({
   columns,
   data,
   tableHeight,
@@ -115,5 +115,3 @@ function TodosDataTable<TData>({
     </div>
   )
 }
-
-export { TodosDataTable }
