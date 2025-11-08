@@ -34,7 +34,7 @@ Prisma is a next-generation ORM (Object-Relational Mapping) that consists of:
 
 ## Presentation
 
-For a visual representation of the database structure, see the [Entity Relationship Diagram](./diagrams/erd.draw.io).
+For a visual representation of the database structure, see the [Entity Relationship Diagram](./diagrams/erd.drawio).
 
 ## Installation
 
@@ -213,7 +213,7 @@ This opens a browser-based GUI at `http://localhost:5555`.
 - [Prisma Client API](https://www.prisma.io/docs/reference/api-reference/prisma-client-reference)
 - [Prisma Migrate](https://www.prisma.io/docs/concepts/components/prisma-migrate)
 - [Prisma Accelerate](https://www.prisma.io/docs/accelerate)
-- [Entity Relationship Diagram](./diagrams/erd.draw.io)
+- [Entity Relationship Diagram](./diagrams/erd.drawio)
 
 ## Troubleshooting
 
