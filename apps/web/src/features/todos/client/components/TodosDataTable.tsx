@@ -1,5 +1,15 @@
 'use client'
 
+import { Table } from '@repo/ui/components/molecules'
+import {
+  DataTableBody,
+  DataTableHeader,
+  DataTablePagination,
+  DataTableSearch,
+  DataTableViewOptions
+} from '@repo/ui/components/organisms/DataTable'
+import { useDataTable } from '@repo/ui/hooks'
+import { cn } from '@repo/ui/lib'
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -8,15 +18,6 @@ import type {
   SortingState,
   VisibilityState
 } from '@tanstack/react-table'
-
-import { useDataTable } from '../../../hooks/useDataTable'
-import { cn } from '../../../lib/utils'
-import { Table } from '../../molecules'
-import { DataTableBody } from './DataTableBody'
-import { DataTableHeader } from './DataTableHeader'
-import { DataTablePagination } from './DataTablePagination'
-import { DataTableSearch } from './DataTableSearch'
-import { DataTableViewOptions } from './DataTableViewOptions'
 
 export interface DataTableProps<TData> {
   readonly columns: ColumnDef<TData, unknown>[]
@@ -35,7 +36,7 @@ export interface DataTableProps<TData> {
   }
 }
 
-function DataTable<TData>({
+export function TodosDataTable<TData>({
   columns,
   data,
   tableHeight,
@@ -52,6 +53,7 @@ function DataTable<TData>({
     columnVisibility,
     rowSelection,
     pagination,
+    globalFilter,
     columnSizeVars
   } = useDataTable({
     data,
@@ -68,9 +70,7 @@ function DataTable<TData>({
     <div className="flex flex-col gap-lg">
       {(enableSearch || enableViewOptions) && (
         <div className="flex items-center py-4 gap-lg">
-          {enableSearch && (
-            <DataTableSearch columnFilters={columnFilters} table={table} />
-          )}
+          {enableSearch && <DataTableSearch table={table} />}
           {enableViewOptions && (
             <DataTableViewOptions
               columnVisibility={columnVisibility}
@@ -95,6 +95,7 @@ function DataTable<TData>({
               columnSizeVars={columnSizeVars}
               columnVisibility={columnVisibility}
               columns={columns}
+              globalFilter={globalFilter}
               pagination={pagination}
               rowSelection={rowSelection}
               sorting={sorting}
@@ -114,7 +115,3 @@ function DataTable<TData>({
     </div>
   )
 }
-
-export { DataTable }
-
-// TODO: move to /app/web

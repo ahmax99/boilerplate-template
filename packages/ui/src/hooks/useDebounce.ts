@@ -1,19 +1,15 @@
-import { useEffect, useState } from 'react'
+'use client'
 
-function useDebounce<T>(value: T, delay = 500): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+import { useCallback, useRef } from 'react'
 
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
+function useDebounce(callback: () => void, delay: number) {
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-    return () => {
-      clearTimeout(handler)
-    }
-  }, [value, delay])
+  return useCallback(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
 
-  return debouncedValue
+    timeoutRef.current = setTimeout(() => callback(), delay)
+  }, [callback, delay])
 }
 
 export { useDebounce }

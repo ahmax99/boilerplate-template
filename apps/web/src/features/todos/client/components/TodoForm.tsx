@@ -3,7 +3,7 @@
 import { FieldGroup } from '@repo/ui/components/organisms'
 
 interface TodoFormProps {
-  // biome-ignore lint/suspicious/noExplicitAny:  type safety maintained at usage site
+  // biome-ignore lint/suspicious/noExplicitAny: type safety maintained at usage site
   readonly form: any
   readonly onSubmit: (e: React.FormEvent) => void
   readonly submitButton: React.ReactNode

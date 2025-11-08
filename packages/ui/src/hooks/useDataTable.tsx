@@ -31,6 +31,7 @@ export interface UseDataTableProps<TData> {
     columnVisibility?: VisibilityState
     rowSelection?: RowSelectionState
     pagination?: PaginationState
+    globalFilter?: string
   }
 }
 
@@ -42,6 +43,7 @@ export interface UseDataTableReturn<TData> {
   rowSelection: RowSelectionState
   pagination: PaginationState
   columnSizing: ColumnSizingState
+  globalFilter: string
   columnSizeVars: Record<string, number>
 }
 
@@ -75,6 +77,9 @@ export function useDataTable<TData>({
       pageSize
     }
   )
+  const [globalFilter, setGlobalFilter] = useState<string>(
+    initialState.globalFilter ?? ''
+  )
 
   // Table instance
   const table = useReactTable({
@@ -92,8 +97,10 @@ export function useDataTable<TData>({
     onRowSelectionChange: setRowSelection,
     onColumnSizingChange: setColumnSizing,
     onPaginationChange: setPagination,
+    onGlobalFilterChange: setGlobalFilter,
     enableColumnResizing,
     columnResizeMode: 'onChange',
+    globalFilterFn: 'includesString',
     defaultColumn: {
       minSize: 10,
       maxSize: 800
@@ -104,7 +111,8 @@ export function useDataTable<TData>({
       columnVisibility,
       rowSelection,
       pagination,
-      columnSizing
+      columnSizing,
+      globalFilter
     }
   })
 
@@ -127,6 +135,7 @@ export function useDataTable<TData>({
     rowSelection,
     pagination,
     columnSizing,
+    globalFilter,
     columnSizeVars
   }
 }

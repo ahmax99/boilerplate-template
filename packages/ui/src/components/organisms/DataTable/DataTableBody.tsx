@@ -20,6 +20,7 @@ interface DataTableBodyProps<TData, TValue> {
   readonly columnVisibility: VisibilityState
   readonly pagination: PaginationState
   readonly rowSelection: RowSelectionState
+  readonly globalFilter: string
   readonly columnSizeVars?: Record<string, number>
   readonly tableHeight?: string
 }
@@ -32,6 +33,7 @@ function DataTableBody<TData, TValue>({
   columnVisibility,
   pagination,
   rowSelection,
+  globalFilter,
   columnSizeVars,
   tableHeight
 }: DataTableBodyProps<TData, TValue>) {
@@ -45,7 +47,7 @@ function DataTableBody<TData, TValue>({
   if (!rows?.length)
     return (
       <TableBody
-        key={`empty-${currentPage}-${sortingSignature}-${visibilitySignature}`}
+        key={`empty-${currentPage}-${sortingSignature}-${visibilitySignature}-${globalFilter}`}
       >
         <TableRow>
           <TableCell
@@ -60,7 +62,7 @@ function DataTableBody<TData, TValue>({
 
   return (
     <TableBody
-      key={`page-${currentPage}-${sortingSignature}-${visibilitySignature}`}
+      key={`page-${currentPage}-${sortingSignature}-${visibilitySignature}-${globalFilter}`}
     >
       {rows.map((row) => {
         const isSelected = !!rowSelection[row.id]

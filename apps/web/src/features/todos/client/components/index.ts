@@ -1,5 +1,6 @@
 export * from './TodoForm'
 export * from './TodoFormContainer'
 export * from './TodoStatusCell'
+export * from './TodosDataTable'
 export * from './TodosTableColumn'
 export * from './TodoTableActions'
