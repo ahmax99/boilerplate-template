@@ -1,5 +1,15 @@
 'use client'
 
+import { Table } from '@repo/ui/components/molecules'
+import {
+  DataTableBody,
+  DataTableHeader,
+  DataTablePagination,
+  DataTableSearch,
+  DataTableViewOptions
+} from '@repo/ui/components/organisms/DataTable'
+import { useDataTable } from '@repo/ui/hooks'
+import { cn } from '@repo/ui/lib'
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -8,15 +18,6 @@ import type {
   SortingState,
   VisibilityState
 } from '@tanstack/react-table'
-
-import { useDataTable } from '../../../hooks/useDataTable'
-import { cn } from '../../../lib/utils'
-import { Table } from '../../molecules'
-import { DataTableBody } from './DataTableBody'
-import { DataTableHeader } from './DataTableHeader'
-import { DataTablePagination } from './DataTablePagination'
-import { DataTableSearch } from './DataTableSearch'
-import { DataTableViewOptions } from './DataTableViewOptions'
 
 export interface DataTableProps<TData> {
   readonly columns: ColumnDef<TData, unknown>[]
@@ -35,7 +36,7 @@ export interface DataTableProps<TData> {
   }
 }
 
-function DataTable<TData>({
+function TodosDataTable<TData>({
   columns,
   data,
   tableHeight,
@@ -115,6 +116,4 @@ function DataTable<TData>({
   )
 }
 
-export { DataTable }
-
-// TODO: move to /app/web
+export { TodosDataTable }
