@@ -1,3 +1,4 @@
+import { ConfigifyModule } from '@itgorillaz/configify'
 import { Module } from '@nestjs/common'
 import { ORPCModule } from '@orpc/nest'
 
@@ -7,6 +8,7 @@ import { UsersModule } from './modules/users/users.module'
 
 @Module({
   imports: [
+    ConfigifyModule.forRootAsync(),
     DatabaseModule,
     UsersModule,
     TodosModule,

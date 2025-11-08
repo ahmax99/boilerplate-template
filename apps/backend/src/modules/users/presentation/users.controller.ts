@@ -10,12 +10,19 @@ import {
   ApiListResponse,
   ApiResource,
   ApiUpdateResponse
-} from '../../shared/decorators'
+} from '../../../shared/decorators'
+// biome-ignore lint/style/useImportType: use cases needed at runtime for NestJS DI
+import {
+  CreateUserUseCase,
+  DeleteUserUseCase,
+  GetUserUseCase,
+  ListUsersUseCase,
+  UpdateUserUseCase
+} from '../application/useCases'
 import {
   CreateUserDto,
   CreateUserResponseDto,
   DeleteUserDto,
-  DeleteUserResponseDto,
   FindUserDto,
   FindUserResponseDto,
   ListUsersDto,
@@ -23,8 +30,6 @@ import {
   UpdateUserDto,
   UpdateUserResponseDto
 } from './dtos'
-// biome-ignore lint/style/useImportType: keep class available at runtime for NestJS DI
-import { UsersService } from './users.service'
 
 const usersContractWithPaths = populateContractRouterPaths(usersContract)
 
@@ -38,12 +43,17 @@ const usersContractWithPaths = populateContractRouterPaths(usersContract)
   CreateUserResponseDto,
   UpdateUserDto,
   UpdateUserResponseDto,
-  DeleteUserDto,
-  DeleteUserResponseDto
+  DeleteUserDto
 )
 @Controller()
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly listUsersUseCase: ListUsersUseCase,
+    private readonly getUserUseCase: GetUserUseCase,
+    private readonly updateUserUseCase: UpdateUserUseCase,
+    private readonly deleteUserUseCase: DeleteUserUseCase
+  ) {}
 
   @ApiOperation({
     summary: 'List all users',
@@ -56,10 +66,16 @@ export class UsersController {
   listUsers() {
     return implement(usersContractWithPaths.users.list).handler(
       async ({ input }) => {
-        return this.usersService.findAll({
-          skip: input.offset,
-          take: input.limit
+        const users = await this.listUsersUseCase.execute({
+          limit: input.limit,
+          offset: input.offset
         })
+
+        return users.map((user) => ({
+          id: user.getId().getValue(),
+          email: user.getEmail().getValue(),
+          name: user.getName() || null
+        }))
       }
     )
   }
@@ -73,7 +89,15 @@ export class UsersController {
   @Implement(usersContractWithPaths.users.find)
   findUser() {
     return implement(usersContractWithPaths.users.find).handler(
-      async ({ input }) => this.usersService.findOne({ id: input.id })
+      async ({ input }) => {
+        const user = await this.getUserUseCase.execute({ id: input.id })
+
+        return {
+          id: user.getId().getValue(),
+          email: user.getEmail().getValue(),
+          name: user.getName() || null
+        }
+      }
     )
   }
 
@@ -86,7 +110,18 @@ export class UsersController {
   @Implement(usersContractWithPaths.users.create)
   createUser() {
     return implement(usersContractWithPaths.users.create).handler(
-      async ({ input }) => this.usersService.create(input)
+      async ({ input }) => {
+        const user = await this.createUserUseCase.execute({
+          email: input.email,
+          name: input.name ?? undefined
+        })
+
+        return {
+          id: user.getId().getValue(),
+          email: user.getEmail().getValue(),
+          name: user.getName() || null
+        }
+      }
     )
   }
 
@@ -100,8 +135,17 @@ export class UsersController {
   updateUser() {
     return implement(usersContractWithPaths.users.update).handler(
       async ({ input }) => {
-        const { id, ...data } = input
-        return this.usersService.update({ id }, data)
+        const user = await this.updateUserUseCase.execute({
+          id: input.id,
+          email: input.email,
+          name: input.name ?? undefined
+        })
+
+        return {
+          id: user.getId().getValue(),
+          email: user.getEmail().getValue(),
+          name: user.getName() || null
+        }
       }
     )
   }
@@ -110,12 +154,17 @@ export class UsersController {
     summary: 'Delete user',
     description: 'Delete a user by ID'
   })
-  @ApiDeleteResponse(DeleteUserResponseDto, 'User')
+  @ApiDeleteResponse('User')
   @ApiBody({ type: DeleteUserDto })
   @Implement(usersContractWithPaths.users.delete)
   deleteUser() {
     return implement(usersContractWithPaths.users.delete).handler(
-      async ({ input }) => this.usersService.delete({ id: input.id })
+      async ({ input }) => {
+        await this.deleteUserUseCase.execute({
+          id: input.id
+        })
+        return undefined
+      }
     )
   }
 }

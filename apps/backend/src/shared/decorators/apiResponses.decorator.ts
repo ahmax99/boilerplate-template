@@ -1,5 +1,4 @@
-import type { Type } from '@nestjs/common'
-import { applyDecorators } from '@nestjs/common'
+import { applyDecorators, type Type } from '@nestjs/common'
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -69,15 +68,7 @@ export const ApiUpdateResponse = <TModel extends Type<any>>(
     ApiBadRequestResponse({ description: 'Invalid input data' })
   )
 
-// biome-ignore lint/suspicious/noExplicitAny: Generic decorator requires any for flexibility
-export const ApiDeleteResponse = <TModel extends Type<any>>(
-  model: TModel,
-  resourceName: string
-) =>
+export const ApiDeleteResponse = (resourceName: string) =>
   applyDecorators(
-    ApiOkResponse({
-      description: `${resourceName} deleted successfully`,
-      type: model
-    }),
     ApiNotFoundResponse({ description: `${resourceName} not found` })
   )

@@ -27,7 +27,8 @@ export const findUserContract = oc
 export const createUserContract = oc
   .route({
     summary: 'Create user',
-    tags: ['Users']
+    tags: ['Users'],
+    successStatus: 201
   })
   .input(userSchema.omit({ id: true }))
   .output(userSchema)
@@ -49,10 +50,11 @@ export const updateUserContract = oc
 export const deleteUserContract = oc
   .route({
     summary: 'Delete user',
-    tags: ['Users']
+    tags: ['Users'],
+    successStatus: 204
   })
   .input(userSchema.pick({ id: true }))
-  .output(z.object({ success: z.boolean() }))
+  .output(z.void())
 
 export const usersContract = {
   users: {

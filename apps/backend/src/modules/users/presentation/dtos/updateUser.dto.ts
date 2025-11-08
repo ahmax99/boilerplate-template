@@ -45,5 +45,5 @@ export class UpdateUserResponseDto {
     type: String,
     nullable: true
   })
-  readonly name!: string
+  readonly name!: string | null
 }

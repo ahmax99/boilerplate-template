@@ -57,7 +57,6 @@ export const updateTodoContract = oc
   .output(updateTodoOutput)
 
 export const deleteTodoInput = todoSchema.pick({ id: true })
-export const deleteTodoOutput = z.object({ success: z.boolean() })
 
 export const deleteTodoContract = oc
   .route({
@@ -65,7 +64,7 @@ export const deleteTodoContract = oc
     tags: ['Todos']
   })
   .input(deleteTodoInput)
-  .output(deleteTodoOutput)
+  .output(z.void())
 
 export const todosContract = {
   todos: {

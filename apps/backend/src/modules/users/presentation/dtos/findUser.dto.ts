@@ -1,12 +1,22 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ValidateIf } from 'class-validator'
 
 export class FindUserDto {
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'User ID to find',
     example: 1,
     type: Number
   })
-  readonly id!: number
+  @ValidateIf((o) => !o.email)
+  readonly id?: number
+
+  @ApiPropertyOptional({
+    description: 'Email address to find user by',
+    example: 'user@example.com',
+    type: String
+  })
+  @ValidateIf((o) => !o.id)
+  readonly email?: string
 }
 
 export class FindUserResponseDto {
