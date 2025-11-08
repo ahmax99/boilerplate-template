@@ -1,4 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ValidateIf } from 'class-validator'
 
 export class FindUserDto {
   @ApiPropertyOptional({
@@ -6,6 +7,7 @@ export class FindUserDto {
     example: 1,
     type: Number
   })
+  @ValidateIf((o) => !o.email)
   readonly id?: number
 
   @ApiPropertyOptional({
@@ -13,6 +15,7 @@ export class FindUserDto {
     example: 'user@example.com',
     type: String
   })
+  @ValidateIf((o) => !o.id)
   readonly email?: string
 }
 

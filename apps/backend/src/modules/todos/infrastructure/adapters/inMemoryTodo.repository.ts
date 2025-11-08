@@ -22,7 +22,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
     userId: number
     createdAt: Date
   }): TodoEntity {
-    const todoId = new TodoId(prismaTodo.id.toString())
+    const todoId = new TodoId(prismaTodo.id)
     const title = prismaTodo.title
     const description = prismaTodo.description
     const isDone = prismaTodo.isDone
@@ -34,6 +34,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
 
   async findAll(params: FindAllTodosParams) {
     const todos = await this.prisma.todo.findMany({
+      where: params.userId ? { userId: params.userId } : undefined,
       skip: params.offset,
       take: params.limit
     })
@@ -63,7 +64,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   }
 
   async save(entity: TodoEntity) {
-    const id = Number.parseInt(entity.getId().getValue(), 10)
+    const id = entity.getId().getValue()
 
     const todo = await this.prisma.todo.update({
       where: { id },

@@ -1,13 +1,13 @@
-import { randomUUID } from 'node:crypto'
+import { randomInt } from 'node:crypto'
 
 export class TodoId {
-  private readonly value: string
+  private readonly value: number
 
-  constructor(id?: string) {
-    this.value = id || randomUUID()
+  constructor(id?: number) {
+    this.value = id ?? randomInt(1, 1000000)
   }
 
-  getValue(): string {
+  getValue(): number {
     return this.value
   }
 

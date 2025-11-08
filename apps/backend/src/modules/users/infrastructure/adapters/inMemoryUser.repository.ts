@@ -19,7 +19,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
     email: string
     name: string | null
   }): UserEntity {
-    const userId = new UserId(prismaUser.id.toString())
+    const userId = new UserId(prismaUser.id)
     const email = new Email(prismaUser.email)
     const name = prismaUser.name
 
@@ -63,7 +63,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   }
 
   async save(entity: UserEntity) {
-    const id = Number.parseInt(entity.getId().getValue(), 10)
+    const id = entity.getId().getValue()
 
     const user = await this.prisma.user.update({
       where: { id },

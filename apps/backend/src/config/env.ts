@@ -1,10 +1,11 @@
 import { Configuration, Value } from '@itgorillaz/configify'
-import { IsNotEmpty, IsPositive, IsUrl } from 'class-validator'
+import { IsInt, IsNotEmpty, IsPositive, IsUrl } from 'class-validator'
 
 @Configuration()
 export class Env {
   @IsNotEmpty()
   @IsPositive()
+  @IsInt()
   @Value('PORT', { parse: (value) => +value })
   port!: number
 

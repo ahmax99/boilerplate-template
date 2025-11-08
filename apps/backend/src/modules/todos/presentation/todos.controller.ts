@@ -23,7 +23,6 @@ import {
   CreateTodoDto,
   CreateTodoResponseDto,
   DeleteTodoDto,
-  DeleteTodoResponseDto,
   FindTodoDto,
   FindTodoResponseDto,
   ListTodosDto,
@@ -44,8 +43,7 @@ const todosContractWithPaths = populateContractRouterPaths(todosContract)
   CreateTodoResponseDto,
   UpdateTodoDto,
   UpdateTodoResponseDto,
-  DeleteTodoDto,
-  DeleteTodoResponseDto
+  DeleteTodoDto
 )
 @Controller()
 export class TodosController {
@@ -73,7 +71,7 @@ export class TodosController {
         })
 
         return todos.map((todo) => ({
-          id: Number.parseInt(todo.getId().getValue(), 10),
+          id: todo.getId().getValue(),
           title: todo.getTitle(),
           description: todo.getDescription(),
           isDone: todo.getIsDone(),
@@ -96,7 +94,7 @@ export class TodosController {
         const todo = await this.getTodoUseCase.execute({ id: input.id })
 
         return {
-          id: Number.parseInt(todo.getId().getValue(), 10),
+          id: todo.getId().getValue(),
           title: todo.getTitle(),
           description: todo.getDescription(),
           isDone: todo.getIsDone(),
@@ -124,7 +122,7 @@ export class TodosController {
         })
 
         return {
-          id: Number.parseInt(todo.getId().getValue(), 10),
+          id: todo.getId().getValue(),
           title: todo.getTitle(),
           description: todo.getDescription(),
           isDone: todo.getIsDone(),
@@ -152,7 +150,7 @@ export class TodosController {
         })
 
         return {
-          id: Number.parseInt(todo.getId().getValue(), 10),
+          id: todo.getId().getValue(),
           title: todo.getTitle(),
           description: todo.getDescription(),
           isDone: todo.getIsDone(),

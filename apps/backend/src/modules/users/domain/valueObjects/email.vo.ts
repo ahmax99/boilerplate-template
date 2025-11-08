@@ -1,3 +1,5 @@
+import { isEmail } from 'class-validator'
+
 export class Email {
   private readonly value: string
 
@@ -8,7 +10,7 @@ export class Email {
   }
 
   private isValid(email: string): boolean {
-    return email.includes('@')
+    return isEmail(email)
   }
 
   getValue(): string {

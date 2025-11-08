@@ -72,7 +72,7 @@ export class UsersController {
         })
 
         return users.map((user) => ({
-          id: Number.parseInt(user.getId().getValue(), 10),
+          id: user.getId().getValue(),
           email: user.getEmail().getValue(),
           name: user.getName() || null
         }))
@@ -93,7 +93,7 @@ export class UsersController {
         const user = await this.getUserUseCase.execute({ id: input.id })
 
         return {
-          id: Number.parseInt(user.getId().getValue(), 10),
+          id: user.getId().getValue(),
           email: user.getEmail().getValue(),
           name: user.getName() || null
         }
@@ -117,7 +117,7 @@ export class UsersController {
         })
 
         return {
-          id: Number.parseInt(user.getId().getValue(), 10),
+          id: user.getId().getValue(),
           email: user.getEmail().getValue(),
           name: user.getName() || null
         }
@@ -142,7 +142,7 @@ export class UsersController {
         })
 
         return {
-          id: Number.parseInt(user.getId().getValue(), 10),
+          id: user.getId().getValue(),
           email: user.getEmail().getValue(),
           name: user.getName() || null
         }
