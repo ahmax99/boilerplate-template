@@ -52,6 +52,7 @@ function DataTable<TData>({
     columnVisibility,
     rowSelection,
     pagination,
+    globalFilter,
     columnSizeVars
   } = useDataTable({
     data,
@@ -68,9 +69,7 @@ function DataTable<TData>({
     <div className="flex flex-col gap-lg">
       {(enableSearch || enableViewOptions) && (
         <div className="flex items-center py-4 gap-lg">
-          {enableSearch && (
-            <DataTableSearch columnFilters={columnFilters} table={table} />
-          )}
+          {enableSearch && <DataTableSearch table={table} />}
           {enableViewOptions && (
             <DataTableViewOptions
               columnVisibility={columnVisibility}
@@ -95,6 +94,7 @@ function DataTable<TData>({
               columnSizeVars={columnSizeVars}
               columnVisibility={columnVisibility}
               columns={columns}
+              globalFilter={globalFilter}
               pagination={pagination}
               rowSelection={rowSelection}
               sorting={sorting}

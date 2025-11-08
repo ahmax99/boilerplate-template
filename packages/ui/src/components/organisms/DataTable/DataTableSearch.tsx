@@ -1,43 +1,39 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { ColumnFiltersState, Table } from '@tanstack/react-table'
+import type { Table } from '@tanstack/react-table'
 
 import { useDebounce } from '../../../hooks'
 import { Input } from '../../atoms'
 
 interface DataTableSearchProps<TData> {
   readonly table: Table<TData>
-  readonly columnFilters: ColumnFiltersState
-  readonly searchColumn?: string
+  readonly placeholder?: string
   readonly debounceDelay?: number
 }
 
 function DataTableSearch<TData>({
   table,
-  columnFilters,
-  searchColumn = 'title',
+  placeholder = 'Search...',
   debounceDelay = 500
 }: DataTableSearchProps<TData>) {
-  const filterValue =
-    (columnFilters.find((filter) => filter.id === searchColumn)?.value as
-      | string
-      | undefined) ?? ''
+  const globalFilterValue = (table.getState().globalFilter as string) ?? ''
 
-  const [searchValue, setSearchValue] = useState(filterValue)
-  const debouncedSearchValue = useDebounce(searchValue, debounceDelay)
+  const [searchValue, setSearchValue] = useState(globalFilterValue)
 
-  useEffect(
-    () => table.getColumn(searchColumn)?.setFilterValue(debouncedSearchValue),
-    [debouncedSearchValue, searchColumn, table]
+  const debouncedSetFilter = useDebounce(
+    () => table.setGlobalFilter(searchValue),
+    debounceDelay
   )
 
-  useEffect(() => setSearchValue(filterValue), [filterValue])
+  useEffect(() => debouncedSetFilter(), [debouncedSetFilter])
+
+  useEffect(() => setSearchValue(globalFilterValue), [globalFilterValue])
 
   return (
     <Input
       onChange={(event) => setSearchValue(event.target.value)}
-      placeholder="Search..."
+      placeholder={placeholder}
       value={searchValue}
     />
   )
