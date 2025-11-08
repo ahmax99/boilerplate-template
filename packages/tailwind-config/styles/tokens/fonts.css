@@ -1,15 +1,15 @@
 /* biome-ignore-all lint/suspicious/noUnknownAtRules: default tailwind config */
 
 :root {
-  --font-sans: "ABeeZee", ui-sans-serif, sans-serif, system-ui;
-  --font-serif: "Adamina", ui-serif, serif;
-  --font-mono: "Azeret Mono", ui-monospace, monospace;
+  --font-sans: Geist, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Geist Mono, monospace;
 }
 
 .dark {
-  --font-sans: "ABeeZee", ui-sans-serif, sans-serif, system-ui;
-  --font-serif: "Adamina", ui-serif, serif;
-  --font-mono: "Azeret Mono", ui-monospace, monospace;
+  --font-sans: Geist, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Geist Mono, monospace;
 }
 
 @theme inline {

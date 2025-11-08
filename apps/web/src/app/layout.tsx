@@ -5,6 +5,7 @@ import '@repo/ui/styles'
 import { Toaster } from '@repo/ui/components/molecules'
 
 import './globals.css'
+import { cn } from '@repo/ui/lib'
 
 import { Providers } from './providers'
 
@@ -29,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={cn(geistSans.variable, geistMono.variable)}>
         <Providers>
           {children}
           <Toaster />

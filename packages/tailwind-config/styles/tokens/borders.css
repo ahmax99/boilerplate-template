@@ -1,11 +1,11 @@
 /* biome-ignore-all lint/suspicious/noUnknownAtRules: default tailwind config */
 
 :root {
-  --radius-base: 1.3rem;
+  --radius-base: 0.5rem;
 }
 
 .dark {
-  --radius-base: 1.3rem;
+  --radius-base: 0.5rem;
 }
 
 @theme inline {
@@ -13,20 +13,4 @@
   --radius-md: calc(var(--radius-base) - 2px);
   --radius-lg: var(--radius-base);
   --radius-xl: calc(var(--radius-base) + 4px);
-}
-
-.rounded-sm {
-  border-radius: var(--radius-sm);
-}
-
-.rounded-md {
-  border-radius: var(--radius-md);
-}
-
-.rounded-lg {
-  border-radius: var(--radius-lg);
-}
-
-.rounded-xl {
-  border-radius: var(--radius-xl);
 }
