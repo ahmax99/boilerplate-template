@@ -8,15 +8,22 @@ import { env } from '@/config/env'
 
 interface ProvidersProps {
   children: React.ReactNode
+  defaultTheme?: string
+  staleTime?: number
 }
 
-export const Providers = ({ children, ...props }: ProvidersProps) => {
+export const Providers = ({
+  children,
+  defaultTheme = 'system',
+  staleTime = 60 * 1000,
+  ...props
+}: ProvidersProps) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 60 * 1000, // 1 minute
+            staleTime,
             refetchOnWindowFocus: false
           }
         }
@@ -24,7 +31,7 @@ export const Providers = ({ children, ...props }: ProvidersProps) => {
   )
   const providerProps: React.ComponentProps<typeof NextThemesProvider> = {
     attribute: 'class',
-    defaultTheme: 'system',
+    defaultTheme,
     enableSystem: true,
     disableTransitionOnChange: true,
     ...props

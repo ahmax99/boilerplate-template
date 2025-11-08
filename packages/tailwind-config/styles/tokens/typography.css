@@ -1,18 +1,18 @@
 /* biome-ignore-all lint/suspicious/noUnknownAtRules: default tailwind config */
 
 :root {
-  --tracking-base: 0.025em;
+  --tracking-base: 0.01em;
   --leading-base: 1.5;
 }
 
 @theme inline {
   /* Letter spacing (tracking) */
-  --tracking-tighter: calc(var(--tracking-base) - 0.05em);
-  --tracking-tight: calc(var(--tracking-base) - 0.025em);
+  --tracking-tighter: calc(var(--tracking-base) - 0.02em);
+  --tracking-tight: calc(var(--tracking-base) - 0.01em);
   --tracking-normal: var(--tracking-base);
-  --tracking-wide: calc(var(--tracking-base) + 0.025em);
-  --tracking-wider: calc(var(--tracking-base) + 0.05em);
-  --tracking-widest: calc(var(--tracking-base) + 0.1em);
+  --tracking-wide: calc(var(--tracking-base) + 0.01em);
+  --tracking-wider: calc(var(--tracking-base) + 0.02em);
+  --tracking-widest: calc(var(--tracking-base) + 0.03em);
 
   /* Line height (leading) */
   --leading-none: 1;
