@@ -1,15 +1,15 @@
 /* biome-ignore-all lint/suspicious/noUnknownAtRules: default tailwind config */
 
 :root {
-  --font-sans: Geist, sans-serif;
+  --font-sans: var(--font-geist-sans), sans-serif;
   --font-serif: Georgia, serif;
-  --font-mono: Geist Mono, monospace;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
 .dark {
-  --font-sans: Geist, sans-serif;
+  --font-sans: var(--font-geist-sans), sans-serif;
   --font-serif: Georgia, serif;
-  --font-mono: Geist Mono, monospace;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
 @theme inline {
