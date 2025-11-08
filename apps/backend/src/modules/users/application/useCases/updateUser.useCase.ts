@@ -19,10 +19,9 @@ export class UpdateUserUseCase {
 
     if (!user) throw new ORPCError('NOT_FOUND', { message: 'User not found.' })
 
-    return this.userRepository.update({
-      id: dto.id,
-      email: dto.email,
-      name: dto.name
-    })
+    if (dto.email !== undefined) user.updateEmail(dto.email)
+    if (dto.name !== undefined) user.updateName(dto.name)
+
+    return this.userRepository.save(user)
   }
 }

@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import type { Prisma } from '@repo/database'
 
 // biome-ignore lint/style/useImportType: PrismaService needed at runtime for DI
 import { PrismaService } from '../../../../database/prisma.service'
 import type {
   CreateUserParams,
   FindAllUsersParams,
-  UpdateUserParams,
   UserRepositoryPort
 } from '../../application/ports/userRepository.port'
 import { UserEntity } from '../../domain/entities/user.entity'
@@ -64,15 +62,15 @@ export class InMemoryUserRepository implements UserRepositoryPort {
     return this.toDomain(user)
   }
 
-  async update(params: UpdateUserParams) {
-    const updateData: Prisma.UserUpdateInput = {}
-
-    if (params.email !== undefined) updateData.email = params.email
-    if (params.name !== undefined) updateData.name = params.name
+  async save(entity: UserEntity) {
+    const id = Number.parseInt(entity.getId().getValue(), 10)
 
     const user = await this.prisma.user.update({
-      where: { id: params.id },
-      data: updateData
+      where: { id },
+      data: {
+        email: entity.getEmail().getValue(),
+        name: entity.getName()
+      }
     })
 
     return this.toDomain(user)

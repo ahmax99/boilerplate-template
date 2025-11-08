@@ -10,18 +10,12 @@ export interface CreateUserParams {
   name?: string
 }
 
-export interface UpdateUserParams {
-  id: number
-  email?: string
-  name?: string
-}
-
 export interface UserRepositoryPort {
   findAll(params: FindAllUsersParams): Promise<UserEntity[]>
   findById(id: number): Promise<UserEntity | null>
   findByEmail(email: string): Promise<UserEntity | null>
   create(params: CreateUserParams): Promise<UserEntity>
-  update(params: UpdateUserParams): Promise<UserEntity>
+  save(entity: UserEntity): Promise<UserEntity>
   delete(id: number): Promise<void>
 }
 
