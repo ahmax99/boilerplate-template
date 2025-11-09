@@ -17,7 +17,12 @@ A production-ready NestJS backend with:
 pnpm install
 ```
 
-2. Start development server:
+2. **Create `.env` file**
+```bash
+cp .env.example .env
+```
+
+3. Start development server:
 ```bash
 pnpm run dev
 ```

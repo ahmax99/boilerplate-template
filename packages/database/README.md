@@ -247,6 +247,6 @@ When making schema changes:
 
 1. Create a descriptive migration name
 2. Update this README if adding new models
-3. Update the ERD diagram in `diagrams/erd.draw.io`
+3. Update the ERD diagram in `diagrams/erd.drawio`
 4. Test migrations in a development environment first
 5. Never edit migration files after they've been applied

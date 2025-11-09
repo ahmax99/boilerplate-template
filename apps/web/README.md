@@ -137,6 +137,9 @@ Key directories:
 - `src/lib`: Shared utilities and API clients
 - `src/styles`: Global styles
 
+## Precautions
+- If you are using Windows, make sure to enable Developer Mode because for pnpm that uses symlinks for dependencies, Next.js's Output File Tracing (OFT) might not correctly resolve and include the actual target files of these symlinks in the standalone output
+
 ## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)
