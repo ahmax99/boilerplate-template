@@ -17,6 +17,8 @@ FROM base AS prepare
 RUN pnpm install -g turbo@^2.6.0
 # Copy monorepo into image
 COPY . .
+# Bust cache for prune step
+ARG CACHEBUST=1
 # Prune to target workspace
 RUN turbo prune boilerplate-template-backend --docker
 
@@ -27,8 +29,7 @@ FROM prepare AS builder
 # Copy lockfile, package.json and install dependencies
 COPY --from=prepare /app/out/json/ .
 # Copy lockfile, package.json and install dependencies
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
-    pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 # Copy source code and build
 COPY --from=prepare /app/out/full/ .
 

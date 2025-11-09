@@ -26,7 +26,7 @@ RUN turbo prune boilerplate-template-web --docker
 FROM prepare AS builder
 # Copy lockfile, package.json and install dependencies
 COPY --from=prepare /app/out/json/ .
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store && pnpm install --frozen-lockfile --prod=false
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 # Copy source codes and build the project
 COPY --from=prepare /app/out/full/ .
 
@@ -48,7 +48,7 @@ USER nextjs
 # Copy package files and install production dependencies only
 COPY --from=builder /app/package.json /app/pnpm-lock.yaml /app/pnpm-workspace.yaml ./
 COPY --from=builder /app/apps/web/package.json ./apps/web/
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store && pnpm install --frozen-lockfile --prod
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --prod
 # Copy built application
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next ./apps/web/.next
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
