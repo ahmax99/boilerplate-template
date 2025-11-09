@@ -21,15 +21,18 @@ Remote Caching allows your team to share build outputs across different machines
 > [!TIP]
 > Vercel Remote Cache is free for all plans. Get started at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
 
-**Step 1: Login to Vercel**
+**Step 1: Create TURBO_TOKEN**
+
+Go to [Vercel](https://vercel.com/account/settings/tokens) and create a new token with Full Account scope.
+
+**Step 2: Login to Vercel**
 
 ```bash
 npx turbo login
 ```
-
 This opens your browser to authenticate with Vercel.
 
-**Step 2: Link to Remote Cache**
+**Step 3: Link to Remote Cache**
 
 ```bash
 npx turbo link
@@ -37,7 +40,7 @@ npx turbo link
 
 Select the team and project when prompted. That's it! You're now sharing cache with the team.
 
-**Step 3: Verify it's working**
+**Step 4: Verify it's working**
 
 ```bash
 npx turbo build

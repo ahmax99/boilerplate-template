@@ -2,20 +2,6 @@
 
 A production-ready monorepo template with Next.js, NestJS, and shared packages. Built with TypeScript, Turborepo, and modern tooling.
 
-## Quick Start
-
-Install dependencies:
-
-```sh
-pnpm install
-```
-
-Start all apps in development mode:
-
-```sh
-pnpm dev
-```
-
 ## What's Inside?
 
 This monorepo contains three applications and five shared packages.
@@ -31,7 +17,7 @@ This monorepo contains three applications and five shared packages.
   - Framer Motion for animations
   - Dark mode support with next-themes
 - **Port:** 3000
-- **Run:** `pnpm dev --filter=web`
+- **Run:** `turbo dev --filter=web`
 
 #### `apps/backend` - API Server
 - **Tech Stack:** NestJS 11, Prisma, oRPC
@@ -42,7 +28,7 @@ This monorepo contains three applications and five shared packages.
   - Database integration with Prisma
   - Modular architecture
 - **Port:** 4000
-- **Run:** `pnpm dev --filter=backend`
+- **Run:** `turbo dev --filter=backend`
 
 #### `apps/storybook` - Component Documentation
 - **Tech Stack:** Storybook 10, Vitest, Playwright
@@ -53,7 +39,7 @@ This monorepo contains three applications and five shared packages.
   - Visual regression testing
   - Component testing with Vitest
 - **Port:** 6006
-- **Run:** `pnpm dev --filter=storybook`
+- **Run:** `turbo dev --filter=storybook`
 
 ### Shared Packages
 
@@ -119,51 +105,220 @@ This monorepo contains three applications and five shared packages.
 
 ```sh
 # Start all apps
-pnpm dev
+turbo dev
 
 # Start specific app
-pnpm dev --filter=web
-pnpm dev --filter=backend
-pnpm dev --filter=storybook
+turbo dev --filter=web
+turbo dev --filter=backend
+turbo dev --filter=storybook
 ```
 
 ### Building
 
 ```sh
 # Build all apps and packages
-pnpm build
+turbo build
 
 # Build specific app
-pnpm build --filter=web
-pnpm build --filter=backend
+turbo build --filter=web
+turbo build --filter=backend
 ```
 
 ### Type Checking
 
 ```sh
 # Check types in all packages
-pnpm check-types
+turbo check-types
 
 # Check types in specific package
-pnpm check-types --filter=web
+turbo check-types --filter=web
 ```
 
 ### Database
 
 ```sh
 # Generate Prisma client
-pnpm --filter=@repo/database db:generate
+turbo --filter=@repo/database db:generate
 
 # Run migrations
-pnpm --filter=@repo/database db:migrate
+turbo --filter=@repo/database db:migrate
 
 # Deploy migrations
-pnpm --filter=@repo/database db:deploy
+turbo --filter=@repo/database db:deploy
 ```
 
 ### Remote Caching
 
 We use Turborepo's Remote Caching to share build artifacts across machines, speeding up builds. See our [Remote Caching Guide](./docs/remote-caching.md) for setup instructions and troubleshooting.
+
+## Docker
+
+### Prerequisites
+
+Ensure Docker is installed and running on your system:
+
+- **macOS:** [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+- **Windows:** [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+- **Linux:** [Docker Engine](https://docs.docker.com/engine/install/)
+
+Verify installation:
+
+```sh
+docker --version
+docker compose version
+```
+
+### Building Docker Images
+
+#### Build Web Application
+
+Build the Next.js web application image:
+
+```sh
+# macOS / Linux / Windows (PowerShell/CMD)
+docker build -f apps/web/Dockerfile -t boilerplate-template-web:latest .
+```
+
+#### Build Backend Application
+
+Build the NestJS backend application image:
+
+```sh
+# macOS / Linux / Windows (PowerShell/CMD)
+docker build -f apps/backend/Dockerfile -t boilerplate-template-backend:latest .
+```
+
+#### Build with Remote Caching (Optional)
+
+To leverage Turborepo's remote caching during Docker builds:
+
+```sh
+# macOS / Linux
+docker build -f apps/web/Dockerfile \
+  --build-arg TURBO_TOKEN="your-token" \
+  --build-arg TURBO_TEAM="your-team" \
+  -t boilerplate-template-web:latest .
+
+# Windows (PowerShell)
+docker build -f apps/web/Dockerfile `
+  --build-arg TURBO_TOKEN="your-token" `
+  --build-arg TURBO_TEAM="your-team" `
+  -t boilerplate-template-web:latest .
+
+# Windows (CMD)
+docker build -f apps/web/Dockerfile ^
+  --build-arg TURBO_TOKEN="your-token" ^
+  --build-arg TURBO_TEAM="your-team" ^
+  -t boilerplate-template-web:latest .
+```
+
+#### Multi-Platform Builds
+
+Build images for multiple architectures (requires Docker Buildx):
+
+```sh
+# macOS / Linux
+docker buildx build --platform linux/amd64,linux/arm64 \
+  -f apps/web/Dockerfile \
+  -t boilerplate-template-web:latest .
+
+# Windows (PowerShell)
+docker buildx build --platform linux/amd64,linux/arm64 `
+  -f apps/web/Dockerfile `
+  -t boilerplate-template-web:latest .
+```
+
+### Running with Docker Compose
+
+#### Prerequisites
+
+1. **Create `.env` file** in the project root with the following values:
+
+```sh
+cp .env.example .env
+```
+
+2. **Fill in the required environment variables** in `.env`
+
+#### Start All Services
+
+```sh
+# Start all services in detached mode
+docker compose up -d
+
+# View logs
+docker compose logs -f
+
+# View logs for specific service
+docker compose logs -f web
+docker compose logs -f backend
+```
+
+The services will be available at:
+- **Web**: http://localhost:3000 (or `$WEB_PORT`)
+- **Backend**: http://localhost:4000 (or `$BACKEND_PORT`)
+
+#### Health Checks
+
+Both services include health checks:
+- **Backend**: Checks `/api/docs` endpoint every 30s
+- **Web**: Checks root endpoint every 30s
+- **Startup**: 40s grace period before health checks begin
+
+View health status:
+```sh
+docker compose ps
+```
+
+#### Stop Services
+
+```sh
+# Stop all services
+docker compose down
+
+# Stop and remove volumes
+docker compose down -v
+```
+
+#### Rebuild and Restart
+
+```sh
+# Rebuild images and restart services
+docker compose up -d --build
+
+# Rebuild specific service
+docker compose up -d --build web
+```
+
+### Running Individual Containers
+
+#### Run Web Application
+
+```sh
+docker run -p 3000:3000 \
+  -e NODE_ENV=production \
+  -e WEB_URL="http://localhost:3000" \
+  --name boilerplate-web \
+  boilerplate-template-web:latest
+```
+
+#### Run Backend Application
+
+```sh
+docker run -p 4000:4000 \
+  -e NODE_ENV=production \
+  -e DATABASE_URL="your-database-url" \
+  --name boilerplate-backend \
+  boilerplate-template-backend:latest
+```
+
+### Docker Best Practices
+
+- **Layer Caching:** The Dockerfiles use multi-stage builds to optimize layer caching
+- **pnpm Store Cache:** Build cache is mounted to speed up dependency installation
+- **Turbo Prune:** Only necessary workspace dependencies are included in the image
+- **Security:** Containers run as non-root users (nextjs/nodejs)
+- **Standalone Output:** Next.js standalone mode minimizes image size
 
 ## Useful Links
 
@@ -171,3 +326,5 @@ Learn more about Turborepo:
 - [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
 - [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
 - [Configuration](https://turborepo.com/docs/reference/configuration)
+- [Turborepo Docker Guide](https://turborepo.com/docs/guides/tools/docker)
+- [pnpm Docker Guide](https://pnpm.io/docker)
