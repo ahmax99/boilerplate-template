@@ -238,9 +238,7 @@ docker buildx build --platform linux/amd64,linux/arm64 `
 cp .env.example .env
 ```
 
-2. **Ensure you have the required environment variables**:
-   - `DATABASE_URL`: Your Prisma Accelerate connection string
-   - `TURBO_TOKEN` and `TURBO_TEAM`: Optional, for Turborepo remote caching during builds
+2. **Fill in the required environment variables** in `.env`
 
 #### Start All Services
 
@@ -263,7 +261,7 @@ The services will be available at:
 #### Health Checks
 
 Both services include health checks:
-- **Backend**: Checks `/health` endpoint every 30s
+- **Backend**: Checks `/api/docs` endpoint every 30s
 - **Web**: Checks root endpoint every 30s
 - **Startup**: 40s grace period before health checks begin
 
