@@ -261,13 +261,22 @@ The services will be available at:
 #### Health Checks
 
 Both services include health checks:
-- **Backend**: Checks `/api/docs` endpoint every 30s
-- **Web**: Checks root endpoint every 30s
+- **Backend**: Checks `/api/health` endpoint every 30s (includes database connectivity check)
+- **Web**: Checks `/api/health` endpoint every 30s (includes backend API connectivity check)
 - **Startup**: 40s grace period before health checks begin
 
 View health status:
 ```sh
 docker compose ps
+```
+
+Check health manually:
+```sh
+# Backend health (includes database connectivity)
+curl http://localhost:4000/api/health
+
+# Web health (includes backend connectivity)
+curl http://localhost:3000/api/health
 ```
 
 #### Stop Services
