@@ -52,7 +52,7 @@ RUN turbo build --filter=boilerplate-template-web
 FROM base AS runner
 # Security: non-root user
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
-# Copy workspace packages
+# Copy workspace packages (contract, tailwind-config, ui, typescript-config)
 COPY --from=builder /app/packages/contract ./packages/contract
 COPY --from=builder /app/packages/tailwind-config ./packages/tailwind-config
 COPY --from=builder /app/packages/ui ./packages/ui
@@ -60,7 +60,7 @@ COPY --from=builder /app/packages/typescript-config ./packages/typescript-config
 # Copy package files and install dependencies (including TypeScript for next.config.ts)
 COPY --from=builder /app/package.json /app/pnpm-lock.yaml /app/pnpm-workspace.yaml ./
 COPY --from=builder /app/apps/web/package.json ./apps/web/
-# Install as root, then switch to nextjs user (ignore scripts to skip husky)
+# Install dependencies as root, then switch to nextjs user (ignore scripts to skip husky)
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install \
     --no-frozen-lockfile \
