@@ -65,10 +65,10 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --no-frozen-lockf
 USER nestjs
 # Envs
 ENV NODE_ENV=production
-ENV PORT=4000
+ENV BACKEND_PORT=4000
 ENV HOSTNAME=0.0.0.0
 
-EXPOSE 4000
+EXPOSE $BACKEND_PORT
 
 WORKDIR /app/apps/backend
 CMD ["node", "dist/main.js"]

@@ -1,11 +1,9 @@
-import { PrismaClient } from '../generated/client'
+import { prisma } from '../src/client'
 
 declare const process: {
   env: Record<string, string>
   exit(code?: number): never
 }
-
-const prisma = new PrismaClient()
 
 async function main() {
   console.log('🌱 Starting database seed...')
@@ -75,111 +73,6 @@ async function main() {
       name: 'Charlie Davis',
       todos: {
         create: [
-          {
-            title: 'Design new landing page',
-            description: 'Create mockups for homepage redesign',
-            isDone: true
-          },
-          {
-            title: 'Conduct user interviews',
-            description: 'Interview 10 users about new features',
-            isDone: false
-          },
-          {
-            title: 'Write blog post',
-            description: 'Article about best practices',
-            isDone: false
-          },
-          {
-            title: 'Setup CI/CD pipeline',
-            description: 'Configure automated testing and deployment',
-            isDone: true
-          },
-          {
-            title: 'Refactor authentication service',
-            description: 'Improve security and performance',
-            isDone: false
-          },
-          {
-            title: 'Update documentation',
-            description: 'Add new API endpoints to docs',
-            isDone: false
-          },
-          {
-            title: 'Optimize database queries',
-            description: 'Add indexes for frequently queried fields',
-            isDone: false
-          },
-          {
-            title: 'Implement dark mode',
-            description: 'Add theme toggle to UI components',
-            isDone: true
-          },
-          {
-            title: 'Create admin dashboard',
-            description: 'Build interface for managing users',
-            isDone: false
-          },
-          {
-            title: 'Setup error monitoring',
-            description: 'Integrate Sentry for error tracking',
-            isDone: true
-          },
-          {
-            title: 'Write unit tests',
-            description: 'Cover critical business logic',
-            isDone: false
-          },
-          {
-            title: 'Review pull requests',
-            description: "Check team members' code submissions",
-            isDone: false
-          },
-          {
-            title: 'Plan sprint retrospective',
-            description: 'Prepare agenda and materials',
-            isDone: false
-          },
-          {
-            title: 'Update dependencies',
-            description: 'Check for security patches',
-            isDone: true
-          },
-          {
-            title: 'Create demo environment',
-            description: 'Setup staging for client previews',
-            isDone: false
-          },
-          {
-            title: 'Implement search functionality',
-            description: 'Add full-text search to application',
-            isDone: false
-          },
-          {
-            title: 'Optimize image assets',
-            description: 'Compress and convert to WebP',
-            isDone: false
-          },
-          {
-            title: 'Setup backup strategy',
-            description: 'Configure automated database backups',
-            isDone: true
-          },
-          {
-            title: 'Create onboarding guide',
-            description: 'Document setup process for new hires',
-            isDone: false
-          },
-          {
-            title: 'Implement analytics',
-            description: 'Add user behavior tracking',
-            isDone: false
-          },
-          {
-            title: 'Redesign logo',
-            description: 'Create modern brand identity',
-            isDone: false
-          },
           {
             title: 'Design new landing page',
             description: 'Create mockups for homepage redesign',
