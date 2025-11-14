@@ -73,10 +73,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next ./apps/web/.next
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/next.config.ts ./apps/web/
 # Envs
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV WEB_PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-EXPOSE 3000
+EXPOSE $WEB_PORT
 
 WORKDIR /app/apps/web
 CMD ["pnpm", "start"]

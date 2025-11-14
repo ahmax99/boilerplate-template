@@ -6,7 +6,7 @@ export class Env {
   @IsNotEmpty()
   @IsPositive()
   @IsInt()
-  @Value('PORT', { parse: (value) => +value })
+  @Value('BACKEND_PORT', { parse: (value) => +value })
   port!: number
 
   @IsNotEmpty()

@@ -64,14 +64,16 @@ This monorepo contains three applications and five shared packages.
 #### `@repo/database` - Database Layer
 - **Purpose:** Prisma schema and database client
 - **Features:**
-  - Prisma ORM with PostgreSQL
+  - Prisma ORM with PostgreSQL (Neon)
   - Type-safe database queries
   - Migration management
-  - Prisma Accelerate support
+  - Neon serverless driver for low-latency queries
+  - WebSocket connections for session support
 - **Scripts:**
   - `db:generate` - Generate Prisma client
   - `db:migrate` - Run migrations
   - `db:deploy` - Deploy migrations to production
+  - `db:seed` - Seed database with sample data
 
 #### `@repo/tailwind-config` - Styling Configuration
 - **Purpose:** Shared TailwindCSS configuration and global styles

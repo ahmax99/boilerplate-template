@@ -9,7 +9,7 @@ This package provides a centralized database layer that can be consumed by multi
 - **Prisma Client** - Type-safe database client with auto-completion
 - **Database Schema** - Centralized schema definition in `prisma/schema.prisma`
 - **Migrations** - Version-controlled database migrations
-- **Prisma Accelerate** - Connection pooling and caching extension
+- **Neon Serverless Driver** - Low-latency PostgreSQL driver for serverless environments
 - **Singleton Pattern** - Optimized client instantiation for development and production
 
 ## What is Prisma?
@@ -29,7 +29,7 @@ Prisma is a next-generation ORM (Object-Relational Mapping) that consists of:
 - **Declarative Schema** - Define your data model in a human-readable format
 - **Migration System** - Track and version control database schema changes
 - **Database Agnostic** - Supports PostgreSQL, MySQL, SQLite, SQL Server, MongoDB, and CockroachDB
-- **Performance** - Optimized queries with connection pooling via Prisma Accelerate
+- **Performance** - Optimized queries with low-latency serverless driver
 
 
 ## Presentation
@@ -77,6 +77,52 @@ const updatedTodo = await prisma.todo.update({
 })
 ```
 
+## Database Seeding
+
+### Running the Seed
+
+```bash
+# Run seed script directly
+pnpm db:seed
+
+# Or run automatically after migrations
+pnpm db:migrate
+```
+
+The seed script will:
+1. Clear existing User and Todo data
+2. Create 3 sample users with associated todos
+3. Display a summary of created records
+
+### Customizing Seed Data
+
+Edit `prisma/seed.ts` to modify the seed data:
+
+```typescript
+const user = await prisma.user.create({
+  data: {
+    email: 'custom@example.com',
+    name: 'Custom User',
+    todos: {
+      create: [
+        {
+          title: 'Custom Todo',
+          description: 'A custom todo item',
+          isDone: false,
+        },
+      ],
+    },
+  },
+})
+```
+
+### Automatic Seeding
+
+The `prisma.seed` configuration in `package.json` ensures the seed runs automatically when you:
+- Run `prisma migrate reset`
+- Run `prisma migrate dev` (if database is empty)
+- Run `prisma db seed` explicitly
+
 ## Development Workflow
 
 ### 1. Modify the Schema
@@ -121,29 +167,73 @@ const post = await prisma.post.create({
 Configure your database connection in `.env`:
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
+# Neon database connection string
+DATABASE_URL="postgresql://user:password@ep-xxx.region.aws.neon.tech/dbname?sslmode=require"
 ```
 
-For production with Prisma Accelerate:
+## Neon Serverless Driver
 
-```env
-DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=your_api_key"
-```
+This package uses the [Neon serverless driver](https://neon.com/docs/serverless/serverless-driver) with Prisma's driver adapter for low-latency database access from serverless and edge environments.
 
-## Prisma Accelerate
+### Benefits
 
-This package uses [Prisma Accelerate](https://www.prisma.io/docs/accelerate) for:
+✅ **Low Latency** - Optimized for serverless with message pipelining and HTTP/WebSocket support  
+✅ **No Connection Limits** - Query over HTTP without traditional connection pooling constraints  
+✅ **Edge Compatible** - Works in Cloudflare Workers, Vercel Edge Functions, and other edge runtimes  
+✅ **Session Support** - WebSocket connections provide full PostgreSQL session and transaction support  
+✅ **node-postgres Compatible** - Drop-in replacement for `pg` package with `Pool` and `Client` constructors  
+✅ **Cost Effective** - No additional service fees (unlike Prisma Accelerate which requires paid subscription)  
+✅ **Direct Connection** - Queries go directly to Neon without intermediary services
 
-- **Connection Pooling** - Efficiently manage database connections
-- **Global Caching** - Cache query results at the edge
-- **Scalability** - Handle thousands of concurrent connections
+### Caveats
 
-The Accelerate extension is configured in `src/client.ts`:
+⚠️ **Cold Starts** - Neon computes scale to zero after 5 minutes of inactivity. First query after idle may take 500ms-2s  
+⚠️ **Connection Timeouts** - May need to increase `connect_timeout` parameter for idle compute activation  
+⚠️ **WebSocket Dependency** - Requires `ws` package and `webSocketConstructor` configuration in Node.js environments  
+⚠️ **No Built-in Caching** - Unlike Prisma Accelerate, no automatic query result caching (implement your own if needed)  
+⚠️ **Regional Latency** - Performance depends on proximity to Neon's data center (choose region wisely)
+
+### Configuration
+
+The driver is configured in `src/client.ts`:
 
 ```typescript
-import { withAccelerate } from '@prisma/extension-accelerate'
+import { neonConfig } from '@neondatabase/serverless'
+import { PrismaNeon } from '@prisma/adapter-neon'
+import ws from 'ws'
+import { PrismaClient } from '../generated/client/index.js'
 
-export const prisma = new PrismaClient().$extends(withAccelerate())
+// Configure WebSocket for Node.js environments
+neonConfig.webSocketConstructor = ws
+
+// For edge environments (Cloudflare Workers, Vercel Edge), enable HTTP queries:
+// neonConfig.poolQueryViaFetch = true
+
+const connectionString = process.env.DATABASE_URL
+const adapter = new PrismaNeon({ connectionString })
+
+export const prisma = new PrismaClient({ adapter })
+```
+
+### When to Use HTTP vs WebSockets
+
+**Use HTTP** (`neonConfig.poolQueryViaFetch = true`) for:
+- Single, non-interactive queries ("one-shot queries")
+- Edge environments without WebSocket support
+- Fastest possible query execution
+
+**Use WebSockets** (default) for:
+- Interactive transactions with multiple queries
+- Session-based operations
+- Full PostgreSQL feature compatibility
+- Node.js server environments
+
+### Handling Cold Starts
+
+To mitigate cold start latency, add timeout parameters to your connection string:
+
+```env
+DATABASE_URL="postgresql://user:password@ep-xxx.region.aws.neon.tech/dbname?sslmode=require&connect_timeout=15&pool_timeout=15"
 ```
 
 ## Best Practices
@@ -208,11 +298,21 @@ This opens a browser-based GUI at `http://localhost:5555`.
 
 ## Resources
 
+### Prisma
 - [Prisma Documentation](https://www.prisma.io/docs)
 - [Prisma Schema Reference](https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference)
 - [Prisma Client API](https://www.prisma.io/docs/reference/api-reference/prisma-client-reference)
 - [Prisma Migrate](https://www.prisma.io/docs/concepts/components/prisma-migrate)
-- [Prisma Accelerate](https://www.prisma.io/docs/accelerate)
+- [Prisma Driver Adapters](https://www.prisma.io/docs/orm/overview/databases/database-drivers)
+
+### Neon
+- [Neon Documentation](https://neon.com/docs)
+- [Neon Serverless Driver](https://neon.com/docs/serverless/serverless-driver)
+- [Neon with Prisma Guide](https://neon.com/docs/guides/prisma)
+- [Neon Connection Pooling](https://neon.com/docs/connect/connection-pooling)
+- [Neon GitHub Repository](https://github.com/neondatabase/serverless)
+
+### This Project
 - [Entity Relationship Diagram](./diagrams/erd.drawio)
 
 ## Troubleshooting
@@ -240,6 +340,27 @@ Verify your `DATABASE_URL` is correct and the database is accessible:
 ```bash
 npx prisma db pull
 ```
+
+### "TypeError: bufferUtil.mask is not a function"
+
+This error occurs when the `ws` module is missing the `bufferutil` dependency. Install it:
+
+```bash
+pnpm add -D bufferutil
+```
+
+### Connection Timeout with Neon
+
+If you experience timeout errors like `P1001: Can't reach database server`, this is likely due to Neon's cold start. The compute may be idle and needs time to activate. Solutions:
+
+1. **Increase timeout parameters** in your connection string:
+   ```env
+   DATABASE_URL="postgresql://user:password@ep-xxx.region.aws.neon.tech/dbname?connect_timeout=15&pool_timeout=15"
+   ```
+
+2. **Keep compute active** by enabling Neon's "Always Active" feature (available on paid plans)
+
+3. **Implement retry logic** for the first connection attempt after idle periods
 
 ## Contributing
 

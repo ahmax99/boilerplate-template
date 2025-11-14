@@ -7,17 +7,25 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev --skip-generate",
     "db:deploy": "prisma migrate deploy",
+    "db:seed": "npx prisma db seed",
     "check-types": "tsc --noEmit",
     "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
+    "@types/ws": "^8.18.1",
     "prisma": "^6.17.1",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "@prisma/adapter-neon": "^6.19.0",
     "@prisma/client": "^6.17.1",
-    "@prisma/extension-accelerate": "^2.0.2"
+    "ws": "^8.18.3"
   }
 }
