@@ -77,6 +77,52 @@ const updatedTodo = await prisma.todo.update({
 })
 ```
 
+## Database Seeding
+
+### Running the Seed
+
+```bash
+# Run seed script directly
+pnpm db:seed
+
+# Or run automatically after migrations
+pnpm db:migrate
+```
+
+The seed script will:
+1. Clear existing User and Todo data
+2. Create 3 sample users with associated todos
+3. Display a summary of created records
+
+### Customizing Seed Data
+
+Edit `prisma/seed.ts` to modify the seed data:
+
+```typescript
+const user = await prisma.user.create({
+  data: {
+    email: 'custom@example.com',
+    name: 'Custom User',
+    todos: {
+      create: [
+        {
+          title: 'Custom Todo',
+          description: 'A custom todo item',
+          isDone: false,
+        },
+      ],
+    },
+  },
+})
+```
+
+### Automatic Seeding
+
+The `prisma.seed` configuration in `package.json` ensures the seed runs automatically when you:
+- Run `prisma migrate reset`
+- Run `prisma migrate dev` (if database is empty)
+- Run `prisma db seed` explicitly
+
 ## Development Workflow
 
 ### 1. Modify the Schema

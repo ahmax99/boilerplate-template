@@ -4,6 +4,7 @@ import { Button } from '@repo/ui/components/atoms'
 import { useAppForm } from '@repo/ui/hooks'
 import { Check, X } from 'lucide-react'
 
+import { TODOS_QUERY_INPUT } from '../../constants'
 import { type TodoFormData, todoFormSchema } from '../../schemas/todo.schema'
 import { useTodoMutations } from '../hooks/useTodoMutations'
 import { TodoForm } from './TodoForm'
@@ -51,7 +52,7 @@ export function TodoFormContainer(props: TodoFormContainerProps) {
           title: value.title,
           description: value.description || null,
           isDone: false,
-          userId: 3 // TODO: get user id from auth
+          userId: TODOS_QUERY_INPUT.userId
         })
         form.reset()
       } else {
