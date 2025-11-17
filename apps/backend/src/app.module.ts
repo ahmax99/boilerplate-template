@@ -1,7 +1,9 @@
 import { ConfigifyModule } from '@itgorillaz/configify'
 import { Module } from '@nestjs/common'
 import { ORPCModule } from '@orpc/nest'
+import { AuthModule } from '@thallesp/nestjs-better-auth'
 
+import { auth } from './config/auth'
 import { DatabaseModule } from './database/prisma.module'
 import { HealthModule } from './modules/health/health.module'
 import { TodosModule } from './modules/todos/todos.module'
@@ -10,6 +12,7 @@ import { UsersModule } from './modules/users/users.module'
 @Module({
   imports: [
     ConfigifyModule.forRootAsync(),
+    AuthModule.forRoot({ auth }),
     DatabaseModule,
     HealthModule,
     UsersModule,

@@ -230,6 +230,16 @@ docker buildx build --platform linux/amd64,linux/arm64 `
   -t boilerplate-template-web:latest .
 ```
 
+### Development vs Production Docker
+
+**Important Note About Hot Reload:**
+
+The default Docker configuration is optimized for production and does not support hot reload:
+
+- **Production Builds** use compiled/optimized code
+- **No Volume Mounts** for local source code synchronization
+- **No File Watchers** (nodemon/webpack-dev-server)
+
 ### Running with Docker Compose
 
 #### Prerequisites

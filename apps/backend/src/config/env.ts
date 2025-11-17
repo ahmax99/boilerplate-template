@@ -13,4 +13,9 @@ export class Env {
   @IsUrl({ require_tld: false })
   @Value('WEB_URL')
   webUrl!: string
+
+  @IsNotEmpty()
+  @IsUrl({ require_tld: false })
+  @Value('BASE_URL')
+  baseUrl!: string
 }
