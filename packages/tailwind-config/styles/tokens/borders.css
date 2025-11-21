@@ -1,5 +1,3 @@
-/* biome-ignore-all lint/suspicious/noUnknownAtRules: default tailwind config */
-
 :root {
   --radius-base: 0.5rem;
 }

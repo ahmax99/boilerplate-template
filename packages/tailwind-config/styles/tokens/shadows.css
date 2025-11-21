@@ -1,5 +1,3 @@
-/* biome-ignore-all lint/suspicious/noUnknownAtRules: default tailwind config */
-
 :root {
   --shadow-x: 0px;
   --shadow-y: 1px;
