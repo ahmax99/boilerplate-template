@@ -18,4 +18,8 @@ export class Env {
   @IsUrl({ require_tld: false })
   @Value('BASE_URL')
   baseUrl!: string
+
+  @IsNotEmpty()
+  @Value('BETTER_AUTH_SECRET')
+  betterAuthSecret!: string
 }
