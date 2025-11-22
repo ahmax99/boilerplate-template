@@ -3,10 +3,10 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 export class ListTodosDto {
   @ApiPropertyOptional({
     description: 'Filter todos by user ID',
-    example: 1,
-    type: Number
+    example: '123e4567-e89b-12d3-a456-426614174000',
+    type: String
   })
-  readonly userId?: number
+  readonly userId?: string
 
   @ApiPropertyOptional({
     description: 'Maximum number of todos to return',
@@ -29,10 +29,10 @@ export class ListTodosDto {
 export class ListTodosResponseDto {
   @ApiProperty({
     description: 'Unique identifier of the todo',
-    example: 1,
-    type: Number
+    example: '123e4567-e89b-12d3-a456-426614174000',
+    type: String
   })
-  readonly id!: number
+  readonly id!: string
 
   @ApiProperty({
     description: 'Title of the todo',
@@ -58,10 +58,10 @@ export class ListTodosResponseDto {
 
   @ApiProperty({
     description: 'ID of the user who owns this todo',
-    example: 1,
-    type: Number
+    example: '123e4567-e89b-12d3-a456-426614174000',
+    type: String
   })
-  readonly userId!: number
+  readonly userId!: string
 
   @ApiProperty({
     description: 'Timestamp when the todo was created',

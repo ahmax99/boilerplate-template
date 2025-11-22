@@ -6,13 +6,13 @@ export class TodoEntity {
     private title: string,
     private description: string | null,
     private isDone: boolean,
-    private readonly userId: number,
+    private readonly userId: string,
     private readonly createdAt: Date
   ) {}
 
   static create(
     title: string,
-    userId: number,
+    userId: string,
     description?: string,
     isDone = false
   ) {
@@ -42,7 +42,7 @@ export class TodoEntity {
     return this.isDone
   }
 
-  getUserId(): number {
+  getUserId(): string {
     return this.userId
   }
 

@@ -40,7 +40,7 @@ export const updateUserContract = oc
   })
   .input(
     z.object({
-      id: z.coerce.number().int().positive(),
+      id: z.uuid(),
       email: z.email().optional(),
       name: z.string().nullable().optional()
     })

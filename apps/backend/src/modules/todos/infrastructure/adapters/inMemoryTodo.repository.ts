@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto'
 import { Injectable } from '@nestjs/common'
 
 // biome-ignore lint/style/useImportType: PrismaService needed at runtime for DI
@@ -15,11 +16,11 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   constructor(private readonly prisma: PrismaService) {}
 
   private toDomain(prismaTodo: {
-    id: number
+    id: string
     title: string
     description: string | null
     isDone: boolean
-    userId: number
+    userId: string
     createdAt: Date
   }): TodoEntity {
     const todoId = new TodoId(prismaTodo.id)
@@ -42,7 +43,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
     return todos.map((todo) => this.toDomain(todo))
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     const todo = await this.prisma.todo.findUnique({
       where: { id }
     })
@@ -53,6 +54,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   async create(params: CreateTodoParams) {
     const todo = await this.prisma.todo.create({
       data: {
+        id: randomUUID(),
         title: params.title,
         description: params.description,
         isDone: params.isDone,
@@ -78,7 +80,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
     return this.toDomain(todo)
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     await this.prisma.todo.delete({
       where: { id }
     })

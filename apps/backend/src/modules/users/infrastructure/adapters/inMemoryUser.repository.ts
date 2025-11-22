@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto'
 import { Injectable } from '@nestjs/common'
 
 // biome-ignore lint/style/useImportType: PrismaService needed at runtime for DI
@@ -15,9 +16,9 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   constructor(private readonly prisma: PrismaService) {}
 
   private toDomain(prismaUser: {
-    id: number
+    id: string
     email: string
-    name: string | null
+    name: string
   }): UserEntity {
     const userId = new UserId(prismaUser.id)
     const email = new Email(prismaUser.email)
@@ -35,7 +36,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
     return users.map((user) => this.toDomain(user))
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     const user = await this.prisma.user.findUnique({
       where: { id }
     })
@@ -54,8 +55,12 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   async create(params: CreateUserParams) {
     const user = await this.prisma.user.create({
       data: {
+        id: randomUUID(),
         email: params.email,
-        name: params.name
+        name: params.name ?? 'User',
+        emailVerified: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     })
 
@@ -69,14 +74,15 @@ export class InMemoryUserRepository implements UserRepositoryPort {
       where: { id },
       data: {
         email: entity.getEmail().getValue(),
-        name: entity.getName()
+        name: entity.getName() ?? 'User',
+        updatedAt: new Date()
       }
     })
 
     return this.toDomain(user)
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     await this.prisma.user.delete({
       where: { id }
     })

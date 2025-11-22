@@ -3,10 +3,10 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 export class UpdateUserDto {
   @ApiProperty({
     description: 'Unique identifier of the user',
-    example: 1,
-    type: Number
+    example: '123e4567-e89b-12d3-a456-426614174000',
+    type: String
   })
-  readonly id!: number
+  readonly id!: string
 
   @ApiPropertyOptional({
     description: 'Email address of the user',
@@ -27,10 +27,10 @@ export class UpdateUserDto {
 export class UpdateUserResponseDto {
   @ApiProperty({
     description: 'Unique identifier of the user',
-    example: 1,
-    type: Number
+    example: '123e4567-e89b-12d3-a456-426614174000',
+    type: String
   })
-  readonly id!: number
+  readonly id!: string
 
   @ApiProperty({
     description: 'Email address of the user',

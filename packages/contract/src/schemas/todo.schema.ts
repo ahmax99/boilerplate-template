@@ -1,11 +1,11 @@
 import { z } from 'zod'
 
 export const todoSchema = z.object({
-  id: z.coerce.number().int().positive(),
+  id: z.uuid(),
   title: z.string(),
   description: z.string().nullable().optional(),
   isDone: z.boolean(),
-  userId: z.coerce.number().int().positive(),
+  userId: z.uuid(),
   createdAt: z.union([z.date(), z.string()])
 })
 
