@@ -21,9 +21,14 @@ import type {
   LoginSchema,
   SignupSchema
 } from '../../schemas/authForm.schema'
+import {
+  forgotPasswordSchema,
+  loginSchema,
+  signupSchema
+} from '../../schemas/authForm.schema'
 
 export interface FieldConfig {
-  readonly name: 'email' | 'password' | 'confirmPassword'
+  readonly name: 'name' | 'email' | 'password' | 'confirmPassword'
   readonly label: string
   readonly description: string
 }
@@ -44,16 +49,29 @@ interface AuthFormProps {
 export const AuthForm = ({ mode, config }: AuthFormProps) => {
   const router = useRouter()
 
+  const getValidationSchema = () => {
+    if (mode === 'login') {
+      return loginSchema
+    } else if (mode === 'signup') {
+      return signupSchema
+    } else if (mode === 'forgotPassword') {
+      return forgotPasswordSchema
+    }
+  }
+
   const form = useAppForm({
     defaultValues: config.defaultValues,
+    validators: {
+      onSubmit: getValidationSchema()
+    },
     onSubmit: async ({ value }) => {
       if (mode === 'login') {
         const loginValue = value as LoginSchema
         await authClient.signIn.email(
           { ...loginValue, callbackURL: protectedRoutes.home },
           {
-            onError: (error) => {
-              toast.error(error.error.message || 'Failed to sign in')
+            onError: () => {
+              toast.error('Failed to login')
             },
             onSuccess: () => router.push(protectedRoutes.home)
           }
@@ -68,8 +86,8 @@ export const AuthForm = ({ mode, config }: AuthFormProps) => {
             callbackURL: protectedRoutes.home
           },
           {
-            onError: (error) => {
-              toast.error(error.error.message || 'Failed to sign up')
+            onError: () => {
+              toast.error('Failed to sign up')
             },
             onSuccess: () => router.push(protectedRoutes.home)
           }
@@ -82,8 +100,8 @@ export const AuthForm = ({ mode, config }: AuthFormProps) => {
             redirectTo: publicAuthRoutes.resetPassword
           },
           {
-            onError: (error) => {
-              toast.error(error.error.message || 'Failed to send reset email')
+            onError: () => {
+              toast.error('Failed to send reset email')
             },
             onSuccess: () => {
               toast.success('Password reset email sent! Check your inbox.')
@@ -95,7 +113,7 @@ export const AuthForm = ({ mode, config }: AuthFormProps) => {
   })
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full sm:max-w-2xs">
       <CardHeader>
         <CardTitle>{config.title}</CardTitle>
         <CardDescription>{config.description}</CardDescription>

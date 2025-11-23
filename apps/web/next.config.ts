@@ -1,17 +1,9 @@
 import type { NextConfig } from 'next'
 
-import { env } from '@/config/env'
-
 const nextConfig: NextConfig = {
   cacheComponents: true,
   reactStrictMode: true,
   reactCompiler: true,
-  rewrites: async () => [
-    {
-      source: '/api/:path*',
-      destination: `${env.NEXT_PUBLIC_API_URL}/api/:path*`
-    }
-  ],
   headers: async () => [
     {
       source: '/(.*)',

@@ -6,7 +6,7 @@ import type { User } from 'better-auth/types'
 import { CurrentUser } from '../../shared/decorators'
 
 @ApiTags('Auth')
-@Controller('auth')
+@Controller('user')
 export class AuthController {
   @Get('me')
   @ApiOperation({
