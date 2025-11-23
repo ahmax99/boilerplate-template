@@ -76,7 +76,7 @@ export const AuthForm = ({ mode, config }: AuthFormProps) => {
         )
       } else if (mode === 'forgotPassword') {
         const forgotPasswordValue = value as ForgotPasswordSchema
-        await authClient.forgetPassword(
+        await authClient.requestPasswordReset(
           {
             email: forgotPasswordValue.email,
             redirectTo: publicAuthRoutes.resetPassword

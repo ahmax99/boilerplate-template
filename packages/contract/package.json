@@ -13,9 +13,9 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@orpc/client": "^1.11.2",
-    "@orpc/contract": "^1.11.2",
-    "@orpc/openapi-client": "^1.11.2",
+    "@orpc/client": "^1.11.3",
+    "@orpc/contract": "^1.11.3",
+    "@orpc/openapi-client": "^1.11.3",
     "zod": "^4.1.12"
   }
 }

@@ -1,9 +1,9 @@
+import { passkey } from '@better-auth/passkey'
 import { prisma } from '@repo/database'
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import { admin } from 'better-auth/plugins/admin'
 import { organization } from 'better-auth/plugins/organization'
-import { passkey } from 'better-auth/plugins/passkey'
 import { twoFactor } from 'better-auth/plugins/two-factor'
 
 import { Env } from './env'
