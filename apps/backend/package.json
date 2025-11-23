@@ -20,6 +20,7 @@
     "@nestjs/common": "^11.1.8",
     "@nestjs/core": "^11.1.8",
     "@nestjs/platform-express": "^11.1.8",
+    "@nestjs/schedule": "^6.0.1",
     "@nestjs/swagger": "^11.2.1",
     "@nestjs/terminus": "^11.0.0",
     "@orpc/nest": "^1.11.2",

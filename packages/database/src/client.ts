@@ -1,19 +1,45 @@
-import { neonConfig } from '@neondatabase/serverless'
-import { PrismaNeon } from '@prisma/adapter-neon'
-import ws from 'ws'
+import { withAccelerate } from '@prisma/extension-accelerate'
 
 import { PrismaClient } from '../generated/client/index.js'
 
-neonConfig.webSocketConstructor = ws
+type ExtendedPrismaClient = ReturnType<typeof createPrismaClient>
 
-// To work in edge environments (Cloudflare Workers, Vercel Edge, etc.), enable querying over fetch
-// neonConfig.poolQueryViaFetch = true
+const globalForPrisma = globalThis as unknown as {
+  prisma: ExtendedPrismaClient | undefined
+}
 
-const connectionString = `${process.env.DATABASE_URL}`
-const adapter = new PrismaNeon({ connectionString })
+const createPrismaClient = () => {
+  const databaseUrl = process.env.DATABASE_URL
 
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
+  return new PrismaClient({
+    accelerateUrl: databaseUrl
+  }).$extends(withAccelerate())
+}
 
-export const prisma = globalForPrisma.prisma || new PrismaClient({ adapter })
+let _prisma: ExtendedPrismaClient | undefined
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+function getPrismaClient(): ExtendedPrismaClient {
+  if (_prisma) return _prisma
+
+  if (globalForPrisma.prisma) {
+    _prisma = globalForPrisma.prisma
+    return _prisma
+  }
+
+  _prisma = createPrismaClient()
+
+  if (process.env.NODE_ENV !== 'production') {
+    globalForPrisma.prisma = _prisma
+  }
+
+  return _prisma
+}
+
+// Export a Proxy that lazily initializes the client
+export const prisma = new Proxy({} as ExtendedPrismaClient, {
+  get(_target, prop) {
+    const client = getPrismaClient()
+    const value = client[prop as keyof ExtendedPrismaClient]
+    return typeof value === 'function' ? value.bind(client) : value
+  }
+})

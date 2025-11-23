@@ -33,7 +33,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   }
 
   async findAll(params: FindAllTodosParams) {
-    const todos = await this.prisma.todo.findMany({
+    const todos = await this.prisma.getClient().todo.findMany({
       where: params.userId ? { userId: params.userId } : undefined,
       skip: params.offset,
       take: params.limit
@@ -43,7 +43,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   }
 
   async findById(id: number) {
-    const todo = await this.prisma.todo.findUnique({
+    const todo = await this.prisma.getClient().todo.findUnique({
       where: { id }
     })
 
@@ -51,7 +51,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   }
 
   async create(params: CreateTodoParams) {
-    const todo = await this.prisma.todo.create({
+    const todo = await this.prisma.getClient().todo.create({
       data: {
         title: params.title,
         description: params.description,
@@ -66,7 +66,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   async save(entity: TodoEntity) {
     const id = entity.getId().getValue()
 
-    const todo = await this.prisma.todo.update({
+    const todo = await this.prisma.getClient().todo.update({
       where: { id },
       data: {
         title: entity.getTitle(),
@@ -79,7 +79,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   }
 
   async delete(id: number) {
-    await this.prisma.todo.delete({
+    await this.prisma.getClient().todo.delete({
       where: { id }
     })
   }

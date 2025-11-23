@@ -24,7 +24,7 @@ export class HealthController {
   @HealthCheck()
   check(): Promise<HealthCheckResult> {
     return this.health.check([
-      () => this.prismaHealth.pingCheck('database', this.prisma)
+      () => this.prismaHealth.pingCheck('database', this.prisma.getClient())
     ])
   }
 }

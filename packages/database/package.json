@@ -17,15 +17,12 @@
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^24.10.1",
-    "@types/ws": "^8.18.1",
-    "prisma": "^6.19.0",
+    "prisma": "^7.0.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.2",
-    "@prisma/adapter-neon": "^6.19.0",
-    "@prisma/client": "^6.19.0",
-    "ws": "^8.18.3"
+    "@prisma/client": "^7.0.0",
+    "@prisma/extension-accelerate": "^3.0.0"
   }
 }

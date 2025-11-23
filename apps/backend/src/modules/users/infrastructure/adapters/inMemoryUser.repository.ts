@@ -27,7 +27,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   }
 
   async findAll(params: FindAllUsersParams) {
-    const users = await this.prisma.user.findMany({
+    const users = await this.prisma.getClient().user.findMany({
       skip: params.offset,
       take: params.limit
     })
@@ -36,7 +36,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   }
 
   async findById(id: number) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.getClient().user.findUnique({
       where: { id }
     })
 
@@ -44,7 +44,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   }
 
   async findByEmail(email: string) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.getClient().user.findUnique({
       where: { email }
     })
 
@@ -52,7 +52,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   }
 
   async create(params: CreateUserParams) {
-    const user = await this.prisma.user.create({
+    const user = await this.prisma.getClient().user.create({
       data: {
         email: params.email,
         name: params.name
@@ -65,7 +65,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   async save(entity: UserEntity) {
     const id = entity.getId().getValue()
 
-    const user = await this.prisma.user.update({
+    const user = await this.prisma.getClient().user.update({
       where: { id },
       data: {
         email: entity.getEmail().getValue(),
@@ -77,7 +77,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   }
 
   async delete(id: number) {
-    await this.prisma.user.delete({
+    await this.prisma.getClient().user.delete({
       where: { id }
     })
   }
