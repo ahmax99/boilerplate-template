@@ -9,4 +9,4 @@ export const todoSchema = z.object({
   createdAt: z.union([z.date(), z.string()])
 })
 
-export type Todo = z.input<typeof todoSchema>
+export type Todo = z.infer<typeof todoSchema>

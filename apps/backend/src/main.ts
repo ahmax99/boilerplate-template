@@ -25,7 +25,7 @@ async function bootstrap() {
   const port = env.port
   await app.listen(port)
 
-  logger.log(`🚀 Application is running on: http://localhost:${port}/api`)
-  logger.log(`📚 Swagger documentation: http://localhost:${port}/api/docs`)
+  logger.log(`🚀 Application is running on: ${env.baseUrl}/api`)
+  logger.log(`📚 Swagger documentation: ${env.baseUrl}/api/docs`)
 }
 bootstrap()

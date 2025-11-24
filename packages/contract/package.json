@@ -16,6 +16,6 @@
     "@orpc/client": "^1.11.3",
     "@orpc/contract": "^1.11.3",
     "@orpc/openapi-client": "^1.11.3",
-    "zod": "^4.1.12"
+    "zod": "^4.1.13"
   }
 }
