@@ -30,7 +30,7 @@ export const createUserContract = oc
     tags: ['Users'],
     successStatus: 201
   })
-  .input(userSchema.omit({ id: true }))
+  .input(userSchema.omit({ id: true, createdAt: true, updatedAt: true }))
   .output(userSchema)
 
 export const updateUserContract = oc
@@ -40,9 +40,11 @@ export const updateUserContract = oc
   })
   .input(
     z.object({
-      id: z.coerce.number().int().positive(),
+      id: z.uuid(),
+      name: z.string().nullable().optional(),
       email: z.email().optional(),
-      name: z.string().nullable().optional()
+      emailVerified: z.boolean().optional(),
+      image: z.string().nullable().optional()
     })
   )
   .output(userSchema)

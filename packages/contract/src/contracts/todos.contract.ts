@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { todoSchema } from '../schemas/index.js'
 
 export const listTodosInput = z.object({
-  userId: z.coerce.number().int().positive().optional(),
+  userId: z.uuid().optional(),
   limit: z.coerce.number().int().min(1).max(100).optional(),
   offset: z.coerce.number().int().min(0).optional()
 })
@@ -41,7 +41,7 @@ export const createTodoContract = oc
   .output(createTodoOutput)
 
 export const updateTodoInput = z.object({
-  id: z.coerce.number().int().positive(),
+  id: z.uuid(),
   title: z.string().optional(),
   description: z.string().nullable().optional(),
   isDone: z.boolean().optional()
