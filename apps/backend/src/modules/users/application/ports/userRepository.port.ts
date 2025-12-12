@@ -5,18 +5,10 @@ export interface FindAllUsersParams {
   offset?: number
 }
 
-export interface CreateUserParams {
-  name: string | null
-  email: string
-  emailVerified?: boolean
-  image?: string | null
-}
-
 export interface UserRepositoryPort {
   findAll(params: FindAllUsersParams): Promise<UserEntity[]>
   findById(id: string): Promise<UserEntity | null>
   findByEmail(email: string): Promise<UserEntity | null>
-  create(params: CreateUserParams): Promise<UserEntity>
   save(entity: UserEntity): Promise<UserEntity>
   delete(id: string): Promise<void>
 }

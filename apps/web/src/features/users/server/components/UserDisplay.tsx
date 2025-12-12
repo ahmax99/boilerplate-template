@@ -22,9 +22,7 @@ export const UserDisplay = async () => {
   return (
     <div className="flex items-center gap-3">
       <Avatar>
-        {user.image && (
-          <AvatarImage alt={user.name ?? 'User'} src={user.image} />
-        )}
+        <AvatarImage alt={user.name ?? 'User'} src={user.image ?? undefined} />
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col gap-1">

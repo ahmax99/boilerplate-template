@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { v4 as uuid } from 'uuid'
 
 // biome-ignore lint/style/useImportType: PrismaService needed at runtime for DI
 import { PrismaService } from '../../../../database/prisma.service'
 import type {
-  CreateUserParams,
   FindAllUsersParams,
   UserRepositoryPort
 } from '../../application/ports/userRepository.port'
@@ -61,22 +59,6 @@ export class InMemoryUserRepository implements UserRepositoryPort {
     })
 
     return user ? this.toDomain(user) : null
-  }
-
-  async create(params: CreateUserParams) {
-    const user = await this.prisma.getClient().user.create({
-      data: {
-        id: uuid(),
-        name: params.name,
-        email: params.email,
-        emailVerified: params.emailVerified ?? false,
-        image: params.image ?? null,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-    })
-
-    return this.toDomain(user)
   }
 
   async save(entity: UserEntity) {

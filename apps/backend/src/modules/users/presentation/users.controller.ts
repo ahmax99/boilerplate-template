@@ -4,24 +4,20 @@ import { Implement, implement, populateContractRouterPaths } from '@orpc/nest'
 import { usersContract } from '@repo/contract'
 
 import {
-  ApiCreateResponse,
   ApiDeleteResponse,
   ApiFindResponse,
   ApiListResponse,
-  ApiResource,
   ApiUpdateResponse
 } from '../../../shared/decorators'
+import { Roles } from '../../auth/decorators/roles.decorator'
 // biome-ignore lint/style/useImportType: use cases needed at runtime for NestJS DI
 import {
-  CreateUserUseCase,
   DeleteUserUseCase,
   GetUserUseCase,
   ListUsersUseCase,
   UpdateUserUseCase
 } from '../application/useCases'
 import {
-  CreateUserDto,
-  CreateUserResponseDto,
   DeleteUserDto,
   FindUserDto,
   FindUserResponseDto,
@@ -33,22 +29,10 @@ import {
 
 const usersContractWithPaths = populateContractRouterPaths(usersContract)
 
-@ApiResource(
-  'Users',
-  ListUsersDto,
-  ListUsersResponseDto,
-  FindUserDto,
-  FindUserResponseDto,
-  CreateUserDto,
-  CreateUserResponseDto,
-  UpdateUserDto,
-  UpdateUserResponseDto,
-  DeleteUserDto
-)
+@Roles(['admin'])
 @Controller()
 export class UsersController {
   constructor(
-    private readonly createUserUseCase: CreateUserUseCase,
     private readonly listUsersUseCase: ListUsersUseCase,
     private readonly getUserUseCase: GetUserUseCase,
     private readonly updateUserUseCase: UpdateUserUseCase,
@@ -95,36 +79,6 @@ export class UsersController {
     return implement(usersContractWithPaths.users.find).handler(
       async ({ input }) => {
         const user = await this.getUserUseCase.execute({ id: input.id })
-
-        return {
-          id: user.getId().getValue(),
-          name: user.getName(),
-          email: user.getEmail().getValue(),
-          emailVerified: user.getEmailVerified(),
-          image: user.getImage(),
-          createdAt: user.getCreatedAt(),
-          updatedAt: user.getUpdatedAt()
-        }
-      }
-    )
-  }
-
-  @ApiOperation({
-    summary: 'Create new user',
-    description: 'Create a new user with email and optional name'
-  })
-  @ApiCreateResponse(CreateUserResponseDto, 'User', true)
-  @ApiBody({ type: CreateUserDto })
-  @Implement(usersContractWithPaths.users.create)
-  createUser() {
-    return implement(usersContractWithPaths.users.create).handler(
-      async ({ input }) => {
-        const user = await this.createUserUseCase.execute({
-          name: input.name ?? null,
-          email: input.email,
-          emailVerified: input.emailVerified,
-          image: input.image ?? null
-        })
 
         return {
           id: user.getId().getValue(),

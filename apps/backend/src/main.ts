@@ -20,7 +20,7 @@ async function bootstrap() {
   // biome-ignore lint/correctness/useHookAtTopLevel: this is a NestJS method, not a React hook
   app.useGlobalInterceptors(new LoggingInterceptor())
 
-  setupSwagger(app)
+  setupSwagger(app, env)
 
   const port = env.port
   await app.listen(port)

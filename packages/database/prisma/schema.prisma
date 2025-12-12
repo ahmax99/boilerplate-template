@@ -8,16 +8,18 @@ datasource db {
 }
 
 model User {
-  id    String     @id @default(uuid())
-  name  String?
-  email String  @unique
-  emailVerified Boolean @default(false)
+  id            String     @id @default(uuid())
+  name          String?
+  email         String     @unique
+  emailVerified Boolean    @default(false)
   image         String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  role          String     @default("user")
+  banned        Boolean    @default(false)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   sessions      Session[]
   accounts      Account[]
-  todos Todo[]
+  todos         Todo[]
 }
 
 model Session {
