@@ -1,1 +1,1 @@
-export const USER_ID = 34 // TODO: get user id from auth
+export const USER_ID = 3 // TODO: get user id from auth
