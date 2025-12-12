@@ -73,8 +73,12 @@ export class UsersController {
 
         return users.map((user) => ({
           id: user.getId().getValue(),
+          name: user.getName(),
           email: user.getEmail().getValue(),
-          name: user.getName() || null
+          emailVerified: user.getEmailVerified(),
+          image: user.getImage(),
+          createdAt: user.getCreatedAt(),
+          updatedAt: user.getUpdatedAt()
         }))
       }
     )
@@ -94,8 +98,12 @@ export class UsersController {
 
         return {
           id: user.getId().getValue(),
+          name: user.getName(),
           email: user.getEmail().getValue(),
-          name: user.getName() || null
+          emailVerified: user.getEmailVerified(),
+          image: user.getImage(),
+          createdAt: user.getCreatedAt(),
+          updatedAt: user.getUpdatedAt()
         }
       }
     )
@@ -112,14 +120,20 @@ export class UsersController {
     return implement(usersContractWithPaths.users.create).handler(
       async ({ input }) => {
         const user = await this.createUserUseCase.execute({
+          name: input.name ?? null,
           email: input.email,
-          name: input.name ?? undefined
+          emailVerified: input.emailVerified,
+          image: input.image ?? null
         })
 
         return {
           id: user.getId().getValue(),
+          name: user.getName(),
           email: user.getEmail().getValue(),
-          name: user.getName() || null
+          emailVerified: user.getEmailVerified(),
+          image: user.getImage(),
+          createdAt: user.getCreatedAt(),
+          updatedAt: user.getUpdatedAt()
         }
       }
     )
@@ -137,14 +151,20 @@ export class UsersController {
       async ({ input }) => {
         const user = await this.updateUserUseCase.execute({
           id: input.id,
+          name: input.name ?? undefined,
           email: input.email,
-          name: input.name ?? undefined
+          emailVerified: input.emailVerified,
+          image: input.image ?? undefined
         })
 
         return {
           id: user.getId().getValue(),
+          name: user.getName(),
           email: user.getEmail().getValue(),
-          name: user.getName() || null
+          emailVerified: user.getEmailVerified(),
+          image: user.getImage(),
+          createdAt: user.getCreatedAt(),
+          updatedAt: user.getUpdatedAt()
         }
       }
     )

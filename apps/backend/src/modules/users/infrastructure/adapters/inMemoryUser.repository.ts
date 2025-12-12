@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { v4 as uuid } from 'uuid'
 
 // biome-ignore lint/style/useImportType: PrismaService needed at runtime for DI
 import { PrismaService } from '../../../../database/prisma.service'
@@ -15,15 +16,26 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   constructor(private readonly prisma: PrismaService) {}
 
   private toDomain(prismaUser: {
-    id: number
-    email: string
+    id: string
     name: string | null
+    email: string
+    emailVerified: boolean
+    image: string | null
+    createdAt: Date
+    updatedAt: Date
   }): UserEntity {
     const userId = new UserId(prismaUser.id)
     const email = new Email(prismaUser.email)
-    const name = prismaUser.name
 
-    return new UserEntity(userId, email, name)
+    return new UserEntity(
+      userId,
+      prismaUser.name,
+      email,
+      prismaUser.emailVerified,
+      prismaUser.image,
+      prismaUser.createdAt,
+      prismaUser.updatedAt
+    )
   }
 
   async findAll(params: FindAllUsersParams) {
@@ -35,7 +47,7 @@ export class InMemoryUserRepository implements UserRepositoryPort {
     return users.map((user) => this.toDomain(user))
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     const user = await this.prisma.getClient().user.findUnique({
       where: { id }
     })
@@ -54,8 +66,13 @@ export class InMemoryUserRepository implements UserRepositoryPort {
   async create(params: CreateUserParams) {
     const user = await this.prisma.getClient().user.create({
       data: {
+        id: uuid(),
+        name: params.name,
         email: params.email,
-        name: params.name
+        emailVerified: params.emailVerified ?? false,
+        image: params.image ?? null,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     })
 
@@ -68,15 +85,18 @@ export class InMemoryUserRepository implements UserRepositoryPort {
     const user = await this.prisma.getClient().user.update({
       where: { id },
       data: {
+        name: entity.getName(),
         email: entity.getEmail().getValue(),
-        name: entity.getName()
+        emailVerified: entity.getEmailVerified(),
+        image: entity.getImage(),
+        updatedAt: entity.getUpdatedAt()
       }
     })
 
     return this.toDomain(user)
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     await this.prisma.getClient().user.delete({
       where: { id }
     })

@@ -24,11 +24,18 @@ export class CreateUserUseCase {
         status: 409
       })
 
-    const user = UserEntity.create(dto.email, dto.name)
+    const user = UserEntity.create(
+      dto.email,
+      dto.name,
+      dto.emailVerified,
+      dto.image
+    )
 
     return this.userRepository.create({
+      name: user.getName(),
       email: user.getEmail().getValue(),
-      name: user.getName() ?? undefined
+      emailVerified: user.getEmailVerified(),
+      image: user.getImage()
     })
   }
 }

@@ -8,7 +8,7 @@ import { UserDisplay } from '@/features/users/server/components'
 
 export default function Home() {
   return (
-    <div className="mx-auto w-full max-w-4xl space-y-0.5 p-6 flex flex-col min-h-screen">
+    <div className="mx-auto w-full max-w-4xl space-y-0.5 p-1.5 flex flex-col min-h-screen">
       <div className="flex items-center justify-end py-sm relative">
         <Suspense fallback={<Spinner className="h-6 w-6" />}>
           <UserDisplay />

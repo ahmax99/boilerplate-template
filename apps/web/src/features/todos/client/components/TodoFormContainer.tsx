@@ -16,7 +16,7 @@ interface TodoFormContainerCreateProps {
 
 interface TodoFormContainerEditProps {
   readonly mode: 'edit'
-  readonly todoId: number
+  readonly todoId: string
   readonly initialValues: TodoFormData
   readonly onSuccess?: () => void
   readonly onCancel?: () => void
@@ -52,7 +52,7 @@ export function TodoFormContainer(props: TodoFormContainerProps) {
           title: value.title,
           description: value.description || null,
           isDone: false,
-          userId: TODOS_QUERY_INPUT.userId
+          userId: TODOS_QUERY_INPUT.userId ?? ''
         })
         form.reset()
       } else {
