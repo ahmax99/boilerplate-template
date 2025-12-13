@@ -4,6 +4,10 @@ import { IsNotEmpty, IsUrl } from 'class-validator'
 @Configuration()
 export class Env {
   @IsNotEmpty()
+  @Value('NODE_ENV')
+  nodeEnv!: 'development' | 'production' | 'mock'
+
+  @IsNotEmpty()
   @IsUrl({ require_tld: false })
   @Value('WEB_URL')
   webUrl!: string
@@ -21,4 +25,24 @@ export class Env {
   @IsNotEmpty()
   @Value('DATABASE_URL')
   databaseUrl!: string
+
+  @IsNotEmpty()
+  @Value('BETTER_AUTH_SECRET')
+  betterAuthSecret!: string
+
+  @IsNotEmpty()
+  @Value('GOOGLE_CLIENT_ID')
+  googleClientId!: string
+
+  @IsNotEmpty()
+  @Value('GOOGLE_CLIENT_SECRET')
+  googleClientSecret!: string
+
+  @IsNotEmpty()
+  @Value('GITHUB_CLIENT_ID')
+  githubClientId!: string
+
+  @IsNotEmpty()
+  @Value('GITHUB_CLIENT_SECRET')
+  githubClientSecret!: string
 }

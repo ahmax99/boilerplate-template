@@ -1,0 +1,38 @@
+import {
+  type CanActivate,
+  type ExecutionContext,
+  ForbiddenException,
+  Injectable
+} from '@nestjs/common'
+// biome-ignore lint/style/useImportType: keep class available at runtime for NestJS DI
+import { Reflector } from '@nestjs/core'
+
+import { ROLES_KEY } from '../decorators'
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  constructor(private readonly reflector: Reflector) {}
+
+  canActivate(context: ExecutionContext): boolean {
+    const requiredRoles = this.reflector.getAllAndOverride<string[]>(
+      ROLES_KEY,
+      [context.getHandler(), context.getClass()]
+    )
+
+    if (!requiredRoles) return true
+
+    const request = context.switchToHttp().getRequest()
+    const user = request.user
+
+    if (!user) throw new ForbiddenException('User not authenticated')
+
+    const hasRole = requiredRoles.includes(user.role)
+
+    if (!hasRole)
+      throw new ForbiddenException(
+        `User does not have required role(s): ${requiredRoles.join(', ')}`
+      )
+
+    return true
+  }
+}

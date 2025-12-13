@@ -1,20 +1,28 @@
 import type { INestApplication } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
-export const setupSwagger = (app: INestApplication): void => {
+import type { Env } from './env'
+
+const removeTrailingSlash = (url: string) => url.replace(/\/+$/, '')
+
+export const setupSwagger = (app: INestApplication, env: Env): void => {
+  const baseUrl = removeTrailingSlash(env.baseUrl)
   const config = new DocumentBuilder()
     .setTitle('Boilerplate Template API')
     .setDescription(
       'A production-ready NestJS backend with oRPC for type-safe API contracts, ' +
-        'Prisma for database access, and hexagonal architecture.\n\n'
+        'Prisma for database access, and hexagonal architecture.\n\n' +
+        '**Authentication:** This API uses Better Auth for authentication. ' +
+        'For complete authentication API documentation (sign-up, sign-in, sign-out, OAuth, etc.), ' +
+        `visit the Better Auth OpenAPI reference [here](${baseUrl}/api/auth/reference).\n\n` +
+        'Most endpoints in this documentation require authentication unless marked as public.'
     )
     .setVersion('1.0.0')
-    .addTag('Users', 'User management endpoints')
+    .addTag('Profile', 'User profile endpoints (authenticated)')
+    .addTag('Users', 'User management endpoints (admin only)')
     .addTag('Todos', 'Todo management endpoints')
-    .addServer(
-      process.env.API_URL || 'http://localhost:4000',
-      'Development server'
-    )
+    .addTag('Health', 'Health check endpoints')
+    .addServer(baseUrl, 'Development server')
     .build()
 
   const document = SwaggerModule.createDocument(app, config, {

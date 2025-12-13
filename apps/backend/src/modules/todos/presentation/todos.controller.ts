@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common'
 import { ApiBody, ApiOperation } from '@nestjs/swagger'
 import { Implement, implement, populateContractRouterPaths } from '@orpc/nest'
 import { todosContract } from '@repo/contract'
+import type { User } from 'better-auth/types'
 
 import {
   ApiCreateResponse,
@@ -11,6 +12,7 @@ import {
   ApiResource,
   ApiUpdateResponse
 } from '../../../shared/decorators'
+import { CurrentUser } from '../../auth/decorators'
 // biome-ignore lint/style/useImportType: keep class available at runtime for NestJS DI
 import {
   CreateTodoUseCase,
@@ -61,11 +63,11 @@ export class TodosController {
   @ApiListResponse(ListTodosResponseDto, 'Successfully retrieved todos list')
   @ApiBody({ type: ListTodosDto })
   @Implement(todosContractWithPaths.todos.list)
-  listTodos() {
+  listTodos(@CurrentUser() user: User) {
     return implement(todosContractWithPaths.todos.list).handler(
       async ({ input }) => {
         const todos = await this.listTodosUseCase.execute({
-          userId: input.userId,
+          userId: user.id,
           limit: input.limit,
           offset: input.offset
         })
@@ -111,14 +113,14 @@ export class TodosController {
   @ApiCreateResponse(CreateTodoResponseDto, 'Todo')
   @ApiBody({ type: CreateTodoDto })
   @Implement(todosContractWithPaths.todos.create)
-  createTodo() {
+  createTodo(@CurrentUser() user: User) {
     return implement(todosContractWithPaths.todos.create).handler(
       async ({ input }) => {
         const todo = await this.createTodoUseCase.execute({
           title: input.title,
           description: input.description ?? undefined,
           isDone: input.isDone,
-          userId: input.userId
+          userId: user.id
         })
 
         return {

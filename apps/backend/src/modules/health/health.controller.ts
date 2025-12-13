@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 // biome-ignore lint/style/useImportType: HealthCheckResult needed at runtime for DI
 import {
   HealthCheck,
@@ -10,7 +10,9 @@ import {
 
 // biome-ignore lint/style/useImportType: PrismaService needed at runtime for DI
 import { PrismaService } from '../../database/prisma.service'
+import { Public } from '../auth/decorators'
 
+@Public()
 @ApiTags('Health')
 @Controller('health')
 export class HealthController {
@@ -22,9 +24,34 @@ export class HealthController {
 
   @Get()
   @HealthCheck()
+  @ApiOperation({ summary: 'Health check endpoint' })
+  @ApiResponse({
+    status: 200,
+    description: 'Health check passed'
+  })
   check(): Promise<HealthCheckResult> {
     return this.health.check([
       () => this.prismaHealth.pingCheck('database', this.prisma.getClient())
     ])
+  }
+
+  @Get('auth/ok')
+  @ApiOperation({ summary: 'Auth service health check' })
+  @ApiResponse({
+    status: 200,
+    description: 'Auth service is healthy',
+    schema: {
+      type: 'object',
+      properties: {
+        status: { type: 'string', example: 'ok' },
+        message: { type: 'string', example: 'Auth service is healthy' }
+      }
+    }
+  })
+  authHealthCheck() {
+    return {
+      status: 'ok',
+      message: 'Auth service is healthy'
+    }
   }
 }

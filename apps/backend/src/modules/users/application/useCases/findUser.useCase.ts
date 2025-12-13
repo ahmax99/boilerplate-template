@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { ORPCError } from '@orpc/nest'
 
+import type { UserEntity } from '../../domain/entities/user.entity'
 import type { FindUserDto } from '../../presentation/dtos/findUser.dto'
 import {
   USER_REPOSITORY,
@@ -15,7 +16,7 @@ export class GetUserUseCase {
   ) {}
 
   async execute(dto: FindUserDto) {
-    let user = null
+    let user: UserEntity | null = null
 
     if (dto.id) {
       user = await this.userRepository.findById(dto.id)

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { nanoid } from 'nanoid'
 
 // biome-ignore lint/style/useImportType: PrismaService needed at runtime for DI
 import { PrismaService } from '../../../../database/prisma.service'
@@ -15,21 +16,23 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   constructor(private readonly prisma: PrismaService) {}
 
   private toDomain(prismaTodo: {
-    id: number
+    id: string
     title: string
     description: string | null
     isDone: boolean
-    userId: number
+    userId: string
     createdAt: Date
   }): TodoEntity {
     const todoId = new TodoId(prismaTodo.id)
-    const title = prismaTodo.title
-    const description = prismaTodo.description
-    const isDone = prismaTodo.isDone
-    const userId = prismaTodo.userId
-    const createdAt = prismaTodo.createdAt
 
-    return new TodoEntity(todoId, title, description, isDone, userId, createdAt)
+    return new TodoEntity(
+      todoId,
+      prismaTodo.title,
+      prismaTodo.description,
+      prismaTodo.isDone,
+      prismaTodo.userId,
+      prismaTodo.createdAt
+    )
   }
 
   async findAll(params: FindAllTodosParams) {
@@ -42,7 +45,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
     return todos.map((todo) => this.toDomain(todo))
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     const todo = await this.prisma.getClient().todo.findUnique({
       where: { id }
     })
@@ -53,10 +56,12 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   async create(params: CreateTodoParams) {
     const todo = await this.prisma.getClient().todo.create({
       data: {
+        id: nanoid(),
         title: params.title,
         description: params.description,
         isDone: params.isDone,
-        userId: params.userId
+        userId: params.userId,
+        createdAt: new Date()
       }
     })
 
@@ -78,7 +83,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
     return this.toDomain(todo)
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     await this.prisma.getClient().todo.delete({
       where: { id }
     })

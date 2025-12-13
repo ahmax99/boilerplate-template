@@ -16,6 +16,7 @@ export interface ServerClientConfig {
 export interface BrowserClientConfig {
   url: string
   headers?: Record<string, string>
+  fetch?: typeof fetch
 }
 
 export function createServerClient(config: ServerClientConfig): ORPCClient {
@@ -37,7 +38,12 @@ export function createBrowserClient(config: BrowserClientConfig): ORPCClient {
 
       return config.url
     },
-    headers: config.headers
+    headers: config.headers,
+    fetch: (url, init) =>
+      (config.fetch ?? fetch)(url, {
+        ...init,
+        credentials: 'include'
+      })
   })
 
   return createORPCClient(link)

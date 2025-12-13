@@ -1,4 +1,3 @@
-export * from './createUser.useCase'
 export * from './deleteUser.useCase'
 export * from './findUser.useCase'
 export * from './listUsers.useCase'

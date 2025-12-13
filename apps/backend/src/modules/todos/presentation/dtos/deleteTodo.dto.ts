@@ -3,10 +3,10 @@ import { ApiProperty } from '@nestjs/swagger'
 export class DeleteTodoDto {
   @ApiProperty({
     description: 'Todo ID to delete',
-    example: 1,
-    type: Number
+    example: 'kL8mN9pQ2rS3tU4vW5xY6zA7bC8dE9fG',
+    type: String
   })
-  readonly id!: number
+  readonly id!: string
 }
 
 export class DeleteTodoResponseDto {

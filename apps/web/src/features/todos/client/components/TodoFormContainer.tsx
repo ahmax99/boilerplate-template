@@ -4,7 +4,8 @@ import { Button } from '@repo/ui/components/atoms'
 import { useAppForm } from '@repo/ui/hooks'
 import { Check, X } from 'lucide-react'
 
-import { TODOS_QUERY_INPUT } from '../../constants'
+import { authClient } from '@/features/auth/lib/auth.client'
+
 import { type TodoFormData, todoFormSchema } from '../../schemas/todo.schema'
 import { useTodoMutations } from '../hooks/useTodoMutations'
 import { TodoForm } from './TodoForm'
@@ -16,7 +17,7 @@ interface TodoFormContainerCreateProps {
 
 interface TodoFormContainerEditProps {
   readonly mode: 'edit'
-  readonly todoId: number
+  readonly todoId: string
   readonly initialValues: TodoFormData
   readonly onSuccess?: () => void
   readonly onCancel?: () => void
@@ -27,6 +28,7 @@ type TodoFormContainerProps =
   | TodoFormContainerEditProps
 
 export function TodoFormContainer(props: TodoFormContainerProps) {
+  const session = authClient.useSession()
   const isCreateMode = props.mode === 'create'
 
   const { useCreateTodo, useUpdateTodo } = useTodoMutations()
@@ -52,7 +54,7 @@ export function TodoFormContainer(props: TodoFormContainerProps) {
           title: value.title,
           description: value.description || null,
           isDone: false,
-          userId: TODOS_QUERY_INPUT.userId
+          userId: session.data?.user.id ?? ''
         })
         form.reset()
       } else {

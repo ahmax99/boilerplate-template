@@ -25,19 +25,19 @@ export class CreateTodoDto {
 
   @ApiProperty({
     description: 'ID of the user who owns this todo',
-    example: 1,
-    type: Number
+    example: 'gNgOqyvp5NiRSGbsI5YVndCPUpg8XUAZ',
+    type: String
   })
-  readonly userId!: number
+  readonly userId!: string
 }
 
 export class CreateTodoResponseDto {
   @ApiProperty({
     description: 'Unique identifier of the todo',
-    example: 1,
-    type: Number
+    example: 'kL8mN9pQ2rS3tU4vW5xY6zA7bC8dE9fG',
+    type: String
   })
-  readonly id!: number
+  readonly id!: string
 
   @ApiProperty({
     description: 'Title of the todo',
@@ -63,10 +63,10 @@ export class CreateTodoResponseDto {
 
   @ApiProperty({
     description: 'ID of the user who owns this todo',
-    example: 1,
-    type: Number
+    example: 'gNgOqyvp5NiRSGbsI5YVndCPUpg8XUAZ',
+    type: String
   })
-  readonly userId!: number
+  readonly userId!: string
 
   @ApiProperty({
     description: 'Timestamp when the todo was created',

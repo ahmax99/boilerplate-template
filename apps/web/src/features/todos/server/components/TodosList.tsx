@@ -1,13 +1,19 @@
+import { getCurrentSession } from '@/features/auth/server/api/getCurrentSession'
 import { hashDataSync } from '@/utils/hash'
 
 import { TodosDataTable, todosTableColumns } from '../../client/components'
-import { TODOS_QUERY_INPUT } from '../../constants'
+import { TODOS_DEFAULT_LIMIT, TODOS_DEFAULT_OFFSET } from '../../constants'
 import { fetchAllTodos } from '../api/fetchAllTodos'
 
 export async function TodosList() {
-  const { limit, offset, userId } = TODOS_QUERY_INPUT
-  const todos = await fetchAllTodos({ limit, offset, userId })
-  const dataKey = `todos-${userId}-${offset}-${hashDataSync(todos)}`
+  const session = await getCurrentSession()
+
+  const todos = await fetchAllTodos({
+    limit: TODOS_DEFAULT_LIMIT,
+    offset: TODOS_DEFAULT_OFFSET,
+    userId: session?.user?.id
+  })
+  const dataKey = `todos-${TODOS_DEFAULT_OFFSET}-${hashDataSync(todos)}`
 
   return (
     <TodosDataTable

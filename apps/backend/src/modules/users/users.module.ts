@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common'
 
 import { USER_REPOSITORY } from './application/ports/userRepository.port'
 import {
-  CreateUserUseCase,
   DeleteUserUseCase,
   GetUserUseCase,
   ListUsersUseCase,
@@ -14,7 +13,6 @@ import { UsersController } from './presentation/users.controller'
 @Module({
   controllers: [UsersController],
   providers: [
-    CreateUserUseCase,
     ListUsersUseCase,
     GetUserUseCase,
     UpdateUserUseCase,
