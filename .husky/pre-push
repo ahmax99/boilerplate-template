@@ -1,1 +1,1 @@
-pnpm run check-types && pnpm run build
+turbo run check-types build --affected
