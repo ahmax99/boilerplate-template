@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { headers } from 'next/headers'
+import { cookies } from 'next/headers'
 import { createServerClient, type ORPCClient } from '@repo/contract'
 
 import { env } from '@/config/env'
@@ -8,11 +8,11 @@ import { env } from '@/config/env'
 const client: ORPCClient = createServerClient({
   url: env.API_URL,
   headers: async () => {
-    const headersList = await headers()
+    const cookieStore = await cookies()
+
     return {
       'Content-Type': 'application/json',
-      cookie: headersList.get('cookie') ?? '',
-      authorization: headersList.get('authorization') ?? ''
+      cookie: cookieStore.toString()
     }
   }
 })

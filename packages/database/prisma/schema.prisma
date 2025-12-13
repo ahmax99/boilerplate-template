@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id            String     @id @default(uuid())
+  id            String     @id @default(nanoid())
   name          String?
   email         String     @unique
   emailVerified Boolean    @default(false)
@@ -23,7 +23,7 @@ model User {
 }
 
 model Session {
-  id        String   @id @default(uuid())
+  id        String   @id @default(nanoid())
   expiresAt DateTime
   token     String  @unique
   createdAt DateTime
@@ -35,7 +35,7 @@ model Session {
 }
 
 model Account {
-  id                    String    @id @default(uuid())
+  id                    String    @id @default(nanoid())
   accountId             String
   providerId            String
   userId                String
@@ -52,7 +52,7 @@ model Account {
 }
 
 model Verification {
-  id         String    @id @default(uuid())
+  id         String    @id @default(nanoid())
   identifier String
   value      String
   expiresAt  DateTime
@@ -61,7 +61,7 @@ model Verification {
 }
 
 model Todo {
-  id        String      @id @default(uuid())
+  id        String      @id @default(nanoid())
   title     String
   description String?
   isDone    Boolean  @default(false)

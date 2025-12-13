@@ -23,6 +23,6 @@
   "dependencies": {
     "@prisma/client": "^7.1.0",
     "@prisma/extension-accelerate": "^3.0.1",
-    "uuid": "^13.0.0"
+    "nanoid": "^5.1.6"
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { v4 as uuid } from 'uuid'
+import { nanoid } from 'nanoid'
 
 // biome-ignore lint/style/useImportType: PrismaService needed at runtime for DI
 import { PrismaService } from '../../../../database/prisma.service'
@@ -56,7 +56,7 @@ export class InMemoryTodoRepository implements TodoRepositoryPort {
   async create(params: CreateTodoParams) {
     const todo = await this.prisma.getClient().todo.create({
       data: {
-        id: uuid(),
+        id: nanoid(),
         title: params.title,
         description: params.description,
         isDone: params.isDone,
