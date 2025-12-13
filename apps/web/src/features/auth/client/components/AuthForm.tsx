@@ -41,7 +41,7 @@ interface AuthFormProps {
   readonly config: AuthFormConfig
 }
 
-export const AuthForm = ({ mode, config }: AuthFormProps) => {
+export function AuthForm({ mode, config }: Readonly<AuthFormProps>) {
   const router = useRouter()
   const searchParams = useSearchParams()
 

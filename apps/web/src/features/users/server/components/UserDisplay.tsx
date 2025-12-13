@@ -7,7 +7,7 @@ import {
 
 import { getCurrentSession } from '@/features/auth/server/api/getCurrentSession'
 
-export const UserDisplay = async () => {
+export async function UserDisplay() {
   const session = await getCurrentSession()
 
   const initials =

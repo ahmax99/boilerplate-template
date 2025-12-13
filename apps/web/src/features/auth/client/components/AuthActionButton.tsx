@@ -8,11 +8,11 @@ interface AuthActionButtonProps
   successMessage?: string
 }
 
-export const AuthActionButton = ({
+export function AuthActionButton({
   action,
   successMessage,
   ...props
-}: AuthActionButtonProps) => {
+}: Readonly<AuthActionButtonProps>) {
   const handleAuthAction = async (
     action: AuthActionButtonProps['action'],
     successMessage?: string

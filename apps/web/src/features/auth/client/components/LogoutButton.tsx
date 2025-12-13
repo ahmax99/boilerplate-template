@@ -7,7 +7,7 @@ import { PUBLIC_AUTH_ROUTES } from '../../constants/routes'
 import { authClient } from '../../lib/auth.client'
 import { AuthActionButton } from './AuthActionButton'
 
-export const LogoutButton = () => {
+export function LogoutButton() {
   const router = useRouter()
 
   const handleLogout = async () => {
