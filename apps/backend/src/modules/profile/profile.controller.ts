@@ -24,9 +24,7 @@ export class ProfileController {
       user: session.user,
       session: {
         id: session.session.id,
-        expiresAt: session.session.expiresAt,
-        ipAddress: session.session.ipAddress,
-        userAgent: session.session.userAgent
+        expiresAt: session.session.expiresAt
       }
     }
   }

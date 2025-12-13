@@ -19,6 +19,10 @@ export const authClient = createAuthClient({
   ],
   fetchOptions: {
     credentials: 'include',
-    onError: (context) => console.error('Auth request failed:', context.error)
+    onError: (context) =>
+      console.error('Auth request failed:', {
+        status: context.response?.status,
+        message: context.error?.message
+      })
   }
 })

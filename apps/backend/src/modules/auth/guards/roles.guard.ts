@@ -4,7 +4,8 @@ import {
   ForbiddenException,
   Injectable
 } from '@nestjs/common'
-import type { Reflector } from '@nestjs/core'
+// biome-ignore lint/style/useImportType: keep class available at runtime for NestJS DI
+import { Reflector } from '@nestjs/core'
 
 import { ROLES_KEY } from '../decorators'
 

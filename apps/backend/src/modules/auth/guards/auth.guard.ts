@@ -5,7 +5,8 @@ import {
   Injectable,
   UnauthorizedException
 } from '@nestjs/common'
-import type { Reflector } from '@nestjs/core'
+// biome-ignore lint/style/useImportType: keep class available at runtime for NestJS DI
+import { Reflector } from '@nestjs/core'
 import { fromNodeHeaders } from 'better-auth/node'
 
 import { AUTH_INSTANCE } from '../config'

@@ -3,7 +3,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 import type { Env } from './env'
 
+const removeTrailingSlash = (url: string) => url.replace(/\/+$/, '')
+
 export const setupSwagger = (app: INestApplication, env: Env): void => {
+  const baseUrl = removeTrailingSlash(env.baseUrl)
   const config = new DocumentBuilder()
     .setTitle('Boilerplate Template API')
     .setDescription(
@@ -11,7 +14,7 @@ export const setupSwagger = (app: INestApplication, env: Env): void => {
         'Prisma for database access, and hexagonal architecture.\n\n' +
         '**Authentication:** This API uses Better Auth for authentication. ' +
         'For complete authentication API documentation (sign-up, sign-in, sign-out, OAuth, etc.), ' +
-        `visit the Better Auth OpenAPI reference at [here](${env.baseUrl}/api/auth/reference).\n\n` +
+        `visit the Better Auth OpenAPI reference [here](${baseUrl}/api/auth/reference).\n\n` +
         'Most endpoints in this documentation require authentication unless marked as public.'
     )
     .setVersion('1.0.0')
@@ -19,7 +22,7 @@ export const setupSwagger = (app: INestApplication, env: Env): void => {
     .addTag('Users', 'User management endpoints (admin only)')
     .addTag('Todos', 'Todo management endpoints')
     .addTag('Health', 'Health check endpoints')
-    .addServer(env.baseUrl, 'Development server')
+    .addServer(baseUrl, 'Development server')
     .build()
 
   const document = SwaggerModule.createDocument(app, config, {

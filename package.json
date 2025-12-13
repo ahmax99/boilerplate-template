@@ -10,6 +10,7 @@
     "check-types": "turbo run check-types",
     "check-updates": "pnpm outdated --recursive",
     "update-packages": "pnpm update --latest --recursive",
+    "check-mismatches": "pnpm dlx syncpack list-mismatches",
     "sync-packages": "pnpm dlx syncpack fix-mismatches",
     "prepare": "husky",
     "lint-staged": "lint-staged"

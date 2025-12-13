@@ -40,7 +40,7 @@ export function createBrowserClient(config: BrowserClientConfig): ORPCClient {
     },
     headers: config.headers,
     fetch: (url, init) =>
-      fetch(url, {
+      (config.fetch ?? fetch)(url, {
         ...init,
         credentials: 'include'
       })
