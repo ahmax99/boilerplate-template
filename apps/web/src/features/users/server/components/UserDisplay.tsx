@@ -1,4 +1,3 @@
-import { headers } from 'next/headers'
 import { Badge } from '@repo/ui/components/atoms'
 import {
   Avatar,
@@ -6,10 +5,10 @@ import {
   AvatarImage
 } from '@repo/ui/components/molecules'
 
-import { authServer } from '@/features/auth/lib/auth.server'
+import { getCurrentSession } from '@/features/auth/server/api/getCurrentSession'
 
 export const UserDisplay = async () => {
-  const session = await authServer.api.getSession({ headers: await headers() })
+  const session = await getCurrentSession()
 
   const initials =
     session?.user?.name

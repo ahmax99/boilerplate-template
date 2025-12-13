@@ -1,13 +1,12 @@
-import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { PROTECTED_ROUTES } from '@/features/auth/constants/routes'
-import { authServer } from '@/features/auth/lib/auth.server'
+import { getCurrentSession } from '@/features/auth/server/api/getCurrentSession'
 
 export const AuthProviders = async ({
   children
 }: Readonly<{ children: React.ReactNode }>) => {
-  const session = await authServer.api.getSession({ headers: await headers() })
+  const session = await getCurrentSession()
 
   if (!session) redirect(`/auth/login?callbackUrl=${PROTECTED_ROUTES.HOME}`)
 

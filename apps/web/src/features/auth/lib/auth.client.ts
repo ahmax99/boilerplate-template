@@ -6,8 +6,7 @@ import { env } from '@/config/env'
 import { ac, admin, user } from './permissions'
 
 export const authClient = createAuthClient({
-  baseURL: env.NEXT_PUBLIC_BASE_URL,
-  basePath: '/api/auth',
+  baseURL: `${env.NEXT_PUBLIC_API_URL}/auth`,
   plugins: [
     adminClient({
       ac,
