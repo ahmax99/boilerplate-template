@@ -4,7 +4,7 @@ import { ValidateIf } from 'class-validator'
 export class FindUserDto {
   @ApiPropertyOptional({
     description: 'User ID to find',
-    example: '123e4567-e89b-12d3-a456-426614174000',
+    example: 'gNgOqyvp5NiRSGbsI5YVndCPUpg8XUAZ',
     type: String
   })
   @ValidateIf((o) => !o.email)
@@ -22,7 +22,7 @@ export class FindUserDto {
 export class FindUserResponseDto {
   @ApiProperty({
     description: 'Unique identifier of the user',
-    example: '123e4567-e89b-12d3-a456-426614174000',
+    example: 'gNgOqyvp5NiRSGbsI5YVndCPUpg8XUAZ',
     type: String
   })
   readonly id!: string

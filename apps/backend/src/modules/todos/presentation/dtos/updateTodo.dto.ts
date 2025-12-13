@@ -3,7 +3,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 export class UpdateTodoDto {
   @ApiProperty({
     description: 'Unique identifier of the todo',
-    example: '123e4567-e89b-12d3-a456-426614174000',
+    example: 'kL8mN9pQ2rS3tU4vW5xY6zA7bC8dE9fG',
     type: String
   })
   readonly id!: string
@@ -34,7 +34,7 @@ export class UpdateTodoDto {
 export class UpdateTodoResponseDto {
   @ApiProperty({
     description: 'Unique identifier of the todo',
-    example: '123e4567-e89b-12d3-a456-426614174000',
+    example: 'kL8mN9pQ2rS3tU4vW5xY6zA7bC8dE9fG',
     type: String
   })
   readonly id!: string
@@ -63,7 +63,7 @@ export class UpdateTodoResponseDto {
 
   @ApiProperty({
     description: 'ID of the user who owns this todo',
-    example: '123e4567-e89b-12d3-a456-426614174000',
+    example: 'gNgOqyvp5NiRSGbsI5YVndCPUpg8XUAZ',
     type: String
   })
   readonly userId!: string
