@@ -6,8 +6,6 @@ import { toast } from 'sonner'
 
 import { orpcClient } from '@/lib/api/orpc.client'
 
-import { TODOS_QUERY_INPUT } from '../../constants'
-
 interface UseCreateTodoOptions {
   readonly onSuccess?: () => void
 }
@@ -29,9 +27,7 @@ export const useTodoMutations = () => {
       ...orpcClient.todos.create.mutationOptions(),
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: orpcClient.todos.list.queryKey({
-            input: TODOS_QUERY_INPUT
-          })
+          queryKey: ['todos']
         })
         router.refresh()
         toast.success('Todo created successfully')
@@ -44,9 +40,7 @@ export const useTodoMutations = () => {
       ...orpcClient.todos.update.mutationOptions(),
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: orpcClient.todos.list.queryKey({
-            input: TODOS_QUERY_INPUT
-          })
+          queryKey: ['todos']
         })
         router.refresh()
         toast.success('Todo updated successfully')
@@ -59,9 +53,7 @@ export const useTodoMutations = () => {
       ...orpcClient.todos.delete.mutationOptions(),
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: orpcClient.todos.list.queryKey({
-            input: TODOS_QUERY_INPUT
-          })
+          queryKey: ['todos']
         })
         router.refresh()
         toast.success('Todo deleted successfully')
