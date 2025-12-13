@@ -93,7 +93,7 @@ export function AuthForm({ mode, config }: Readonly<AuthFormProps>) {
   })
 
   return (
-    <Card className="w-full sm:max-w-2xs">
+    <Card className="w-full sm:max-w-96">
       <CardHeader>
         <CardTitle>{config.title}</CardTitle>
         <CardDescription>{config.description}</CardDescription>

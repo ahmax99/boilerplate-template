@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Suspense } from 'react'
 import { Spinner } from '@repo/ui/components/atoms'
 
@@ -5,6 +6,7 @@ import {
   AuthForm,
   type FieldConfig
 } from '@/features/auth/client/components/AuthForm'
+import { PUBLIC_AUTH_ROUTES } from '@/features/auth/constants/routes'
 
 export default function Login() {
   const loginConfig = {
@@ -37,7 +39,18 @@ export default function Login() {
         </div>
       }
     >
-      <AuthForm config={loginConfig} mode="login" />
+      <div className="flex flex-col gap-4 w-full items-center">
+        <AuthForm config={loginConfig} mode="login" />
+        <p className="flex gap-2 text-center text-sm text-muted-foreground">
+          <span>Don't have an account?</span>
+          <Link
+            className="font-medium text-primary underline-offset-4 hover:underline"
+            href={PUBLIC_AUTH_ROUTES.REGISTER}
+          >
+            Register
+          </Link>
+        </p>
+      </div>
     </Suspense>
   )
 }
