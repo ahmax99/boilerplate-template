@@ -40,7 +40,7 @@ export const updateUserContract = oc
   })
   .input(
     z.object({
-      id: z.nanoid(),
+      id: z.string(),
       name: z.string().nullable().optional(),
       email: z.email().optional(),
       emailVerified: z.boolean().optional(),

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const userSchema = z.object({
-  id: z.nanoid(),
+  id: z.string(),
   name: z.string().nullable().optional(),
   email: z.email(),
   emailVerified: z.boolean(),
