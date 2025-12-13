@@ -1,6 +1,6 @@
-export const PROTECTED_ROUTES = { home: '/' }
+export const PROTECTED_ROUTES = { HOME: '/' } as const
 
 export const PUBLIC_AUTH_ROUTES = {
-  login: '/auth/login',
-  register: '/auth/register'
-}
+  LOGIN: '/auth/login',
+  REGISTER: '/auth/register'
+} as const

@@ -45,7 +45,7 @@ export const AuthForm = ({ mode, config }: AuthFormProps) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const callbackURL = searchParams.get('callbackUrl') ?? PROTECTED_ROUTES.home
+  const callbackURL = searchParams.get('callbackUrl') ?? PROTECTED_ROUTES.HOME
 
   const getValidationSchema = () => {
     if (mode === 'login') {

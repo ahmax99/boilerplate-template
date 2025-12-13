@@ -1,11 +1,8 @@
 import { Suspense } from 'react'
 import { Spinner } from '@repo/ui/components/atoms'
 import { Card, CardContent } from '@repo/ui/components/molecules'
-import { LogOut } from 'lucide-react'
 
-import { AuthActionButton } from '@/features/auth/client/components'
-import { PUBLIC_AUTH_ROUTES } from '@/features/auth/constants/routes'
-import { signOut } from '@/features/auth/server/action'
+import { LogoutButton } from '@/features/auth/client/components'
 import { TodoFormContainer } from '@/features/todos/client/components'
 import { TodosList } from '@/features/todos/server/components'
 import { UserDisplay } from '@/features/users/server/components'
@@ -17,16 +14,7 @@ export default function Home() {
         <Suspense fallback={<Spinner className="h-6 w-6" />}>
           <UserDisplay />
         </Suspense>
-        <AuthActionButton
-          action={signOut}
-          redirectTo={PUBLIC_AUTH_ROUTES.login}
-          size="sm"
-          successMessage="Signed out successfully"
-          variant="outline"
-        >
-          <LogOut className="h-4 w-4" />
-          Sign Out
-        </AuthActionButton>
+        <LogoutButton />
       </div>
 
       <div className="space-y-3 flex-1 relative">
