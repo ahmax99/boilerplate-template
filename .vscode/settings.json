@@ -8,6 +8,15 @@
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
   "files.autoSave": "onFocusChange",
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "search.exclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true
+  },
   "git.autofetch": true,
   "sonarlint.connectedMode.project": {
     "connectionId": "ahmax99",

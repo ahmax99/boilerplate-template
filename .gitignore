@@ -9,6 +9,7 @@ node_modules
 .env.development.local
 .env.test.local
 .env.production.local
+*.local
 
 # Testing
 coverage
@@ -21,9 +22,12 @@ coverage
 
 # Build Outputs
 .next/
+.tanstack
 out/
+.output
 build
 dist
+dist-ssr
 storybook-static
 
 # Debug
@@ -34,3 +38,8 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+count.txt
+.nitro
+.wrangler
+.vinxi
+todos.json

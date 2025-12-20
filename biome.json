@@ -21,7 +21,8 @@
       "!**/dist/**",
       "!**/turbo/**",
       "!**/generated/**",
-      "!**/pnpm-lock.yaml"
+      "!**/pnpm-lock.yaml",
+      "!**/routeTree.gen.ts"
     ]
   },
   "linter": {
@@ -125,7 +126,8 @@
       "!**/yarn.lock",
       "!packages/trpc/src/server/**",
       "!**/storybook-static/**",
-      "!**/*.js"
+      "!**/*.js",
+      "!**/routeTree.gen.ts"
     ]
   },
   "javascript": {
@@ -211,6 +213,7 @@
   ],
   "assist": {
     "enabled": true,
+    "includes": ["**", "!**/routeTree.gen.ts"],
     "actions": {
       "source": {
         "organizeImports": {
