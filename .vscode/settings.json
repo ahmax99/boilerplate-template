@@ -1,7 +1,17 @@
 {
-  "eslint.workingDirectories": [
-    {
-      "mode": "auto"
-    }
-  ]
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
+  },
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "files.autoSave": "onFocusChange",
+  "git.autofetch": true,
+  "sonarlint.connectedMode.project": {
+    "connectionId": "ahmax99",
+    "projectKey": "ahmax99_boilerplate-template"
+  },
+  "workbench.editor.wrapTabs": true
 }

@@ -1,0 +1,55 @@
+name: SBOM & Vulnerability Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sbom-check:
+    name: Scan + Vulnerability Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Install Grype
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Generate SBOM
+        working-directory: .
+        run: syft . --output cyclonedx-json > sbom.json
+
+      - name: Upload SBOM (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-files
+          path: |
+            sbom.json
+
+      - name: Scan SBOM and summarize results
+        run: |
+          echo "::group::🔍 Scanning SBOM..."
+          grype sbom:sbom.json --fail-on high || SCAN_FAIL=1
+          echo "::endgroup::"
+
+          echo "============================ Summary ============================"
+          if [[ $SCAN_FAIL -eq 1 ]]; then
+            echo "❌ Dependencies contain HIGH severity vulnerabilities."
+          else
+            echo "✅ Dependencies passed security check."
+          fi
+
+          echo "💡 To fix vulnerabilities:"
+          echo "- Run: pnpm audit fix"
+          echo "- Or update dependencies manually (see SBOM scan output above)"
+          echo "- Then re-run this workflow to confirm"
+
+          if [[ $SCAN_FAIL -eq 1 ]]; then
+            exit 1
+          fi
