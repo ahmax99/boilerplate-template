@@ -1,7 +1,11 @@
-export default function Home() {
+import { Suspense } from 'react'
+
+import { TodoList } from '@/components/TodoList'
+
+export default async function Home() {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <TodoList />
+    </Suspense>
   )
 }
