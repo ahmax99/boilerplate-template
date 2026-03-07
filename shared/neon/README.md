@@ -49,10 +49,10 @@ bun run db:seed
 Migrate database in development:
 ```bash
 # Create and apply migration
-bunx --bun prisma migrate dev --name descriptive_name
+bun --bun prisma migrate dev --name descriptive_name
 
 # Example
-bunx --bun prisma migrate dev --name add_user_profile
+bun --bun prisma migrate dev --name add_user_profile
 ```
 
 ## Usage

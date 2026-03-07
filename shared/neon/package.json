@@ -9,9 +9,9 @@
     "check-types": "tsc --noEmit",
     "db:generate": "bun --bun prisma generate",
     "db:deploy": "bun --bun prisma migrate deploy",
-    "db:push": "bunx --bun prisma db push",
-    "db:pull": "bunx --bun prisma db pull",
-    "db:reset": "bunx --bun prisma migrate reset",
+    "db:push": "bun --bun prisma db push",
+    "db:pull": "bun --bun prisma db pull",
+    "db:reset": "bun --bun prisma migrate reset",
     "db:seed": "bun --bun prisma db seed"
   },
   "dependencies": {

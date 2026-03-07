@@ -3,6 +3,7 @@ import { Elysia } from 'elysia'
 
 import { commentController } from '../modules/comments/comment.controller.js'
 import { postController } from '../modules/posts/post.controller.js'
+import { userController } from '../modules/users/user.controller.js'
 
 export const routes = new Elysia({ prefix: '/api/v1' })
   .use(
@@ -15,10 +16,12 @@ export const routes = new Elysia({ prefix: '/api/v1' })
         },
         tags: [
           { name: 'Posts', description: 'Post management endpoints' },
-          { name: 'Comments', description: 'Comment management endpoints' }
+          { name: 'Comments', description: 'Comment management endpoints' },
+          { name: 'Users', description: 'User management endpoints' }
         ]
       }
     })
   )
   .use(postController)
   .use(commentController)
+  .use(userController)

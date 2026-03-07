@@ -2,6 +2,18 @@ import { ForbiddenError } from '@casl/ability'
 import { Result, ResultAsync } from 'neverthrow'
 
 import { AppError } from '../lib/AppError.js'
+import { captureError } from './captureError.js'
+
+const stringifyUnknownError = (error: unknown) => {
+  switch (typeof error) {
+    case 'string':
+      return error
+    case 'object':
+      return error === null ? String(error) : JSON.stringify(error)
+    default:
+      return String(error)
+  }
+}
 
 export const mapToAppError = (error: unknown) => {
   switch (true) {
@@ -12,21 +24,18 @@ export const mapToAppError = (error: unknown) => {
     case error instanceof Error:
       return new AppError('INTERNAL_ERROR', error.message)
     default:
-      return new AppError(
-        'INTERNAL_ERROR',
-        error?.toString() ?? 'Unknown error'
-      )
+      return new AppError('INTERNAL_ERROR', stringifyUnknownError(error))
   }
 }
 
 export const catchSyncError = <T>(fn: () => T) =>
   Result.fromThrowable(fn, mapToAppError)().mapErr((error) => {
-    // captureError(error)
+    captureError(error)
     return error
   })
 
 export const catchAsyncError = <T>(promise: Promise<T>) =>
   ResultAsync.fromPromise(promise, mapToAppError).mapErr((error) => {
-    // captureError(error)
+    captureError(error)
     return error
   })

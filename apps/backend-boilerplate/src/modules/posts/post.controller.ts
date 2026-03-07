@@ -37,8 +37,7 @@ export const postController = new Elysia({ prefix: '/posts' })
       handleApiError(
         postService.create({
           ...body,
-          authorId: 'admin', // TODO: Get from auth
-          slug: generateSlug(body.title)
+          slug: body.slug || generateSlug(body.title)
         })
       ),
     {

@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@shared/neon": "workspace:*",
-    "zod": "^4.1.13"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@shared/typescript-config": "workspace:*",

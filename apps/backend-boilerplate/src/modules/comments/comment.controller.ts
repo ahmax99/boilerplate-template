@@ -26,13 +26,7 @@ export const commentController = new Elysia({ prefix: '/comments' })
   .post(
     '/',
     async ({ body, commentService }) =>
-      handleApiError(
-        commentService.create({
-          content: body.content,
-          postId: body.postId,
-          authorId: 'admin' // TODO: Get from auth
-        })
-      ),
+      handleApiError(commentService.create(body)),
     {
       body: CommentModel.createBody,
       auth: true,

@@ -41,8 +41,8 @@ model Verification {
 model Post {
   id          String    @id @default(uuid())
   title       String
-  slug        String    @unique
   content     String    @db.Text
+  slug        String?   @unique
   imageUrl    String?   
   publishedAt DateTime? @map("published_at")
   deletedAt   DateTime? @map("deleted_at")

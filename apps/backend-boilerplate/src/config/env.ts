@@ -8,7 +8,8 @@ export const env = createEnv({
       return { url, port: Number.parseInt(urlObj.port, 10) }
     }),
     AWS_REGION: z.string().min(1),
-    S3_BUCKET_NAME: z.string().min(1)
+    S3_BUCKET_NAME: z.string().min(1),
+    SENTRY_DSN: z.string().min(1)
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true

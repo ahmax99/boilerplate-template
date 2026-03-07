@@ -10,11 +10,12 @@ export const PostModel = {
     content: z.string().min(1),
     authorId: z.uuid(),
     imageUrl: z.string().optional(),
-    slug: z.string()
+    slug: z.string().optional()
   }),
   updateBody: z.object({
-    title: z.string().min(1).max(255).optional(),
-    content: z.string().min(1).optional()
+    title: z.string().min(1).max(255),
+    content: z.string().min(1).optional(),
+    slug: z.string().optional()
   }),
   uploadImageQuery: z.object({
     filename: z.string().min(1).max(255),

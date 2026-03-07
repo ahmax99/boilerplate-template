@@ -29,8 +29,8 @@ CREATE TABLE "verifications" (
 CREATE TABLE "posts" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "slug" TEXT NOT NULL,
     "content" TEXT NOT NULL,
+    "slug" TEXT,
     "imageUrl" TEXT,
     "published_at" TIMESTAMP(3),
     "deleted_at" TIMESTAMP(3),
