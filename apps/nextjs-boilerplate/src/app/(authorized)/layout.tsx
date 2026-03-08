@@ -1,0 +1,16 @@
+import { ClientDynamic, PageHeader } from '@/components/layout'
+import { ErrorScreenProvider } from '@/features/error/client/providers/ErrorScreenProvider'
+
+export default function AuthorizedLayout({
+  children
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <>
+      <ErrorScreenProvider />
+      <ClientDynamic>
+        <PageHeader />
+      </ClientDynamic>
+      {children}
+    </>
+  )
+}

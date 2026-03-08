@@ -1,0 +1,76 @@
+generator client {
+  provider   = "prisma-client"
+  output     = "./generated"
+  engineType = "binary"
+  runtime    = "bun"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id         String    @id @default(uuid())
+  cognitoSub String    @unique @map("cognito_sub")
+  name       String?
+  email      String?  
+  image      String?
+  role       String    @default("user")
+  banned     Boolean   @default(false)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  posts      Post[]
+  comments   Comment[]
+
+  @@index([cognitoSub])
+  @@map("users")
+}
+
+model Verification {
+  id         String    @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime  @map("expires_at")
+  createdAt  DateTime? @default(now()) @map("created_at")
+  updatedAt  DateTime? @updatedAt @map("updated_at")
+
+  @@index([identifier])
+  @@map("verifications")
+}
+
+model Post {
+  id          String    @id @default(uuid())
+  title       String
+  content     String    @db.Text
+  slug        String?   @unique
+  imageUrl    String?   
+  publishedAt DateTime? @map("published_at")
+  deletedAt   DateTime? @map("deleted_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  authorId    String    @map("author_id")
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments    Comment[]
+
+  @@index([authorId])
+  @@index([publishedAt])
+  @@index([slug])
+  @@map("posts")
+}
+
+model Comment {
+  id        String    @id @default(uuid())
+  content   String    @db.Text
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  authorId  String    @map("author_id")
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  postId    String    @map("post_id")
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([authorId])
+  @@index([createdAt])
+  @@map("comments")
+}

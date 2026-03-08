@@ -1,0 +1,10 @@
+{
+  "extends": "@shared/typescript-config/base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": ".",
+    "module": "ES2022"
+  },
+  "include": ["src/**/*", "prisma/generated/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
