@@ -1,0 +1,50 @@
+name: SBOM & Vulnerability Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sbom-check:
+    name: Scan + Vulnerability Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0.24.0
+        with:
+          path: .
+          format: cyclonedx-json
+          artifact-name: sbom.json
+
+      - name: Upload SBOM (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-files
+          path: |
+            sbom.json
+
+      - name: Scan SBOM and summarize results
+        uses: anchore/scan-action@v7.4.0
+        id: grype
+        with:
+          sbom: sbom.json
+          fail-build: false
+          severity-cutoff: high
+
+      - name: Fail on high severity vulnerabilities
+        run: |
+          echo "============================ Summary ============================"
+          if [[ "${{ steps.grype.outputs.check-passed }}" != "true" ]]; then
+            echo "❌ Dependencies contain HIGH severity vulnerabilities."
+            echo "💡 To fix vulnerabilities:"
+            echo "- Run: bun update"
+            echo "- Or update dependencies manually (see SBOM scan output above)"
+            echo "- Then re-run this workflow to confirm"
+            exit 1
+          else
+            echo "✅ Dependencies passed security check."
+          fi

@@ -1,0 +1,11 @@
+import { type NextRequest, NextResponse } from 'next/server'
+
+import { handleLogin } from '@/features/auth/server/services/auth'
+
+export const GET = async (request: NextRequest) => {
+  const callbackUrl = request.nextUrl.searchParams.get('callbackUrl')
+
+  const { authUrl } = await handleLogin(callbackUrl ?? undefined)
+
+  return NextResponse.redirect(authUrl)
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@shared/config",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch --preserveWatchOutput",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@shared/typescript-config": "workspace:*",
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.3"
+  }
+}
