@@ -1,0 +1,105 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/backend-boilerplate/**'
+      - 'apps/nextjs-boilerplate/**'
+      - 'shared/**'
+      - 'package.json'
+      - 'bun.lockb'
+      - '.github/workflows/deploy.yml'
+      - '.github/actions/deploy-backend/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: environment
+        default: stg
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  NODE_VERSION: '24'
+
+jobs:
+  deploy:
+    name: Build and Deploy Lambda
+    runs-on: ubuntu-latest
+    environment: ${{ github.event_name == 'push' && 'dev' || github.event.inputs.environment }}
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Set deployment environment
+        id: deployment_env
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "environment=dev" >> $GITHUB_OUTPUT
+          else
+            echo "environment=${{ github.event.inputs.environment }}" >> $GITHUB_OUTPUT
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build backend
+        env:
+          DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy # Dummy URL for build, will be overridden in deployment
+        run: bun run build --filter=backend-boilerplate
+
+      - name: Build frontend
+        env:
+          NEXT_PUBLIC_BASE_URL: ${{ vars.NEXT_PUBLIC_BASE_URL }}
+          NEXT_PUBLIC_BACKEND_URL: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
+          SKIP_ENV_VALIDATION: true
+        run: bun run build --filter=nextjs-boilerplate
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: GitHubActions-Deploy
+
+      - name: Get release tag
+        id: release
+        run: |
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=commit-${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy backend
+        id: deploy_backend
+        uses: ./.github/actions/deploy-backend
+        with:
+          environment: ${{ steps.deployment_env.outputs.environment }}
+          aws-region: ${{ vars.AWS_REGION }}
+          s3-bucket: ${{ vars.S3_LAMBDA_CODE_BUCKET }}
+          project-name: ${{ vars.PROJECT_NAME }}
+          git-sha: ${{ github.sha }}
+          release-tag: ${{ steps.release.outputs.tag }}
+
+      - name: Deploy frontend
+        id: deploy_frontend
+        uses: ./.github/actions/deploy-frontend
+        with:
+          environment: ${{ steps.deployment_env.outputs.environment }}
+          aws-region: ${{ vars.AWS_REGION }}
+          s3-bucket: ${{ vars.S3_LAMBDA_CODE_BUCKET }}
+          project-name: ${{ vars.PROJECT_NAME }}
+          git-sha: ${{ github.sha }}
+          release-tag: ${{ steps.release.outputs.tag }}

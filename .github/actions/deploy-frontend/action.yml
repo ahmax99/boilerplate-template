@@ -1,0 +1,88 @@
+name: 'Deploy Frontend Lambda'
+description: 'Complete frontend deployment with build, upload, and CodeDeploy'
+
+inputs:
+  environment:
+    description: 'Deployment environment (development, staging, production)'
+    required: true
+  aws-region:
+    description: 'AWS region'
+    required: true
+  s3-bucket:
+    description: 'S3 bucket for Lambda artifacts'
+    required: true
+  project-name:
+    description: 'Project name'
+    required: true
+  git-sha:
+    description: 'Git commit SHA'
+    required: true
+  release-tag:
+    description: 'Release tag'
+    required: true
+
+outputs:
+  deployment-id:
+    description: 'CodeDeploy deployment ID'
+    value: ${{ steps.deploy.outputs.deployment_id }}
+  new-version:
+    description: 'New Lambda version number'
+    value: ${{ steps.deploy.outputs.new_version }}
+  current-version:
+    description: 'Current Lambda version number'
+    value: ${{ steps.deploy.outputs.current_version }}
+  function-name:
+    description: 'Lambda function name'
+    value: ${{ steps.deploy.outputs.function_name }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Prepare Lambda package
+      shell: bash
+      run: |
+        chmod +x .github/scripts/prepare-lambda-frontend.sh
+        .github/scripts/prepare-lambda-frontend.sh
+
+    - name: Upload to S3 with metadata
+      id: s3_upload
+      shell: bash
+      env:
+        S3_BUCKET: ${{ inputs.s3-bucket }}
+        AWS_REGION: ${{ inputs.aws-region }}
+        GIT_SHA: ${{ inputs.git-sha }}
+        RELEASE_TAG: ${{ inputs.release-tag }}
+        ENVIRONMENT: ${{ inputs.environment }}
+      run: |
+        chmod +x .github/scripts/upload-to-s3.sh
+        .github/scripts/upload-to-s3.sh \
+          "dist/lambda-frontend.zip" \
+          "$S3_BUCKET" \
+          "frontend/lambda-frontend.zip" \
+          "$AWS_REGION" \
+          "$GIT_SHA" \
+          "$RELEASE_TAG" \
+          "$ENVIRONMENT"
+
+    - name: Deploy Lambda function
+      id: deploy
+      shell: bash
+      env:
+        PROJECT_NAME: ${{ inputs.project-name }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        S3_BUCKET: ${{ inputs.s3-bucket }}
+        AWS_REGION: ${{ inputs.aws-region }}
+        GIT_SHA: ${{ inputs.git-sha }}
+        RELEASE_TAG: ${{ inputs.release-tag }}
+      run: |
+        chmod +x .github/scripts/deploy-lambda.sh
+        .github/scripts/deploy-lambda.sh \
+          "${PROJECT_NAME}-${ENVIRONMENT}-frontend" \
+          "$S3_BUCKET" \
+          "frontend/lambda-frontend.zip" \
+          "$ENVIRONMENT" \
+          "$AWS_REGION" \
+          "${PROJECT_NAME}-${ENVIRONMENT}-frontend" \
+          "${PROJECT_NAME}-${ENVIRONMENT}-frontend-dg" \
+          "$GIT_SHA" \
+          "$RELEASE_TAG"
