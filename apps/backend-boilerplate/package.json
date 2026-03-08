@@ -1,0 +1,34 @@
+{
+  "name": "backend-boilerplate",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node --format esm --env disable",
+    "check-types": "tsc --noEmit",
+    "dev": "bun --watch --preload ./instrument.ts src/index.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1028.0",
+    "@aws-sdk/client-secrets-manager": "^3.1028.0",
+    "@aws-sdk/s3-request-presigner": "^3.1028.0",
+    "@casl/ability": "^6.8.0",
+    "@casl/prisma": "^1.6.2",
+    "@elysiajs/cors": "^1.4.1",
+    "@elysiajs/node": "^1.4.5",
+    "@elysiajs/openapi": "^1.4.14",
+    "@sentry/bun": "^10.48.0",
+    "@shared/config": "workspace:*",
+    "@shared/neon": "workspace:*",
+    "@t3-oss/env-core": "^0.13.11",
+    "elysia": "^1.4.28",
+    "neverthrow": "^8.2.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@shared/typescript-config": "workspace:*",
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.2"
+  }
+}
