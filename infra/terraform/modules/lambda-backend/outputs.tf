@@ -1,0 +1,24 @@
+output "function_name" {
+  description = "Name of the Lambda function"
+  value       = aws_lambda_function.backend.function_name
+}
+
+output "function_arn" {
+  description = "ARN of the Lambda function"
+  value       = aws_lambda_function.backend.arn
+}
+
+output "function_url" {
+  description = "Lambda Function URL"
+  value       = var.enable_function_url ? aws_lambda_function_url.backend[0].function_url : null
+}
+
+output "alias_name" {
+  description = "Name of the Lambda alias"
+  value       = var.create_alias ? aws_lambda_alias.this[0].name : null
+}
+
+output "alias_arn" {
+  description = "ARN of the Lambda alias"
+  value       = var.create_alias ? aws_lambda_alias.this[0].arn : null
+}

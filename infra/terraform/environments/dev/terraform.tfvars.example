@@ -1,0 +1,12 @@
+# Common
+aws_region   = "ap-northeast-1"
+project_name = "boilerplate-template"
+environment  = "dev"
+domain_name  = "nextjs-boilerplate.dev.ahmax99.online"
+
+# GitHub OIDC variables
+github_org  = "ahmax99"
+
+# Backend API Environment Variables
+database_url = "postgresql://user:password@host/database"
+sentry_dsn   = "https://your-sentry-dsn"
