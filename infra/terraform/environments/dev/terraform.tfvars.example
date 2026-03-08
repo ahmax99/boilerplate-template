@@ -1,0 +1,24 @@
+# Common
+aws_region   = "ap-northeast-1"
+project_name = "boilerplate-template"
+environment  = "dev"
+domain_name  = "dev.boilerplate-template.ahmax99.online"
+
+# GitHub OIDC variables
+github_org  = "ahmax99"
+
+# Backend Environment Variables
+database_url = "postgresql://user:password@host/database"
+sentry_dsn   = "https://your-sentry-dsn"
+
+# Frontend Environment Variables
+contact_to_email = "contact@example.com"
+from_email       = "from@example.com"
+resend_api_key   = "resend-api-key"
+
+# Google OAuth
+google_client_id     = ""  # Get from Google Cloud Console
+google_client_secret = ""  # Get from Google Cloud Console
+
+# Session
+session_secret = "" # Generate with: openssl rand -base64 32
