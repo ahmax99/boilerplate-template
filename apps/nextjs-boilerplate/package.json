@@ -15,7 +15,7 @@
     "@casl/ability": "^6.8.0",
     "@casl/prisma": "^1.6.1",
     "@hookform/resolvers": "^5.2.2",
-    "@react-email/components": "^1.0.9",
+    "@react-email/components": "^1.0.10",
     "@sentry/nextjs": "10.43.0",
     "@shared/config": "workspace:*",
     "@t3-oss/env-nextjs": "^0.13.10",
