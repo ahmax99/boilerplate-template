@@ -26,7 +26,7 @@
     "@zxcvbn-ts/language-en": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "jose": "^6.2.1",
+    "jose": "^6.2.2",
     "ky": "^1.14.2",
     "lucide-react": "^0.577.0",
     "neverthrow": "^8.2.0",
