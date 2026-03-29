@@ -30,7 +30,7 @@
     "@types/node": "^25.5.0",
     "@types/ws": "^8.18.1",
     "prisma": "^7.5.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "overrides": {
     "hono": "^4.11.7",
