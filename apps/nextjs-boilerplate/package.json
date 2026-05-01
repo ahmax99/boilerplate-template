@@ -9,10 +9,7 @@
     "start": "bun --bun next start"
   },
   "dependencies": {
-    "@aws-crypto/sha256-js": "^5.2.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.1038.0",
-    "@aws-sdk/credential-providers": "^3.1038.0",
-    "@aws-sdk/signature-v4": "^3.374.0",
     "@base-ui/react": "^1.4.1",
     "@casl/ability": "^6.8.1",
     "@casl/react": "^6.0.0",
@@ -24,6 +21,7 @@
     "@zxcvbn-ts/core": "^3.0.4",
     "@zxcvbn-ts/language-common": "^3.0.4",
     "@zxcvbn-ts/language-en": "^3.0.2",
+    "aws4fetch": "^1.0.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "iron-session": "^8.0.4",

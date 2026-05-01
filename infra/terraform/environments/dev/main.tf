@@ -193,7 +193,8 @@ module "backend" {
   log_retention_days             = 7
   reserved_concurrent_executions = -1
 
-  s3_bucket_name = local.s3_uploads_bucket_name
+  s3_bucket_name        = local.s3_uploads_bucket_name
+  cognito_user_pool_arn = null
 
   secrets_arns = [
     module.database_secret.secret_arn
@@ -240,7 +241,8 @@ module "frontend" {
   log_retention_days             = 7
   reserved_concurrent_executions = -1
 
-  s3_bucket_name = null
+  s3_bucket_name        = null
+  cognito_user_pool_arn = module.cognito.user_pool_arn
 
   secrets_arns = []
 

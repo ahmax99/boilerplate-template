@@ -44,6 +44,12 @@ variable "secrets_arns" {
   type        = list(string)
 }
 
+variable "cognito_user_pool_arn" {
+  description = "Cognito user pool ARN to grant admin permissions on (e.g. for assigning users to groups). Pass null when the function does not need Cognito admin access."
+  type        = string
+  nullable    = true
+}
+
 variable "environment_variables" {
   description = "Environment variables for the Lambda function"
   type        = map(string)

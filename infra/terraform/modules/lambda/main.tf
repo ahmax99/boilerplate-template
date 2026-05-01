@@ -51,6 +51,28 @@ resource "aws_iam_role_policy" "s3_access" {
   })
 }
 
+resource "aws_iam_role_policy" "cognito_admin" {
+  count = var.cognito_user_pool_arn != null ? 1 : 0
+  name  = "${var.function_name}-cognito-policy"
+  role  = aws_iam_role.lambda.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowCognitoUserPoolAdmin"
+        Effect = "Allow"
+        Action = [
+          "cognito-idp:AdminAddUserToGroup",
+          "cognito-idp:AdminRemoveUserFromGroup",
+          "cognito-idp:AdminListGroupsForUser"
+        ]
+        Resource = var.cognito_user_pool_arn
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role_policy" "secrets_access" {
   count = length(var.secrets_arns) > 0 ? 1 : 0
   name  = "${var.function_name}-secrets-policy"
