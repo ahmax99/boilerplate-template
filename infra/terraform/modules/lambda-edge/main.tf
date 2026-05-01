@@ -28,7 +28,6 @@ resource "aws_iam_role_policy_attachment" "lambda_edge_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-# Write the rendered JS to a temp file so archive_file can package it
 resource "local_file" "function_rendered" {
   content  = local.function_source
   filename = "${path.module}/function/index.rendered.js"

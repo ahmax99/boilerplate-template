@@ -1,13 +1,17 @@
 import type { CreateUserBody, User } from '@shared/config'
 
-import { serverApiClient, serverAuthApiClient } from '@/lib/serverApiClient'
+import {
+  ID_TOKEN_HEADER,
+  serverApiClient,
+  serverAuthApiClient
+} from '@/lib/serverApiClient'
 
 export const createUser = async (data: CreateUserBody, idToken: string) =>
   serverApiClient
     .post('/users', {
       json: data,
       headers: {
-        Authorization: `Bearer ${idToken}`
+        [ID_TOKEN_HEADER]: idToken
       }
     })
     .json<CreateUserBody>()

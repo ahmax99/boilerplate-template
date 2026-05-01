@@ -35,26 +35,37 @@ export const signingHook = async ({ request }: { request: Request }) => {
     ? new Uint8Array(await request.arrayBuffer())
     : undefined
 
+  // Lambda Function URL with AWS_IAM auth requires `host` in SignedHeaders.
+  // fetch/undici doesn't expose Host in request.headers (the kernel adds it),
+  // so inject it explicitly so SignatureV4 includes it in the canonical request.
+  const headersToSign: Record<string, string> = {
+    host: url.host,
+    ...Object.fromEntries(request.headers.entries())
+  }
+
   const signed = await signer.sign({
     method: request.method,
-    headers: Object.fromEntries(request.headers.entries()),
+    headers: headersToSign,
     hostname: url.hostname,
     path: url.pathname + url.search,
     body: bodyBytes,
     protocol: url.protocol
   })
 
-  if (!hasBody) {
-    for (const [key, value] of Object.entries(signed.headers))
-      request.headers.set(key, value as string)
-
-    return
-  }
+  // Always emit a fresh Request: undici has a stream-state bug where reusing
+  // the original request's signal/body refs triggers
+  // "transformAlgorithm is not a function" on Node 22.
+  // Drop `host` from the headers we set on the new Request — undici sets it
+  // from the URL itself, and explicitly setting it can be ignored or rejected.
+  const { host: _signedHost, ...outgoingHeaders } = signed.headers as Record<
+    string,
+    string
+  >
 
   return new Request(request.url, {
     method: request.method,
-    headers: signed.headers as HeadersInit,
-    body: bodyBytes as BodyInit,
+    headers: outgoingHeaders,
+    body: bodyBytes as BodyInit | undefined,
     redirect: request.redirect,
     credentials: request.credentials,
     cache: request.cache
