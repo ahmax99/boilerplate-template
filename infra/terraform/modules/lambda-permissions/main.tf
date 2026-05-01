@@ -54,7 +54,14 @@ resource "aws_lambda_permission" "frontend_invoke_backend" {
   function_url_auth_type = "AWS_IAM"
 }
 
-# Identity-side policy: SigV4-signed Function URL calls authorize against the caller's IAM identity.
+resource "aws_lambda_permission" "frontend_invoke_backend_fn" {
+  statement_id  = "AllowFrontendInvokeBackendFn"
+  action        = "lambda:InvokeFunction"
+  function_name = var.backend_function_name
+  qualifier     = var.backend_alias_name
+  principal     = var.frontend_lambda_role_arn
+}
+
 resource "aws_iam_role_policy" "frontend_invoke_backend" {
   name = "invoke-backend-function-url"
   role = var.frontend_lambda_role_name
@@ -64,15 +71,14 @@ resource "aws_iam_role_policy" "frontend_invoke_backend" {
     Statement = [
       {
         Effect = "Allow"
-        Action = "lambda:InvokeFunctionUrl"
+        Action = [
+          "lambda:InvokeFunctionUrl",
+          "lambda:InvokeFunction"
+        ]
         Resource = [
+          var.backend_function_arn,
           "${var.backend_function_arn}:${var.backend_alias_name}"
         ]
-        Condition = {
-          StringEquals = {
-            "lambda:FunctionUrlAuthType" = "AWS_IAM"
-          }
-        }
       }
     ]
   })
