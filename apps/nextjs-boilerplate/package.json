@@ -15,7 +15,7 @@
     "@casl/react": "^6.0.0",
     "@hookform/resolvers": "^5.2.2",
     "@react-email/components": "^1.0.12",
-    "@sentry/nextjs": "10.50.0",
+    "@sentry/nextjs": "10.51.0",
     "@shared/config": "workspace:*",
     "@t3-oss/env-nextjs": "^0.13.11",
     "@zxcvbn-ts/core": "^3.0.4",
