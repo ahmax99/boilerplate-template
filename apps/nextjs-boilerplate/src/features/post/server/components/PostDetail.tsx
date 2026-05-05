@@ -16,7 +16,7 @@ export const PostDetail = async ({
   postImage
 }: PostDetailProps) => (
   <>
-    <div className="relative mb-8 h-[400px] w-full overflow-hidden rounded-xl shadow-sm">
+    <div className="relative mb-8 h-100 w-full overflow-hidden rounded-xl shadow-sm">
       <Image
         alt={post.title}
         className="object-cover"

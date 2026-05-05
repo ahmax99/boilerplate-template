@@ -1,7 +1,8 @@
 import { connection } from 'next/server'
 
 import { generatePageMetadata } from '@/features/metadata/utils/generatePageMetadata'
-import { fetchAllPosts, fetchPostImage } from '@/features/post/server/api'
+import { fetchPostImage } from '@/features/post/client/api'
+import { fetchAllPosts } from '@/features/post/server/api'
 import { PostsList } from '@/features/post/server/components/PostsList'
 
 export const metadata = generatePageMetadata({

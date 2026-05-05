@@ -1,9 +1,6 @@
 import type { Post, UploadImageQuery } from '@shared/config'
 
-import { env } from '@/config/env'
 import { serverApiClient, serverAuthApiClient } from '@/lib/serverApiClient'
-
-import { PLACEHOLDER_IMAGE_URL } from '../../constants'
 
 export const fetchAllPosts = async () =>
   serverApiClient.get('posts').json<Post[]>()
@@ -16,11 +13,8 @@ export const fetchPreSignedUrl = async (query: UploadImageQuery) =>
     .get('posts/presigned-url', { searchParams: query })
     .json<{ presignedUrl: string; publicUrl: string; key: string }>()
 
-export const fetchPostImage = async (imagePath: string) => {
-  if (!imagePath) return PLACEHOLDER_IMAGE_URL
-
-  return `${env.BACKEND_INTERNAL_URL}/images/${imagePath}`
-}
+export const fetchPostImage = async (imagePath: string) =>
+  serverApiClient.get(`images/${imagePath}`).arrayBuffer()
 
 export const createPost = async (post: Post) =>
   serverAuthApiClient.post('posts', { json: post }).json<Post>()

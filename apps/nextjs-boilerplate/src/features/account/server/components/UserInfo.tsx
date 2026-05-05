@@ -3,14 +3,14 @@ import { User as UserIcon } from 'lucide-react'
 
 import { Avatar, AvatarImage } from '@/components/molecules'
 
-import { fetchUserImage } from '../api'
+import { fetchProfileImage } from '../../client/api'
 
 interface UserInfoProps {
   user: User
 }
 
 export async function UserInfo({ user }: Readonly<UserInfoProps>) {
-  const imageUrl = fetchUserImage(user.imagePath ?? '')
+  const imageUrl = fetchProfileImage(user.imagePath ?? '')
 
   return (
     <div className="flex items-center space-x-4">

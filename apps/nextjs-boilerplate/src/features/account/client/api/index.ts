@@ -1,6 +1,14 @@
 import type { UpdateUserBody } from '@shared/config'
 
+import { env } from '@/config/env'
+import { PLACEHOLDER_IMAGE_URL } from '@/features/post/constants'
 import { apiClient } from '@/lib/apiClient'
+
+export const fetchProfileImage = (imagePath: string) => {
+  if (!imagePath) return PLACEHOLDER_IMAGE_URL
+
+  return `${env.NEXT_PUBLIC_BASE_URL}/api/account/images?path=${encodeURIComponent(imagePath)}`
+}
 
 export const updateUser = async (data: UpdateUserBody) =>
   apiClient.put('account', { json: data }).json()

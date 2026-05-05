@@ -4,8 +4,10 @@ import type {
   UserIdParams
 } from '@shared/config'
 
-import { env } from '@/config/env'
-import { serverAuthApiClient } from '@/lib/serverApiClient'
+import { serverApiClient, serverAuthApiClient } from '@/lib/serverApiClient'
+
+export const fetchProfileImage = async (imagePath: string) =>
+  serverApiClient.get(`images/${imagePath}`).arrayBuffer()
 
 export const updateUser = async (
   userId: UserIdParams['id'],
@@ -19,9 +21,3 @@ export const fetchPresignedUrl = async (query: UploadImageQuery) =>
   serverAuthApiClient
     .get('users/presigned-url', { searchParams: query })
     .json<{ presignedUrl: string; publicUrl: string; key: string }>()
-
-export const fetchUserImage = (imagePath: string) => {
-  if (!imagePath) return null
-
-  return `${env.BACKEND_INTERNAL_URL}/images/${imagePath}`
-}

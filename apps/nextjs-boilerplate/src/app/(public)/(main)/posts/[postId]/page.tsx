@@ -4,7 +4,8 @@ import { PageTemplate } from '@/components/layout'
 import { PUBLIC_ROUTES } from '@/features/auth/lib/routes'
 import { fetchAllComments } from '@/features/comment/server/api'
 import { generatePageMetadata } from '@/features/metadata/utils/generatePageMetadata'
-import { fetchPost, fetchPostImage } from '@/features/post/server/api'
+import { fetchPostImage } from '@/features/post/client/api'
+import { fetchPost } from '@/features/post/server/api'
 import { PostDetail } from '@/features/post/server/components/PostDetail'
 
 interface PostDetailPageProps {
@@ -32,7 +33,7 @@ export default async function PostDetailPage({
     fetchPost(postId),
     fetchAllComments(postId)
   ])
-  const postImage = await fetchPostImage(post.imagePath ?? '')
+  const postImage = fetchPostImage(post.imagePath ?? '')
 
   return (
     <PageTemplate
