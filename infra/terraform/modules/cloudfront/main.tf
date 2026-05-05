@@ -215,7 +215,7 @@ resource "aws_cloudfront_distribution" "this" {
   # Behavior 4: /api/*/images — frontend Lambda image proxy, compress disabled to avoid CloudFront gzip-encoding binary image responses
   # ----------
   ordered_cache_behavior {
-    path_pattern             = "/api/*/images"
+    path_pattern             = "/api/images"
     target_origin_id         = "frontend-lambda"
     viewer_protocol_policy   = "redirect-to-https"
     allowed_methods          = ["GET", "HEAD"]

@@ -1,16 +1,15 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { fetchProfileImage } from '@/features/account/server/api'
+import { fetchImage } from '@/features/media/server/api'
 
 export async function GET(request: NextRequest) {
   const imagePath = request.nextUrl.searchParams.get('path')
 
   if (!imagePath) return new NextResponse(null, { status: 400 })
 
-  const upstream = await fetchProfileImage(imagePath)
-  const buffer = await upstream.arrayBuffer()
+  const upstream = await fetchImage(imagePath)
 
-  return new NextResponse(buffer, {
+  return new NextResponse(upstream.body, {
     headers: {
       'Content-Type':
         upstream.headers.get('Content-Type') ?? 'application/octet-stream',

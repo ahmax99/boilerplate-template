@@ -8,7 +8,7 @@ import { PLACEHOLDER_IMAGE_URL } from '../../constants'
 export const fetchPostImage = (imagePath: string) => {
   if (!imagePath) return PLACEHOLDER_IMAGE_URL
 
-  return `${env.NEXT_PUBLIC_BASE_URL}/api/posts/images?path=${encodeURIComponent(imagePath)}`
+  return `${env.NEXT_PUBLIC_BASE_URL}/api/images?path=${encodeURIComponent(imagePath)}`
 }
 
 export const createPost = async (input: CreatePostBody) =>

@@ -7,7 +7,7 @@ import { apiClient } from '@/lib/apiClient'
 export const fetchProfileImage = (imagePath: string) => {
   if (!imagePath) return PLACEHOLDER_IMAGE_URL
 
-  return `${env.NEXT_PUBLIC_BASE_URL}/api/account/images?path=${encodeURIComponent(imagePath)}`
+  return `${env.NEXT_PUBLIC_BASE_URL}/api/images?path=${encodeURIComponent(imagePath)}`
 }
 
 export const updateUser = async (data: UpdateUserBody) =>

@@ -4,10 +4,7 @@ import type {
   UserIdParams
 } from '@shared/config'
 
-import { serverApiClient, serverAuthApiClient } from '@/lib/serverApiClient'
-
-export const fetchProfileImage = async (imagePath: string) =>
-  serverApiClient.get(`images/${imagePath}`)
+import { serverAuthApiClient } from '@/lib/serverApiClient'
 
 export const updateUser = async (
   userId: UserIdParams['id'],
