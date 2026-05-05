@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import { LogoutButton } from '@/features/auth/client/components/LogoutButton'
 import { getUserPermissions } from '@/features/auth/lib/permission'
 import {
   PROTECTED_ROUTES,
@@ -8,6 +7,7 @@ import {
   PUBLIC_ROUTES
 } from '@/features/auth/lib/routes'
 import { getMe } from '@/features/auth/server/api'
+import { LogoutButton } from '@/features/auth/server/components/LogoutButton'
 
 import { ButtonLink } from '../atoms'
 import { Logo } from '../molecules'
