@@ -7,7 +7,7 @@ import type {
 import { serverApiClient, serverAuthApiClient } from '@/lib/serverApiClient'
 
 export const fetchProfileImage = async (imagePath: string) =>
-  serverApiClient.get(`images/${imagePath}`).arrayBuffer()
+  serverApiClient.get(`images/${imagePath}`)
 
 export const updateUser = async (
   userId: UserIdParams['id'],

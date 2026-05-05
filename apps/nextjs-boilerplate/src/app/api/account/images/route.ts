@@ -7,7 +7,14 @@ export async function GET(request: NextRequest) {
 
   if (!imagePath) return new NextResponse(null, { status: 400 })
 
-  const buffer = await fetchProfileImage(imagePath)
+  const upstream = await fetchProfileImage(imagePath)
+  const buffer = await upstream.arrayBuffer()
 
-  return new NextResponse(buffer)
+  return new NextResponse(buffer, {
+    headers: {
+      'Content-Type':
+        upstream.headers.get('Content-Type') ?? 'application/octet-stream',
+      'Cache-Control': 'public, max-age=31536000, immutable'
+    }
+  })
 }
