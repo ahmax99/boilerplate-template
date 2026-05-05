@@ -39,7 +39,6 @@ resource "aws_iam_role_policy" "s3_access" {
         Action = [
           "s3:GetObject",
           "s3:PutObject",
-          "s3:DeleteObject",
           "s3:ListBucket"
         ]
         Resource = [
@@ -64,7 +63,6 @@ resource "aws_iam_role_policy" "cognito_admin" {
         Effect = "Allow"
         Action = [
           "cognito-idp:AdminAddUserToGroup",
-          "cognito-idp:AdminRemoveUserFromGroup",
           "cognito-idp:AdminListGroupsForUser"
         ]
         Resource = var.cognito_user_pool_arn
