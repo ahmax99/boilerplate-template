@@ -1,0 +1,28 @@
+name: Delete Merged Branch
+description: Deletes the head branch of a merged PR, skipping protected branch names.
+
+inputs:
+  branch:
+    description: Name of the branch to delete
+    required: true
+  owner:
+    description: Repository owner
+    required: true
+  repo:
+    description: Repository name
+    required: true
+  github-token:
+    description: GitHub token with contents:write permission
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Delete branch
+      shell: bash
+      env:
+        BRANCH: ${{ inputs.branch }}
+        OWNER: ${{ inputs.owner }}
+        REPO: ${{ inputs.repo }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: bash ${{ github.action_path }}/delete-branch.sh

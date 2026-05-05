@@ -8,6 +8,7 @@ jobs:
   sbom-check:
     name: Scan + Vulnerability Check
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
 
     steps:
       - name: Checkout Code
