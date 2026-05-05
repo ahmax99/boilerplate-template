@@ -1,9 +1,12 @@
 import { ForbiddenError } from '@casl/ability'
 import { Result, ResultAsync } from 'neverthrow'
 
+import { logger } from '@/config/logger'
 import { captureError } from '@/features/error-tracking/utils/captureError'
 
 import { AppError } from '../lib/AppError'
+
+const log = logger.child({ module: 'catchError' })
 
 const stringifyUnknownError = (error: unknown) => {
   switch (typeof error) {
@@ -32,12 +35,14 @@ export const mapToAppError = (error: unknown) => {
 
 export const catchSyncError = <T>(fn: () => T) =>
   Result.fromThrowable(fn, mapToAppError)().mapErr((error) => {
+    log.error({ code: error.code, msg: error.message }, 'Sync error caught')
     captureError(error)
     return error
   })
 
 export const catchAsyncError = <T>(promise: Promise<T>) =>
   ResultAsync.fromPromise(promise, mapToAppError).mapErr((error) => {
+    log.error({ code: error.code, msg: error.message }, 'Async error caught')
     captureError(error)
     return error
   })

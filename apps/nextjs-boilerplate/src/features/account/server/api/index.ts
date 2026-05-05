@@ -23,5 +23,5 @@ export const fetchPresignedUrl = async (query: UploadImageQuery) =>
 export const fetchUserImage = (imagePath: string) => {
   if (!imagePath) return null
 
-  return `${env.NEXT_PUBLIC_BASE_URL}/api/v1/images/${imagePath}`
+  return `${env.BACKEND_INTERNAL_URL}/images/${imagePath}`
 }

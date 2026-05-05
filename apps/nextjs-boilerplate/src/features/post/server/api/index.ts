@@ -19,7 +19,7 @@ export const fetchPreSignedUrl = async (query: UploadImageQuery) =>
 export const fetchPostImage = async (imagePath: string) => {
   if (!imagePath) return PLACEHOLDER_IMAGE_URL
 
-  return `${env.NEXT_PUBLIC_BASE_URL}/api/v1/images/${imagePath}`
+  return `${env.BACKEND_INTERNAL_URL}/images/${imagePath}`
 }
 
 export const createPost = async (post: Post) =>
