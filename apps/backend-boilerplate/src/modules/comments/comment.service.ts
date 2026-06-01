@@ -14,7 +14,10 @@ export const CommentService = {
     catchAsyncError(
       prisma.comment.findMany({
         where: {
-          AND: [{ postId, deletedAt: null }, accessibleBy(ability).Comment]
+          AND: [
+            { postId, deletedAt: null },
+            accessibleBy(ability).ofType('Comment')
+          ]
         },
         orderBy: { createdAt: 'desc' },
         include: { author: { select: { name: true, imagePath: true } } }

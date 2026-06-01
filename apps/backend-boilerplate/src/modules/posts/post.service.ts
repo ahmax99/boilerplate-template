@@ -18,7 +18,7 @@ export const PostService = {
     catchAsyncError(
       prisma.post.findMany({
         where: {
-          AND: [{ deletedAt: null }, accessibleBy(ability).Post]
+          AND: [{ deletedAt: null }, accessibleBy(ability).ofType('Post')]
         },
         orderBy: { createdAt: 'desc' }
       })

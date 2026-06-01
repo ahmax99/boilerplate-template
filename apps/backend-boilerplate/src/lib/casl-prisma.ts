@@ -1,15 +1,13 @@
-import type { PureAbility } from '@casl/ability'
-import {
-  createPrismaAbilityFor,
-  type PrismaQueryOf,
-  type Subjects
-} from '@casl/prisma'
+import type { Ability } from '@casl/ability'
+import type { PrismaQueryOf, Subjects } from '@casl/prisma'
 import type { Prisma } from '@shared/neon'
 
 export { subject } from '@casl/ability'
-export { accessibleBy, ParsingQueryError } from '@casl/prisma'
-
-export const createPrismaAbility = createPrismaAbilityFor<Prisma.TypeMap>()
+export {
+  accessibleBy,
+  createPrismaAbility,
+  ParsingQueryError
+} from '@casl/prisma'
 
 type Action = 'create' | 'read' | 'update' | 'delete' | 'manage'
 
@@ -21,7 +19,7 @@ type AppSubjects =
       Comment: Prisma.CommentGetPayload<object>
     }>
 
-export type AppAbility = PureAbility<
+export type AppAbility = Ability<
   [Action, AppSubjects],
   PrismaQueryOf<Prisma.TypeMap>
 >
