@@ -19,7 +19,7 @@
     "@elysia/bearer": "^1.4.4",
     "@elysiajs/cors": "^1.4.2",
     "@elysiajs/openapi": "^1.4.15",
-    "@sentry/bun": "^10.55.0",
+    "@sentry/bun": "^10.56.0",
     "@shared/config": "workspace:*",
     "@shared/neon": "workspace:*",
     "@t3-oss/env-core": "^0.13.11",
