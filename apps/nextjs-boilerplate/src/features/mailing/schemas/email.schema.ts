@@ -6,12 +6,7 @@ const emailUserSchema = z.object({
 })
 
 const EmailModel = {
-  user: emailUserSchema,
-  send: z.object({
-    user: emailUserSchema,
-    url: z.url()
-  })
+  user: emailUserSchema
 }
 
 export type EmailUser = z.infer<typeof EmailModel.user>
-export type SendEmail = z.infer<typeof EmailModel.send>

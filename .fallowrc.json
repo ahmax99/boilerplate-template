@@ -9,5 +9,6 @@
     "ignore": ["**/lib/**"],
     "mode": "semantic"
   },
-  "rules": {}
+  "rules": {},
+  "ignoreDependencies": ["pino-pretty"]
 }
