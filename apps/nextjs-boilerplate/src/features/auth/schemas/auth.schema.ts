@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const AuthModel = {
+const AuthModel = {
   session: z.object({
     userId: z.string().optional(),
     email: z.string().optional(),

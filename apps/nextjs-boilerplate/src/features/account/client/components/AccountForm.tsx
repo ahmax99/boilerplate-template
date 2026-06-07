@@ -33,7 +33,7 @@ export interface FieldConfig {
   description: string
 }
 
-export interface AccountFormConfig {
+interface AccountFormConfig {
   title: string
   description: string
   fields: FieldConfig[]

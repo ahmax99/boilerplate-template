@@ -11,7 +11,7 @@ export const fetchPostImage = (imagePath: string) => {
   return `${env.NEXT_PUBLIC_BASE_URL}/api/images?path=${encodeURIComponent(imagePath)}`
 }
 
-export const createPost = async (input: CreatePostBody) =>
+export const createPostClient = async (input: CreatePostBody) =>
   apiClient.post('posts', { json: input }).json<Post>()
 
 export const uploadImage = async (file: File) => {

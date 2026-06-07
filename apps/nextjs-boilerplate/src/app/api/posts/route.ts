@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { createPost, fetchAllPosts } from '@/features/post/server/api'
+import { createPostServer, fetchAllPosts } from '@/features/post/server/api'
 
 export const GET = async () => {
   const response = await fetchAllPosts()
@@ -11,7 +11,7 @@ export const GET = async () => {
 export const POST = async (request: NextRequest) => {
   const body = await request.json()
 
-  const response = await createPost(body)
+  const response = await createPostServer(body)
 
   return NextResponse.json(response, { status: 201 })
 }

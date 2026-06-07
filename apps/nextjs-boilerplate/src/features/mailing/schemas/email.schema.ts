@@ -5,7 +5,7 @@ const emailUserSchema = z.object({
   name: z.string()
 })
 
-export const EmailModel = {
+const EmailModel = {
   user: emailUserSchema,
   send: z.object({
     user: emailUserSchema,

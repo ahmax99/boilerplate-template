@@ -13,5 +13,5 @@ export const fetchPreSignedUrl = async (query: UploadImageQuery) =>
     .get('posts/presigned-url', { searchParams: query })
     .json<{ presignedUrl: string; publicUrl: string; key: string }>()
 
-export const createPost = async (post: Post) =>
+export const createPostServer = async (post: Post) =>
   serverAuthApiClient.post('posts', { json: post }).json<Post>()

@@ -5,8 +5,7 @@ import type { Prisma } from '@shared/neon'
 export { subject } from '@casl/ability'
 export {
   accessibleBy,
-  createPrismaAbility,
-  ParsingQueryError
+  createPrismaAbility
 } from '@casl/prisma'
 
 type Action = 'create' | 'read' | 'update' | 'delete' | 'manage'

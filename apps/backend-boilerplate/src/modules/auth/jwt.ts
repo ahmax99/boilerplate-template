@@ -9,12 +9,6 @@ import { catchAsyncError } from '../../error/utils/catchError.js'
 
 const JWKS = createRemoteJWKSet(new URL(COGNITO_JWKS_URI))
 
-export const extractToken = (authHeader: string | null) => {
-  if (!authHeader?.startsWith('Bearer ')) return null
-
-  return authHeader.slice(7)
-}
-
 export const verifyToken = (token: string) =>
   catchAsyncError(
     jwtVerify(token, JWKS, {

@@ -10,11 +10,4 @@ export class AppError extends Error {
     this.code = code
     this.status = definition.status
   }
-
-  toResponse() {
-    return Response.json(
-      { error: { message: this.message } },
-      { status: this.status }
-    )
-  }
 }

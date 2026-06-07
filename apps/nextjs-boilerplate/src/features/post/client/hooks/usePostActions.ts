@@ -5,7 +5,7 @@ import { PUBLIC_ROUTES } from '@/features/auth/lib/routes'
 import { useErrorHandler } from '@/features/error/client/hooks/useErrorHandler'
 import { handleClientError } from '@/features/error/client/lib/handleError'
 
-import { createPost, uploadImage } from '../api'
+import { createPostClient, uploadImage } from '../api'
 
 export const usePostActions = () => {
   const router = useRouter()
@@ -33,7 +33,7 @@ export const usePostActions = () => {
     }
 
     return handleClientError(
-      createPost({ ...data, imagePath }),
+      createPostClient({ ...data, imagePath }),
       handleError,
       () => {
         onSuccess?.()

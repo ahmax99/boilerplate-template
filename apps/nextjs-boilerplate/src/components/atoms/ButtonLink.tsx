@@ -5,7 +5,7 @@ import type { VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/utils/mergeClass'
 
-import { LoadingSwap } from '../molecules'
+import { LoadingSwap } from '../molecules/LoadingSwap'
 import { Button, type buttonVariants } from './Button'
 
 function ButtonLink({

@@ -36,7 +36,7 @@ export interface FieldConfig {
   description: string
 }
 
-export interface PostFormConfig {
+interface PostFormConfig {
   title: string
   description: string
   fields: FieldConfig[]

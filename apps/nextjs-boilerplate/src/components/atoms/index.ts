@@ -1,7 +1,5 @@
-export * from './Badge'
 export * from './Button'
 export * from './ButtonLink'
-export * from './Checkbox'
 export * from './Input'
 export * from './Label'
 export * from './Separator'

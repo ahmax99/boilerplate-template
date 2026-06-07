@@ -1,5 +1,5 @@
 import { ForbiddenError } from '@casl/ability'
-import { Result, ResultAsync } from 'neverthrow'
+import { ResultAsync } from 'neverthrow'
 
 import { AppError } from '../lib/AppError.js'
 import { captureError } from './captureError.js'
@@ -28,12 +28,6 @@ export const mapToAppError = (error: unknown) => {
       return new AppError('INTERNAL_ERROR', stringifyUnknownError(error))
   }
 }
-
-export const catchSyncError = <T>(fn: () => T) =>
-  Result.fromThrowable(fn, mapToAppError)().mapErr((error) => {
-    captureError(error)
-    return error
-  })
 
 export const catchAsyncError = <T>(promise: Promise<T>) =>
   ResultAsync.fromPromise(promise, mapToAppError).mapErr((error) => {
