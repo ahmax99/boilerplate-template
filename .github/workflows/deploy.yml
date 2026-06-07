@@ -23,6 +23,7 @@ on:
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   NODE_VERSION: '24'
+  DEPLOY_ENV: ${{ github.event_name == 'push' && 'dev' || github.event.inputs.environment }}
 
 concurrency:
   group: deploy-${{ github.event_name == 'push' && 'dev' || github.event.inputs.environment }}
@@ -38,14 +39,6 @@ jobs:
       contents: read
 
     steps:
-      - name: Set deployment environment
-        id: deployment_env
-        run: |
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            echo "environment=dev" >> $GITHUB_OUTPUT
-          else
-            echo "environment=${{ github.event.inputs.environment }}" >> $GITHUB_OUTPUT
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -56,12 +49,6 @@ jobs:
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
-
-      - name: Get ECR repository URLs
-        id: ecr-repos
-        run: |
-          echo "backend=${{ vars.ECR_BACKEND_REPOSITORY_URL }}" >> $GITHUB_OUTPUT
-          echo "frontend=${{ vars.ECR_FRONTEND_REPOSITORY_URL }}" >> $GITHUB_OUTPUT
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -86,8 +73,8 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ steps.ecr-repos.outputs.backend }}:${{ github.sha }}
-            ${{ steps.ecr-repos.outputs.backend }}:latest
+            ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ github.sha }}
+            ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:latest
           build-args: |
             DATABASE_URL=postgresql://placeholder:placeholder@placeholder:5432/placeholder?schema=public
           cache-from: type=gha
@@ -102,8 +89,8 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ steps.ecr-repos.outputs.frontend }}:${{ github.sha }}
-            ${{ steps.ecr-repos.outputs.frontend }}:latest
+            ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ github.sha }}
+            ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
@@ -114,30 +101,32 @@ jobs:
         id: deploy_backend
         uses: ./.github/actions/deploy-lambda
         with:
-          function-name: ${{ vars.PROJECT_NAME }}-${{ steps.deployment_env.outputs.environment }}-backend
-          image-uri: ${{ steps.ecr-repos.outputs.backend }}:${{ github.sha }}
-          alias-name: ${{ steps.deployment_env.outputs.environment }}
-          codedeploy-app: ${{ vars.PROJECT_NAME }}-${{ steps.deployment_env.outputs.environment }}-backend
-          codedeploy-group: ${{ vars.PROJECT_NAME }}-${{ steps.deployment_env.outputs.environment }}-backend-dg
-          aws-region: ${{ vars.AWS_REGION }}
+          function-name: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-backend
+          image-uri: ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ github.sha }}
+          alias-name: ${{ env.DEPLOY_ENV }}
+          codedeploy-app: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-backend
+          codedeploy-group: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-backend-dg
+          aws-region: ${{ env.AWS_REGION }}
           git-sha: ${{ github.sha }}
+          release-tag: ${{ github.sha }}
 
       - name: Deploy frontend Lambda
         id: deploy_frontend
         uses: ./.github/actions/deploy-lambda
         with:
-          function-name: ${{ vars.PROJECT_NAME }}-${{ steps.deployment_env.outputs.environment }}-frontend
-          image-uri: ${{ steps.ecr-repos.outputs.frontend }}:${{ github.sha }}
-          alias-name: ${{ steps.deployment_env.outputs.environment }}
-          codedeploy-app: ${{ vars.PROJECT_NAME }}-${{ steps.deployment_env.outputs.environment }}-frontend
-          codedeploy-group: ${{ vars.PROJECT_NAME }}-${{ steps.deployment_env.outputs.environment }}-frontend-dg
-          aws-region: ${{ vars.AWS_REGION }}
+          function-name: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-frontend
+          image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ github.sha }}
+          alias-name: ${{ env.DEPLOY_ENV }}
+          codedeploy-app: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-frontend
+          codedeploy-group: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-frontend-dg
+          aws-region: ${{ env.AWS_REGION }}
           git-sha: ${{ github.sha }}
+          release-tag: ${{ github.sha }}
 
       - name: Deploy static assets and invalidate CloudFront
         uses: ./.github/actions/deploy-static-assets
         with:
-          image-uri: ${{ steps.ecr-repos.outputs.frontend }}:${{ github.sha }}
+          image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ github.sha }}
           static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
           cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
-          aws-region: ${{ vars.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
