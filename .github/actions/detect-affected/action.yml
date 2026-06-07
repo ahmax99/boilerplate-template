@@ -1,0 +1,45 @@
+name: 'Detect Affected Apps'
+description: 'Determine which apps are affected by the pushed commits, following the workspace dependency graph'
+
+inputs:
+  event-name:
+    description: 'github.event_name — "push" enables affected-detection; anything else deploys both apps'
+    required: true
+  before-sha:
+    description: 'github.event.before — the commit the branch pointed at before the push'
+    required: false
+    default: ''
+  head-sha:
+    description: 'github.sha — the commit being deployed'
+    required: true
+
+outputs:
+  backend:
+    description: 'Whether the backend app should be deployed ("true"/"false")'
+    value: ${{ steps.affected.outputs.backend }}
+  frontend:
+    description: 'Whether the frontend app should be deployed ("true"/"false")'
+    value: ${{ steps.affected.outputs.frontend }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+
+    - name: Install dependencies
+      shell: bash
+      run: bun install --frozen-lockfile
+
+    - name: Determine affected apps
+      id: affected
+      shell: bash
+      env:
+        EVENT_NAME: ${{ inputs.event-name }}
+        BEFORE_SHA: ${{ inputs.before-sha }}
+        HEAD_SHA: ${{ inputs.head-sha }}
+      run: |
+        chmod +x .github/scripts/detect-affected.sh
+        .github/scripts/detect-affected.sh
