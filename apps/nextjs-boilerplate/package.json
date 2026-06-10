@@ -15,7 +15,7 @@
     "@casl/react": "^7.0.0",
     "@hookform/resolvers": "^5.4.0",
     "@react-email/components": "^1.0.12",
-    "@sentry/nextjs": "10.55.0",
+    "@sentry/nextjs": "10.57.0",
     "@shared/config": "workspace:*",
     "@t3-oss/env-nextjs": "^0.13.11",
     "aws4fetch": "^1.0.20",
