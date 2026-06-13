@@ -17,6 +17,7 @@ on:
       - '.github/scripts/**'
     tags:
       - 'v*'
+  workflow_dispatch: # dev only — prod requires a v* tag push
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
@@ -232,7 +233,7 @@ jobs:
     needs: [detect, build-backend, deploy-dev-backend]
     if: >-
       needs.detect.outputs.backend == 'true' &&
-      github.ref_type == 'tag'
+      github.event_name == 'push' && github.ref_type == 'tag'
     runs-on: ubuntu-latest
     environment: prod
     permissions:
@@ -267,7 +268,7 @@ jobs:
     needs: [detect, build-frontend, deploy-dev-frontend]
     if: >-
       needs.detect.outputs.frontend == 'true' &&
-      github.ref_type == 'tag'
+      github.event_name == 'push' && github.ref_type == 'tag'
     runs-on: ubuntu-latest
     environment: prod
     permissions:
