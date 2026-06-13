@@ -32,6 +32,14 @@ echo "🔍 Computing affected packages between $BEFORE_SHA and $HEAD_SHA"
 affected="$(TURBO_SCM_BASE="$BEFORE_SHA" TURBO_SCM_HEAD="$HEAD_SHA" \
   bunx turbo ls --affected --output=json \
   | jq -r '.packages.items[].name')"
+
+if [[ -z "$affected" ]]; then
+  echo "✅ No affected packages; skipping deployment."
+  echo "backend=false" >> "$GITHUB_OUTPUT"
+  echo "frontend=false" >> "$GITHUB_OUTPUT"
+  exit 0
+fi
+
 echo "Affected packages:"
 echo "$affected"
 
