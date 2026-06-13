@@ -98,6 +98,16 @@ Shared TypeScript configurations used across the monorepo.
 
 ## Getting Started
 
+### Using this template
+
+Click **Use this template → Create a new repository** on GitHub, or via the CLI:
+
+```bash
+gh repo create my-app --template ahmax99/boilerplate-template --private
+```
+
+Then clone your new repo and continue with the steps below.
+
 ### Prerequisites
 
 - **Bun** >= 1.3.8
@@ -150,6 +160,5 @@ Copy `.env.example` to `.env` in each package and fill in your credentials.
 ## AI-Driven Development
 
 This template ships with a [Claude Code](https://claude.com/claude-code) harness
-for building features spec-first with an AI agent (`/spec` → `/plan` →
-`/implement` → `/qa`). New here? Start with
+for building features spec-first with an AI agent (`brainstorm → /spec` → `/plan` → `/implement` → `/qa`). New here? Start with
 [**docs/ai-driven-development.md**](docs/ai-driven-development.md).

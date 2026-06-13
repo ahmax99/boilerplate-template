@@ -15,6 +15,8 @@ on:
       - '.github/actions/deploy-lambda/**'
       - '.github/actions/deploy-static-assets/**'
       - '.github/scripts/**'
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       environment:
@@ -25,12 +27,13 @@ on:
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
-  NODE_VERSION: '24'
-  DEPLOY_ENV: ${{ github.event_name == 'push' && 'dev' || github.event.inputs.environment }}
+  # Semver tag for releases; SHA for day-to-day branch pushes and manual dispatch
+  IMAGE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || github.sha }}
 
 concurrency:
-  group: deploy-${{ github.event_name == 'push' && 'dev' || github.event.inputs.environment }}
-  cancel-in-progress: true
+  # Tag releases get a unique group so they never cancel each other
+  group: deploy-${{ github.ref_type == 'tag' && github.ref_name || github.event_name == 'push' && 'dev' || github.event.inputs.environment || 'dev' }}
+  cancel-in-progress: ${{ github.ref_type != 'tag' }}
 
 jobs:
   detect:
@@ -56,15 +59,18 @@ jobs:
           before-sha: ${{ github.event.before }}
           head-sha: ${{ github.sha }}
 
-  build-deploy-backend:
-    name: Build and Deploy Backend
+  # ── Build jobs ────────────────────────────────────────────────────────────
+  build-backend:
+    name: Build Backend Image
     needs: detect
     if: needs.detect.outputs.backend == 'true'
     runs-on: ubuntu-latest
-    environment: ${{ github.event_name == 'push' && 'dev' || github.event.inputs.environment }}
+    environment: dev
     permissions:
       id-token: write
       contents: read
+    outputs:
+      image-uri: ${{ steps.set-uri.outputs.image-uri }}
 
     steps:
       - name: Checkout repository
@@ -75,7 +81,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
-          role-session-name: GitHubActions-Deploy
+          role-session-name: GitHubActions-Build
 
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
@@ -92,34 +98,28 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ github.sha }}
+            ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
             ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:latest
           build-args: |
             DATABASE_URL=postgresql://placeholder:placeholder@placeholder:5432/placeholder?schema=public
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Deploy backend Lambda
-        uses: ./.github/actions/deploy-lambda
-        with:
-          function-name: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-backend
-          image-uri: ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ github.sha }}
-          alias-name: ${{ env.DEPLOY_ENV }}
-          codedeploy-app: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-backend
-          codedeploy-group: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-backend-dg
-          aws-region: ${{ env.AWS_REGION }}
-          git-sha: ${{ github.sha }}
-          release-tag: ${{ github.sha }}
+      - name: Set image URI output
+        id: set-uri
+        run: echo "image-uri=${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
 
-  build-deploy-frontend:
-    name: Build and Deploy Frontend
+  build-frontend:
+    name: Build Frontend Image
     needs: detect
     if: needs.detect.outputs.frontend == 'true'
     runs-on: ubuntu-latest
-    environment: ${{ github.event_name == 'push' && 'dev' || github.event.inputs.environment }}
+    environment: dev
     permissions:
       id-token: write
       contents: read
+    outputs:
+      image-uri: ${{ steps.set-uri.outputs.image-uri }}
 
     steps:
       - name: Checkout repository
@@ -130,7 +130,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
-          role-session-name: GitHubActions-Deploy
+          role-session-name: GitHubActions-Build
 
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
@@ -147,7 +147,7 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ github.sha }}
+            ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
             ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -155,22 +155,160 @@ jobs:
             NEXT_PUBLIC_BASE_URL=${{ vars.NEXT_PUBLIC_BASE_URL }}
             NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
 
+      - name: Set image URI output
+        id: set-uri
+        run: echo "image-uri=${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
+
+  # ── Dev deploy jobs ────────────────────────────────────────────────────────
+  deploy-dev-backend:
+    name: Deploy Backend → Dev
+    needs: [detect, build-backend]
+    if: needs.detect.outputs.backend == 'true'
+    runs-on: ubuntu-latest
+    environment: dev
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: GitHubActions-Deploy-Dev
+
+      - name: Deploy backend Lambda
+        uses: ./.github/actions/deploy-lambda
+        with:
+          function-name: ${{ vars.PROJECT_NAME }}-dev-backend
+          image-uri: ${{ needs.build-backend.outputs.image-uri }}
+          alias-name: dev
+          codedeploy-app: ${{ vars.PROJECT_NAME }}-dev-backend
+          codedeploy-group: ${{ vars.PROJECT_NAME }}-dev-backend-dg
+          aws-region: ${{ env.AWS_REGION }}
+          git-sha: ${{ github.sha }}
+          release-tag: ${{ env.IMAGE_TAG }}
+
+  deploy-dev-frontend:
+    name: Deploy Frontend → Dev
+    needs: [detect, build-frontend]
+    if: needs.detect.outputs.frontend == 'true'
+    runs-on: ubuntu-latest
+    environment: dev
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: GitHubActions-Deploy-Dev
+
       - name: Deploy frontend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
-          function-name: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-frontend
-          image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ github.sha }}
-          alias-name: ${{ env.DEPLOY_ENV }}
-          codedeploy-app: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-frontend
-          codedeploy-group: ${{ vars.PROJECT_NAME }}-${{ env.DEPLOY_ENV }}-frontend-dg
+          function-name: ${{ vars.PROJECT_NAME }}-dev-frontend
+          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
+          alias-name: dev
+          codedeploy-app: ${{ vars.PROJECT_NAME }}-dev-frontend
+          codedeploy-group: ${{ vars.PROJECT_NAME }}-dev-frontend-dg
           aws-region: ${{ env.AWS_REGION }}
           git-sha: ${{ github.sha }}
-          release-tag: ${{ github.sha }}
+          release-tag: ${{ env.IMAGE_TAG }}
 
       - name: Deploy static assets and invalidate CloudFront
         uses: ./.github/actions/deploy-static-assets
         with:
-          image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ github.sha }}
+          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
+          static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
+          cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+          aws-region: ${{ env.AWS_REGION }}
+
+  # ── Prod deploy jobs ───────────────────────────────────────────────────────
+  deploy-prod-backend:
+    name: Deploy Backend → Prod
+    needs: [detect, build-backend, deploy-dev-backend]
+    if: >-
+      needs.detect.outputs.backend == 'true' &&
+      (github.ref_type == 'tag' || github.event.inputs.environment == 'prod')
+    runs-on: ubuntu-latest
+    environment: prod
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: GitHubActions-Deploy-Prod
+
+      - name: Deploy backend Lambda
+        uses: ./.github/actions/deploy-lambda
+        with:
+          function-name: ${{ vars.PROJECT_NAME }}-prod-backend
+          image-uri: ${{ needs.build-backend.outputs.image-uri }}
+          alias-name: prod
+          codedeploy-app: ${{ vars.PROJECT_NAME }}-prod-backend
+          codedeploy-group: ${{ vars.PROJECT_NAME }}-prod-backend-dg
+          aws-region: ${{ env.AWS_REGION }}
+          git-sha: ${{ github.sha }}
+          release-tag: ${{ env.IMAGE_TAG }}
+
+  deploy-prod-frontend:
+    name: Deploy Frontend → Prod
+    needs: [detect, build-frontend, deploy-dev-frontend]
+    if: >-
+      needs.detect.outputs.frontend == 'true' &&
+      (github.ref_type == 'tag' || github.event.inputs.environment == 'prod')
+    runs-on: ubuntu-latest
+    environment: prod
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: GitHubActions-Deploy-Prod
+
+      - name: Deploy frontend Lambda
+        uses: ./.github/actions/deploy-lambda
+        with:
+          function-name: ${{ vars.PROJECT_NAME }}-prod-frontend
+          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
+          alias-name: prod
+          codedeploy-app: ${{ vars.PROJECT_NAME }}-prod-frontend
+          codedeploy-group: ${{ vars.PROJECT_NAME }}-prod-frontend-dg
+          aws-region: ${{ env.AWS_REGION }}
+          git-sha: ${{ github.sha }}
+          release-tag: ${{ env.IMAGE_TAG }}
+
+      - name: Deploy static assets and invalidate CloudFront
+        uses: ./.github/actions/deploy-static-assets
+        with:
+          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
           static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
           cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
           aws-region: ${{ env.AWS_REGION }}
