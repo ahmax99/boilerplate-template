@@ -31,7 +31,6 @@ env:
   IMAGE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || github.sha }}
 
 concurrency:
-  # Tag releases get a unique group so they never cancel each other
   group: deploy-${{ github.ref_type == 'tag' && github.ref_name || github.event_name == 'push' && 'dev' || github.event.inputs.environment || 'dev' }}
   cancel-in-progress: ${{ github.ref_type != 'tag' }}
 
