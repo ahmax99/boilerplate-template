@@ -17,7 +17,6 @@ on:
       - '.github/scripts/**'
     tags:
       - 'v*'
-  workflow_dispatch:
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
