@@ -11,15 +11,15 @@ echo ""
 
 # Step 1: Initialize Terraform and create ECR repositories
 echo "Step 1: Initializing Terraform..."
-cd "$PROJECT_ROOT/infra/terraform/environments/dev"
+cd "$PROJECT_ROOT/infra/terraform"
 
 if [[ ! -d ".terraform" ]]; then
     echo "Initializing Terraform..."
-    terraform init
+    terraform init -backend-config=backends/dev.hcl
 fi
 
 echo "Creating ECR repositories..."
-terraform apply -target=module.ecr_backend -target=module.ecr_frontend -auto-approve
+terraform apply -target=module.ecr_backend -target=module.ecr_frontend -var-file=vars/dev.tfvars -auto-approve
 
 ECR_BACKEND_URL=$(terraform output -raw ecr_backend_repository_url)
 ECR_FRONTEND_URL=$(terraform output -raw ecr_frontend_repository_url)
@@ -83,9 +83,9 @@ echo ""
 
 # Step 4: Apply full Terraform configuration
 echo "Step 4: Applying full Terraform configuration..."
-cd "$PROJECT_ROOT/infra/terraform/environments/dev"
+cd "$PROJECT_ROOT/infra/terraform"
 
-terraform apply -auto-approve
+terraform apply -var-file=vars/dev.tfvars -auto-approve
 
 echo "✅ Terraform applied successfully"
 echo ""

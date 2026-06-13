@@ -5,7 +5,7 @@ This directory contains the Terraform configuration to create the **S3 bucket** 
 ## Purpose
 
 Creates the following resources:
-- **S3 Bucket**: Stores Terraform state files for dev/staging/prod environments with native S3 locking
+- **S3 Bucket**: Stores Terraform state files for dev/prod environments with native S3 locking
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ Creates the following resources:
 
 ## Important Notes
 
-⚠️ **Run this ONCE before setting up any environment (dev/staging/prod)**
+⚠️ **Run this ONCE before setting up any environment (dev/prod)**
 
 ⚠️ **This configuration uses LOCAL state** (not remote S3 backend) because it creates the backend resources themselves
 
@@ -38,10 +38,10 @@ terraform apply -auto-approve
 ```
 
 ### 4. Proceed to environment setup
-Now you can set up your environments (dev/staging/prod) which will use this S3 backend.
+Now you can set up your environments (dev/prod) which will use this S3 backend.
 
 ```bash
-cd ../environments/dev && terraform init
+cd .. && terraform init -backend-config=backends/dev.hcl
 ```
 
 ## Security Features

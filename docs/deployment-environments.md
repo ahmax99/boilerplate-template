@@ -51,7 +51,7 @@ Set these under each environment in **Settings → Environments → \<name\> →
 | `NEXT_PUBLIC_BASE_URL` | variable | `https://dev.your-domain.com` | `https://your-domain.com` | Public base URL injected at Docker build time |
 | `NEXT_PUBLIC_SENTRY_DSN` | variable | Dev Sentry DSN | Prod Sentry DSN | Sentry project DSN (can be the same project) |
 
-> The `AWS_ROLE_ARN` for `dev` is output by `infra/terraform/environments/dev/` (`github_actions_role_arn`). The `prod` ARN is output by `infra/terraform/environments/prod/` (provisioned in sub-plan 2).
+> The `AWS_ROLE_ARN` for `dev` is output by running `terraform output` in `infra/terraform/` with `backends/dev.hcl`. The `prod` ARN is output by the same root with `backends/prod.hcl`.
 
 ## Pipeline Flow
 

@@ -2,7 +2,7 @@
 # Route 53
 # -------------------
 module "route53" {
-  source = "../../modules/route53"
+  source = "./modules/route53"
 
   zone_id                             = data.aws_route53_zone.main.zone_id
   domain_name                         = var.domain_name
@@ -21,7 +21,7 @@ module "route53" {
 # ACM Certificate
 # -------------------
 module "acm" {
-  source = "../../modules/acm"
+  source = "./modules/acm"
 
   providers = {
     aws = aws.us_east_1
@@ -43,7 +43,7 @@ module "acm" {
 # CloudFront
 # -------------------
 module "cloudfront" {
-  source = "../../modules/cloudfront"
+  source = "./modules/cloudfront"
 
   name_prefix = local.name_prefix
 
@@ -72,7 +72,7 @@ module "cloudfront" {
 # Lambda@Edge — restricts access to custom domain only
 # -------------------
 module "lambda_edge" {
-  source = "../../modules/lambda-edge"
+  source = "./modules/lambda-edge"
 
   providers = {
     aws = aws.us_east_1
@@ -94,7 +94,7 @@ module "lambda_edge" {
 # WAF
 # -------------------
 module "waf" {
-  source = "../../modules/waf"
+  source = "./modules/waf"
 
   providers = {
     aws = aws.us_east_1
@@ -111,7 +111,7 @@ module "waf" {
 }
 
 module "lambda_permissions" {
-  source = "../../modules/lambda-permissions"
+  source = "./modules/lambda-permissions"
 
   backend_function_name       = module.backend.function_name
   backend_function_arn        = module.backend.function_arn
@@ -127,7 +127,7 @@ module "lambda_permissions" {
 # Cognito
 # -------------------
 module "cognito" {
-  source = "../../modules/cognito"
+  source = "./modules/cognito"
 
   user_pool_name   = "${local.name_prefix}-user-pool"
   user_pool_domain = local.name_prefix
@@ -182,7 +182,7 @@ module "cognito" {
 # Lambda
 # -------------------
 module "backend" {
-  source = "../../modules/lambda"
+  source = "./modules/lambda"
 
   function_name      = "${local.name_prefix}-backend"
   image_uri          = "${module.ecr_backend.repository_url}:latest"
@@ -230,7 +230,7 @@ module "backend" {
 }
 
 module "frontend" {
-  source = "../../modules/lambda"
+  source = "./modules/lambda"
 
   function_name      = "${local.name_prefix}-frontend"
   image_uri          = "${module.ecr_frontend.repository_url}:latest"
@@ -280,7 +280,7 @@ module "frontend" {
 # Secret Manager
 # -------------------
 module "database_secret" {
-  source = "../../modules/secret-manager"
+  source = "./modules/secret-manager"
 
   secret_name          = "${local.name_prefix}/database-url"
   secret_description   = "Database connection URL for ${var.environment} environment"
@@ -299,7 +299,7 @@ module "database_secret" {
 # S3 Buckets
 # -------------------
 module "s3_logs" {
-  source = "../../modules/s3"
+  source = "./modules/s3"
 
   bucket_name = local.s3_logs_bucket_name
 
@@ -334,7 +334,7 @@ module "s3_logs" {
 }
 
 module "s3_uploads" {
-  source = "../../modules/s3"
+  source = "./modules/s3"
 
   bucket_name = local.s3_uploads_bucket_name
 
@@ -370,7 +370,7 @@ module "s3_uploads" {
 }
 
 module "s3_static_assets" {
-  source = "../../modules/s3"
+  source = "./modules/s3"
 
   bucket_name = local.s3_static_assets_bucket_name
 
@@ -402,7 +402,7 @@ module "s3_static_assets" {
 # ECR
 # -------------------
 module "ecr_backend" {
-  source = "../../modules/ecr"
+  source = "./modules/ecr"
 
   project_name    = var.project_name
   environment     = var.environment
@@ -425,7 +425,7 @@ module "ecr_backend" {
 }
 
 module "ecr_frontend" {
-  source = "../../modules/ecr"
+  source = "./modules/ecr"
 
   project_name    = var.project_name
   environment     = var.environment
@@ -451,7 +451,7 @@ module "ecr_frontend" {
 # CodeDeploy
 # -------------------
 module "codedeploy_backend" {
-  source = "../../modules/codedeploy"
+  source = "./modules/codedeploy"
 
   application_name      = "${local.name_prefix}-backend"
   deployment_group_name = "${local.name_prefix}-backend-dg"
@@ -478,7 +478,7 @@ module "codedeploy_backend" {
 }
 
 module "codedeploy_frontend" {
-  source = "../../modules/codedeploy"
+  source = "./modules/codedeploy"
 
   application_name      = "${local.name_prefix}-frontend"
   deployment_group_name = "${local.name_prefix}-frontend-dg"
@@ -508,7 +508,7 @@ module "codedeploy_frontend" {
 # GitHub Actions OIDC
 # -------------------
 module "github_oidc" {
-  source = "../../modules/github-oidc"
+  source = "./modules/github-oidc"
 
   role_name    = "${local.name_prefix}-github-actions-role"
   project_name = var.project_name
