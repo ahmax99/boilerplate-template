@@ -1,0 +1,32 @@
+name: Auto-merge PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  merge:
+    name: Auto-merge PR
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        id: meta
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+      - name: Auto-merge eligible updates
+        if: >
+          steps.metadata.outputs.update-type != 'version-update:semver-major' &&
+          (steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
+           steps.metadata.outputs.package-ecosystem == 'github-actions')
+        run: |
+          gh pr review "$GITHUB_HEAD_REF" --approve
+          gh pr merge "$GITHUB_HEAD_REF" --auto --squash --rebase

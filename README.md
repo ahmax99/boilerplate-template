@@ -40,6 +40,14 @@ Modern full-stack monorepo boilerplate built with Turborepo, Bun, and TypeScript
 
 > This is a high-level summary. Internal architecture (module layout, auth flow, error handling, BFF data flow) is documented for contributors in `.claude/rules/architecture.md`.
 
+## Monorepo Features
+
+- **Shared dependencies** - Common packages reused across apps
+- **Incremental builds** - Only rebuild what changed
+- **Parallel execution** - Run tasks across packages simultaneously
+- **Type safety** - End-to-end TypeScript support
+- **Code sharing** - Share schemas, types, and utilities
+
 ### Apps (`apps/`)
 
 #### `backend-boilerplate`
@@ -139,31 +147,9 @@ Each package requiring environment variables includes an `.env.example` file:
 
 Copy `.env.example` to `.env` in each package and fill in your credentials.
 
-## CI/CD
-
-This repository includes GitHub Actions workflows:
-
-- **CI Pipeline** - Type checking, linting, and builds
-- **SBOM Generation** - Software Bill of Materials
-
-## Monorepo Features
-
-- **Shared dependencies** - Common packages reused across apps
-- **Incremental builds** - Only rebuild what changed
-- **Parallel execution** - Run tasks across packages simultaneously
-- **Type safety** - End-to-end TypeScript support
-- **Code sharing** - Share schemas, types, and utilities
-
 ## AI-Driven Development
 
 This template ships with a [Claude Code](https://claude.com/claude-code) harness
 for building features spec-first with an AI agent (`/spec` → `/plan` →
 `/implement` → `/qa`). New here? Start with
 [**docs/ai-driven-development.md**](docs/ai-driven-development.md).
-
-## Learn More
-
-- [Turborepo Documentation](https://turbo.build/repo/docs)
-- [Bun Documentation](https://bun.sh/docs)
-- [Elysia Documentation](https://elysiajs.com/introduction.html)
-- [Prisma Documentation](https://www.prisma.io/docs)

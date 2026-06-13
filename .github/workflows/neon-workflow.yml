@@ -2,11 +2,7 @@ name: Create/Delete Branch for Pull Request
 
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - closed
+    types: [opened, synchronize, reopened, closed]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

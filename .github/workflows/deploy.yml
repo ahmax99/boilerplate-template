@@ -21,7 +21,7 @@ on:
         description: 'Environment to deploy to'
         required: true
         type: environment
-        default: stg
+        default: dev
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
