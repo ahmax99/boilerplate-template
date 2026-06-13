@@ -1,0 +1,41 @@
+# Pre-commit Check
+
+Run a quick quality gate on staged/changed files before committing.
+
+> Note: a Husky pre-commit hook already runs `lint-staged` → `biome check --write` on staged files. This command is the broader, pre-push-quality gate (types + a security eyeball) that the git hook doesn't cover.
+
+## Process
+
+Run these checks in parallel (one message, parallel Bash calls):
+
+1. **Format + lint**: `bun run check-format` (Biome — lint + format check, no writes). If it reports fixable issues, `bun run format` writes them.
+2. **Type check**: `bun run check-types` (Turbo runs `tsc --noEmit` across packages).
+
+Then review changed files (`git diff --cached --name-only` for staged, or `git diff --name-only` for unstaged):
+
+3. **Quick security scan** on changed files:
+   - No hardcoded secrets, API keys, or tokens
+   - No `.env` files staged (`.env.example` is fine)
+   - No stray `console.log` in production code (the backend logger / intentional logging utilities are fine)
+   - No `any` types without a justification comment (`noExplicitAny` is a Biome error and will fail the format gate anyway)
+   - No `// TODO` / `// FIXME` without a reference
+   - No obvious dead code or copy-pasted blocks introduced by the change (the deeper version of this is **fallow** + SonarQube — see below)
+
+**Optional — dead code / duplication (`fallow`):** if the `fallow` CLI is installed, run `fallow` from the repo root to catch unused exports, semantic duplication, and complexity spikes the change may have introduced. It analyzes the whole workspace, so it's heavier than the gates above — skip it for tiny changes; run it before committing a refactor or a new module.
+
+## Output
+
+Report results concisely:
+
+```
+## Pre-commit Check
+- Format + lint: PASS/FAIL
+- Types: PASS/FAIL
+- Security scan: PASS/FAIL
+
+[Issues found, if any]
+
+Verdict: READY TO COMMIT / FIX ISSUES FIRST
+```
+
+If all checks pass, suggest a **[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary)** message based on the changes (`type(scope): subject` — e.g. `feat(posts): add reactions endpoint`, `fix(auth): handle missing X-Id-Token`; types: `feat|fix|chore|refactor|docs|test|ci|build|perf`) and proceed with the commit. If any check fails, show the errors and offer to fix them.

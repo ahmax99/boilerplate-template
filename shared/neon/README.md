@@ -76,14 +76,6 @@ const post = await prisma.post.create({
 })
 ```
 
-## Features
-
-- **Neon Serverless Adapter** - Optimized for serverless environments
-- **Connection Pooling** - Efficient database connections via `poolQueryViaFetch`
-- **WebSocket Support** - Real-time capabilities with WebSocket constructor
-- **Type Safety** - Full TypeScript support with generated types
-- **Global Instance** - Singleton pattern prevents multiple instances in development
-
 ## Development
 
 Build the package:

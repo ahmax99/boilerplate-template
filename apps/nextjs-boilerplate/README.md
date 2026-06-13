@@ -62,33 +62,3 @@ src/
 ├── styles/          # Global styles and Tailwind config
 └── utils/           # Helper functions
 ```
-
-## Key Features
-
-### Authentication
-<!-- TODO: Add authentication details -->
-
-### Authorization
-CASL-based permissions system:
-- Role-based access control
-- Resource-level permissions
-- Client and server-side enforcement
-
-### File Uploads
-S3 integration for secure file uploads:
-- Presigned URL generation
-- Client-side direct uploads
-- Image optimization
-
-### Email Templates
-React Email components for:
-- Welcome emails
-- Password reset
-- Notifications
-
-## Learn More
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [CASL Documentation](https://casl.js.org/v6/en/guide/intro)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [shadcn/ui Documentation](https://ui.shadcn.com/)

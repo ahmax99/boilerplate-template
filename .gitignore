@@ -70,3 +70,10 @@ terraform.rc
 
 # Ignore .fallow state files
 .fallow/
+
+# Claude Code related files
+/.claude/settings.local.json
+/.claude/plans/*
+!/.claude/plans/.gitkeep
+/.claude/hooks/*.log
+.superpowers/

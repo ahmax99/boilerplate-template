@@ -24,7 +24,6 @@ Modern full-stack monorepo boilerplate built with Turborepo, Bun, and TypeScript
 
 ### Database & Caching
 - **[Neon](https://neon.tech/)** - Serverless PostgreSQL
-- **[Upstash Redis](https://upstash.com/)** - Serverless Redis for caching
 
 ### Authorization & Storage
 - **[CASL](https://casl.js.org/)** - Isomorphic authorization library
@@ -34,8 +33,12 @@ Modern full-stack monorepo boilerplate built with Turborepo, Bun, and TypeScript
 - **[Biome](https://biomejs.dev/)** - Fast linter and formatter
 - **[Husky](https://typicode.github.io/husky/)** - Git hooks
 - **[lint-staged](https://github.com/okonet/lint-staged)** - Run linters on staged files
+- **[fallow](https://docs.fallow.tools/)** - Static analysis for unused code, duplication, complexity, and architecture drift
+- **[sonarqube](https://docs.sonarsource.com)** -  Continuous inspection platform used to automate code reviews and detect bugs, security vulnerabilities, and code smell
 
 ## Workspace Structure
+
+> This is a high-level summary. Internal architecture (module layout, auth flow, error handling, BFF data flow) is documented for contributors in `.claude/rules/architecture.md`.
 
 ### Apps (`apps/`)
 
@@ -59,9 +62,7 @@ Modern full-stack Next.js application with authentication and file uploads.
 - Role-based authorization with CASL
 - S3 file uploads with presigned URLs
 - Transactional emails with Resend
-- Dark mode support
 - Error monitoring with Sentry
-- Vercel Analytics integration
 
 **Tech:** Next.js 16, React 19, CASL, Tailwind CSS 4, shadcn/ui, React Hook Form, Zod, Zustand
 
@@ -83,15 +84,6 @@ Prisma client configured for Neon serverless PostgreSQL.
 - WebSocket support for real-time capabilities
 - Global singleton pattern
 - Database migration and seeding scripts
-
-#### `@shared/redis`
-Upstash Redis client for serverless caching and data storage.
-
-**Use Cases:**
-- Session storage
-- Rate limiting
-- Query caching
-- Temporary data (OTPs, verification codes)
 
 #### `@shared/typescript-config`
 Shared TypeScript configurations used across the monorepo.
@@ -134,51 +126,15 @@ Build a specific package:
 turbo build --filter=@shared/neon
 ```
 
-### Code Quality
+### Other scripts
 
-Check types across all packages:
-```bash
-bun run check-types
-```
-
-Format code with Biome:
-```bash
-bun run format
-```
-
-Check formatting and linting:
-```bash
-bun run check-format
-```
-
-### Package Management
-
-Check for outdated packages:
-```bash
-bun run check-updates
-```
-
-Update packages interactively:
-```bash
-bun run update-packages
-```
-
-Check for version mismatches across workspaces:
-```bash
-bun run check-mismatches
-```
-
-Sync package versions:
-```bash
-bun run sync-packages
-```
+Type checking, Biome formatting/linting, package-version syncing and update checks are all defined as scripts — see the root and per-package `package.json` for the full, authoritative list (e.g. `check-types`, `check-format`, `format`, `check-mismatches`, `sync-packages`).
 
 ## Environment Setup
 
 Each package requiring environment variables includes an `.env.example` file:
 
 - **`shared/neon`** - Requires `DATABASE_URL` for Neon PostgreSQL
-- **`shared/redis`** - Requires `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`
 - **`apps/backend-boilerplate`** - See app-specific `.env.example` for full configuration
 
 Copy `.env.example` to `.env` in each package and fill in your credentials.
@@ -189,7 +145,6 @@ This repository includes GitHub Actions workflows:
 
 - **CI Pipeline** - Type checking, linting, and builds
 - **SBOM Generation** - Software Bill of Materials
-- **Branch Cleanup** - Automatic deletion of merged branches
 
 ## Monorepo Features
 
@@ -198,6 +153,13 @@ This repository includes GitHub Actions workflows:
 - **Parallel execution** - Run tasks across packages simultaneously
 - **Type safety** - End-to-end TypeScript support
 - **Code sharing** - Share schemas, types, and utilities
+
+## AI-Driven Development
+
+This template ships with a [Claude Code](https://claude.com/claude-code) harness
+for building features spec-first with an AI agent (`/spec` → `/plan` →
+`/implement` → `/qa`). New here? Start with
+[**docs/ai-driven-development.md**](docs/ai-driven-development.md).
 
 ## Learn More
 
