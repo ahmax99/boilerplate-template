@@ -19,6 +19,7 @@ jobs:
     outputs:
       branch: ${{ steps.branch_name.outputs.current_branch }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Get branch name
         id: branch_name
@@ -38,6 +39,7 @@ jobs:
       github.event_name == 'pull_request' && (
       github.event.action == 'synchronize' || github.event.action == 'opened' || github.event.action == 'reopened')
     runs-on: ubuntu-latest
+
     steps:
       - name: Get branch expiration date as an env variable (2 weeks from now)
         id: get_expiration_date
@@ -76,6 +78,7 @@ jobs:
     needs: setup
     if: github.actor != 'dependabot[bot]' && github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
+    
     steps:
       - name: Delete Neon Branch
         uses: neondatabase/delete-branch-action@v3

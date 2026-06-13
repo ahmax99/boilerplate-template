@@ -1,4 +1,4 @@
-name: SonarQube
+name: SonarQube Scan for Code Quality
 
 on:
   push:
@@ -12,6 +12,8 @@ jobs:
     name: SonarQube
     runs-on: ubuntu-latest
     if: github.actor != 'dependabot[bot]'
+    permissions:
+      contents: read
     
     steps:
       - uses: actions/checkout@v4

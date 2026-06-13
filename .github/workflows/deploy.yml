@@ -36,9 +36,12 @@ jobs:
   detect:
     name: Detect affected apps
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       backend: ${{ steps.affected.outputs.backend }}
       frontend: ${{ steps.affected.outputs.frontend }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -62,6 +65,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -116,6 +120,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
