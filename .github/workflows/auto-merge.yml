@@ -5,8 +5,8 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  merge:
-    name: Auto-merge PR
+  dependabot-auto-merge:
+    name: Auto-merge Dependabot PR
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]'
     permissions:
@@ -30,3 +30,27 @@ jobs:
         run: |
           gh pr review "$GITHUB_HEAD_REF" --approve
           gh pr merge "$GITHUB_HEAD_REF" --auto --squash --rebase
+
+  github-dir-auto-merge:
+    name: Auto-merge .github/-only PR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Check if all changes are within .github/
+        id: check_files
+        run: |
+          non_github=$(gh pr view ${{ github.event.pull_request.number }} \
+            --json files \
+            --jq '[.files[].path | select(startswith(".github/") | not)] | length')
+          echo "count=$non_github" >> "$GITHUB_OUTPUT"
+
+      - name: Auto-merge if only .github/ files changed
+        if: steps.check_files.outputs.count == '0'
+        run: |
+          gh pr review ${{ github.event.pull_request.number }} --approve
+          gh pr merge ${{ github.event.pull_request.number }} --auto --squash --rebase

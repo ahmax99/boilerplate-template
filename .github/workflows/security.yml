@@ -8,6 +8,7 @@ jobs:
   package-audit:
     name: Package Audit
     runs-on: ubuntu-latest
+    if: "!startsWith(github.head_ref, 'release-please--branches--')"
     permissions:
       contents: read
     env:
@@ -43,7 +44,7 @@ jobs:
   sbom-check:
     name: SBOM & Vulnerability Check
     runs-on: ubuntu-latest
-    if: github.actor != 'dependabot[bot]'
+    if: github.actor != 'dependabot[bot]' && !startsWith(github.head_ref, 'release-please--branches--')
     permissions:
       contents: read
       security-events: write
