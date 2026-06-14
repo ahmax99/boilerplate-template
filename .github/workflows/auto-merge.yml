@@ -45,6 +45,7 @@ jobs:
         id: check_files
         run: |
           non_github=$(gh pr view ${{ github.event.pull_request.number }} \
+            --repo ${{ github.repository }} \
             --json files \
             --jq '[.files[].path | select(startswith(".github/") | not)] | length')
           echo "count=$non_github" >> "$GITHUB_OUTPUT"
