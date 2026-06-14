@@ -6,10 +6,12 @@ This document covers the two GitHub Actions environments (`dev` and `prod`), the
 
 | Environment | Trigger | Approval | AWS account |
 |---|---|---|---|
-| `dev` | Every push to `main` (paths-filtered) + every `v*` tag | None | Shared |
-| `prod` | `v*` tag pushes only (or `workflow_dispatch` with `environment: prod`) | Required reviewer | Shared |
+| `dev` | Push to `main` — apps (`deploy.yml`, paths-filtered) and Terraform (`terraform-apply.yml`, `infra/terraform/**`) + `workflow_dispatch` | None | Shared |
+| `prod` | `v*` tag pushes — apps and Terraform, same tag | Required reviewer | Shared |
 
 Both environments deploy to the **same AWS account**. Namespace isolation is by resource naming prefix (`boilerplate-template-dev-*` vs `boilerplate-template-prod-*`).
+
+PRs touching `infra/terraform/**` get an automatic `terraform plan` comment (dev) via `terraform-plan.yml`.
 
 ## Required GitHub UI Setup
 

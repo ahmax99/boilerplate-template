@@ -1,0 +1,121 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'infra/terraform/**'
+    tags:
+      - 'v*'
+  workflow_dispatch: # dev only — prod requires a v* tag push
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: terraform-apply-${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}
+  cancel-in-progress: false  # NEVER cancel a mid-apply — partial state is worse than waiting
+
+jobs:
+  apply-dev:
+    name: Terraform Apply → Dev
+    runs-on: ubuntu-latest
+    environment: dev
+
+    env:
+      TF_IN_AUTOMATION: "true"
+      AWS_REGION: ${{ vars.TF_VAR_aws_region }}
+      TF_VAR_project_name: ${{ vars.TF_VAR_project_name }}
+      TF_VAR_environment: ${{ vars.TF_VAR_environment }}
+      TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
+      TF_VAR_domain_name: ${{ vars.TF_VAR_domain_name }}
+      TF_VAR_github_org: ${{ vars.TF_VAR_github_org }}
+      TF_VAR_contact_to_email: ${{ vars.TF_VAR_contact_to_email }}
+      TF_VAR_from_email: ${{ vars.TF_VAR_from_email }}
+      TF_VAR_database_url: ${{ secrets.TF_VAR_database_url }}
+      TF_VAR_google_client_id: ${{ secrets.TF_VAR_google_client_id }}
+      TF_VAR_google_client_secret: ${{ secrets.TF_VAR_google_client_secret }}
+      TF_VAR_resend_api_key: ${{ secrets.TF_VAR_resend_api_key }}
+      TF_VAR_session_secret: ${{ secrets.TF_VAR_session_secret }}
+      TF_VAR_sentry_dsn: ${{ secrets.TF_VAR_sentry_dsn }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~> 1.14"
+          # terraform_wrapper=false lets bootstrap capture `terraform output -raw` via subshell
+          terraform_wrapper: false
+
+      - name: Configure AWS credentials (apply role)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.TF_APPLY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: TerraformApplyDev
+
+      - name: Apply (dev)
+        uses: ./.github/actions/terraform-apply-env
+        with:
+          environment: ${{ vars.TF_VAR_environment }}
+          project-name: ${{ vars.TF_VAR_project_name }}
+          aws-region: ${{ env.AWS_REGION }}
+          next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
+          next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
+          next-public-sentry-dsn: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
+
+  apply-prod:
+    name: Terraform Apply → Prod
+    needs: apply-dev
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    environment: prod  # required-reviewer gate (already configured for deploy.yml)
+
+    env:
+      TF_IN_AUTOMATION: "true"
+      AWS_REGION: ${{ vars.TF_VAR_aws_region }}
+      TF_VAR_project_name: ${{ vars.TF_VAR_project_name }}
+      TF_VAR_environment: ${{ vars.TF_VAR_environment }}
+      TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
+      TF_VAR_domain_name: ${{ vars.TF_VAR_domain_name }}
+      TF_VAR_github_org: ${{ vars.TF_VAR_github_org }}
+      TF_VAR_contact_to_email: ${{ vars.TF_VAR_contact_to_email }}
+      TF_VAR_from_email: ${{ vars.TF_VAR_from_email }}
+      TF_VAR_database_url: ${{ secrets.TF_VAR_database_url }}
+      TF_VAR_google_client_id: ${{ secrets.TF_VAR_google_client_id }}
+      TF_VAR_google_client_secret: ${{ secrets.TF_VAR_google_client_secret }}
+      TF_VAR_resend_api_key: ${{ secrets.TF_VAR_resend_api_key }}
+      TF_VAR_session_secret: ${{ secrets.TF_VAR_session_secret }}
+      TF_VAR_sentry_dsn: ${{ secrets.TF_VAR_sentry_dsn }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~> 1.14"
+          terraform_wrapper: false
+
+      - name: Configure AWS credentials (apply role)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.TF_APPLY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: TerraformApplyProd
+
+      - name: Apply (prod)
+        uses: ./.github/actions/terraform-apply-env
+        with:
+          environment: ${{ vars.TF_VAR_environment }}
+          project-name: ${{ vars.TF_VAR_project_name }}
+          aws-region: ${{ env.AWS_REGION }}
+          next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
+          next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
+          next-public-sentry-dsn: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
