@@ -538,6 +538,10 @@ module "github_oidc" {
   s3_static_assets_bucket_arn = module.s3_static_assets.bucket_arn
   cloudfront_distribution_arn = module.cloudfront.distribution_arn
 
+  enable_terraform_roles = true
+  github_org             = var.github_org
+  state_bucket_arn       = "arn:aws:s3:::${var.project_name}-terraform-state"
+
   tags = merge(
     local.common_tags,
     {

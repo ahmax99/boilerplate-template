@@ -80,3 +80,16 @@ output "static_assets_bucket_name" {
   description = "S3 bucket to upload Next.js static assets"
   value       = module.s3_static_assets.bucket_name
 }
+
+# -------------------
+# Terraform CI roles
+# -------------------
+output "terraform_plan_role_arn" {
+  description = "ARN of the read-only OIDC role for terraform plan (put into GitHub vars.TF_PLAN_ROLE_ARN)"
+  value       = module.github_oidc.terraform_plan_role_arn
+}
+
+output "terraform_apply_role_arn" {
+  description = "ARN of the read-write OIDC role for terraform apply (put into GitHub vars.TF_APPLY_ROLE_ARN)"
+  value       = module.github_oidc.terraform_apply_role_arn
+}

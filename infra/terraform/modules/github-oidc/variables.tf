@@ -47,3 +47,18 @@ variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)
 }
+
+variable "enable_terraform_roles" {
+  description = "Create the terraform_plan and terraform_apply OIDC roles. Requires github_org and state_bucket_arn."
+  type        = bool
+}
+
+variable "github_org" {
+  description = "GitHub organisation name — required when enable_terraform_roles = true"
+  type        = string
+}
+
+variable "state_bucket_arn" {
+  description = "ARN of the S3 Terraform state bucket — required when enable_terraform_roles = true"
+  type        = string
+}
