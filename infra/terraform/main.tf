@@ -539,6 +539,8 @@ module "github_oidc" {
   cloudfront_distribution_arn = module.cloudfront.distribution_arn
 
   enable_terraform_roles = true
+  environment            = var.environment
+  create_oidc_provider   = var.environment == "dev"
   github_org             = var.github_org
   state_bucket_arn       = "arn:aws:s3:::${var.project_name}-terraform-state"
 

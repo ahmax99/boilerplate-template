@@ -11,7 +11,7 @@ resource "aws_iam_role" "github_actions" {
       {
         Effect = "Allow"
         Principal = {
-          Federated = aws_iam_openid_connect_provider.github.arn
+          Federated = local.oidc_provider_arn
         }
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
@@ -138,6 +138,8 @@ resource "aws_iam_policy" "lambda_deployment" {
 # GitHub OIDC Provider
 # -------------------
 resource "aws_iam_openid_connect_provider" "github" {
+  count = var.create_oidc_provider ? 1 : 0
+
   url = "https://token.actions.githubusercontent.com"
 
   client_id_list = [
@@ -232,7 +234,7 @@ resource "aws_iam_role" "terraform_plan" {
       {
         Effect = "Allow"
         Principal = {
-          Federated = aws_iam_openid_connect_provider.github.arn
+          Federated = local.oidc_provider_arn
         }
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
@@ -268,7 +270,7 @@ resource "aws_iam_policy" "terraform_plan_state" {
         ]
         Resource = [
           var.state_bucket_arn,
-          "${var.state_bucket_arn}/*"
+          "${var.state_bucket_arn}/${var.environment}/*"
         ]
       }
     ]
@@ -305,13 +307,13 @@ resource "aws_iam_role" "terraform_apply" {
       {
         Effect = "Allow"
         Principal = {
-          Federated = aws_iam_openid_connect_provider.github.arn
+          Federated = local.oidc_provider_arn
         }
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
           StringEquals = {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
-            "token.actions.githubusercontent.com:sub" = "repo:${var.github_org}/${var.project_name}:environment:terraform-apply"
+            "token.actions.githubusercontent.com:sub" = "repo:${var.github_org}/${var.project_name}:environment:${var.environment}"
           }
         }
       }
@@ -346,7 +348,7 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         ]
         Resource = [
           var.state_bucket_arn,
-          "${var.state_bucket_arn}/*"
+          "${var.state_bucket_arn}/${var.environment}/*"
         ]
       },
       {
@@ -354,9 +356,9 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Effect = "Allow"
         Action = ["iam:*"]
         Resource = [
-          "arn:aws:iam::*:role/${var.project_name}-*",
-          "arn:aws:iam::*:policy/${var.project_name}-*",
-          "arn:aws:iam::*:instance-profile/${var.project_name}-*",
+          "arn:aws:iam::*:role/${var.project_name}-${var.environment}-*",
+          "arn:aws:iam::*:policy/${var.project_name}-${var.environment}-*",
+          "arn:aws:iam::*:instance-profile/${var.project_name}-${var.environment}-*",
           "arn:aws:iam::*:oidc-provider/token.actions.githubusercontent.com"
         ]
       },
@@ -365,10 +367,10 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Effect = "Allow"
         Action = ["lambda:*"]
         Resource = [
-          "arn:aws:lambda:*:*:function:${var.project_name}-*",
-          "arn:aws:lambda:*:*:function:${var.project_name}-*:*",
-          "arn:aws:lambda:*:*:layer:${var.project_name}-*",
-          "arn:aws:lambda:*:*:layer:${var.project_name}-*:*"
+          "arn:aws:lambda:*:*:function:${var.project_name}-${var.environment}-*",
+          "arn:aws:lambda:*:*:function:${var.project_name}-${var.environment}-*:*",
+          "arn:aws:lambda:*:*:layer:${var.project_name}-${var.environment}-*",
+          "arn:aws:lambda:*:*:layer:${var.project_name}-${var.environment}-*:*"
         ]
       },
       {
@@ -376,15 +378,15 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Effect = "Allow"
         Action = ["lambda:*"]
         Resource = [
-          "arn:aws:lambda:us-east-1:*:function:${var.project_name}-*",
-          "arn:aws:lambda:us-east-1:*:function:${var.project_name}-*:*"
+          "arn:aws:lambda:us-east-1:*:function:${var.project_name}-${var.environment}-*",
+          "arn:aws:lambda:us-east-1:*:function:${var.project_name}-${var.environment}-*:*"
         ]
       },
       {
         Sid      = "ECRManagement"
         Effect   = "Allow"
         Action   = ["ecr:*"]
-        Resource = ["arn:aws:ecr:*:*:repository/${var.project_name}-*"]
+        Resource = ["arn:aws:ecr:*:*:repository/${var.project_name}-${var.environment}-*"]
       },
       {
         Sid      = "ECRAuthToken"
@@ -397,8 +399,8 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Effect = "Allow"
         Action = ["s3:*"]
         Resource = [
-          "arn:aws:s3:::${var.project_name}-*",
-          "arn:aws:s3:::${var.project_name}-*/*"
+          "arn:aws:s3:::${var.project_name}-${var.environment}-*",
+          "arn:aws:s3:::${var.project_name}-${var.environment}-*/*"
         ]
       },
       {
@@ -435,7 +437,7 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Sid      = "SecretsManagerManagement"
         Effect   = "Allow"
         Action   = ["secretsmanager:*"]
-        Resource = "arn:aws:secretsmanager:*:*:secret:${var.project_name}*"
+        Resource = "arn:aws:secretsmanager:*:*:secret:${var.project_name}-${var.environment}*"
       },
       {
         Sid      = "CodeDeployManagement"
@@ -448,8 +450,8 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Effect = "Allow"
         Action = ["logs:*"]
         Resource = [
-          "arn:aws:logs:*:*:log-group:/aws/lambda/${var.project_name}-*",
-          "arn:aws:logs:*:*:log-group:/aws/lambda/${var.project_name}-*:*"
+          "arn:aws:logs:*:*:log-group:/aws/lambda/${var.project_name}-${var.environment}-*",
+          "arn:aws:logs:*:*:log-group:/aws/lambda/${var.project_name}-${var.environment}-*:*"
         ]
       },
       {
