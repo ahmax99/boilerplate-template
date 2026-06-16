@@ -29,7 +29,7 @@ jobs:
            steps.metadata.outputs.package-ecosystem == 'github-actions')
         run: |
           gh pr review "$GITHUB_HEAD_REF" --approve
-          gh pr merge "$GITHUB_HEAD_REF" --auto --squash --rebase
+          gh pr merge "$GITHUB_HEAD_REF" --auto --squash
 
   github-dir-auto-merge:
     name: Auto-merge .github/-only PR
@@ -54,4 +54,4 @@ jobs:
         if: steps.check_files.outputs.count == '0'
         run: |
           gh pr review ${{ github.event.pull_request.number }} --approve
-          gh pr merge ${{ github.event.pull_request.number }} --auto --squash --rebase
+          gh pr merge ${{ github.event.pull_request.number }} --auto --squash
