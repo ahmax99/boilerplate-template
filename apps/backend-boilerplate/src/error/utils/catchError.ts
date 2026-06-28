@@ -1,8 +1,8 @@
 import { ForbiddenError } from '@casl/ability'
 import { ResultAsync } from 'neverthrow'
 
-import { AppError } from '../lib/AppError.js'
-import { captureError } from './captureError.js'
+import { AppError } from '@/error/lib/AppError.js'
+import { captureError } from '@/error/utils/captureError.js'
 
 const stringifyUnknownError = (error: unknown) => {
   switch (typeof error) {

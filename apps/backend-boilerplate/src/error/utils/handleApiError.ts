@@ -1,6 +1,6 @@
 import type { ResultAsync } from 'neverthrow'
 
-import type { AppError } from '../lib/AppError.js'
+import type { AppError } from '@/error/lib/AppError.js'
 
 export const handleApiError = async <T>(
   resultAsync: ResultAsync<T, AppError>

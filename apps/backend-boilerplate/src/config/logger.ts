@@ -1,6 +1,6 @@
 import { createPinoLogger } from '@bogeychan/elysia-logger'
 
-import { env } from './env'
+import { env } from '@/config/env.js'
 
 export const logger = createPinoLogger({
   level: env.NODE_ENV === 'development' ? 'debug' : 'info',

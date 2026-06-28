@@ -2,11 +2,11 @@ import { fromTypes, openapi } from '@elysiajs/openapi'
 import { PostModel, UserModel } from '@shared/config'
 import { Elysia } from 'elysia'
 
-import { errorHandler } from '../../error/lib/errorHandler.js'
-import { handleApiError } from '../../error/utils/handleApiError.js'
-import { authPlugin } from '../auth/auth.plugin.js'
-import { getUserPermissions } from '../auth/permission.js'
-import { userPlugin } from './user.plugin.js'
+import { errorHandler } from '@/error/lib/errorHandler.js'
+import { handleApiError } from '@/error/utils/handleApiError.js'
+import { authPlugin } from '@/modules/auth/auth.plugin.js'
+import { getUserPermissions } from '@/modules/auth/permission.js'
+import { userPlugin } from '@/modules/users/user.plugin.js'
 
 export const userController = new Elysia({ prefix: '/users' })
   .use(userPlugin)

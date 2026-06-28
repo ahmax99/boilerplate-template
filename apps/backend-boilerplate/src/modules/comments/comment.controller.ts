@@ -2,11 +2,11 @@ import { fromTypes, openapi } from '@elysiajs/openapi'
 import { CommentModel } from '@shared/config'
 import { Elysia } from 'elysia'
 
-import { errorHandler } from '../../error/lib/errorHandler.js'
-import { handleApiError } from '../../error/utils/handleApiError.js'
-import { authPlugin } from '../auth/auth.plugin.js'
-import { getUserPermissions } from '../auth/permission.js'
-import { commentPlugin } from './comment.plugin.js'
+import { errorHandler } from '@/error/lib/errorHandler.js'
+import { handleApiError } from '@/error/utils/handleApiError.js'
+import { authPlugin } from '@/modules/auth/auth.plugin.js'
+import { getUserPermissions } from '@/modules/auth/permission.js'
+import { commentPlugin } from '@/modules/comments/comment.plugin.js'
 
 export const commentController = new Elysia({ prefix: '/comments' })
   .use(commentPlugin)

@@ -1,13 +1,9 @@
 import type { CommentIdParams, CreateCommentBody } from '@shared/config'
 import { prisma } from '@shared/neon'
 
-import { AppError } from '../../error/lib/AppError.js'
-import { catchAsyncError } from '../../error/utils/catchError.js'
-import {
-  type AppAbility,
-  accessibleBy,
-  subject
-} from '../../lib/casl-prisma.js'
+import { AppError } from '@/error/lib/AppError.js'
+import { catchAsyncError } from '@/error/utils/catchError.js'
+import { type AppAbility, accessibleBy, subject } from '@/lib/casl-prisma.js'
 
 export const CommentService = {
   getAll: (postId: string, ability: AppAbility) =>

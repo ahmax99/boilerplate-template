@@ -2,10 +2,10 @@ import { cors } from '@elysiajs/cors'
 import { Elysia } from 'elysia'
 import { helmet } from 'elysia-helmet'
 
-import { env } from './config/env.js'
-import { logger, loggerPlugin } from './config/logger.js'
-import { loadSecrets } from './config/secrets.js'
-import { routes } from './routes/index.js'
+import { env } from '@/config/env.js'
+import { logger, loggerPlugin } from '@/config/logger.js'
+import { loadSecrets } from '@/config/secrets.js'
+import { routes } from '@/routes/index.js'
 
 await loadSecrets()
 

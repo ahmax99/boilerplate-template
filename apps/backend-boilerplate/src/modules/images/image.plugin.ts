@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia'
 
-import { ImageService } from './image.service.js'
+import { ImageService } from '@/modules/images/image.service.js'
 
 export const imagePlugin = new Elysia({ name: 'image-plugin' }).decorate({
   imageService: ImageService

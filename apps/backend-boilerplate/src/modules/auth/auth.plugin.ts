@@ -2,8 +2,8 @@ import { bearer } from '@elysia/bearer'
 import { Elysia, status } from 'elysia'
 import type { JWTPayload } from 'jose'
 
-import { errorHandler } from '../../error/lib/errorHandler.js'
-import { verifyToken } from './jwt.js'
+import { errorHandler } from '@/error/lib/errorHandler.js'
+import { verifyToken } from '@/modules/auth/jwt.js'
 
 export interface AuthUser {
   cognitoSub: string

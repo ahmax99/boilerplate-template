@@ -1,10 +1,10 @@
 import { openapi } from '@elysiajs/openapi'
 import { Elysia } from 'elysia'
 
-import { commentController } from '../modules/comments/comment.controller.js'
-import { imageController } from '../modules/images/image.controller.js'
-import { postController } from '../modules/posts/post.controller.js'
-import { userController } from '../modules/users/user.controller.js'
+import { commentController } from '@/modules/comments/comment.controller.js'
+import { imageController } from '@/modules/images/image.controller.js'
+import { postController } from '@/modules/posts/post.controller.js'
+import { userController } from '@/modules/users/user.controller.js'
 
 export const routes = new Elysia({ prefix: '/api/v1' })
   .use(

@@ -1,7 +1,7 @@
 import { AbilityBuilder } from '@casl/ability'
 
-import { type AppAbility, createPrismaAbility } from '../../lib/casl-prisma.js'
-import type { AuthUser } from './auth.plugin.js'
+import { type AppAbility, createPrismaAbility } from '@/lib/casl-prisma.js'
+import type { AuthUser } from '@/modules/auth/auth.plugin.js'
 
 export const getUserPermissions = (user?: AuthUser, userId?: string) => {
   const { can, build } = new AbilityBuilder<AppAbility>(createPrismaAbility)

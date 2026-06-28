@@ -1,13 +1,13 @@
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
-import { env } from '../../config/env.js'
-import { SIGNED_URL_EXPIRATION } from '../../constants/index.js'
-import { AppError } from '../../error/lib/AppError.js'
-import { catchAsyncError } from '../../error/utils/catchError.js'
-import type { AppAbility } from '../../lib/casl-prisma.js'
-import { s3Client } from '../../lib/s3.js'
-import { sanitizeFilename } from '../../utils/sanitizeFilename.js'
+import { env } from '@/config/env.js'
+import { SIGNED_URL_EXPIRATION } from '@/constants/index.js'
+import { AppError } from '@/error/lib/AppError.js'
+import { catchAsyncError } from '@/error/utils/catchError.js'
+import type { AppAbility } from '@/lib/casl-prisma.js'
+import { s3Client } from '@/lib/s3.js'
+import { sanitizeFilename } from '@/utils/sanitizeFilename.js'
 
 export const UploadService = {
   getPresignedUrl: (

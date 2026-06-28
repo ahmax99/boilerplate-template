@@ -4,8 +4,8 @@ import {
   COGNITO_AUDIENCE,
   COGNITO_ISSUER,
   COGNITO_JWKS_URI
-} from '../../constants/index.js'
-import { catchAsyncError } from '../../error/utils/catchError.js'
+} from '@/constants/index.js'
+import { catchAsyncError } from '@/error/utils/catchError.js'
 
 const JWKS = createRemoteJWKSet(new URL(COGNITO_JWKS_URI))
 

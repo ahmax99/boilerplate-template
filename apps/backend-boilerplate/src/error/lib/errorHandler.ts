@@ -1,9 +1,9 @@
 import { Elysia } from 'elysia'
 
-import { logger } from '../../config/logger.js'
-import { captureError } from '../utils/captureError.js'
-import { mapToAppError } from '../utils/catchError.js'
-import { AppError } from './AppError.js'
+import { logger } from '@/config/logger.js'
+import { AppError } from '@/error/lib/AppError.js'
+import { captureError } from '@/error/utils/captureError.js'
+import { mapToAppError } from '@/error/utils/catchError.js'
 
 export const errorHandler = new Elysia({ name: 'error-handler' })
   .error({ AppError })

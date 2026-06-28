@@ -1,9 +1,9 @@
 import { openapi } from '@elysiajs/openapi'
 import { Elysia } from 'elysia'
 
-import { errorHandler } from '../../error/lib/errorHandler.js'
-import { handleApiError } from '../../error/utils/handleApiError.js'
-import { imagePlugin } from './image.plugin.js'
+import { errorHandler } from '@/error/lib/errorHandler.js'
+import { handleApiError } from '@/error/utils/handleApiError.js'
+import { imagePlugin } from '@/modules/images/image.plugin.js'
 
 export const imageController = new Elysia({ prefix: '/images' })
   .use(imagePlugin)

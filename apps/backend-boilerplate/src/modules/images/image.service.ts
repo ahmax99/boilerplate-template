@@ -1,9 +1,9 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3'
 
-import { env } from '../../config/env.js'
-import { AppError } from '../../error/lib/AppError.js'
-import { catchAsyncError } from '../../error/utils/catchError.js'
-import { s3Client } from '../../lib/s3.js'
+import { env } from '@/config/env.js'
+import { AppError } from '@/error/lib/AppError.js'
+import { catchAsyncError } from '@/error/utils/catchError.js'
+import { s3Client } from '@/lib/s3.js'
 
 export const ImageService = {
   getImage: (imagePath: string) =>

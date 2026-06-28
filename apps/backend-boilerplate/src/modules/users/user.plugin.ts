@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia'
 
-import { UploadService } from '../upload/upload.service.js'
-import { UserService } from './user.service.js'
+import { UploadService } from '@/modules/upload/upload.service.js'
+import { UserService } from '@/modules/users/user.service.js'
 
 export const userPlugin = new Elysia({ name: 'user-plugin' }).decorate({
   userService: UserService,
