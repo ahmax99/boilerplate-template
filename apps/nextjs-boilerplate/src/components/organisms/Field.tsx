@@ -104,6 +104,18 @@ const FieldErrorList = ({ errors }: { errors: FieldErrorItem[] }) => (
   </ul>
 )
 
+const resolveFieldErrorContent = (
+  children: React.ReactNode,
+  errors: FieldErrorItem[] = []
+) => {
+  if (children) return children
+  const unique = dedupeErrorMessages(errors)
+  if (!unique.length) return null
+  if (unique.length === 1) return unique[0]!.message
+
+  return <FieldErrorList errors={unique} />
+}
+
 function FieldError({
   className,
   children,
@@ -112,15 +124,10 @@ function FieldError({
 }: React.ComponentProps<'div'> & {
   errors?: FieldErrorItem[]
 }) {
-  const content = useMemo(() => {
-    if (children) return children
-
-    const uniqueErrors = dedupeErrorMessages(errors ?? [])
-    if (!uniqueErrors.length) return null
-    if (uniqueErrors.length === 1) return uniqueErrors[0]?.message
-
-    return <FieldErrorList errors={uniqueErrors} />
-  }, [children, errors])
+  const content = useMemo(
+    () => resolveFieldErrorContent(children, errors),
+    [children, errors]
+  )
 
   if (!content) return null
 

@@ -20,6 +20,34 @@ import { destroySession, getSessionData, setSessionData } from './session'
 
 const log = logger.child({ module: 'auth' })
 
+const SESSION_CHECKS = [
+  {
+    check: (session: SessionData, state: CallbackParams['state']) =>
+      session.state !== state,
+    message: 'OAuth state mismatch',
+    error: 'invalid_state'
+  },
+  {
+    check: (session: SessionData) => !session.codeVerifier,
+    message: 'OAuth code verifier missing from session',
+    error: 'missing_verifier'
+  },
+  {
+    check: (session: SessionData) => !session.nonce,
+    message: 'OAuth nonce missing from session',
+    error: 'missing_nonce'
+  }
+]
+
+const getValidTokenData = (
+  tokens: Awaited<ReturnType<typeof authorizationCodeGrant>>
+) => {
+  const claims = tokens.claims()
+  if (!claims || !tokens.id_token) return null
+
+  return { claims, idToken: tokens.id_token }
+}
+
 export const handleLogin = async (callbackUrl?: string) => {
   const { codeVerifier, codeChallenge } = await generatePKCE()
   const state = generateState()
@@ -58,7 +86,8 @@ const validateCallbackParams = (params: CallbackParams) => {
     return `/auth/login?error=${error}`
   }
 
-  if (!code || !state) {
+  const isMissingParams = !code || !state
+  if (isMissingParams) {
     log.warn('OAuth callback missing code or state')
     return '/auth/login?error=missing_code'
   }
@@ -69,22 +98,12 @@ const validateCallbackParams = (params: CallbackParams) => {
 const validateSession = (
   session: SessionData,
   state: CallbackParams['state']
-): string | null => {
-  if (state !== session.state) {
-    log.warn('OAuth state mismatch')
-    return '/auth/login?error=invalid_state'
+) => {
+  const failed = SESSION_CHECKS.find(({ check }) => check(session, state))
+  if (failed) {
+    log.warn(failed.message)
+    return `/auth/login?error=${failed.error}`
   }
-
-  if (!session.codeVerifier) {
-    log.warn('OAuth code verifier missing from session')
-    return '/auth/login?error=missing_verifier'
-  }
-
-  if (!session.nonce) {
-    log.warn('OAuth nonce missing from session')
-    return '/auth/login?error=missing_nonce'
-  }
-
   return null
 }
 
@@ -109,13 +128,13 @@ export const handleCallback = async (
     expectedNonce: session.nonce
   })
 
-  const claims = tokens.claims()
-
-  if (!claims || !tokens.id_token) {
+  const tokenData = getValidTokenData(tokens)
+  if (!tokenData) {
     log.warn('OAuth token exchange returned invalid claims or missing id_token')
     return { redirectUrl: '/auth/login?error=invalid_token' }
   }
 
+  const { claims, idToken } = tokenData
   const email = claims.email as string
 
   // save user session data first, then clear PKCE data — must be sequential
@@ -130,7 +149,7 @@ export const handleCallback = async (
   // idempotent - returns existing user if already created
   await createUser(
     { cognitoSub: claims.sub, email, name: claims.name as string },
-    tokens.id_token
+    idToken
   )
 
   // assign user to default "Users" group on first login
