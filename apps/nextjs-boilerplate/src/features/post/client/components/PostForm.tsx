@@ -5,22 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import type { User } from '@shared/config'
 import { useForm } from 'react-hook-form'
 
-import { Button, Input, Textarea } from '@/components/atoms'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  LoadingSwap
-} from '@/components/molecules'
-import {
-  Field,
-  FieldContent,
-  FieldError,
-  FieldLabel,
-  FieldTitle
-} from '@/components/organisms/Field'
+import { Input, Textarea } from '@/components/atoms'
+import { FormCard, FormField } from '@/components/organisms'
 
 import {
   type CreatePostSchema,
@@ -118,43 +104,23 @@ export const PostForm = ({ config, user }: Readonly<PostFormProps>) => {
     )
 
   return (
-    <Card className="w-full sm:max-w-96">
-      <CardHeader className="font-bold text-2xl">
-        <CardTitle>{config.title}</CardTitle>
-        <CardDescription>{config.description}</CardDescription>
-      </CardHeader>
-
-      <CardContent>
-        <form
-          className="space-y-4"
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
+    <FormCard
+      description={config.description}
+      isSubmitting={isSubmitting}
+      onSubmit={handleSubmit(onSubmit)}
+      submitLabel={config.submitLabel}
+      title={config.title}
+    >
+      {config.fields.map((field) => (
+        <FormField
+          error={errors[field.name as keyof typeof errors]}
+          key={field.name}
+          label={field.label}
+          name={field.name}
         >
-          {config.fields.map((field) => {
-            const fieldError = errors[field.name as keyof typeof errors]
-
-            return (
-              <Field key={field.name}>
-                <FieldLabel
-                  className="flex items-center justify-between"
-                  htmlFor={field.name}
-                >
-                  <FieldTitle>{field.label}</FieldTitle>
-                </FieldLabel>
-                <FieldContent>
-                  {renderFieldInput(field)}
-                  <FieldError errors={fieldError ? [fieldError] : []} />
-                </FieldContent>
-              </Field>
-            )
-          })}
-          <Button className="w-full" disabled={isSubmitting} type="submit">
-            <LoadingSwap isLoading={isSubmitting}>
-              {config.submitLabel}
-            </LoadingSwap>
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+          {renderFieldInput(field)}
+        </FormField>
+      ))}
+    </FormCard>
   )
 }

@@ -45,6 +45,8 @@ There is **no test runner configured** in this repo yet. CI runs type-checking, 
 
 **Frontend:**
 - Browser code never calls the Elysia backend directly — always via Next.js server actions, route handlers, or server components
+- Feature modules at `src/features/<name>/` split by context: `client/` (`'use client'` components/hooks/API callers), `server/` (server components + Elysia calls), `schemas/`, `lib/`, `utils/`, `constants/`, `providers/`
+- Shared cross-feature UI only goes in `src/components/` (atoms → molecules → organisms → layout → common); feature-specific components stay inside their feature folder
 
 **Shared:**
 - New Zod schemas/types go in `@shared/config`, never in an individual app

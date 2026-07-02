@@ -3,8 +3,7 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
 import { env } from '@/config/env.js'
 import { SIGNED_URL_EXPIRATION } from '@/constants/index.js'
-import { AppError } from '@/error/lib/AppError.js'
-import { catchAsyncError } from '@/error/utils/catchError.js'
+import { authorizeResource } from '@/lib/authorizeResource.js'
 import type { AppAbility } from '@/lib/casl-prisma.js'
 import { s3Client } from '@/lib/s3.js'
 import { sanitizeFilename } from '@/utils/sanitizeFilename.js'
@@ -17,11 +16,10 @@ export const UploadService = {
     contentType: string,
     ability: AppAbility
   ) =>
-    catchAsyncError(
-      (async () => {
-        if (!ability.can('create', 'Post'))
-          throw new AppError('FORBIDDEN', 'Cannot upload files')
-
+    authorizeResource(
+      ability.can('create', 'Post'),
+      'Cannot upload files',
+      async () => {
         const key = `${folder}/${Date.now()}-${sanitizeFilename(filename)}`
 
         const command = new PutObjectCommand({
@@ -41,6 +39,6 @@ export const UploadService = {
         const publicUrl = `${backendUrl}/api/v1/images/${key}`
 
         return { presignedUrl, publicUrl, key }
-      })()
+      }
     )
 }
