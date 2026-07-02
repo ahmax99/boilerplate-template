@@ -1,8 +1,8 @@
 import type { CommentIdParams, CreateCommentBody } from '@shared/config'
 import { prisma } from '@shared/neon'
 
-import { AppError } from '@/error/lib/AppError.js'
 import { catchAsyncError } from '@/error/utils/catchError.js'
+import { authorizeResource } from '@/lib/authorizeResource.js'
 import { type AppAbility, accessibleBy, subject } from '@/lib/casl-prisma.js'
 
 export const CommentService = {
@@ -21,36 +21,31 @@ export const CommentService = {
     ),
 
   create: (input: CreateCommentBody, ability: AppAbility) =>
-    catchAsyncError(
-      (async () => {
-        if (!ability.can('create', 'Comment'))
-          throw new AppError('FORBIDDEN', 'Cannot create comment')
-
-        return prisma.comment.create({
+    authorizeResource(
+      ability.can('create', 'Comment'),
+      'Cannot create comment',
+      () =>
+        prisma.comment.create({
           data: {
             content: input.content,
             postId: input.postId,
             authorId: input.authorId
           }
         })
-      })()
     ),
 
   delete: (id: CommentIdParams['id'], ability: AppAbility) =>
-    catchAsyncError(
-      (async () => {
-        const comment = await prisma.comment.findUnique({
-          where: { id, deletedAt: null }
-        })
-
-        if (!comment) throw new AppError('NOT_FOUND', 'Comment not found')
-        if (!ability.can('delete', subject('Comment', comment)))
-          throw new AppError('FORBIDDEN', 'Cannot delete this comment')
-
-        return prisma.comment.update({
+    authorizeResource(
+      prisma.comment.findUnique({ where: { id, deletedAt: null } }),
+      {
+        notFound: 'Comment not found',
+        forbidden: 'Cannot delete this comment',
+        can: (comment) => ability.can('delete', subject('Comment', comment))
+      },
+      () =>
+        prisma.comment.update({
           where: { id },
           data: { deletedAt: new Date() }
         })
-      })()
     )
 } as const

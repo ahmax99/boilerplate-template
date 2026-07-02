@@ -7,7 +7,7 @@ import { logger } from '@/config/logger'
 
 import { getOIDCClient } from '../../lib/cognitoClient'
 import { PUBLIC_ROUTES } from '../../lib/routes'
-import type { CallbackParams } from '../../schemas/auth.schema'
+import type { CallbackParams, SessionData } from '../../schemas/auth.schema'
 import {
   clearPKCEData,
   generateNonce,
@@ -50,73 +50,86 @@ export const handleLogin = async (callbackUrl?: string) => {
   return { authUrl: authUrl.toString() }
 }
 
+const validateCallbackParams = (params: CallbackParams) => {
+  const { code, state, error } = params
+
+  if (error) {
+    log.warn({ error }, 'OAuth callback returned error')
+    return `/auth/login?error=${error}`
+  }
+
+  if (!code || !state) {
+    log.warn('OAuth callback missing code or state')
+    return '/auth/login?error=missing_code'
+  }
+
+  return null
+}
+
+const validateSession = (
+  session: SessionData,
+  state: CallbackParams['state']
+): string | null => {
+  if (state !== session.state) {
+    log.warn('OAuth state mismatch')
+    return '/auth/login?error=invalid_state'
+  }
+
+  if (!session.codeVerifier) {
+    log.warn('OAuth code verifier missing from session')
+    return '/auth/login?error=missing_verifier'
+  }
+
+  if (!session.nonce) {
+    log.warn('OAuth nonce missing from session')
+    return '/auth/login?error=missing_nonce'
+  }
+
+  return null
+}
+
 export const handleCallback = async (
   currentUrl: URL,
   params: CallbackParams
 ) => {
-  const { code, state, error } = params
-
-  // validate query parameters
-  switch (true) {
-    case !!error:
-      log.warn({ error }, 'OAuth callback returned error')
-      return { redirectUrl: `/auth/login?error=${error}` }
-    case !code || !state:
-      log.warn('OAuth callback missing code or state')
-      return { redirectUrl: '/auth/login?error=missing_code' }
-  }
+  const paramError = validateCallbackParams(params)
+  if (paramError) return { redirectUrl: paramError }
 
   const [session, config] = await Promise.all([
     getSessionData(),
     getOIDCClient()
   ])
 
-  // validate session data
-  switch (true) {
-    case state !== session.state:
-      log.warn('OAuth state mismatch')
-      return { redirectUrl: '/auth/login?error=invalid_state' }
-    case !session.codeVerifier:
-      log.warn('OAuth code verifier missing from session')
-      return { redirectUrl: '/auth/login?error=missing_verifier' }
-    case !session.nonce:
-      log.warn('OAuth nonce missing from session')
-      return { redirectUrl: '/auth/login?error=missing_nonce' }
-  }
+  const sessionError = validateSession(session, params.state)
+  if (sessionError) return { redirectUrl: sessionError }
 
   const tokens = await authorizationCodeGrant(config, currentUrl, {
     pkceCodeVerifier: session.codeVerifier,
-    expectedState: state,
+    expectedState: params.state,
     expectedNonce: session.nonce
   })
 
   const claims = tokens.claims()
 
-  // validate claims and id_token
   if (!claims || !tokens.id_token) {
     log.warn('OAuth token exchange returned invalid claims or missing id_token')
     return { redirectUrl: '/auth/login?error=invalid_token' }
   }
 
-  const sessionData = {
+  const email = claims.email as string
+
+  // save user session data first, then clear PKCE data — must be sequential
+  // to avoid a race condition between the two session writes.
+  await setSessionData({
     userId: claims.sub,
-    email: claims.email as string,
+    email,
     refreshToken: tokens.refresh_token
-  }
-
-  // save user session data first
-  await setSessionData(sessionData)
-
-  // then clear PKCE data (must be sequential to avoid race condition)
+  })
   await clearPKCEData()
 
-  // create user in database (idempotent - returns existing user if already exists)
+  // idempotent - returns existing user if already created
   await createUser(
-    {
-      cognitoSub: claims.sub,
-      email: claims.email as string,
-      name: claims.name as string
-    },
+    { cognitoSub: claims.sub, email, name: claims.name as string },
     tokens.id_token
   )
 
@@ -125,9 +138,7 @@ export const handleCallback = async (
 
   log.info({ userId: claims.sub }, 'User authenticated successfully')
 
-  const redirectUrl = session.callbackUrl ?? PUBLIC_ROUTES.HOME
-
-  return { redirectUrl }
+  return { redirectUrl: session.callbackUrl ?? PUBLIC_ROUTES.HOME }
 }
 
 export const handleLogout = async () => {

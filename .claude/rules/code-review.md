@@ -12,4 +12,10 @@ description: Code review checklist and quality gates to enforce during reviews
 - `any` types are banned (Biome `noExplicitAny` error).
 - Unbounded `findMany` calls need `take`/`skip` (or cursor) pagination.
 - Browser code never calls the Elysia backend directly — only via the Next.js BFF.
+- Components respect atomic-design hierarchy: atoms don't import molecules or organisms; molecules import atoms only; organisms may import atoms and molecules.
+- Feature-specific UI lives inside `features/<name>/client/components/` or `features/<name>/server/components/` — not in `src/components/` (shared cross-feature only).
+- Server components in `features/<name>/server/components/` have no `'use client'` directive, no React hooks, and no browser APIs.
+- Multi-variant components use CVA, not ad-hoc inline ternaries for class strings.
+- `const` arrow functions used throughout; `function` declarations are only acceptable for TypeScript overloads (multiple call signatures).
+- 3+ branches on the same discriminant use `switch-case`; simple value-to-value mappings use a `Record<K, V>` lookup table.
 - No dead/unused code and no copy-paste duplication (3+ near-identical blocks) — extract a shared helper into the right layer instead. Keep functions low-complexity; split one that sprawls. These are what **fallow** (local, `.fallowrc.json`) and **SonarQube** (CI) flag automatically, and they map directly to `principles.md` ("complexity is the enemy").

@@ -10,6 +10,11 @@ The concrete "how to write code here" rules. `architecture.md` covers *where thi
 - Prefer the neverthrow `Result` pattern in backend services over throwing across layers; only throw `AppError` inside the `catchAsyncError`-wrapped body.
 - Put shared types/schemas in `@shared/config` so both apps stay in sync.
 
+## Code Style
+
+- Prefer `const` arrow functions over `function` declarations: `const fn = () => {}` not `function fn() {}`. **Exception:** TypeScript function overloads require the `function` keyword (e.g., a utility with multiple call signatures); the `function` keyword is acceptable only in that case.
+- Prefer `switch-case` over `else-if` chains when 3 or more branches test the same discriminant expression. For simple value-to-value mappings, prefer a `Record<K, V>` lookup table over both (exhaustiveness is enforced by the type).
+
 ## Validation
 
 - Validate all external input (request `body` / `query` / `params`, headers, env) with a Zod schema at the boundary — for the backend that's the Elysia route options (e.g. `body: PostModel.createPostBody`), never inside a service.
@@ -29,6 +34,15 @@ The concrete "how to write code here" rules. `architecture.md` covers *where thi
 ## Exports
 
 Always use named exports, never default exports — except where Next.js requires a default export (pages, layouts, route segments, middleware).
+
+## Frontend Components (nextjs-boilerplate)
+
+- Use CVA (`class-variance-authority`) for variant systems in atoms and organisms; co-export `<Name>Variants` alongside the component for consumers that need raw class strings.
+- Mark each component's root element with `data-slot="<component-name>"` (e.g. `data-slot="button"`) to enable parent styling via attribute selectors.
+- Compose subcomponents (e.g. `Card`, `CardHeader`, `CardContent`) as separate named exports from a single file — not separate files.
+- Atoms and molecules carry no `'use client'` directive by default; add it only when event handlers, hooks, or browser APIs are genuinely required.
+- Feature-specific components go in `features/<name>/client/components/` (client) or `features/<name>/server/components/` (server); never in `src/components/`.
+- Server components (`features/<name>/server/components/`) must have no `'use client'`, no React hooks, and no browser APIs.
 
 ## Error Handling
 

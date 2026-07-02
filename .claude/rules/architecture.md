@@ -47,11 +47,20 @@ Next.js App Router. The app is a **BFF**: browser code never calls the Elysia ba
 - `client/` — `'use client'` components, hooks, and client-side API callers.
 - `schemas/` — Zod; `lib/`, `utils/`, `constants/`, `providers/`.
 
+**Component system** (`src/components/`): Atomic-design layers for cross-feature shared UI:
+- `atoms/` — primitives (Button, Input, Label, Skeleton, Spinner…); CVA for variants; root element marked `data-slot="<name>"`.
+- `molecules/` — composites of atoms (Card, Avatar, AlertDialog, Tabs…); may expose named subcomponents (e.g. `Card` + `CardHeader` + `CardContent` from one file).
+- `organisms/` — complex interactive components combining molecules (Field, ActionButton); may own local state and handlers.
+- `layout/` — page structure blocks (`PageTemplate`, `PageHeader`).
+- `common/` — marketing/cross-page sections (`HeroSection`, `FeatureSection`).
+
+Atoms never import from molecules or organisms. Molecules import atoms only. Feature-specific UI belongs in `features/<name>/client/components/` or `features/<name>/server/components/`, not in `src/components/`.
+
 **Auth flow** (`src/features/auth/`): OIDC with Cognito using `openid-client` + PKCE. Session is stored in an `iron-session` HttpOnly cookie (`auth_session`). `src/proxy.ts` is the Next.js middleware that gates `PROTECTED_ROUTES` (redirects to login if the cookie is absent) — it only checks cookie *presence*, not validity; real verification happens in the backend.
 
 Authorization mirrors the backend with CASL (`@casl/react`, `src/lib/casl.ts`, `PermissionProvider`).
 
-Components follow atomic-design folders (`components/atoms|molecules|organisms`); UI is shadcn/ui + Tailwind CSS 4. Import alias is `@/*` → `src/*`.
+UI is shadcn/ui + Tailwind CSS 4. Import alias is `@/*` → `src/*`.
 
 ## Shared packages
 

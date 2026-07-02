@@ -5,8 +5,8 @@ import type {
 } from '@shared/config'
 import { prisma } from '@shared/neon'
 
-import { AppError } from '@/error/lib/AppError.js'
 import { catchAsyncError } from '@/error/utils/catchError.js'
+import { authorizeResource } from '@/lib/authorizeResource.js'
 import { type AppAbility, accessibleBy, subject } from '@/lib/casl-prisma.js'
 
 export const PostService = {
@@ -21,39 +21,27 @@ export const PostService = {
     ),
 
   getById: (id: PostIdParams['id'], ability: AppAbility) =>
-    catchAsyncError(
-      (async () => {
-        const post = await prisma.post.findUnique({
-          where: { id, deletedAt: null }
-        })
-
-        if (!post) throw new AppError('NOT_FOUND', 'Post not found')
-        if (!ability.can('read', subject('Post', post))) {
-          throw new AppError('FORBIDDEN', 'Cannot read this post')
-        }
-
-        return post
-      })()
+    authorizeResource(
+      prisma.post.findUnique({ where: { id, deletedAt: null } }),
+      {
+        notFound: 'Post not found',
+        forbidden: 'Cannot read this post',
+        can: (post) => ability.can('read', subject('Post', post))
+      }
     ),
 
   create: (input: CreatePostBody, ability: AppAbility) =>
-    catchAsyncError(
-      (async () => {
-        if (!ability.can('create', 'Post')) {
-          throw new AppError('FORBIDDEN', 'Cannot create post')
+    authorizeResource(ability.can('create', 'Post'), 'Cannot create post', () =>
+      prisma.post.create({
+        data: {
+          title: input.title,
+          content: input.content,
+          slug: input.slug,
+          imagePath: input.imagePath,
+          authorId: input.authorId,
+          createdAt: new Date()
         }
-
-        return prisma.post.create({
-          data: {
-            title: input.title,
-            content: input.content,
-            slug: input.slug,
-            imagePath: input.imagePath,
-            authorId: input.authorId,
-            createdAt: new Date()
-          }
-        })
-      })()
+      })
     ),
 
   update: (
@@ -61,39 +49,25 @@ export const PostService = {
     input: UpdatePostBody,
     ability: AppAbility
   ) =>
-    catchAsyncError(
-      (async () => {
-        const post = await prisma.post.findUnique({
-          where: { id, deletedAt: null }
-        })
-
-        if (!post) throw new AppError('NOT_FOUND', 'Post not found')
-        if (!ability.can('update', subject('Post', post))) {
-          throw new AppError('FORBIDDEN', 'Cannot update this post')
-        }
-
-        return prisma.post.update({
-          where: { id },
-          data: input
-        })
-      })()
+    authorizeResource(
+      prisma.post.findUnique({ where: { id, deletedAt: null } }),
+      {
+        notFound: 'Post not found',
+        forbidden: 'Cannot update this post',
+        can: (post) => ability.can('update', subject('Post', post))
+      },
+      () => prisma.post.update({ where: { id }, data: input })
     ),
 
   delete: (id: PostIdParams['id'], ability: AppAbility) =>
-    catchAsyncError(
-      (async () => {
-        const post = await prisma.post.findUnique({
-          where: { id, deletedAt: null }
-        })
-
-        if (!post) throw new AppError('NOT_FOUND', 'Post not found')
-        if (!ability.can('delete', subject('Post', post)))
-          throw new AppError('FORBIDDEN', 'Cannot delete this post')
-
-        return prisma.post.update({
-          where: { id },
-          data: { deletedAt: new Date() }
-        })
-      })()
+    authorizeResource(
+      prisma.post.findUnique({ where: { id, deletedAt: null } }),
+      {
+        notFound: 'Post not found',
+        forbidden: 'Cannot delete this post',
+        can: (post) => ability.can('delete', subject('Post', post))
+      },
+      () =>
+        prisma.post.update({ where: { id }, data: { deletedAt: new Date() } })
     )
 }
