@@ -35,6 +35,12 @@ yarn-error.log*
 # Prisma
 **/prisma/generated
 
+# Graphify (commit outputs, not cache or backups)
+graphify-out/cache/
+graphify-out/.graphify_root
+graphify-out/.graphify_labels.json
+graphify-out/20*/
+
 # Misc
 .DS_Store
 *.pem

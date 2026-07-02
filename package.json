@@ -12,7 +12,10 @@
     "check-format": "biome check",
     "format": "biome format --write",
     "prepare": "husky",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "graphify:install": "$HOME/.local/bin/uv tool install \"graphifyy[mcp]\"",
+    "graphify:build": "$HOME/.local/bin/graphify update .",
+    "graphify:serve": "$HOME/.local/bin/graphify-mcp graphify-out/graph.json"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,yml,yaml}": [

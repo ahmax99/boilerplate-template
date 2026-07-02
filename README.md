@@ -36,6 +36,21 @@ Modern full-stack monorepo boilerplate built with Turborepo, Bun, and TypeScript
 - **[fallow](https://docs.fallow.tools/)** - Static analysis for unused code, duplication, complexity, and architecture drift
 - **[sonarqube](https://docs.sonarsource.com)** -  Continuous inspection platform used to automate code reviews and detect bugs, security vulnerabilities, and code smell
 
+## Prerequisites
+
+In addition to [Bun](https://bun.sh/), this repo uses [graphify](https://github.com/safishamsi/graphify) to maintain a persistent codebase knowledge graph for AI-assisted development.
+
+**One-time setup** (requires Python 3.10+ and [`uv`](https://docs.astral.sh/uv/getting-started/installation/)):
+
+```bash
+bun run graphify:install   # install graphify via uv
+bun run graphify:build     # generate graphify-out/ (uses graphify update — no API key needed)
+```
+
+After this, the graph rebuilds automatically after every commit via a Husky post-commit hook. Other developers who clone the repo can use the pre-committed `graphify-out/` immediately without running setup.
+
+> If `bun run graphify:build` prompts for an API key or errors on Markdown files, add `docs/` to `.graphifyignore` and re-run.
+
 ## Workspace Structure
 
 > This is a high-level summary. Internal architecture (module layout, auth flow, error handling, BFF data flow) is documented for contributors in `.claude/rules/architecture.md`.
