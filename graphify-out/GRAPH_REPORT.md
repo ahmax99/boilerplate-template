@@ -1,16 +1,16 @@
-# Graph Report - boilerplate-template  (2026-07-03)
+# Graph Report - boilerplate-template  (2026-07-04)
 
 ## Corpus Check
-- 291 files · ~32,276 words
+- 296 files · ~34,538 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1003 nodes · 1657 edges · 71 communities (50 shown, 21 thin omitted)
+- 1009 nodes · 1664 edges · 65 communities (44 shown, 21 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 2 edges (avg confidence: 0.65)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ef2f6afa`
+- Built from commit: `b690f36d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -30,24 +30,18 @@
 - [[_COMMUNITY_scripts|scripts]]
 - [[_COMMUNITY_Boilerplate Template|Boilerplate Template]]
 - [[_COMMUNITY_post.model.ts|post.model.ts]]
-- [[_COMMUNITY_CommentForm.tsx|CommentForm.tsx]]
 - [[_COMMUNITY_compilerOptions|compilerOptions]]
 - [[_COMMUNITY_useAccountActions.ts|useAccountActions.ts]]
 - [[_COMMUNITY_package.json|package.json]]
-- [[_COMMUNITY_Field.tsx|Field.tsx]]
 - [[_COMMUNITY_devDependencies|devDependencies]]
-- [[_COMMUNITY_PostForm.tsx|PostForm.tsx]]
-- [[_COMMUNITY_AccountForm.tsx|AccountForm.tsx]]
 - [[_COMMUNITY_biome.json|biome.json]]
 - [[_COMMUNITY_.fallowrc.json|.fallowrc.json]]
 - [[_COMMUNITY_compilerOptions|compilerOptions]]
 - [[_COMMUNITY_formatter|formatter]]
 - [[_COMMUNITY_formatter|formatter]]
-- [[_COMMUNITY_catchError.ts|catchError.ts]]
 - [[_COMMUNITY_assist|assist]]
 - [[_COMMUNITY_compilerOptions|compilerOptions]]
 - [[_COMMUNITY_compilerOptions|compilerOptions]]
-- [[_COMMUNITY_DeleteAccountButton.tsx|DeleteAccountButton.tsx]]
 - [[_COMMUNITY_tsconfig.json|tsconfig.json]]
 - [[_COMMUNITY_CLAUDE|CLAUDE.md]]
 - [[_COMMUNITY_release-please-config.json|release-please-config.json]]
@@ -97,16 +91,16 @@
 10. `PUBLIC_ROUTES` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `EditAccountPage()` --calls--> `getMe()`  [EXTRACTED]
-  apps/nextjs-boilerplate/src/app/(authorized)/account/edit/page.tsx → apps/nextjs-boilerplate/src/features/auth/server/api/index.ts
 - `RootLayout()` --calls--> `cn()`  [EXTRACTED]
   apps/nextjs-boilerplate/src/app/layout.tsx → apps/nextjs-boilerplate/src/utils/mergeClass.ts
-- `catchAsyncError()` --indirect_call--> `mapToAppError()`  [INFERRED]
-  apps/nextjs-boilerplate/src/features/error/utils/catchError.ts → apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts
+- `EditAccountPage()` --calls--> `getMe()`  [EXTRACTED]
+  apps/nextjs-boilerplate/src/app/(authorized)/account/edit/page.tsx → apps/nextjs-boilerplate/src/features/auth/server/api/index.ts
 - `AccountPage()` --calls--> `getMe()`  [EXTRACTED]
   apps/nextjs-boilerplate/src/app/(authorized)/account/page.tsx → apps/nextjs-boilerplate/src/features/auth/server/api/index.ts
 - `AuthorizedLayoutContent()` --calls--> `getSessionData()`  [EXTRACTED]
   apps/nextjs-boilerplate/src/app/(authorized)/layout.tsx → apps/nextjs-boilerplate/src/features/auth/server/services/session.ts
+- `PublicLayoutContent()` --calls--> `getUserPermissions()`  [EXTRACTED]
+  apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx → apps/nextjs-boilerplate/src/features/auth/lib/permission.ts
 
 ## Import Cycles
 - 1-file cycle: `apps/nextjs-boilerplate/src/components/atoms/Button.tsx -> apps/nextjs-boilerplate/src/components/atoms/Button.tsx`
@@ -114,35 +108,35 @@
 - 1-file cycle: `apps/nextjs-boilerplate/src/components/molecules/Avatar.tsx -> apps/nextjs-boilerplate/src/components/molecules/Avatar.tsx`
 - 1-file cycle: `apps/nextjs-boilerplate/src/components/molecules/Tabs.tsx -> apps/nextjs-boilerplate/src/components/molecules/Tabs.tsx`
 
-## Communities (71 total, 21 thin omitted)
+## Communities (65 total, 21 thin omitted)
 
 ### Community 0 - "auth.ts"
-Cohesion: 0.06
-Nodes (46): GET(), GET(), GET(), GET(), env, logger, COOKIE_OPTIONS, SESSION_CONFIG (+38 more)
+Cohesion: 0.08
+Nodes (37): GET(), GET(), GET(), env, logger, COOKIE_OPTIONS, SESSION_CONFIG, getOIDCClient() (+29 more)
 
 ### Community 1 - "errorHandler.ts"
 Cohesion: 0.07
 Nodes (38): env, logger, loggerPlugin(), AppError, errorHandler, captureError(), catchAsyncError(), mapToAppError() (+30 more)
 
 ### Community 2 - "cn"
-Cohesion: 0.08
-Nodes (36): Button(), buttonVariants, Input(), Label(), Separator(), Skeleton(), Spinner(), Textarea() (+28 more)
+Cohesion: 0.05
+Nodes (61): Button(), buttonVariants, ButtonLink(), Input(), Label(), Separator(), Skeleton(), Spinner() (+53 more)
 
 ### Community 3 - "page.tsx"
-Cohesion: 0.07
-Nodes (36): GET(), DELETE(), PUT(), AccountPage(), metadata, AuthorizedLayoutContent(), CreatePostPage(), metadata (+28 more)
+Cohesion: 0.08
+Nodes (34): DELETE(), PUT(), EditAccountPage(), metadata, AccountPage(), metadata, AuthorizedLayoutContent(), CreatePostPage() (+26 more)
 
 ### Community 4 - "correctness"
 Cohesion: 0.04
 Nodes (47): noAdjacentSpacesInRegex, noExtraBooleanCast, noUselessCatch, noUselessEscapeInRegex, noUselessTypeConstraint, noChildrenProp, noConstantCondition, noConstAssign (+39 more)
 
 ### Community 5 - "page.tsx"
-Cohesion: 0.08
-Nodes (31): DELETE(), GET(), POST(), GET(), GET(), GET(), POST(), geistMono (+23 more)
+Cohesion: 0.06
+Nodes (38): GET(), DELETE(), GET(), POST(), GET(), GET(), GET(), GET() (+30 more)
 
 ### Community 6 - "ContactForm.tsx"
-Cohesion: 0.09
-Nodes (23): metadata, metadata, FeatureSection(), HeroSection(), PageTemplate(), PageTemplateProps, handleApiError(), ContactForm() (+15 more)
+Cohesion: 0.14
+Nodes (18): metadata, handleApiError(), ContactForm(), ContactFormConfig, ContactFormProps, FieldConfig, useContactActions(), ContactFormModel (+10 more)
 
 ### Community 7 - "devDependencies"
 Cohesion: 0.05
@@ -176,37 +170,21 @@ Nodes (27): AI-Driven Development, Apps (`apps/`), Authorization & Storage, Back
 Cohesion: 0.07
 Nodes (21): ErrorCode, ErrorDefinition, Comment, CommentIdParams, CommentModel, CreateCommentBody, EmailModel, EmailUser (+13 more)
 
-### Community 15 - "CommentForm.tsx"
-Cohesion: 0.22
-Nodes (12): createComment(), deleteComment(), CommentFieldConfig, CommentForm(), CommentFormConfig, CommentFormProps, DeleteCommentButton(), DeleteCommentButtonProps (+4 more)
-
 ### Community 16 - "compilerOptions"
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowSyntheticDefaultImports, declaration, declarationMap, esModuleInterop, incremental, isolatedModules, lib (+9 more)
 
 ### Community 17 - "useAccountActions.ts"
-Cohesion: 0.24
-Nodes (9): deleteUser(), updateUser(), uploadProfileImage(), handleClientAuthError(), handleClientError(), catchAsyncError(), createPostClient(), uploadImage() (+1 more)
+Cohesion: 0.05
+Nodes (43): GlobalErrorProps, ActionButton(), FormCard(), FormField(), deleteUser(), updateUser(), uploadProfileImage(), AccountForm() (+35 more)
 
 ### Community 18 - "package.json"
 Cohesion: 0.12
 Nodes (15): dependencies, zod, devDependencies, @shared/typescript-config, @types/node, typescript, main, name (+7 more)
 
-### Community 19 - "Field.tsx"
-Cohesion: 0.23
-Nodes (10): dedupeErrorMessages(), Field(), FieldContent(), FieldError(), FieldErrorItem, FieldLabel(), FieldTitle(), fieldVariants (+2 more)
-
 ### Community 20 - "devDependencies"
-Cohesion: 0.17
-Nodes (12): devDependencies, babel-plugin-react-compiler, pino-pretty, postcss, shadcn, @shared/typescript-config, tailwindcss, @tailwindcss/postcss (+4 more)
-
-### Community 21 - "PostForm.tsx"
-Cohesion: 0.21
-Nodes (10): FormCard(), FormField(), useErrorHandler(), PostForm(), PostFormConfig, PostFormProps, PostFormSchema, usePostActions() (+2 more)
-
-### Community 22 - "AccountForm.tsx"
-Cohesion: 0.27
-Nodes (8): EditAccountPage(), metadata, AccountForm(), AccountFormConfig, AccountFormProps, FieldConfig, AccountFormModel, UpdateProfileSchema
+Cohesion: 0.15
+Nodes (13): devDependencies, babel-plugin-react-compiler, pino-pretty, postcss, react-doctor, shadcn, @shared/typescript-config, tailwindcss (+5 more)
 
 ### Community 23 - "biome.json"
 Cohesion: 0.18
@@ -228,10 +206,6 @@ Nodes (10): formatter, enabled, expand, formatWithErrors, includes, indentStyle,
 Cohesion: 0.20
 Nodes (10): arrowParentheses, attributePosition, bracketSameLine, bracketSpacing, jsxQuoteStyle, quoteProperties, quoteStyle, semicolons (+2 more)
 
-### Community 28 - "catchError.ts"
-Cohesion: 0.33
-Nodes (4): GlobalErrorProps, mapToAppError(), stringifyUnknownError(), captureError()
-
 ### Community 29 - "assist"
 Cohesion: 0.22
 Nodes (9): source, assist, actions, enabled, includes, groups, level, options (+1 more)
@@ -243,10 +217,6 @@ Nodes (8): compilerOptions, module, outDir, rootDir, target, exclude, extends, i
 ### Community 31 - "compilerOptions"
 Cohesion: 0.22
 Nodes (8): compilerOptions, module, outDir, rootDir, target, exclude, extends, include
-
-### Community 32 - "DeleteAccountButton.tsx"
-Cohesion: 0.32
-Nodes (6): ActionButton(), DeleteAccountButton(), useAccountActions(), ActionResult, AuthActionButton(), AuthActionButtonProps
 
 ### Community 33 - "tsconfig.json"
 Cohesion: 0.25
@@ -273,8 +243,8 @@ Cohesion: 0.40
 Nodes (5): overrides, fast-uri, hono, @hono/node-server, path-to-regexp
 
 ### Community 39 - "scripts"
-Cohesion: 0.40
-Nodes (5): scripts, build, check-types, dev, start
+Cohesion: 0.33
+Nodes (6): scripts, build, check-types, dev, doctor, start
 
 ### Community 40 - "package.json"
 Cohesion: 0.40
@@ -297,32 +267,32 @@ Cohesion: 0.83
 Nodes (3): is_allowlisted_env(), match(), protect-env.sh script
 
 ### Community 48 - "graphify"
-Cohesion: 0.50
-Nodes (3): PATH, graphify-mcp, graphify
+Cohesion: 0.29
+Nodes (7): PATH, bunx, graphify-mcp, graphify, next-devtools, playwright, @playwright/mcp
 
 ### Community 52 - "linter"
 Cohesion: 0.67
 Nodes (3): linter, enabled, includes
 
 ## Knowledge Gaps
-- **459 isolated node(s):** `auto-format.sh script`, `paths`, `protect-bash.sh script`, `stop-typecheck.sh script`, `$schema` (+454 more)
+- **462 isolated node(s):** `auto-format.sh script`, `paths`, `protect-bash.sh script`, `stop-typecheck.sh script`, `$schema` (+457 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **21 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `cn` to `Field.tsx`, `page.tsx`, `page.tsx`, `ContactForm.tsx`?**
-  _High betweenness centrality (0.016) - this node is a cross-community bridge._
 - **Why does `rules` connect `correctness` to `suspicious`, `linter`?**
   _High betweenness centrality (0.016) - this node is a cross-community bridge._
-- **Why does `env` connect `auth.ts` to `useAccountActions.ts`, `page.tsx`, `ContactForm.tsx`, `CommentForm.tsx`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+- **Why does `cn()` connect `cn` to `page.tsx`, `page.tsx`?**
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+- **Why does `linter` connect `linter` to `correctness`, `biome.json`?**
+  _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **What connects `auto-format.sh script`, `paths`, `protect-bash.sh script` to the rest of the system?**
-  _459 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _462 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `auth.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.05719298245614035 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08051948051948052 - nodes in this community are weakly interconnected._
 - **Should `errorHandler.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.07191780821917808 - nodes in this community are weakly interconnected._
 - **Should `cn` be split into smaller, more focused modules?**
-  _Cohesion score 0.08077260755048288 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05216067009328003 - nodes in this community are weakly interconnected._

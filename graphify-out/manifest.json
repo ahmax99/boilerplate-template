@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   ".claude/settings.json": {
-    "mtime": 1783006313.3966105,
-    "ast_hash": "540949ad5ff39f6c260a0a01ba3ba020",
+    "mtime": 1783099848.2967312,
+    "ast_hash": "108aa7dffded05f3cb6a032378c50c81",
     "semantic_hash": ""
   },
   ".fallowrc.json": {
@@ -85,12 +85,12 @@
     "semantic_hash": ""
   },
   ".husky/_/applypatch-msg": {
-    "mtime": 1782617682.0293424,
+    "mtime": 1783082372.715389,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/commit-msg": {
-    "mtime": 1782617682.0283432,
+    "mtime": 1783082372.7138813,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
@@ -100,67 +100,67 @@
     "semantic_hash": ""
   },
   ".husky/_/husky.sh": {
-    "mtime": 1782617682.0333438,
+    "mtime": 1783082372.718394,
     "ast_hash": "13871d2ab13e8423790ecb2c01c78c18",
     "semantic_hash": ""
   },
   ".husky/_/post-applypatch": {
-    "mtime": 1782617682.0303447,
+    "mtime": 1783082372.715389,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/post-checkout": {
-    "mtime": 1782617682.0313437,
+    "mtime": 1783082372.716396,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/post-commit": {
-    "mtime": 1782617682.0293424,
+    "mtime": 1783082372.7138813,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/post-merge": {
-    "mtime": 1782617682.0323434,
+    "mtime": 1783082372.7173948,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/post-rewrite": {
-    "mtime": 1782617682.0313437,
+    "mtime": 1783082372.716396,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-applypatch": {
-    "mtime": 1782617682.0303447,
+    "mtime": 1783082372.715389,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-auto-gc": {
-    "mtime": 1782617682.0323434,
+    "mtime": 1783082372.7173948,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-commit": {
-    "mtime": 1782617682.0273428,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
+    "mtime": 1783082389.3966317,
+    "ast_hash": "bc2d4fe847b55185f6860867c050f2b3",
     "semantic_hash": ""
   },
   ".husky/_/pre-merge-commit": {
-    "mtime": 1782617682.0273428,
+    "mtime": 1783082372.7138813,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-push": {
-    "mtime": 1782617682.0323434,
+    "mtime": 1783082372.7173948,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/pre-rebase": {
-    "mtime": 1782617682.0303447,
+    "mtime": 1783082372.716396,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
   ".husky/_/prepare-commit-msg": {
-    "mtime": 1782617682.0283432,
+    "mtime": 1783082372.7138813,
     "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
     "semantic_hash": ""
   },
@@ -170,8 +170,8 @@
     "semantic_hash": ""
   },
   ".mcp.json": {
-    "mtime": 1783005375.0384235,
-    "ast_hash": "072a38e05b1e7c541b7a165fbcc6d2d8",
+    "mtime": 1783099848.2967312,
+    "ast_hash": "31ae1dbb675c8710255dec9ef5fb16b4",
     "semantic_hash": ""
   },
   ".release-please-manifest.json": {
@@ -365,8 +365,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/package.json": {
-    "mtime": 1782996892.9441051,
-    "ast_hash": "7db1d083beade4cffc3c16d182912c10",
+    "mtime": 1783099848.2967312,
+    "ast_hash": "dfff46b8793e7182205f6076e493a0f6",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/postcss.config.mjs": {
@@ -1452,6 +1452,41 @@
   "README.md": {
     "mtime": 1783005775.0557187,
     "ast_hash": "ed2156ab1357325234994f76c8c91b74",
+    "semantic_hash": ""
+  },
+  ".claude/skills/shadcn/evals/evals.json": {
+    "mtime": 1783099848.2967312,
+    "ast_hash": "14eed42e07f934b2d4e6520dcbbda35b",
+    "semantic_hash": ""
+  },
+  ".impeccable/hook.cache.json": {
+    "mtime": 1783099548.5528772,
+    "ast_hash": "afff01f34c72a33048cbd5579165d047",
+    "semantic_hash": ""
+  },
+  "apps/nextjs-boilerplate/.impeccable/design.json": {
+    "mtime": 1783099848.297733,
+    "ast_hash": "c7be3e3a550aa82985a926507d17b531",
+    "semantic_hash": ""
+  },
+  "apps/nextjs-boilerplate/.impeccable/live/config.json": {
+    "mtime": 1783099848.2967312,
+    "ast_hash": "7cdace06f1017cda9ba30957c8102ef0",
+    "semantic_hash": ""
+  },
+  "skills-lock.json": {
+    "mtime": 1783099848.2967312,
+    "ast_hash": "4163308365334049e9bff794c0b6b15f",
+    "semantic_hash": ""
+  },
+  ".claude/skills/shadcn/assets/shadcn-small.png": {
+    "mtime": 1783099824.2066743,
+    "ast_hash": "72349c6b7f303e6be598a2196391291b",
+    "semantic_hash": ""
+  },
+  ".claude/skills/shadcn/assets/shadcn.png": {
+    "mtime": 1783099824.2066743,
+    "ast_hash": "cb56bf002d36bb860c3d320a23bd871a",
     "semantic_hash": ""
   }
 }
