@@ -83,3 +83,7 @@ terraform.rc
 !/.claude/plans/.gitkeep
 /.claude/hooks/*.log
 .superpowers/
+
+# Impeccable: machine-local caches + per-developer overrides.
+**/.impeccable/hook.cache.json
+**/.impeccable/config.local.json

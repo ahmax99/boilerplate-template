@@ -19,6 +19,7 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 
 - `/review [files]` — Code-review orchestrator: spawns the security and correctness reviewers (no plan needed). Works on the current branch vs `origin/main`.
 - `/pre-commit` — Quick quality gate: Biome (lint + format) + types + a security eyeball before committing.
+- `/design-review` — Design-quality review of UI changes: impeccable critique + audit driven through Playwright, reported as Blockers/High/Medium/Nitpicks. Complements `/qa` (which covers code correctness) for any UI-touching branch.
 - `/db-check` — Database migration safety: reviews Prisma schema changes for data loss, performance, compatibility, and authz/soft-delete risks.
 
 ## Reviewer subagents (`.claude/agents/`)
@@ -56,7 +57,7 @@ Where each plugin fits the spec → plan → implement → review → ship flow:
 - **`superpowers:brainstorming`** — shape a fuzzy idea into an agreed design *before* `/spec` captures it. One question at a time, 2–3 approaches with trade-offs.
 - **`superpowers:writing-plans`** — the generic small-verifiable-steps discipline the project `planner` builds on; runs behind `/plan`.
 - **`feature-dev`** (command + `code-explorer` / `code-architect` agents) — trace how an existing feature works and produce an architecture blueprint before planning a change. Feeds a sharper `/spec`/`/plan`.
-- **`frontend-design`** — build distinctive, production-grade Next.js/React + Tailwind + shadcn UI during `/implement` (avoids generic "AI slop"). Use for any `nextjs-boilerplate` component or page.
+- **`impeccable`** — design fluency during `/implement` and review: `/impeccable init` writes per-app `PRODUCT.md`/`DESIGN.md`, `craft`/`shape` build UI, `critique`/`audit`/`polish` review it (45 deterministic anti-pattern rules). Replaces the `frontend-design` plugin (now disabled — impeccable is its superset). The project `app-design` skill (`.claude/skills/app-design/`) wires impeccable + the `shadcn` skill + this repo's component conventions together and sets precedence between them.
 - **`superpowers:using-git-worktrees`** — isolate feature work in a worktree during `/implement`.
 - **`superpowers:systematic-debugging`** — root-cause loop when `/implement` hits a bug, instead of guess-and-patch.
 - **`playwright`** (MCP) — drive a real browser to verify UI / E2E flows. There is **no unit-test runner** in this repo, so browser-level checks are the primary frontend verification.

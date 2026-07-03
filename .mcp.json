@@ -7,6 +7,14 @@
       "env": {
         "PATH": "${HOME}/.local/bin:${PATH}"
       }
+    },
+    "next-devtools": {
+      "command": "bunx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
+    "playwright": {
+      "command": "bunx",
+      "args": ["@playwright/mcp@latest"]
     }
   }
 }

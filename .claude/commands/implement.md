@@ -65,7 +65,7 @@ Do not invoke `/qa`, `/review`, or the project's reviewer subagents (`security-r
 
 The enabled plugins (see `.claude/rules/harness.md`) cover gaps the project commands don't:
 
-- **Frontend UI** — build `nextjs-boilerplate` components/pages with the `frontend-design` skill for polished, non-generic results.
+- **Frontend UI** — build `nextjs-boilerplate` components/pages via the project `app-design` skill, which wires the `impeccable` plugin (`/impeccable craft|shape`) and the `shadcn` skill into this repo's component conventions.
 - **Unfamiliar API** — pull current docs with `context7` (MCP) before using an Elysia/Next.js/Prisma/CASL/Zod feature; don't rely on memory.
 - **Verifying the UI** — there is no unit-test runner here, so use `playwright` (MCP) to drive a browser and confirm a flow actually works.
 - **A bug you can't place** — use `superpowers:systematic-debugging` (root-cause first) instead of guess-and-patch.
