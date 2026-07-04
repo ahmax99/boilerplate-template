@@ -1250,8 +1250,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1783152329.820255,
-    "ast_hash": "c96e612faeb9e8f5e529935cc48e89e1",
+    "mtime": 1783154421.7571983,
+    "ast_hash": "12a89ff366904e7bd6f3576d1dc7cd9f",
     "semantic_hash": ""
   },
   "release-please-config.json": {
@@ -1375,7 +1375,7 @@
     "semantic_hash": ""
   },
   ".impeccable/hook.cache.json": {
-    "mtime": 1783153706.4237933,
+    "mtime": 1783154421.8787136,
     "ast_hash": "afff01f34c72a33048cbd5579165d047",
     "semantic_hash": ""
   },
@@ -1420,8 +1420,8 @@
     "semantic_hash": ""
   },
   "lefthook.yml": {
-    "mtime": 1783153706.301271,
-    "ast_hash": "e8cee8520ae6d45aebf208024f15fa13",
+    "mtime": 1783154105.093456,
+    "ast_hash": "75b74cfa2c95bc20db4fdaf379d155ba",
     "semantic_hash": ""
   },
   ".lefthook/post-commit/update-graph.sh": {
