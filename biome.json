@@ -20,6 +20,7 @@
       "!**/.next/**",
       "!**/dist/**",
       "!**/generated/**",
+      "!**/graphify-out/**",
       "!**/pnpm-lock.yaml",
       "!**/routeTree.gen.ts",
       "!**/next-env.d.ts"
