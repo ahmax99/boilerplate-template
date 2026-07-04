@@ -970,18 +970,18 @@
     "semantic_hash": ""
   },
   "infra/terraform/data.tf": {
-    "mtime": 1781363172.0130455,
-    "ast_hash": "abd780c0f193b0617ef18596030a3a79",
+    "mtime": 1783164548.39483,
+    "ast_hash": "2f3a6f01f5d74117364b9769afc453f8",
     "semantic_hash": ""
   },
   "infra/terraform/locals.tf": {
-    "mtime": 1781363158.8376281,
-    "ast_hash": "1c134fd2a996d3160b10bf6c5f3576d5",
+    "mtime": 1783164719.3987217,
+    "ast_hash": "03eacf4a8e22f67d0fea7980f329bc7b",
     "semantic_hash": ""
   },
   "infra/terraform/main.tf": {
-    "mtime": 1781443490.9953454,
-    "ast_hash": "87ef5cfd77ad7787782cda857d621f11",
+    "mtime": 1783167260.4364927,
+    "ast_hash": "1840312448b2109fd3fe51f11fa5bb43",
     "semantic_hash": ""
   },
   "infra/terraform/modules/acm/main.tf": {
@@ -1004,11 +1004,6 @@
     "ast_hash": "a3cc487d0f07df81496d8fe9d2d07947",
     "semantic_hash": ""
   },
-  "infra/terraform/modules/cloudfront/data.tf": {
-    "mtime": 1777392406.50741,
-    "ast_hash": "5d879cf5ca5f658541dedc28b57d4503",
-    "semantic_hash": ""
-  },
   "infra/terraform/modules/cloudfront/locals.tf": {
     "mtime": 1777426141.6204996,
     "ast_hash": "936d6c358181aa75c9c403f77e92b328",
@@ -1025,13 +1020,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/cloudfront/variables.tf": {
-    "mtime": 1777469672.8289073,
-    "ast_hash": "f32d1d536ac80b69a9d566ea0dd26ae5",
-    "semantic_hash": ""
-  },
-  "infra/terraform/modules/codedeploy/data.tf": {
-    "mtime": 1774739665.2335558,
-    "ast_hash": "918e3276787cbcedeeedba6ff73d0c1a",
+    "mtime": 1783164835.8730943,
+    "ast_hash": "c126af21a5bb1159b95c4bbe7bff50e8",
     "semantic_hash": ""
   },
   "infra/terraform/modules/codedeploy/main.tf": {
@@ -1149,11 +1139,6 @@
     "ast_hash": "432da2d451866fbf7bc8c4857651c01a",
     "semantic_hash": ""
   },
-  "infra/terraform/modules/lambda/data.tf": {
-    "mtime": 1774782311.38683,
-    "ast_hash": "5d879cf5ca5f658541dedc28b57d4503",
-    "semantic_hash": ""
-  },
   "infra/terraform/modules/lambda/main.tf": {
     "mtime": 1783151981.723633,
     "ast_hash": "eb1a6fef0f62912d4adbc79b3cd2aaf4",
@@ -1180,8 +1165,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/route53/variables.tf": {
-    "mtime": 1777467297.81331,
-    "ast_hash": "5e4a099ae28c0bb27de8f1627fc113b6",
+    "mtime": 1783164927.744712,
+    "ast_hash": "7f2d5bc28db1eab3992f2f25420cc3ac",
     "semantic_hash": ""
   },
   "infra/terraform/modules/s3/main.tf": {
@@ -1240,8 +1225,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/providers.tf": {
-    "mtime": 1781363147.7579515,
-    "ast_hash": "dd4825626966da4a3799fe6d18b554e0",
+    "mtime": 1783167549.0641546,
+    "ast_hash": "db627977df5c9473cca176347697c716",
     "semantic_hash": ""
   },
   "infra/terraform/variables.tf": {
@@ -1375,7 +1360,7 @@
     "semantic_hash": ""
   },
   ".impeccable/hook.cache.json": {
-    "mtime": 1783158258.9725487,
+    "mtime": 1783167549.2527032,
     "ast_hash": "afff01f34c72a33048cbd5579165d047",
     "semantic_hash": ""
   },
@@ -1427,6 +1412,61 @@
   ".lefthook/post-commit/update-graph.sh": {
     "mtime": 1783153694.8901727,
     "ast_hash": "b1229cab0b6518439f75fd05f76c5a0a",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/cloudfront/versions.tf": {
+    "mtime": 1783167163.0220954,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/codedeploy/versions.tf": {
+    "mtime": 1783167162.9318912,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/cognito/versions.tf": {
+    "mtime": 1783167163.0036294,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/ecr/versions.tf": {
+    "mtime": 1783167162.9126627,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/github-oidc/versions.tf": {
+    "mtime": 1783167163.0401201,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/lambda-permissions/versions.tf": {
+    "mtime": 1783167162.9855917,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/lambda/versions.tf": {
+    "mtime": 1783167163.0586402,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/route53/versions.tf": {
+    "mtime": 1783167162.894112,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/s3/versions.tf": {
+    "mtime": 1783167162.9680173,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/modules/secret-manager/versions.tf": {
+    "mtime": 1783167162.949483,
+    "ast_hash": "3c6c8e07bbc692bd3cee075f7a48963b",
+    "semantic_hash": ""
+  },
+  "infra/terraform/versions.tf": {
+    "mtime": 1783167544.4717412,
+    "ast_hash": "2ca11153b138cfe68bb760ef09f70344",
     "semantic_hash": ""
   }
 }
