@@ -1,11 +1,10 @@
 'use client'
 
-import { useMemo } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/utils/mergeClass'
 
-import { Label } from '../atoms'
+import { Label } from '../atoms/Label'
 
 const fieldVariants = cva(
   'group/field flex w-full gap-3 data-[invalid=true]:text-destructive',
@@ -124,10 +123,7 @@ function FieldError({
 }: React.ComponentProps<'div'> & {
   errors?: FieldErrorItem[]
 }) {
-  const content = useMemo(
-    () => resolveFieldErrorContent(children, errors),
-    [children, errors]
-  )
+  const content = resolveFieldErrorContent(children, errors)
 
   if (!content) return null
 

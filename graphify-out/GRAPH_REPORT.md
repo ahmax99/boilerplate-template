@@ -1,16 +1,16 @@
 # Graph Report - boilerplate-template  (2026-07-04)
 
 ## Corpus Check
-- 296 files · ~34,625 words
+- 296 files · ~34,731 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1009 nodes · 1664 edges · 65 communities (44 shown, 21 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 2 edges (avg confidence: 0.65)
+- 1014 nodes · 1674 edges · 65 communities (44 shown, 21 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.74)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ac4746c1`
+- Built from commit: `a7948bfa`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -91,16 +91,16 @@
 10. `PUBLIC_ROUTES` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `RootLayout()` --calls--> `cn()`  [EXTRACTED]
-  apps/nextjs-boilerplate/src/app/layout.tsx → apps/nextjs-boilerplate/src/utils/mergeClass.ts
+- `FieldInput()` --calls--> `register()`  [INFERRED]
+  apps/nextjs-boilerplate/src/features/account/client/components/AccountForm.tsx → apps/nextjs-boilerplate/src/instrumentation.ts
+- `FieldInput()` --calls--> `register()`  [INFERRED]
+  apps/nextjs-boilerplate/src/features/mailing/client/components/ContactForm.tsx → apps/nextjs-boilerplate/src/instrumentation.ts
+- `FieldInput()` --calls--> `register()`  [INFERRED]
+  apps/nextjs-boilerplate/src/features/post/client/components/PostForm.tsx → apps/nextjs-boilerplate/src/instrumentation.ts
 - `EditAccountPage()` --calls--> `getMe()`  [EXTRACTED]
   apps/nextjs-boilerplate/src/app/(authorized)/account/edit/page.tsx → apps/nextjs-boilerplate/src/features/auth/server/api/index.ts
 - `AccountPage()` --calls--> `getMe()`  [EXTRACTED]
   apps/nextjs-boilerplate/src/app/(authorized)/account/page.tsx → apps/nextjs-boilerplate/src/features/auth/server/api/index.ts
-- `AuthorizedLayoutContent()` --calls--> `getSessionData()`  [EXTRACTED]
-  apps/nextjs-boilerplate/src/app/(authorized)/layout.tsx → apps/nextjs-boilerplate/src/features/auth/server/services/session.ts
-- `PublicLayoutContent()` --calls--> `getUserPermissions()`  [EXTRACTED]
-  apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx → apps/nextjs-boilerplate/src/features/auth/lib/permission.ts
 
 ## Import Cycles
 - 1-file cycle: `apps/nextjs-boilerplate/src/components/atoms/Button.tsx -> apps/nextjs-boilerplate/src/components/atoms/Button.tsx`
@@ -111,32 +111,32 @@
 ## Communities (65 total, 21 thin omitted)
 
 ### Community 0 - "auth.ts"
-Cohesion: 0.08
-Nodes (37): GET(), GET(), GET(), env, logger, COOKIE_OPTIONS, SESSION_CONFIG, getOIDCClient() (+29 more)
+Cohesion: 0.06
+Nodes (45): GET(), GET(), GET(), GET(), env, logger, FieldInput(), COOKIE_OPTIONS (+37 more)
 
 ### Community 1 - "errorHandler.ts"
 Cohesion: 0.07
 Nodes (38): env, logger, loggerPlugin(), AppError, errorHandler, captureError(), catchAsyncError(), mapToAppError() (+30 more)
 
 ### Community 2 - "cn"
-Cohesion: 0.05
-Nodes (61): Button(), buttonVariants, ButtonLink(), Input(), Label(), Separator(), Skeleton(), Spinner() (+53 more)
+Cohesion: 0.06
+Nodes (48): geistMono, geistSans, RootLayout(), Button(), buttonVariants, ButtonLink(), Input(), Label() (+40 more)
 
 ### Community 3 - "page.tsx"
-Cohesion: 0.08
-Nodes (34): DELETE(), PUT(), EditAccountPage(), metadata, AccountPage(), metadata, AuthorizedLayoutContent(), CreatePostPage() (+26 more)
+Cohesion: 0.06
+Nodes (43): GET(), DELETE(), PUT(), EditAccountPage(), metadata, AccountPage(), metadata, AuthorizedLayoutContent() (+35 more)
 
 ### Community 4 - "correctness"
 Cohesion: 0.04
 Nodes (47): noAdjacentSpacesInRegex, noExtraBooleanCast, noUselessCatch, noUselessEscapeInRegex, noUselessTypeConstraint, noChildrenProp, noConstantCondition, noConstAssign (+39 more)
 
 ### Community 5 - "page.tsx"
-Cohesion: 0.06
-Nodes (38): GET(), DELETE(), GET(), POST(), GET(), GET(), GET(), GET() (+30 more)
+Cohesion: 0.11
+Nodes (22): DELETE(), GET(), POST(), GET(), GET(), GET(), POST(), metadata (+14 more)
 
 ### Community 6 - "ContactForm.tsx"
-Cohesion: 0.14
-Nodes (18): metadata, handleApiError(), ContactForm(), ContactFormConfig, ContactFormProps, FieldConfig, useContactActions(), ContactFormModel (+10 more)
+Cohesion: 0.08
+Nodes (30): GlobalErrorProps, metadata, ERROR_DISPLAY, useErrorHandler(), handleClientAuthError(), handleClientError(), ErrorStore, useErrorStore (+22 more)
 
 ### Community 7 - "devDependencies"
 Cohesion: 0.05
@@ -179,8 +179,8 @@ Cohesion: 0.11
 Nodes (17): compilerOptions, allowSyntheticDefaultImports, declaration, declarationMap, esModuleInterop, incremental, isolatedModules, lib (+9 more)
 
 ### Community 17 - "useAccountActions.ts"
-Cohesion: 0.05
-Nodes (43): GlobalErrorProps, ActionButton(), FormCard(), FormField(), deleteUser(), updateUser(), uploadProfileImage(), AccountForm() (+35 more)
+Cohesion: 0.06
+Nodes (46): ActionButton(), dedupeErrorMessages(), Field(), FieldContent(), FieldError(), FieldErrorItem, FieldLabel(), FieldTitle() (+38 more)
 
 ### Community 18 - "package.json"
 Cohesion: 0.12
@@ -282,17 +282,17 @@ Nodes (3): linter, enabled, includes
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `cn()` connect `cn` to `useAccountActions.ts`, `page.tsx`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Why does `rules` connect `correctness` to `suspicious`, `linter`?**
-  _High betweenness centrality (0.016) - this node is a cross-community bridge._
-- **Why does `cn()` connect `cn` to `page.tsx`, `page.tsx`?**
   _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **Why does `linter` connect `linter` to `correctness`, `biome.json`?**
-  _High betweenness centrality (0.011) - this node is a cross-community bridge._
+- **Why does `env` connect `auth.ts` to `cn`, `page.tsx`, `page.tsx`, `ContactForm.tsx`, `useAccountActions.ts`?**
+  _High betweenness centrality (0.010) - this node is a cross-community bridge._
 - **What connects `auto-format.sh script`, `paths`, `protect-bash.sh script` to the rest of the system?**
   _462 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `auth.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.08051948051948052 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06277436347673397 - nodes in this community are weakly interconnected._
 - **Should `errorHandler.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.07191780821917808 - nodes in this community are weakly interconnected._
 - **Should `cn` be split into smaller, more focused modules?**
-  _Cohesion score 0.05216067009328003 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06155950752393981 - nodes in this community are weakly interconnected._

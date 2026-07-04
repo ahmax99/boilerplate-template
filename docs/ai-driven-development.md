@@ -66,6 +66,7 @@ These don't need a spec or plan — run them on whatever you've changed:
 - **`/pre-commit`** — fast gate before committing: Biome (lint + format) + types + a security eyeball. Also nudges toward a [Conventional Commits](https://www.conventionalcommits.org) message.
 - **`/db-check`** — reviews Prisma schema/migration changes for data loss,
   performance, compatibility, and authz/soft-delete risks. Run it whenever you touch `shared/neon/prisma/`.
+- **`/doctor`** — full React health triage via [react-doctor](https://github.com/millionco/react-doctor): scans for security, performance, correctness, and accessibility issues with a 0–100 score, then walks a scan → triage → fix → validate loop. The quick regression check (`npx react-doctor@latest --scope changed`) already runs inside `/implement`, `/pre-commit`, `/review`, and `/qa` for React-touching changes — and in CI on every PR, where new errors fail the build.
 
 ## Plugin skills that supercharge each phase
 
@@ -82,6 +83,7 @@ The project commands above are *codebase-specific* orchestrators. This template 
 | Verify | `playwright` (MCP) | Drives a real browser to verify UI and end-to-end flows. This repo has **no unit-test runner**, so browser-level verification is how you confirm the frontend actually works. |
 | Verify | `superpowers:verification-before-completion` | Forbids "it's done" claims without running the command and showing the output. Evidence before assertions. |
 | Review | `code-simplifier` | After the diff works (but before `/qa`), simplifies the just-written code for clarity without changing behavior. |
+| Review (React) | `react-doctor` skill (`/doctor`) | Deterministic React scanner — hooks misuse, derived state, a11y, bundle size — complementing the convention-focused reviewers. Regression-checked automatically in `/implement`/`/qa`; `/doctor` runs the full triage loop. |
 | Review | `feature-dev:code-reviewer`, `superpowers:requesting-code-review` | General-purpose review passes that complement the project's `/qa` + `/review` reviewers. |
 | Ship | `superpowers:finishing-a-development-branch` | Structured merge / PR / cleanup options once the work is complete and green. |
 | Anytime | `context7` (MCP) | Fetches **current** docs for any library (Elysia, Next.js 16, Prisma, CASL, Zod, Tailwind 4). Use it instead of relying on the model's training cutoff. |

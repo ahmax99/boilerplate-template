@@ -71,4 +71,3 @@ UI is shadcn/ui + Tailwind CSS 4. Import alias is `@/*` → `src/*`.
 
 - `infra/terraform/` — `bootstrap/`, `environments/`, `modules/`. `docs/` contains the AWS architecture (CloudFront → Next BFF + S3 + Elysia Lambda + Cognito + Neon), CloudFront, Lambda IAM auth, and Terraform pipeline notes — read `docs/architecture.md` before changing deployment topology.
 - Both apps ship a `Dockerfile` and `vercel.json`; backend deploys as a Lambda container image via CodeDeploy blue/green (see architecture doc).
-- GitHub Actions in `.github/workflows/`: `ci.yml` (PR gate), `deploy.yml`, `neon-workflow.yml`, `sbom.yml`, `sonarqube.yml`.

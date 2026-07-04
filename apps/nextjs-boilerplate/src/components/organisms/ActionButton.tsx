@@ -5,7 +5,7 @@ import type { Button as ButtonPrimitive } from '@base-ui/react/button'
 import type { VariantProps } from 'class-variance-authority'
 import { toast } from 'sonner'
 
-import { Button, type buttonVariants } from '../atoms'
+import { Button, type buttonVariants } from '../atoms/Button'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,9 +15,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-  LoadingSwap
-} from '../molecules'
+  AlertDialogTrigger
+} from '../molecules/AlertDialog'
+import { LoadingSwap } from '../molecules/LoadingSwap'
 
 interface ActionButtonProps
   extends Omit<ButtonPrimitive.Props, 'children'>,

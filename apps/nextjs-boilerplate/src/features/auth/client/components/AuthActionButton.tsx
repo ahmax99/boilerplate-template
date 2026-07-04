@@ -10,30 +10,28 @@ interface AuthActionButtonProps
   successMessage?: string
 }
 
+const handleAuthAction = async (
+  action: AuthActionButtonProps['action'],
+  successMessage?: string
+) => {
+  const result = await action()
+
+  if (result.error)
+    return {
+      error: true,
+      message: result.error.message ?? 'Action failed'
+    }
+
+  return { error: false, message: successMessage }
+}
+
 export const AuthActionButton = ({
   action,
   successMessage,
   ...props
-}: Readonly<AuthActionButtonProps>) => {
-  const handleAuthAction = async (
-    action: AuthActionButtonProps['action'],
-    successMessage?: string
-  ) => {
-    const result = await action()
-
-    if (result.error)
-      return {
-        error: true,
-        message: result.error.message || 'Action failed'
-      }
-
-    return { error: false, message: successMessage }
-  }
-
-  return (
-    <ActionButton
-      {...props}
-      action={async () => handleAuthAction(action, successMessage)}
-    />
-  )
-}
+}: Readonly<AuthActionButtonProps>) => (
+  <ActionButton
+    {...props}
+    action={async () => handleAuthAction(action, successMessage)}
+  />
+)

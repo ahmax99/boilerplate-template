@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { type UseFormRegister, useForm } from 'react-hook-form'
 
 import { Input, Textarea } from '@/components/atoms'
 import { FormCard, FormField } from '@/components/organisms'
@@ -30,6 +30,37 @@ interface ContactFormProps {
   config: ContactFormConfig
 }
 
+const FieldInput = ({
+  field,
+  error,
+  register
+}: Readonly<{
+  field: FieldConfig
+  error: boolean
+  register: UseFormRegister<ContactFormSchema>
+}>) => {
+  if (field.name === 'message')
+    return (
+      <Textarea
+        id={field.name}
+        placeholder={field.description}
+        rows={5}
+        {...register(field.name)}
+        aria-invalid={error}
+      />
+    )
+
+  return (
+    <Input
+      id={field.name}
+      placeholder={field.description}
+      type={field.name === 'email' ? 'email' : 'text'}
+      {...register(field.name)}
+      aria-invalid={error}
+    />
+  )
+}
+
 export const ContactForm = ({ config }: Readonly<ContactFormProps>) => {
   const {
     register,
@@ -40,32 +71,6 @@ export const ContactForm = ({ config }: Readonly<ContactFormProps>) => {
     defaultValues: config.defaultValues
   })
   const { handleSendContact } = useContactActions()
-
-  const renderFieldInput = (field: FieldConfig) => {
-    const fieldError = errors[field.name]
-
-    if (field.name === 'message') {
-      return (
-        <Textarea
-          id={field.name}
-          placeholder={field.description}
-          rows={5}
-          {...register(field.name)}
-          aria-invalid={!!fieldError}
-        />
-      )
-    }
-
-    return (
-      <Input
-        id={field.name}
-        placeholder={field.description}
-        type={field.name === 'email' ? 'email' : 'text'}
-        {...register(field.name)}
-        aria-invalid={!!fieldError}
-      />
-    )
-  }
 
   const onSubmit = async (data: ContactFormSchema) =>
     await handleSendContact(data)
@@ -85,7 +90,11 @@ export const ContactForm = ({ config }: Readonly<ContactFormProps>) => {
           label={field.label}
           name={field.name}
         >
-          {renderFieldInput(field)}
+          <FieldInput
+            error={!!errors[field.name]}
+            field={field}
+            register={register}
+          />
         </FormField>
       ))}
     </FormCard>

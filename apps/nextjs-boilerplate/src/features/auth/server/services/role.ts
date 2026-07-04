@@ -1,5 +1,3 @@
-'use server'
-
 import { AdminAddUserToGroupCommand } from '@aws-sdk/client-cognito-identity-provider'
 import type { User } from '@shared/config'
 

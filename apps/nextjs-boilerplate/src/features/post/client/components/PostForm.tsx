@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { User } from '@shared/config'
-import { useForm } from 'react-hook-form'
+import { type UseFormRegister, useForm } from 'react-hook-form'
 
 import { Input, Textarea } from '@/components/atoms'
 import { FormCard, FormField } from '@/components/organisms'
@@ -35,6 +35,53 @@ interface PostFormProps {
   user: User
 }
 
+const FieldInput = ({
+  field,
+  error,
+  register,
+  onImageChange
+}: Readonly<{
+  field: FieldConfig
+  error: boolean
+  register: UseFormRegister<PostFormSchema>
+  onImageChange: (file: File) => void
+}>) => {
+  switch (field.name) {
+    case 'content':
+      return (
+        <Textarea
+          id={field.name}
+          placeholder={field.description}
+          {...register(field.name)}
+          aria-invalid={error}
+        />
+      )
+    case 'image':
+      return (
+        <Input
+          accept="image/*"
+          aria-invalid={error}
+          id={field.name}
+          onChange={(e) => {
+            const file = e.target.files?.[0]
+            if (file) onImageChange(file)
+          }}
+          type="file"
+        />
+      )
+    default:
+      return (
+        <Input
+          id={field.name}
+          placeholder={field.description}
+          type="text"
+          {...register(field.name)}
+          aria-invalid={error}
+        />
+      )
+  }
+}
+
 export const PostForm = ({ config, user }: Readonly<PostFormProps>) => {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const { handleCreatePost } = usePostActions()
@@ -47,45 +94,6 @@ export const PostForm = ({ config, user }: Readonly<PostFormProps>) => {
     resolver: zodResolver(PostFormModel.createPost),
     defaultValues: config.defaultValues
   })
-
-  const renderFieldInput = (field: FieldConfig) => {
-    const fieldError = errors[field.name as keyof typeof errors]
-
-    switch (field.name) {
-      case 'content':
-        return (
-          <Textarea
-            id={field.name}
-            placeholder={field.description}
-            {...register(field.name)}
-            aria-invalid={!!fieldError}
-          />
-        )
-      case 'image':
-        return (
-          <Input
-            accept="image/*"
-            aria-invalid={!!fieldError}
-            id={field.name}
-            onChange={(e) => {
-              const file = e.target.files?.[0]
-              if (file) setImageFile(file)
-            }}
-            type="file"
-          />
-        )
-      default:
-        return (
-          <Input
-            id={field.name}
-            placeholder={field.description}
-            type="text"
-            {...register(field.name)}
-            aria-invalid={!!fieldError}
-          />
-        )
-    }
-  }
 
   const onSubmit = async (data: PostFormSchema) =>
     handleCreatePost(
@@ -118,7 +126,12 @@ export const PostForm = ({ config, user }: Readonly<PostFormProps>) => {
           label={field.label}
           name={field.name}
         >
-          {renderFieldInput(field)}
+          <FieldInput
+            error={!!errors[field.name as keyof typeof errors]}
+            field={field}
+            onImageChange={setImageFile}
+            register={register}
+          />
         </FormField>
       ))}
     </FormCard>

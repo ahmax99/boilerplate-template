@@ -17,6 +17,16 @@ import { PROTECTED_ROUTES } from '@/features/auth/lib/routes'
 
 import { DeleteAccountButton } from './DeleteAccountButton'
 
+const setTabParam = (
+  router: ReturnType<typeof useRouter>,
+  searchParams: ReturnType<typeof useSearchParams>,
+  tab: string
+) => {
+  const params = new URLSearchParams(searchParams.toString())
+  params.set('tab', tab)
+  router.replace(`?${params.toString()}`, { scroll: false })
+}
+
 export const AccountManagement = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -24,18 +34,12 @@ export const AccountManagement = () => {
   const tabParam = searchParams.get('tab')
   const activeTab = tabParam === 'accounts' ? 'accounts' : 'profile'
 
-  const updateTabParam = (tab: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('tab', tab)
-    router.replace(`?${params.toString()}`, { scroll: false })
-  }
+  const handleTabChange = (value: string) =>
+    setTabParam(router, searchParams, value)
 
-  const handleTabChange = (value: string) => updateTabParam(value)
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: updateTabParam is stable
   useEffect(() => {
-    if (!tabParam) updateTabParam('profile')
-  }, [tabParam])
+    if (!tabParam) setTabParam(router, searchParams, 'profile')
+  }, [tabParam, router, searchParams])
 
   return (
     <Tabs onValueChange={handleTabChange} value={activeTab}>

@@ -21,6 +21,7 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 - `/pre-commit` — Quick quality gate: Biome (lint + format) + types + a security eyeball before committing.
 - `/design-review` — Design-quality review of UI changes: impeccable critique + audit driven through Playwright, reported as Blockers/High/Medium/Nitpicks. Complements `/qa` (which covers code correctness) for any UI-touching branch.
 - `/db-check` — Database migration safety: reviews Prisma schema changes for data loss, performance, compatibility, and authz/soft-delete risks.
+- `/doctor` — React health triage via the `react-doctor` skill (`.claude/skills/react-doctor/`): scans React code for security, performance, correctness, a11y, and architecture issues (0–100 score) and runs the canonical scan → triage → fix → validate loop. The quick form — `npx react-doctor@latest --verbose --scope changed` — is also a per-step gate in `/implement` and a Phase 1 gate in `/qa` + `/review` + `/pre-commit` for React-touching diffs. CI mirrors it in `react-doctor.yml` (new errors fail the PR).
 
 ## Reviewer subagents (`.claude/agents/`)
 
@@ -63,6 +64,7 @@ Where each plugin fits the spec → plan → implement → review → ship flow:
 - **`playwright`** (MCP) — drive a real browser to verify UI / E2E flows. There is **no unit-test runner** in this repo, so browser-level checks are the primary frontend verification.
 - **`superpowers:verification-before-completion`** — no "it's done" claims without running the command and showing output. Gates the same turn the Stop type-check hook does.
 - **`code-simplifier`** — simplify a working diff for clarity (no behavior change) after `/implement`, before `/qa`.
+- **`react-doctor`** (project skill, `.claude/skills/react-doctor/`) — deterministic React scanner complementing the reviewer subagents: they judge against this repo's conventions; it catches framework-level React mistakes (hooks misuse, derived state, a11y, bundle size) with exact rules. Regression-check after React changes; `/doctor` for a full triage pass.
 - **`feature-dev:code-reviewer`**, **`superpowers:requesting-code-review`** / **`receiving-code-review`** — general review passes that complement the project's `/qa` + `/review` reviewers.
 - **`superpowers:finishing-a-development-branch`** — structured merge / PR / cleanup once QA is green.
 - **`context7`** (MCP) — fetch *current* docs for any library (Elysia, Next.js, Prisma, CASL, Zod, Tailwind) instead of relying on the training cutoff. Use anytime; especially before applying an unfamiliar API.

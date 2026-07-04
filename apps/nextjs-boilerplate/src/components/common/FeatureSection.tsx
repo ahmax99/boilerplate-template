@@ -2,7 +2,7 @@ import { BookOpen, PenTool } from 'lucide-react'
 
 import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/features/auth/lib/routes'
 
-import { ButtonLink } from '../atoms'
+import { ButtonLink } from '../atoms/ButtonLink'
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from '../molecules'
+} from '../molecules/Card'
 
 function FeatureSection() {
   return (
