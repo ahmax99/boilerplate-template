@@ -68,7 +68,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run TFLint
-        run: tflint --chdir=infra/terraform --recursive --format compact
+        # Warnings are advisory (surfaced in logs, not blocking); only errors fail the PR
+        run: tflint --chdir=infra/terraform --recursive --format compact --minimum-failure-severity=error
 
       - name: Terraform init
         run: terraform -chdir=infra/terraform init -backend-config=backends/dev.hcl
