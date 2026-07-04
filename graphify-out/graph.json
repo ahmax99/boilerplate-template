@@ -2624,7 +2624,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_page",
-      "community": 3,
+      "community": 22,
       "norm_label": "page.tsx"
     },
     {
@@ -2634,7 +2634,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_page_metadata",
-      "community": 3,
+      "community": 22,
       "norm_label": "metadata"
     },
     {
@@ -2644,7 +2644,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_page_editaccountpage",
-      "community": 3,
+      "community": 22,
       "norm_label": "editaccountpage()"
     },
     {
@@ -2674,7 +2674,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_page",
-      "community": 3,
+      "community": 28,
       "norm_label": "page.tsx"
     },
     {
@@ -2684,7 +2684,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_page_metadata",
-      "community": 3,
+      "community": 28,
       "norm_label": "metadata"
     },
     {
@@ -2694,7 +2694,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_page_accountpage",
-      "community": 3,
+      "community": 28,
       "norm_label": "accountpage()"
     },
     {
@@ -2754,7 +2754,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page",
-      "community": 3,
+      "community": 6,
       "norm_label": "page.tsx"
     },
     {
@@ -2764,7 +2764,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page_metadata",
-      "community": 3,
+      "community": 6,
       "norm_label": "metadata"
     },
     {
@@ -2774,7 +2774,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page_createpostpage",
-      "community": 3,
+      "community": 6,
       "norm_label": "createpostpage()"
     },
     {
@@ -2784,7 +2784,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page",
-      "community": 6,
+      "community": 0,
       "norm_label": "page.tsx"
     },
     {
@@ -2794,7 +2794,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page_metadata",
-      "community": 6,
+      "community": 0,
       "norm_label": "metadata"
     },
     {
@@ -2804,7 +2804,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page_contactpage",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactpage()"
     },
     {
@@ -2844,7 +2844,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page",
-      "community": 5,
+      "community": 6,
       "norm_label": "page.tsx"
     },
     {
@@ -2854,7 +2854,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page_metadata",
-      "community": 5,
+      "community": 6,
       "norm_label": "metadata"
     },
     {
@@ -2864,7 +2864,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page_homepage",
-      "community": 5,
+      "community": 6,
       "norm_label": "homepage()"
     },
     {
@@ -3024,7 +3024,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_presigned_url_route",
-      "community": 5,
+      "community": 19,
       "norm_label": "route.ts"
     },
     {
@@ -3034,7 +3034,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_presigned_url_route_get",
-      "community": 5,
+      "community": 19,
       "norm_label": "get()"
     },
     {
@@ -3044,7 +3044,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route",
-      "community": 3,
+      "community": 19,
       "norm_label": "route.ts"
     },
     {
@@ -3054,7 +3054,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route_put",
-      "community": 3,
+      "community": 19,
       "norm_label": "put()"
     },
     {
@@ -3064,7 +3064,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route_delete",
-      "community": 3,
+      "community": 19,
       "norm_label": "delete()"
     },
     {
@@ -3384,7 +3384,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_atoms_buttonlink_buttonlink",
-      "community": 2,
+      "community": 15,
       "norm_label": "buttonlink()"
     },
     {
@@ -3534,7 +3534,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_featuresection_featuresection",
-      "community": 5,
+      "community": 6,
       "norm_label": "featuresection()"
     },
     {
@@ -3544,7 +3544,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_herosection",
-      "community": 5,
+      "community": 6,
       "norm_label": "herosection.tsx"
     },
     {
@@ -3554,7 +3554,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_herosection_herosection",
-      "community": 5,
+      "community": 6,
       "norm_label": "herosection()"
     },
     {
@@ -3564,7 +3564,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_index",
-      "community": 5,
+      "community": 6,
       "norm_label": "index.ts"
     },
     {
@@ -3574,7 +3574,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pageheader",
-      "community": 3,
+      "community": 15,
       "norm_label": "pageheader.tsx"
     },
     {
@@ -3594,7 +3594,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pagetemplate",
-      "community": 3,
+      "community": 6,
       "norm_label": "pagetemplate.tsx"
     },
     {
@@ -3604,7 +3604,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pagetemplate_pagetemplateprops",
-      "community": 3,
+      "community": 6,
       "norm_label": "pagetemplateprops"
     },
     {
@@ -3614,7 +3614,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pagetemplate_pagetemplate",
-      "community": 3,
+      "community": 6,
       "norm_label": "pagetemplate()"
     },
     {
@@ -3624,7 +3624,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_index",
-      "community": 3,
+      "community": 6,
       "norm_label": "index.ts"
     },
     {
@@ -3884,7 +3884,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_logo",
-      "community": 3,
+      "community": 15,
       "norm_label": "logo.tsx"
     },
     {
@@ -3894,7 +3894,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_logo_logo",
-      "community": 3,
+      "community": 15,
       "norm_label": "logo()"
     },
     {
@@ -4234,7 +4234,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_fetchprofileimage",
-      "community": 2,
+      "community": 28,
       "norm_label": "fetchprofileimage()"
     },
     {
@@ -4274,7 +4274,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform",
-      "community": 17,
+      "community": 22,
       "norm_label": "accountform.tsx"
     },
     {
@@ -4284,7 +4284,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_fieldconfig",
-      "community": 3,
+      "community": 22,
       "norm_label": "fieldconfig"
     },
     {
@@ -4294,7 +4294,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_accountformconfig",
-      "community": 17,
+      "community": 22,
       "norm_label": "accountformconfig"
     },
     {
@@ -4304,7 +4304,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_accountformprops",
-      "community": 17,
+      "community": 22,
       "norm_label": "accountformprops"
     },
     {
@@ -4314,7 +4314,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_accountform",
-      "community": 17,
+      "community": 22,
       "norm_label": "accountform()"
     },
     {
@@ -4334,7 +4334,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountmanagement_accountmanagement",
-      "community": 3,
+      "community": 28,
       "norm_label": "accountmanagement()"
     },
     {
@@ -4384,7 +4384,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_schemas_accountform_schema",
-      "community": 17,
+      "community": 22,
       "norm_label": "accountform.schema.ts"
     },
     {
@@ -4394,7 +4394,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_schemas_accountform_schema_accountformmodel",
-      "community": 17,
+      "community": 22,
       "norm_label": "accountformmodel"
     },
     {
@@ -4404,7 +4404,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_schemas_accountform_schema_updateprofileschema",
-      "community": 17,
+      "community": 22,
       "norm_label": "updateprofileschema"
     },
     {
@@ -4414,7 +4414,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index",
-      "community": 5,
+      "community": 19,
       "norm_label": "index.ts"
     },
     {
@@ -4424,7 +4424,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_updateuser",
-      "community": 3,
+      "community": 19,
       "norm_label": "updateuser()"
     },
     {
@@ -4434,7 +4434,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_deleteuser",
-      "community": 3,
+      "community": 19,
       "norm_label": "deleteuser()"
     },
     {
@@ -4444,7 +4444,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_fetchpresignedurl",
-      "community": 5,
+      "community": 19,
       "norm_label": "fetchpresignedurl()"
     },
     {
@@ -4454,7 +4454,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_components_userinfo",
-      "community": 2,
+      "community": 28,
       "norm_label": "userinfo.tsx"
     },
     {
@@ -4464,7 +4464,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_components_userinfo_userinfoprops",
-      "community": 2,
+      "community": 28,
       "norm_label": "userinfoprops"
     },
     {
@@ -4474,7 +4474,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_components_userinfo_userinfo",
-      "community": 2,
+      "community": 28,
       "norm_label": "userinfo()"
     },
     {
@@ -4624,7 +4624,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_toastmessages",
-      "community": 3,
+      "community": 6,
       "norm_label": "toastmessages.ts"
     },
     {
@@ -4674,7 +4674,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes",
-      "community": 3,
+      "community": 15,
       "norm_label": "routes.ts"
     },
     {
@@ -4684,7 +4684,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes_protected_routes",
-      "community": 3,
+      "community": 15,
       "norm_label": "protected_routes"
     },
     {
@@ -4694,7 +4694,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes_public_routes",
-      "community": 3,
+      "community": 15,
       "norm_label": "public_routes"
     },
     {
@@ -4704,7 +4704,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes_public_auth_routes",
-      "community": 3,
+      "community": 15,
       "norm_label": "public_auth_routes"
     },
     {
@@ -4754,7 +4754,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_api_index",
-      "community": 3,
+      "community": 19,
       "norm_label": "index.ts"
     },
     {
@@ -4774,7 +4774,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_api_index_getme",
-      "community": 3,
+      "community": 19,
       "norm_label": "getme()"
     },
     {
@@ -4784,7 +4784,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_components_logoutbutton",
-      "community": 3,
+      "community": 15,
       "norm_label": "logoutbutton.tsx"
     },
     {
@@ -4794,7 +4794,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_components_logoutbutton_logoutbutton",
-      "community": 3,
+      "community": 15,
       "norm_label": "logoutbutton()"
     },
     {
@@ -4944,7 +4944,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_session_getsessiondata",
-      "community": 0,
+      "community": 3,
       "norm_label": "getsessiondata()"
     },
     {
@@ -5064,7 +5064,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentformconfig",
-      "community": 17,
+      "community": 2,
       "norm_label": "commentformconfig"
     },
     {
@@ -5484,7 +5484,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_server_lib_handleapierror_handleapierror",
-      "community": 6,
+      "community": 0,
       "norm_label": "handleapierror()"
     },
     {
@@ -5514,7 +5514,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_client_components_contactform",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactform.tsx"
     },
     {
@@ -5524,7 +5524,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_client_components_contactform_fieldconfig",
-      "community": 6,
+      "community": 0,
       "norm_label": "fieldconfig"
     },
     {
@@ -5534,7 +5534,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_client_components_contactform_contactformconfig",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactformconfig"
     },
     {
@@ -5544,7 +5544,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_client_components_contactform_contactformprops",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactformprops"
     },
     {
@@ -5554,7 +5554,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_client_components_contactform_contactform",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactform()"
     },
     {
@@ -5564,7 +5564,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_client_hooks_usecontactactions",
-      "community": 6,
+      "community": 0,
       "norm_label": "usecontactactions.ts"
     },
     {
@@ -5574,7 +5574,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_client_hooks_usecontactactions_usecontactactions",
-      "community": 6,
+      "community": 0,
       "norm_label": "usecontactactions()"
     },
     {
@@ -5584,7 +5584,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_contactform_schema",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactform.schema.ts"
     },
     {
@@ -5594,7 +5594,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_contactform_schema_contactformmodel",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactformmodel"
     },
     {
@@ -5604,7 +5604,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_contactform_schema_contactformschema",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactformschema"
     },
     {
@@ -5614,7 +5614,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema",
-      "community": 6,
+      "community": 0,
       "norm_label": "email.schema.ts"
     },
     {
@@ -5624,7 +5624,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema_emailuserschema",
-      "community": 6,
+      "community": 0,
       "norm_label": "emailuserschema"
     },
     {
@@ -5634,7 +5634,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema_emailmodel",
-      "community": 6,
+      "community": 0,
       "norm_label": "emailmodel"
     },
     {
@@ -5644,7 +5644,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema_emailuser",
-      "community": 6,
+      "community": 0,
       "norm_label": "emailuser"
     },
     {
@@ -5654,7 +5654,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_api_sendcontactemail",
-      "community": 6,
+      "community": 0,
       "norm_label": "sendcontactemail.ts"
     },
     {
@@ -5664,7 +5664,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_api_sendcontactemail_sendcontactemail",
-      "community": 6,
+      "community": 0,
       "norm_label": "sendcontactemail()"
     },
     {
@@ -5674,7 +5674,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_components_contactconfirmationemail",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactconfirmationemail.tsx"
     },
     {
@@ -5684,7 +5684,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_components_contactconfirmationemail_contactconfirmationemail",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactconfirmationemail()"
     },
     {
@@ -5694,7 +5694,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_components_contactnotificationemail",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactnotificationemail.tsx"
     },
     {
@@ -5704,7 +5704,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_components_contactnotificationemail_contactnotificationemail",
-      "community": 6,
+      "community": 0,
       "norm_label": "contactnotificationemail()"
     },
     {
@@ -5744,7 +5744,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail",
-      "community": 6,
+      "community": 0,
       "norm_label": "sendemail.ts"
     },
     {
@@ -5754,7 +5754,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail_resend",
-      "community": 6,
+      "community": 0,
       "norm_label": "resend"
     },
     {
@@ -5764,7 +5764,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail_sendemailparams",
-      "community": 6,
+      "community": 0,
       "norm_label": "sendemailparams"
     },
     {
@@ -5774,7 +5774,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail_sendemail",
-      "community": 6,
+      "community": 0,
       "norm_label": "sendemail()"
     },
     {
@@ -5914,7 +5914,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_components_postform_fieldconfig",
-      "community": 3,
+      "community": 6,
       "norm_label": "fieldconfig"
     },
     {
@@ -6084,7 +6084,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail_postdetail",
-      "community": 2,
+      "community": 5,
       "norm_label": "postdetail()"
     },
     {
@@ -6264,7 +6264,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_serverapiclient_serverauthapiclient",
-      "community": 5,
+      "community": 19,
       "norm_label": "serverauthapiclient"
     },
     {
@@ -6294,7 +6294,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy",
-      "community": 3,
+      "community": 15,
       "norm_label": "proxy.ts"
     },
     {
@@ -6304,7 +6304,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_protectedpaths",
-      "community": 3,
+      "community": 15,
       "norm_label": "protectedpaths"
     },
     {
@@ -6314,7 +6314,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_isprotectedpath",
-      "community": 3,
+      "community": 15,
       "norm_label": "isprotectedpath()"
     },
     {
@@ -6324,7 +6324,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_proxy",
-      "community": 3,
+      "community": 15,
       "norm_label": "proxy()"
     },
     {
@@ -6334,7 +6334,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_config",
-      "community": 3,
+      "community": 15,
       "norm_label": "config"
     },
     {
@@ -6704,7 +6704,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "biome_linter_rules",
-      "community": 4,
+      "community": 21,
       "norm_label": "rules"
     },
     {
@@ -6714,7 +6714,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "biome_rules_recommended",
-      "community": 4,
+      "community": 21,
       "norm_label": "recommended"
     },
     {
@@ -6724,7 +6724,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "biome_rules_complexity",
-      "community": 4,
+      "community": 21,
       "norm_label": "complexity"
     },
     {
@@ -6734,7 +6734,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "biome_complexity_noadjacentspacesinregex",
-      "community": 4,
+      "community": 21,
       "norm_label": "noadjacentspacesinregex"
     },
     {
@@ -6744,7 +6744,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "biome_complexity_noextrabooleancast",
-      "community": 4,
+      "community": 21,
       "norm_label": "noextrabooleancast"
     },
     {
@@ -6754,7 +6754,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "biome_complexity_nouselesscatch",
-      "community": 4,
+      "community": 21,
       "norm_label": "nouselesscatch"
     },
     {
@@ -6764,7 +6764,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "biome_complexity_nouselessescapeinregex",
-      "community": 4,
+      "community": 21,
       "norm_label": "nouselessescapeinregex"
     },
     {
@@ -6774,7 +6774,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "biome_complexity_nouselesstypeconstraint",
-      "community": 4,
+      "community": 21,
       "norm_label": "nouselesstypeconstraint"
     },
     {
@@ -7074,7 +7074,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "biome_rules_nursery",
-      "community": 4,
+      "community": 21,
       "norm_label": "nursery"
     },
     {
@@ -7084,7 +7084,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "biome_nursery_usesortedclasses",
-      "community": 4,
+      "community": 21,
       "norm_label": "usesortedclasses"
     },
     {
@@ -7094,7 +7094,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "biome_rules_security",
-      "community": 4,
+      "community": 21,
       "norm_label": "security"
     },
     {
@@ -7104,7 +7104,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "biome_security_nodangerouslysetinnerhtmlwithchildren",
-      "community": 4,
+      "community": 21,
       "norm_label": "nodangerouslysetinnerhtmlwithchildren"
     },
     {
@@ -7114,7 +7114,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "biome_rules_style",
-      "community": 4,
+      "community": 32,
       "norm_label": "style"
     },
     {
@@ -7124,7 +7124,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "biome_style_nocommonjs",
-      "community": 4,
+      "community": 32,
       "norm_label": "nocommonjs"
     },
     {
@@ -7134,7 +7134,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "biome_style_nonamespace",
-      "community": 4,
+      "community": 32,
       "norm_label": "nonamespace"
     },
     {
@@ -7144,7 +7144,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "biome_style_usearrayliterals",
-      "community": 4,
+      "community": 32,
       "norm_label": "usearrayliterals"
     },
     {
@@ -7154,7 +7154,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "biome_style_useasconstassertion",
-      "community": 4,
+      "community": 32,
       "norm_label": "useasconstassertion"
     },
     {
@@ -7164,7 +7164,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "biome_style_useblockstatements",
-      "community": 4,
+      "community": 32,
       "norm_label": "useblockstatements"
     },
     {
@@ -7764,7 +7764,7 @@
       "source_location": "L222",
       "_origin": "ast",
       "id": "biome_source_organizeimports",
-      "community": 15,
+      "community": 29,
       "norm_label": "organizeimports"
     },
     {
@@ -7774,7 +7774,7 @@
       "source_location": "L223",
       "_origin": "ast",
       "id": "biome_organizeimports_level",
-      "community": 15,
+      "community": 29,
       "norm_label": "level"
     },
     {
@@ -7784,7 +7784,7 @@
       "source_location": "L224",
       "_origin": "ast",
       "id": "biome_organizeimports_options",
-      "community": 15,
+      "community": 29,
       "norm_label": "options"
     },
     {
@@ -7794,7 +7794,7 @@
       "source_location": "L225",
       "_origin": "ast",
       "id": "biome_options_groups",
-      "community": 15,
+      "community": 29,
       "norm_label": "groups"
     },
     {
@@ -7804,7 +7804,7 @@
       "source_location": "L239",
       "_origin": "ast",
       "id": "biome_source_usesortedattributes",
-      "community": 29,
+      "community": 44,
       "norm_label": "usesortedattributes"
     },
     {
@@ -7814,7 +7814,7 @@
       "source_location": "L240",
       "_origin": "ast",
       "id": "biome_usesortedattributes_level",
-      "community": 29,
+      "community": 44,
       "norm_label": "level"
     },
     {
@@ -7824,7 +7824,7 @@
       "source_location": "L241",
       "_origin": "ast",
       "id": "biome_usesortedattributes_options",
-      "community": 29,
+      "community": 44,
       "norm_label": "options"
     },
     {
@@ -7834,7 +7834,7 @@
       "source_location": "L242",
       "_origin": "ast",
       "id": "biome_options_sortorder",
-      "community": 29,
+      "community": 44,
       "norm_label": "sortorder"
     },
     {
@@ -9876,16 +9876,6 @@
       "id": "turbo_db_deploy_cache",
       "community": 7,
       "norm_label": "cache"
-    },
-    {
-      "label": "persistent",
-      "file_type": "code",
-      "source_file": "turbo.json",
-      "source_location": "L44",
-      "_origin": "ast",
-      "id": "turbo_db_deploy_persistent",
-      "community": 7,
-      "norm_label": "persistent"
     },
     {
       "label": "CHANGELOG.md",
@@ -27421,16 +27411,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "turbo.json",
-      "source_location": "L44",
-      "weight": 1.0,
-      "source": "turbo_tasks_db_deploy",
-      "target": "turbo_db_deploy_persistent",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -27770,5 +27750,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "160218bdc9eac9d6db9f1fb04480c1730a841250"
+  "built_at_commit": "fc0c8767c2c8435250c6b0ed95599f538481b2af"
 }
