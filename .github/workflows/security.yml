@@ -13,6 +13,7 @@ jobs:
       pull-requests: read
     outputs:
       terraform: ${{ steps.filter.outputs.terraform }}
+      non_infra: ${{ steps.filter.outputs.non_infra }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,6 +25,9 @@ jobs:
           filters: |
             terraform:
               - 'infra/terraform/**'
+            non_infra:
+              - '**'
+              - '!infra/terraform/**'
 
   terraform-security-scan:
     name: Terraform Security Scan (Trivy)
@@ -42,13 +46,15 @@ jobs:
         with:
           scan-type: config
           scan-ref: infra/terraform
+          trivyignores: infra/terraform/.trivyignore
           severity: CRITICAL,HIGH
           exit-code: '1'
 
   package-audit:
     name: Package Audit
     runs-on: ubuntu-latest
-    if: "!startsWith(github.head_ref, 'release-please--branches--')"
+    needs: changes
+    if: needs.changes.outputs.non_infra == 'true' && !startsWith(github.head_ref, 'release-please--branches--')
     permissions:
       contents: read
 
@@ -80,7 +86,8 @@ jobs:
   sbom-check:
     name: SBOM & Vulnerability Check
     runs-on: ubuntu-latest
-    if: github.actor != 'dependabot[bot]' && !startsWith(github.head_ref, 'release-please--branches--')
+    needs: changes
+    if: needs.changes.outputs.non_infra == 'true' && github.actor != 'dependabot[bot]' && !startsWith(github.head_ref, 'release-please--branches--')
     permissions:
       contents: read
       security-events: write

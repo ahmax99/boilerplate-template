@@ -220,7 +220,7 @@ resource "aws_s3_bucket_policy" "static_assets" {
 
 # -------------------
 # Terraform Plan Role (read-only, used by PR plan workflow)
-# Trust: pull_request OIDC sub claim only
+# Trust: pull_request sub, plus the environment:<env> sub since the plan job
 # -------------------
 resource "aws_iam_role" "terraform_plan" {
   count = var.enable_terraform_roles ? 1 : 0
@@ -240,7 +240,10 @@ resource "aws_iam_role" "terraform_plan" {
         Condition = {
           StringEquals = {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
-            "token.actions.githubusercontent.com:sub" = "repo:${var.github_org}/${var.project_name}:pull_request"
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:${var.github_org}/${var.project_name}:pull_request",
+              "repo:${var.github_org}/${var.project_name}:environment:${var.environment}"
+            ]
           }
         }
       }
@@ -254,7 +257,7 @@ resource "aws_iam_policy" "terraform_plan_state" {
   count = var.enable_terraform_roles ? 1 : 0
 
   name        = "${var.role_name}-terraform-plan-state"
-  description = "S3 state bucket read access for terraform plan role"
+  description = "S3 state read + lock and secret-value read for terraform plan role"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -272,6 +275,22 @@ resource "aws_iam_policy" "terraform_plan_state" {
           var.state_bucket_arn,
           "${var.state_bucket_arn}/${var.environment}/*"
         ]
+      },
+      {
+        Sid    = "TerraformStateLock"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = "${var.state_bucket_arn}/${var.environment}/*.tflock"
+      },
+      {
+        Sid      = "TerraformStateSecretRead"
+        Effect   = "Allow"
+        Action   = ["secretsmanager:GetSecretValue"]
+        Resource = "arn:aws:secretsmanager:*:*:secret:${var.project_name}-${var.environment}/*"
       }
     ]
   })
@@ -397,7 +416,46 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
       {
         Sid    = "S3InfraManagement"
         Effect = "Allow"
-        Action = ["s3:*"]
+        Action = [
+          "s3:CreateBucket",
+          "s3:DeleteBucket",
+          "s3:ListBucket",
+          "s3:ListBucketVersions",
+          "s3:GetBucketLocation",
+          "s3:GetBucketTagging",
+          "s3:PutBucketTagging",
+          "s3:GetBucketOwnershipControls",
+          "s3:PutBucketOwnershipControls",
+          "s3:GetBucketAcl",
+          "s3:PutBucketAcl",
+          "s3:GetBucketVersioning",
+          "s3:PutBucketVersioning",
+          "s3:GetEncryptionConfiguration",
+          "s3:PutEncryptionConfiguration",
+          "s3:GetBucketPublicAccessBlock",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:GetBucketCORS",
+          "s3:PutBucketCORS",
+          "s3:GetBucketPolicy",
+          "s3:PutBucketPolicy",
+          "s3:DeleteBucketPolicy",
+          "s3:GetBucketPolicyStatus",
+          "s3:GetBucketLogging",
+          "s3:PutBucketLogging",
+          "s3:GetLifecycleConfiguration",
+          "s3:PutLifecycleConfiguration",
+          "s3:GetBucketWebsite",
+          "s3:GetBucketNotification",
+          "s3:GetBucketRequestPayment",
+          "s3:GetReplicationConfiguration",
+          "s3:GetAccelerateConfiguration",
+          "s3:GetBucketObjectLockConfiguration",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:GetObjectVersion",
+          "s3:DeleteObjectVersion"
+        ]
         Resource = [
           "arn:aws:s3:::${var.project_name}-${var.environment}-*",
           "arn:aws:s3:::${var.project_name}-${var.environment}-*/*"
