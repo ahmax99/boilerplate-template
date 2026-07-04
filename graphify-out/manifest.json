@@ -365,7 +365,7 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/package.json": {
-    "mtime": 1783138316.9622042,
+    "mtime": 1783149748.2305343,
     "ast_hash": "b6e418af0e7e5a48a8b5d6bdf7c41f8d",
     "semantic_hash": ""
   },
@@ -520,12 +520,12 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Button.tsx": {
-    "mtime": 1783138731.2988577,
+    "mtime": 1783149748.234053,
     "ast_hash": "d3da42599c9af26afe2089a35396951b",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/ButtonLink.tsx": {
-    "mtime": 1783138744.331001,
+    "mtime": 1783149748.234053,
     "ast_hash": "51e5aebaf56a11b5323c84a65129eaa9",
     "semantic_hash": ""
   },
@@ -535,7 +535,7 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Label.tsx": {
-    "mtime": 1783139177.922281,
+    "mtime": 1783149748.234053,
     "ast_hash": "8f82cdaea54363cf92a5b70068136dd7",
     "semantic_hash": ""
   },
@@ -630,8 +630,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/ActionButton.tsx": {
-    "mtime": 1783138745.8641412,
-    "ast_hash": "d49aaa7e990fdc4514ad0e865caa17a2",
+    "mtime": 1783149748.235054,
+    "ast_hash": "b59a33d88b6fd1767e125c70110ec71f",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/Field.tsx": {
@@ -715,7 +715,7 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/components/OAuth2Start.tsx": {
-    "mtime": 1783138983.3900836,
+    "mtime": 1783149748.234053,
     "ast_hash": "7b5ec0d3f151c20f85c143470d5b5d20",
     "semantic_hash": ""
   },
@@ -770,7 +770,7 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/server/services/auth.ts": {
-    "mtime": 1783139036.1031418,
+    "mtime": 1783149748.2400534,
     "ast_hash": "c28713afc2d732cbbb909d49ad4ccf11",
     "semantic_hash": ""
   },
@@ -880,8 +880,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/error/utils/catchError.ts": {
-    "mtime": 1780579235.2966304,
-    "ast_hash": "21b65acc15ff765413b452cd0d01d521",
+    "mtime": 1783149748.234053,
+    "ast_hash": "e39ab615ad9ca137fa5b9fef1beecb0a",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/client/components/ContactForm.tsx": {
@@ -1040,8 +1040,8 @@
     "semantic_hash": ""
   },
   "biome.json": {
-    "mtime": 1783137771.2823148,
-    "ast_hash": "435801b2db9706c48e30ac56c24c65a6",
+    "mtime": 1783149748.2320397,
+    "ast_hash": "335665f8875458a5617ff9ae7c2b0eb4",
     "semantic_hash": ""
   },
   "commitlint.config.js": {
@@ -1445,7 +1445,7 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1783138025.6503527,
+    "mtime": 1783149582.0798407,
     "ast_hash": "e64a5e2014428fb9baa10b84a028e7e2",
     "semantic_hash": ""
   },
@@ -1495,13 +1495,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Button.variants.ts": {
-    "mtime": 1783138712.9655695,
+    "mtime": 1783149748.234053,
     "ast_hash": "d0fae05a6039e40b867156cb334d2c86",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/utils/redirect.ts": {
-    "mtime": 1783139130.348369,
-    "ast_hash": "b0bbd5871a201b112e0a542cad4a2eed",
+    "mtime": 1783149748.234053,
+    "ast_hash": "594af95bdfeb5dc4ec8d39ef7323b17c",
     "semantic_hash": ""
   }
 }

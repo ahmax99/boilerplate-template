@@ -2754,7 +2754,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page",
-      "community": 3,
+      "community": 72,
       "norm_label": "page.tsx"
     },
     {
@@ -2764,7 +2764,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page_metadata",
-      "community": 3,
+      "community": 72,
       "norm_label": "metadata"
     },
     {
@@ -2774,7 +2774,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page_createpostpage",
-      "community": 3,
+      "community": 72,
       "norm_label": "createpostpage()"
     },
     {
@@ -2784,7 +2784,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page",
-      "community": 6,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -2794,7 +2794,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page_metadata",
-      "community": 6,
+      "community": 3,
       "norm_label": "metadata"
     },
     {
@@ -2804,7 +2804,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page_contactpage",
-      "community": 6,
+      "community": 3,
       "norm_label": "contactpage()"
     },
     {
@@ -2844,7 +2844,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page",
-      "community": 75,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -2854,7 +2854,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page_metadata",
-      "community": 75,
+      "community": 3,
       "norm_label": "metadata"
     },
     {
@@ -2864,7 +2864,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page_homepage",
-      "community": 75,
+      "community": 3,
       "norm_label": "homepage()"
     },
     {
@@ -3554,7 +3554,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_herosection",
-      "community": 75,
+      "community": 3,
       "norm_label": "herosection.tsx"
     },
     {
@@ -3564,7 +3564,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_herosection_herosection",
-      "community": 75,
+      "community": 3,
       "norm_label": "herosection()"
     },
     {
@@ -3574,7 +3574,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_index",
-      "community": 75,
+      "community": 3,
       "norm_label": "index.ts"
     },
     {
@@ -4144,7 +4144,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formcard_formcard",
-      "community": 74,
+      "community": 6,
       "norm_label": "formcard()"
     },
     {
@@ -4174,7 +4174,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formfield_formfield",
-      "community": 74,
+      "community": 17,
       "norm_label": "formfield()"
     },
     {
@@ -4184,7 +4184,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_index",
-      "community": 42,
+      "community": 44,
       "norm_label": "index.ts"
     },
     {
@@ -4234,7 +4234,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index",
-      "community": 22,
+      "community": 74,
       "norm_label": "index.ts"
     },
     {
@@ -4254,7 +4254,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_updateuser",
-      "community": 22,
+      "community": 74,
       "norm_label": "updateuser()"
     },
     {
@@ -4264,7 +4264,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_uploadprofileimage",
-      "community": 22,
+      "community": 74,
       "norm_label": "uploadprofileimage()"
     },
     {
@@ -4274,7 +4274,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_deleteuser",
-      "community": 22,
+      "community": 74,
       "norm_label": "deleteuser()"
     },
     {
@@ -4334,7 +4334,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_accountform",
-      "community": 44,
+      "community": 74,
       "norm_label": "accountform()"
     },
     {
@@ -4374,7 +4374,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_deleteaccountbutton",
-      "community": 44,
+      "community": 74,
       "norm_label": "deleteaccountbutton.tsx"
     },
     {
@@ -4384,7 +4384,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_deleteaccountbutton_deleteaccountbutton",
-      "community": 44,
+      "community": 74,
       "norm_label": "deleteaccountbutton()"
     },
     {
@@ -4394,7 +4394,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_hooks_useaccountactions",
-      "community": 22,
+      "community": 74,
       "norm_label": "useaccountactions.ts"
     },
     {
@@ -4404,7 +4404,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_hooks_useaccountactions_useaccountactions",
-      "community": 44,
+      "community": 74,
       "norm_label": "useaccountactions()"
     },
     {
@@ -4664,7 +4664,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_toastmessages",
-      "community": 3,
+      "community": 72,
       "norm_label": "toastmessages.ts"
     },
     {
@@ -4794,7 +4794,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_api_index",
-      "community": 3,
+      "community": 72,
       "norm_label": "index.ts"
     },
     {
@@ -4814,7 +4814,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_api_index_getme",
-      "community": 3,
+      "community": 72,
       "norm_label": "getme()"
     },
     {
@@ -5061,7 +5061,7 @@
       "label": "safeRelativePath()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/features/auth/utils/redirect.ts",
-      "source_location": "L1",
+      "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_redirect_saferelativepath",
       "community": 0,
@@ -5124,7 +5124,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentformconfig",
-      "community": 42,
+      "community": 21,
       "norm_label": "commentformconfig"
     },
     {
@@ -5154,7 +5154,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton",
-      "community": 42,
+      "community": 21,
       "norm_label": "deletecommentbutton.tsx"
     },
     {
@@ -5164,7 +5164,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton_deletecommentbuttonprops",
-      "community": 42,
+      "community": 21,
       "norm_label": "deletecommentbuttonprops"
     },
     {
@@ -5174,7 +5174,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton_deletecommentbutton",
-      "community": 42,
+      "community": 21,
       "norm_label": "deletecommentbutton()"
     },
     {
@@ -5274,7 +5274,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_components_commentsection",
-      "community": 42,
+      "community": 21,
       "norm_label": "commentsection.tsx"
     },
     {
@@ -5284,7 +5284,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_components_commentsection_commentsectionprops",
-      "community": 42,
+      "community": 21,
       "norm_label": "commentsectionprops"
     },
     {
@@ -5384,7 +5384,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_hooks_useerrorhandler_useerrorhandler",
-      "community": 21,
+      "community": 74,
       "norm_label": "useerrorhandler()"
     },
     {
@@ -5558,10 +5558,20 @@
       "norm_label": "catcherror.ts"
     },
     {
-      "label": "catchAsyncError()",
+      "label": "catchSyncError()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/features/error/utils/catchError.ts",
       "source_location": "L7",
+      "_origin": "ast",
+      "id": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchsyncerror",
+      "community": 0,
+      "norm_label": "catchsyncerror()"
+    },
+    {
+      "label": "catchAsyncError()",
+      "file_type": "code",
+      "source_file": "apps/nextjs-boilerplate/src/features/error/utils/catchError.ts",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchasyncerror",
       "community": 6,
@@ -5894,7 +5904,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata",
-      "community": 32,
+      "community": 3,
       "norm_label": "generatepagemetadata.ts"
     },
     {
@@ -5904,7 +5914,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata_generatepagemetadataprops",
-      "community": 32,
+      "community": 3,
       "norm_label": "generatepagemetadataprops"
     },
     {
@@ -5914,7 +5924,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata_generatepagemetadata",
-      "community": 32,
+      "community": 3,
       "norm_label": "generatepagemetadata()"
     },
     {
@@ -6344,7 +6354,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_serverapiclient_serverauthapiclient",
-      "community": 5,
+      "community": 72,
       "norm_label": "serverauthapiclient"
     },
     {
@@ -6784,7 +6794,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "biome_linter_rules",
-      "community": 28,
+      "community": 4,
       "norm_label": "rules"
     },
     {
@@ -6794,7 +6804,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "biome_rules_recommended",
-      "community": 28,
+      "community": 4,
       "norm_label": "recommended"
     },
     {
@@ -6804,7 +6814,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "biome_rules_complexity",
-      "community": 28,
+      "community": 4,
       "norm_label": "complexity"
     },
     {
@@ -6814,7 +6824,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "biome_complexity_noadjacentspacesinregex",
-      "community": 28,
+      "community": 4,
       "norm_label": "noadjacentspacesinregex"
     },
     {
@@ -6824,7 +6834,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "biome_complexity_noextrabooleancast",
-      "community": 28,
+      "community": 4,
       "norm_label": "noextrabooleancast"
     },
     {
@@ -6834,7 +6844,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "biome_complexity_nouselesscatch",
-      "community": 28,
+      "community": 4,
       "norm_label": "nouselesscatch"
     },
     {
@@ -6844,7 +6854,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "biome_complexity_nouselessescapeinregex",
-      "community": 28,
+      "community": 4,
       "norm_label": "nouselessescapeinregex"
     },
     {
@@ -6854,7 +6864,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "biome_complexity_nouselesstypeconstraint",
-      "community": 28,
+      "community": 4,
       "norm_label": "nouselesstypeconstraint"
     },
     {
@@ -7154,7 +7164,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "biome_rules_nursery",
-      "community": 28,
+      "community": 4,
       "norm_label": "nursery"
     },
     {
@@ -7164,7 +7174,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "biome_nursery_usesortedclasses",
-      "community": 28,
+      "community": 4,
       "norm_label": "usesortedclasses"
     },
     {
@@ -7174,7 +7184,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "biome_rules_security",
-      "community": 28,
+      "community": 4,
       "norm_label": "security"
     },
     {
@@ -7184,7 +7194,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "biome_security_nodangerouslysetinnerhtmlwithchildren",
-      "community": 28,
+      "community": 4,
       "norm_label": "nodangerouslysetinnerhtmlwithchildren"
     },
     {
@@ -7194,7 +7204,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "biome_rules_style",
-      "community": 76,
+      "community": 4,
       "norm_label": "style"
     },
     {
@@ -7204,7 +7214,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "biome_style_nocommonjs",
-      "community": 76,
+      "community": 4,
       "norm_label": "nocommonjs"
     },
     {
@@ -7214,7 +7224,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "biome_style_nonamespace",
-      "community": 76,
+      "community": 4,
       "norm_label": "nonamespace"
     },
     {
@@ -7224,7 +7234,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "biome_style_usearrayliterals",
-      "community": 76,
+      "community": 4,
       "norm_label": "usearrayliterals"
     },
     {
@@ -7234,7 +7244,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "biome_style_useasconstassertion",
-      "community": 76,
+      "community": 4,
       "norm_label": "useasconstassertion"
     },
     {
@@ -7244,7 +7254,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "biome_style_useblockstatements",
-      "community": 76,
+      "community": 4,
       "norm_label": "useblockstatements"
     },
     {
@@ -7611,7 +7621,7 @@
       "label": "javascript",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L137",
+      "source_location": "L139",
       "_origin": "ast",
       "id": "biome_javascript",
       "community": 43,
@@ -7621,7 +7631,7 @@
       "label": "parser",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L138",
+      "source_location": "L140",
       "_origin": "ast",
       "id": "biome_javascript_parser",
       "community": 43,
@@ -7631,7 +7641,7 @@
       "label": "unsafeParameterDecoratorsEnabled",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L139",
+      "source_location": "L141",
       "_origin": "ast",
       "id": "biome_parser_unsafeparameterdecoratorsenabled",
       "community": 43,
@@ -7641,7 +7651,7 @@
       "label": "formatter",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L141",
+      "source_location": "L143",
       "_origin": "ast",
       "id": "biome_javascript_formatter",
       "community": 27,
@@ -7651,7 +7661,7 @@
       "label": "jsxQuoteStyle",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L142",
+      "source_location": "L144",
       "_origin": "ast",
       "id": "biome_formatter_jsxquotestyle",
       "community": 27,
@@ -7661,7 +7671,7 @@
       "label": "quoteProperties",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L143",
+      "source_location": "L145",
       "_origin": "ast",
       "id": "biome_formatter_quoteproperties",
       "community": 27,
@@ -7671,7 +7681,7 @@
       "label": "trailingCommas",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L144",
+      "source_location": "L146",
       "_origin": "ast",
       "id": "biome_formatter_trailingcommas",
       "community": 27,
@@ -7681,7 +7691,7 @@
       "label": "semicolons",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L145",
+      "source_location": "L147",
       "_origin": "ast",
       "id": "biome_formatter_semicolons",
       "community": 27,
@@ -7691,7 +7701,7 @@
       "label": "arrowParentheses",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L146",
+      "source_location": "L148",
       "_origin": "ast",
       "id": "biome_formatter_arrowparentheses",
       "community": 27,
@@ -7701,7 +7711,7 @@
       "label": "quoteStyle",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L148",
+      "source_location": "L150",
       "_origin": "ast",
       "id": "biome_formatter_quotestyle",
       "community": 27,
@@ -7711,7 +7721,7 @@
       "label": "globals",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L152",
+      "source_location": "L154",
       "_origin": "ast",
       "id": "biome_javascript_globals",
       "community": 43,
@@ -7721,7 +7731,7 @@
       "label": "html",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L178",
+      "source_location": "L180",
       "_origin": "ast",
       "id": "biome_html",
       "community": 23,
@@ -7731,7 +7741,7 @@
       "label": "formatter",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L178",
+      "source_location": "L180",
       "_origin": "ast",
       "id": "biome_html_formatter",
       "community": 23,
@@ -7741,7 +7751,7 @@
       "label": "selfCloseVoidElements",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L178",
+      "source_location": "L180",
       "_origin": "ast",
       "id": "biome_formatter_selfclosevoidelements",
       "community": 23,
@@ -7751,7 +7761,7 @@
       "label": "css",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L179",
+      "source_location": "L181",
       "_origin": "ast",
       "id": "biome_css",
       "community": 23,
@@ -7761,7 +7771,7 @@
       "label": "parser",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L180",
+      "source_location": "L182",
       "_origin": "ast",
       "id": "biome_css_parser",
       "community": 23,
@@ -7771,7 +7781,7 @@
       "label": "tailwindDirectives",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L181",
+      "source_location": "L183",
       "_origin": "ast",
       "id": "biome_parser_tailwinddirectives",
       "community": 23,
@@ -7781,7 +7791,7 @@
       "label": "overrides",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L184",
+      "source_location": "L186",
       "_origin": "ast",
       "id": "biome_overrides",
       "community": 23,
@@ -7791,7 +7801,7 @@
       "label": "assist",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L218",
+      "source_location": "L220",
       "_origin": "ast",
       "id": "biome_assist",
       "community": 29,
@@ -7801,7 +7811,7 @@
       "label": "enabled",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L219",
+      "source_location": "L221",
       "_origin": "ast",
       "id": "biome_assist_enabled",
       "community": 29,
@@ -7811,7 +7821,7 @@
       "label": "includes",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L220",
+      "source_location": "L222",
       "_origin": "ast",
       "id": "biome_assist_includes",
       "community": 29,
@@ -7821,7 +7831,7 @@
       "label": "actions",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L221",
+      "source_location": "L223",
       "_origin": "ast",
       "id": "biome_assist_actions",
       "community": 29,
@@ -7831,7 +7841,7 @@
       "label": "source",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L222",
+      "source_location": "L224",
       "_origin": "ast",
       "id": "biome_actions_source",
       "community": 29,
@@ -7841,7 +7851,7 @@
       "label": "organizeImports",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L223",
+      "source_location": "L225",
       "_origin": "ast",
       "id": "biome_source_organizeimports",
       "community": 29,
@@ -7851,7 +7861,7 @@
       "label": "level",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L224",
+      "source_location": "L226",
       "_origin": "ast",
       "id": "biome_organizeimports_level",
       "community": 29,
@@ -7861,7 +7871,7 @@
       "label": "options",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L225",
+      "source_location": "L227",
       "_origin": "ast",
       "id": "biome_organizeimports_options",
       "community": 29,
@@ -7871,7 +7881,7 @@
       "label": "groups",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L226",
+      "source_location": "L228",
       "_origin": "ast",
       "id": "biome_options_groups",
       "community": 29,
@@ -7881,7 +7891,7 @@
       "label": "useSortedAttributes",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L240",
+      "source_location": "L242",
       "_origin": "ast",
       "id": "biome_source_usesortedattributes",
       "community": 77,
@@ -7891,7 +7901,7 @@
       "label": "level",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L241",
+      "source_location": "L243",
       "_origin": "ast",
       "id": "biome_usesortedattributes_level",
       "community": 77,
@@ -7901,7 +7911,7 @@
       "label": "options",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L242",
+      "source_location": "L244",
       "_origin": "ast",
       "id": "biome_usesortedattributes_options",
       "community": 77,
@@ -7911,7 +7921,7 @@
       "label": "sortOrder",
       "file_type": "code",
       "source_file": "biome.json",
-      "source_location": "L243",
+      "source_location": "L245",
       "_origin": "ast",
       "id": "biome_options_sortorder",
       "community": 77,
@@ -21801,11 +21811,44 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/auth/utils/redirect.ts",
-      "source_location": "L1",
+      "source_location": "L3",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_auth_utils_redirect",
       "target": "apps_nextjs_boilerplate_src_features_auth_utils_redirect_saferelativepath",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/auth/utils/redirect.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_auth_utils_redirect",
+      "target": "apps_nextjs_boilerplate_src_features_error_utils_catcherror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/auth/utils/redirect.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_auth_utils_redirect",
+      "target": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchsyncerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/nextjs-boilerplate/src/features/auth/utils/redirect.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_auth_utils_redirect_saferelativepath",
+      "target": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchsyncerror"
     },
     {
       "relation": "contains",
@@ -23005,9 +23048,20 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "apps/nextjs-boilerplate/src/features/error/utils/catchError.ts",
-      "source_location": "L8",
+      "source_location": "L11",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchasyncerror",
+      "target": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_maptoapperror"
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/nextjs-boilerplate/src/features/error/utils/catchError.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchsyncerror",
       "target": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_maptoapperror"
     },
     {
@@ -23057,10 +23111,20 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/error/utils/catchError.ts",
-      "source_location": "L7",
+      "source_location": "L10",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_error_utils_catcherror",
       "target": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchasyncerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/error/utils/catchError.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_error_utils_catcherror",
+      "target": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchsyncerror",
       "confidence_score": 1.0
     },
     {
@@ -24397,7 +24461,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L218",
+      "source_location": "L220",
       "weight": 1.0,
       "source": "biome",
       "target": "biome_assist",
@@ -24407,7 +24471,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L179",
+      "source_location": "L181",
       "weight": 1.0,
       "source": "biome",
       "target": "biome_css",
@@ -24437,7 +24501,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L178",
+      "source_location": "L180",
       "weight": 1.0,
       "source": "biome",
       "target": "biome_html",
@@ -24447,7 +24511,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L137",
+      "source_location": "L139",
       "weight": 1.0,
       "source": "biome",
       "target": "biome_javascript",
@@ -24467,7 +24531,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L184",
+      "source_location": "L186",
       "weight": 1.0,
       "source": "biome",
       "target": "biome_overrides",
@@ -24657,7 +24721,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L149",
+      "source_location": "L151",
       "weight": 1.0,
       "source": "biome_javascript_formatter",
       "target": "biome_formatter_attributeposition",
@@ -24667,7 +24731,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L147",
+      "source_location": "L149",
       "weight": 1.0,
       "source": "biome_javascript_formatter",
       "target": "biome_formatter_bracketsameline",
@@ -24677,7 +24741,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L150",
+      "source_location": "L152",
       "weight": 1.0,
       "source": "biome_javascript_formatter",
       "target": "biome_formatter_bracketspacing",
@@ -25527,7 +25591,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L141",
+      "source_location": "L143",
       "weight": 1.0,
       "source": "biome_javascript",
       "target": "biome_javascript_formatter",
@@ -25537,7 +25601,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L152",
+      "source_location": "L154",
       "weight": 1.0,
       "source": "biome_javascript",
       "target": "biome_javascript_globals",
@@ -25547,7 +25611,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L138",
+      "source_location": "L140",
       "weight": 1.0,
       "source": "biome_javascript",
       "target": "biome_javascript_parser",
@@ -25557,7 +25621,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L139",
+      "source_location": "L141",
       "weight": 1.0,
       "source": "biome_javascript_parser",
       "target": "biome_parser_unsafeparameterdecoratorsenabled",
@@ -25567,7 +25631,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L146",
+      "source_location": "L148",
       "weight": 1.0,
       "source": "biome_javascript_formatter",
       "target": "biome_formatter_arrowparentheses",
@@ -25577,7 +25641,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L142",
+      "source_location": "L144",
       "weight": 1.0,
       "source": "biome_javascript_formatter",
       "target": "biome_formatter_jsxquotestyle",
@@ -25587,7 +25651,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L143",
+      "source_location": "L145",
       "weight": 1.0,
       "source": "biome_javascript_formatter",
       "target": "biome_formatter_quoteproperties",
@@ -25597,7 +25661,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L148",
+      "source_location": "L150",
       "weight": 1.0,
       "source": "biome_javascript_formatter",
       "target": "biome_formatter_quotestyle",
@@ -25607,7 +25671,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L145",
+      "source_location": "L147",
       "weight": 1.0,
       "source": "biome_javascript_formatter",
       "target": "biome_formatter_semicolons",
@@ -25617,7 +25681,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L144",
+      "source_location": "L146",
       "weight": 1.0,
       "source": "biome_javascript_formatter",
       "target": "biome_formatter_trailingcommas",
@@ -25627,7 +25691,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L178",
+      "source_location": "L180",
       "weight": 1.0,
       "source": "biome_html",
       "target": "biome_html_formatter",
@@ -25637,7 +25701,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L178",
+      "source_location": "L180",
       "weight": 1.0,
       "source": "biome_html_formatter",
       "target": "biome_formatter_selfclosevoidelements",
@@ -25647,7 +25711,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L180",
+      "source_location": "L182",
       "weight": 1.0,
       "source": "biome_css",
       "target": "biome_css_parser",
@@ -25657,7 +25721,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L181",
+      "source_location": "L183",
       "weight": 1.0,
       "source": "biome_css_parser",
       "target": "biome_parser_tailwinddirectives",
@@ -25667,7 +25731,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L221",
+      "source_location": "L223",
       "weight": 1.0,
       "source": "biome_assist",
       "target": "biome_assist_actions",
@@ -25677,7 +25741,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L219",
+      "source_location": "L221",
       "weight": 1.0,
       "source": "biome_assist",
       "target": "biome_assist_enabled",
@@ -25687,7 +25751,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L220",
+      "source_location": "L222",
       "weight": 1.0,
       "source": "biome_assist",
       "target": "biome_assist_includes",
@@ -25697,7 +25761,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L222",
+      "source_location": "L224",
       "weight": 1.0,
       "source": "biome_assist_actions",
       "target": "biome_actions_source",
@@ -25707,7 +25771,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L223",
+      "source_location": "L225",
       "weight": 1.0,
       "source": "biome_actions_source",
       "target": "biome_source_organizeimports",
@@ -25717,7 +25781,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L240",
+      "source_location": "L242",
       "weight": 1.0,
       "source": "biome_actions_source",
       "target": "biome_source_usesortedattributes",
@@ -25727,7 +25791,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L224",
+      "source_location": "L226",
       "weight": 1.0,
       "source": "biome_source_organizeimports",
       "target": "biome_organizeimports_level",
@@ -25737,7 +25801,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L225",
+      "source_location": "L227",
       "weight": 1.0,
       "source": "biome_source_organizeimports",
       "target": "biome_organizeimports_options",
@@ -25747,7 +25811,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L226",
+      "source_location": "L228",
       "weight": 1.0,
       "source": "biome_organizeimports_options",
       "target": "biome_options_groups",
@@ -25757,7 +25821,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L241",
+      "source_location": "L243",
       "weight": 1.0,
       "source": "biome_source_usesortedattributes",
       "target": "biome_usesortedattributes_level",
@@ -25767,7 +25831,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L242",
+      "source_location": "L244",
       "weight": 1.0,
       "source": "biome_source_usesortedattributes",
       "target": "biome_usesortedattributes_options",
@@ -25777,7 +25841,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "biome.json",
-      "source_location": "L243",
+      "source_location": "L245",
       "weight": 1.0,
       "source": "biome_usesortedattributes_options",
       "target": "biome_options_sortorder",
@@ -28064,5 +28128,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "223d7ffabd031e3457ba9b0714c644be08848b10"
+  "built_at_commit": "45c2ca92c5faf90df60130c6f1dc4bce44e42cea"
 }
