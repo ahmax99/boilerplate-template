@@ -26,12 +26,12 @@ jobs:
 
     env:
       TF_IN_AUTOMATION: "true"
-      AWS_REGION: ${{ vars.TF_VAR_aws_region }}
-      TF_VAR_project_name: ${{ vars.TF_VAR_project_name }}
-      TF_VAR_environment: ${{ vars.TF_VAR_environment }}
-      TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
+      TF_VAR_environment: dev
+      TF_VAR_aws_region: ${{ vars.AWS_REGION }}
       TF_VAR_domain_name: ${{ vars.TF_VAR_domain_name }}
-      TF_VAR_github_org: ${{ vars.TF_VAR_github_org }}
+      TF_VAR_github_org: ${{ github.repository_owner }}
       TF_VAR_contact_to_email: ${{ vars.TF_VAR_contact_to_email }}
       TF_VAR_from_email: ${{ vars.TF_VAR_from_email }}
       TF_VAR_database_url: ${{ secrets.TF_VAR_database_url }}
@@ -55,15 +55,15 @@ jobs:
       - name: Configure AWS credentials (apply role)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.TF_APPLY_ROLE_ARN }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: TerraformApplyDev
 
       - name: Apply (dev)
         uses: ./.github/actions/terraform-apply-env
         with:
-          environment: ${{ vars.TF_VAR_environment }}
-          project-name: ${{ vars.TF_VAR_project_name }}
+          environment: dev
+          project-name: ${{ vars.PROJECT_NAME }}
           aws-region: ${{ env.AWS_REGION }}
           next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
           next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
@@ -78,12 +78,12 @@ jobs:
 
     env:
       TF_IN_AUTOMATION: "true"
-      AWS_REGION: ${{ vars.TF_VAR_aws_region }}
-      TF_VAR_project_name: ${{ vars.TF_VAR_project_name }}
-      TF_VAR_environment: ${{ vars.TF_VAR_environment }}
-      TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
+      TF_VAR_environment: prod
+      TF_VAR_aws_region: ${{ vars.AWS_REGION }}
       TF_VAR_domain_name: ${{ vars.TF_VAR_domain_name }}
-      TF_VAR_github_org: ${{ vars.TF_VAR_github_org }}
+      TF_VAR_github_org: ${{ github.repository_owner }}
       TF_VAR_contact_to_email: ${{ vars.TF_VAR_contact_to_email }}
       TF_VAR_from_email: ${{ vars.TF_VAR_from_email }}
       TF_VAR_database_url: ${{ secrets.TF_VAR_database_url }}
@@ -106,15 +106,15 @@ jobs:
       - name: Configure AWS credentials (apply role)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.TF_APPLY_ROLE_ARN }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: TerraformApplyProd
 
       - name: Apply (prod)
         uses: ./.github/actions/terraform-apply-env
         with:
-          environment: ${{ vars.TF_VAR_environment }}
-          project-name: ${{ vars.TF_VAR_project_name }}
+          environment: prod
+          project-name: ${{ vars.PROJECT_NAME }}
           aws-region: ${{ env.AWS_REGION }}
           next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
           next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}

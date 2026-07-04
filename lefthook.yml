@@ -21,7 +21,7 @@ commit-msg:
 pre-push:
   commands:
     check-types-build:
-      run: turbo run check-types build --affected
+      run: bunx turbo run check-types build --affected
 
 post-commit:
   scripts:
