@@ -66,15 +66,16 @@ jobs:
       - name: Scan SBOM and summarize results
         uses: anchore/scan-action@v7.4.0
         id: grype
+        continue-on-error: true
         with:
           sbom: sbom.json
-          fail-build: false
+          fail-build: true
           severity-cutoff: high
 
       - name: Fail on high severity vulnerabilities
         run: |
           echo "============================ Summary ============================"
-          if [[ "${{ steps.grype.outputs.check-passed }}" != "true" ]]; then
+          if [[ "${{ steps.grype.outcome }}" != "success" ]]; then
             echo "❌ Dependencies contain HIGH severity vulnerabilities."
             echo "💡 To fix vulnerabilities:"
             echo "- Run: bun update"
