@@ -74,6 +74,8 @@ Use this exact template, writing to `.claude/plans/<slug>.md` via the `Write` to
 - [ ] <Testable criterion 1>
 - [ ] <Testable criterion 2>
 
+**Verify:** <the command or check that proves this step works — e.g. `bun run check-types`, a `curl` against the new route with expected status, a Playwright flow for UI, `terraform -chdir=infra/terraform validate` for infra. Prefer something the implementing agent can run and read the result of.>
+
 ### Step 2: <name>
 
 ...
@@ -119,6 +121,7 @@ Risks to flag:
 - **Follow existing patterns.** Reference the closest analogous module. New backend resources need the full triad (`*.plugin.ts` + `*.controller.ts` + `*.service.ts`); new schemas go in `@shared/config`.
 - **Order steps by dependency.** If step 3 needs the Zod model from step 1, list step 1 first. A typical backend order: schema in `@shared/config` → Prisma migration → service → plugin → controller → route registration.
 - **Keep acceptance criteria testable.** "Works correctly" is not testable; "returns 403 when a non-author calls PUT /posts/:id" is.
+- **Every step names its verification.** The `**Verify:**` line closes the loop: without a check the implementer can run, "looks done" is the only signal and every mistake waits for a human to notice. A criterion nobody can check mechanically should either get a runnable check or be rewritten until it can.
 - **Include the Zod schema** (in `@shared/config`) if the feature accepts external input.
 - **Flag risks**: Prisma migrations (run `/db-check`), breaking API changes, CASL permission changes, transaction logic.
 

@@ -39,21 +39,7 @@ There is **no test runner configured** in this repo yet. CI runs SonarQube, depe
 
 ## Rules
 
-**Backend:**
-- All imports in `apps/backend-boilerplate` use explicit `.js` extensions (ESM)
-- Service layer: wrap async calls in `catchAsyncError`; throw only `AppError` inside that body — never throw across service layers
-- New modules need the full triad: `*.plugin.ts` + `*.controller.ts` + `*.service.ts`
-
-**Frontend:**
-- Browser code never calls the Elysia backend directly — always via Next.js server actions, route handlers, or server components
-- Feature modules at `src/features/<name>/` split by context: `client/` (`'use client'` components/hooks/API callers), `server/` (server components + Elysia calls), `schemas/`, `lib/`, `utils/`, `constants/`, `providers/`
-- Shared cross-feature UI only goes in `src/components/` (atoms → molecules → organisms → layout → common); feature-specific components stay inside their feature folder
-
-**Shared:**
-- New Zod schemas/types go in `@shared/config`, never in an individual app
-
-**Infra:**
-- Terraform changes (`infra/terraform/**`) follow `.claude/rules/infra.md` — environments are `backends/*.hcl` + `vars/*.tfvars` (never per-env directories), no secret values in `.tf`/`.tfvars`, and the local gates are `terraform fmt -check` + `tflint` + `terraform validate` (mirroring `terraform-plan.yml`)
+The hard rules live in the rule files loaded alongside this one — `architecture.md` (where things live: triads, BFF boundary, shared packages), `conventions.md` (how code is written: Result flow, `.js` ESM imports, validation at the boundary, exports), `principles.md` (why), `infra.md` (Terraform: environments-as-config, local gates). Each rule is stated exactly once, in its owning file — don't restate them here or in commands.
 
 ## Codebase graph
 
@@ -64,8 +50,6 @@ Rules:
 - If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
 - Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
 - After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
-
-@graphify-out/GRAPH_REPORT.md
 
 ## Context management
 

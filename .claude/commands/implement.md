@@ -29,16 +29,7 @@ Remaining `$ARGUMENTS` tokens (after stripping `--plan=...`) are passed through 
 
 ### Follow project patterns exactly
 
-Read `.claude/rules/architecture.md`, `conventions.md`, and `principles.md` first. The non-negotiables:
-
-- **Backend services** (`*.service.ts`): plain object literal (`export const XService = {...}`) — non-instance, per Elysia best practice. Each method wraps its async work in `catchAsyncError(...)` and returns `ResultAsync<T, AppError>`. Signal failures with `throw new AppError('NOT_FOUND' | ..., msg)` **only inside** that wrapped body — never throw to the caller. Enforce CASL with `accessibleBy(ability).ofType(...)` and `ability.can(...)`.
-- **Backend plugins** (`*.plugin.ts`): an Elysia plugin that `.decorate()`s the service onto the context.
-- **Backend controllers** (`*.controller.ts`): thin Elysia routes. Validate input with Zod schemas from `@shared/config` via the route's `body`/`query`/`params`. Gate protected routes with the `auth: true` macro. Wrap every service call in `handleApiError(...)`. No business logic.
-- **Imports**: backend uses explicit `.js` extensions (ESM) even from `.ts` sources.
-- **Schemas/types**: add new Zod schemas to `@shared/config` (`*.model.ts`), never inside an app.
-- **Frontend**: browser code never calls Elysia directly — go through Next.js route handlers / server components / server actions using the `ky` clients in `src/lib/serverApiClient.ts`. Keep `server/`, `client/`, and `schemas/` separated by execution context.
-- **Exports**: named exports only (except Next.js-required default exports for pages/layouts/route segments).
-- A new backend resource needs the full triad: `*.plugin.ts` + `*.controller.ts` + `*.service.ts`, plus route registration in `src/routes/index.ts`.
+`.claude/rules/architecture.md`, `conventions.md`, and `principles.md` are the source of truth for patterns — module triads, the neverthrow `Result` flow, `.js` ESM imports, Zod-at-the-boundary, the BFF rule, CASL enforcement, named exports. They are already loaded in your context; follow them without restating them. Before writing a new module, read the nearest analogous one (e.g. `src/modules/posts/` for a backend resource) and match it. If a plan step conflicts with a rule, stop and flag it rather than improvising.
 
 ### Quality gates per step
 
@@ -51,6 +42,7 @@ After implementing each step, self-check:
 5. If the Prisma schema changed, run `/db-check` before applying the migration.
 6. If the step touched React code (`apps/nextjs-boilerplate`), run `bunx react-doctor@latest --verbose --scope changed` and fix any new **errors** before moving on (warnings are advisory). CI enforces the same gate on the PR, so regressions caught here are regressions the reviewer never sees.
 7. If the step touched `infra/terraform/**`, run the Terraform gates from `.claude/rules/infra.md` (`terraform fmt -check`, `tflint`, `terraform validate`) and fix failures before moving on — they mirror what `terraform-plan.yml` will reject on the PR. Steps 1–2 (`check-types` / `check-format`) don't cover HCL, so these are the *only* local gates for infra steps.
+8. Run the step's **Verify:** command from the plan (if the step has one) and read its output. Only check off the step's acceptance criteria after the verification passes — evidence before assertions. If a criterion has no runnable check (UI behaviour, for example), verify it with `playwright` (MCP) or state explicitly that it's unverified rather than silently checking it off.
 
 There is **no test runner** configured in this repo. Don't write or run tests unless the plan explicitly adds one. If a quality gate fails, fix it before moving on — do not accumulate technical debt across steps.
 
@@ -65,14 +57,7 @@ Do not invoke `/qa`, `/review`, or the project's reviewer subagents (`security-r
 
 ### Reach for the right plugin
 
-The enabled plugins (see `.claude/rules/harness.md`) cover gaps the project commands don't:
-
-- **Frontend UI** — build `nextjs-boilerplate` components/pages via the project `app-design` skill, which wires the `impeccable` plugin (`/impeccable craft|shape`) and the `shadcn` skill into this repo's component conventions.
-- **Unfamiliar API** — pull current docs with `context7` (MCP) before using an Elysia/Next.js/Prisma/CASL/Zod feature; don't rely on memory.
-- **Terraform work** — the `terraform-skill` plugin (antonbabenko) triggers on Terraform/HCL tasks with best-practice patterns for modules, testing, and state ops; `.claude/rules/infra.md` holds this repo's specific conventions and wins on conflicts.
-- **Verifying the UI** — there is no unit-test runner here, so use `playwright` (MCP) to drive a browser and confirm a flow actually works.
-- **A bug you can't place** — use `superpowers:systematic-debugging` (root-cause first) instead of guess-and-patch.
-- **A messy diff that works** — run `code-simplifier` over the just-written code before suggesting `/qa`.
+`.claude/rules/harness.md` ("Where each plugin fits") maps every enabled plugin and skill to its phase — UI via the `app-design` skill, current library docs via `context7`, browser verification via `playwright` (there is no unit-test runner here), Terraform via `terraform-skill` + the `terraform` MCP server, root-cause debugging via `superpowers:systematic-debugging`, diff cleanup via `code-simplifier`. Consult that mapping instead of improvising; it is the single source of truth.
 
 ### Communicate progress
 

@@ -70,25 +70,9 @@ These don't need a spec or plan — run them on whatever you've changed:
 
 ## Plugin skills that supercharge each phase
 
-The project commands above are *codebase-specific* orchestrators. This template also enables a set of general-purpose Claude Code plugins — they handle the *meta-work around* implementation and slot into the same pipeline. You rarely invoke them by name; the agent reaches for them when the situation fits. Knowing they exist helps you ask for them.
+The project commands above are *codebase-specific* orchestrators. This template also enables general-purpose Claude Code plugins that handle the *meta-work around* implementation and slot into the same pipeline: brainstorming a fuzzy idea (`superpowers:brainstorming`), exploring existing code before planning (`feature-dev`), building distinctive UI (`impeccable` + the project `app-design` skill), browser-level verification (`playwright` — this repo has no unit-test runner), current library docs (`context7`), Terraform best practice (`terraform-skill` + the `terraform` MCP server), and structured shipping (`superpowers:finishing-a-development-branch`). You rarely invoke them by name; the agent reaches for them when the situation fits.
 
-| Phase | Plugin / skill | What it adds |
-|-------|----------------|--------------|
-| Brainstorm | `superpowers:brainstorming` | Structured dialogue to turn a fuzzy idea into an agreed design *before* `/spec`. One question at a time, 2–3 approaches with trade-offs. |
-| Spec → Plan | `feature-dev` (`code-explorer`, `code-architect`) | Before planning a change to existing code, trace how the current feature works and get an architecture blueprint. Feeds a sharper `/plan`. |
-| Plan | `superpowers:writing-plans` | The generic plan-writing discipline (small verifiable steps) that the project `planner` builds on. |
-| Implement (UI) | `impeccable` + project `app-design` skill | Distinctive, production-grade UI. `/impeccable init` defines a per-app `PRODUCT.md`/`DESIGN.md` (optionally seeded from an [awesome-design-md](https://github.com/voltagent/awesome-design-md) reference); `craft`/`shape` build, `critique`/`audit`/`polish` review. The `app-design` skill (`.claude/skills/app-design/`) sets precedence between impeccable, the `shadcn` skill, and this repo's component rules. |
-| Implement (isolation) | `superpowers:using-git-worktrees` | Isolates feature work in a separate worktree so it doesn't disturb your main checkout. |
-| Implement (stuck) | `superpowers:systematic-debugging` | A disciplined find-the-root-cause loop instead of guess-and-patch when something breaks. |
-| Implement (infra) | `terraform-skill` + `terraform` / `deploy-on-aws` (MCP) | Generic Terraform best practice (modules, tests, state ops) from the antonbabenko skill; authoritative Terraform Registry lookups (provider schemas, module inputs) from HashiCorp's terraform-mcp-server; AWS docs/pricing from deploy-on-aws. This repo's own conventions and local gates live in `.claude/rules/infra.md`, which wins on conflict. |
-| Verify | `playwright` (MCP) | Drives a real browser to verify UI and end-to-end flows. This repo has **no unit-test runner**, so browser-level verification is how you confirm the frontend actually works. |
-| Verify | `superpowers:verification-before-completion` | Forbids "it's done" claims without running the command and showing the output. Evidence before assertions. |
-| Review | `code-simplifier` | After the diff works (but before `/qa`), simplifies the just-written code for clarity without changing behavior. |
-| Review (React) | `react-doctor` skill (`/doctor`) | Deterministic React scanner — hooks misuse, derived state, a11y, bundle size — complementing the convention-focused reviewers. Regression-checked automatically in `/implement`/`/qa`; `/doctor` runs the full triage loop. |
-| Review | `feature-dev:code-reviewer`, `superpowers:requesting-code-review` | General-purpose review passes that complement the project's `/qa` + `/review` reviewers. |
-| Ship | `superpowers:finishing-a-development-branch` | Structured merge / PR / cleanup options once the work is complete and green. |
-| Anytime | `context7` (MCP) | Fetches **current** docs for any library (Elysia, Next.js 16, Prisma, CASL, Zod, Tailwind 4). Use it instead of relying on the model's training cutoff. |
-| Maintenance | `claude-md-management` (`/revise-claude-md`) | Audits and improves `CLAUDE.md` / the rule files as the project's conventions evolve, keeping the agent's context accurate. |
+The full phase-by-phase mapping — which plugin fits where, and what wins on conflict — lives in **`.claude/rules/harness.md`** ("Where each plugin fits"). That file is the single source of truth the agent loads every session; this doc deliberately doesn't duplicate the table, so update it there.
 
 > **Project commands vs. plugins, in one line:** plugins decide *what to build and
 > in what order*; the `/spec`→`/plan`→`/implement`→`/qa` commands build it

@@ -27,9 +27,7 @@ The concrete "how to write code here" rules. `architecture.md` covers *where thi
 
 ## Auth Context
 
-- Gate protected backend routes with the `auth: true` route macro from `authPlugin`; it verifies the Cognito JWT and resolves `user: AuthUser`.
-- Authorization is CASL: build the ability with `getUserPermissions(user)` and enforce it — `accessibleBy(ability).ofType('<Model>')` in list `where` clauses and `ability.can('<action>', subject('<Model>', record))` for single resources. Unauthenticated callers get read-only public permissions.
-- The frontend mirrors this with CASL (`src/lib/casl.ts`, `PermissionProvider`) and never calls the Elysia backend directly — it goes through the Next.js BFF (route handlers / server components / server actions using the `serverApiClient` / `serverAuthApiClient` clients).
+The auth/authorization mechanics (Cognito JWT via `authPlugin`, `getUserPermissions`, the BFF clients) are described in `architecture.md` — the rules here are just: gate protected routes with the `auth: true` macro, and enforce the resolved ability on **every** query (`accessibleBy(ability).ofType('<Model>')` in list `where` clauses, `ability.can('<action>', subject('<Model>', record))` on single resources). Authenticating without consulting the ability is broken authorization.
 
 ## Exports
 
@@ -46,6 +44,7 @@ Always use named exports, never default exports — except where Next.js require
 
 ## Error Handling
 
-- Prefer the shared `catchError` utils over hand-written `try/catch`: `catchAsyncError(promise)` for async work and `catchSyncError(() => …)` for synchronous calls that can throw (`new URL(...)`, `JSON.parse`, …). Both map the failure to an `AppError` and return a neverthrow `Result`/`ResultAsync`, so callers handle it as a value (`.match(...)`, `.unwrapOr(...)`). `catchAsyncError` also reports to Sentry — use it when a throw is genuinely exceptional; `catchSyncError` does not — use it for expected, recoverable failures (input validation, parsing untrusted data). Each app has its own copy: backend `src/error/utils/catchError.ts`, frontend `src/features/error/utils/catchError.ts`. Reserve raw `try/catch` for cases these helpers can't express.
-- Service methods wrap their async work in `catchAsyncError(...)` and return `ResultAsync<T, AppError>`; they never `throw` to the caller. Signal failures with `throw new AppError(code, msg)` **only inside** the wrapped body, using codes from `@shared/config` (`errorDefinition`).
-- Controllers wrap every service call in `handleApiError(...)`; the mounted `errorHandler` plugin converts the `AppError` into the HTTP response. No raw `try/catch` in controllers, and never leak internal stack traces.
+The pipeline itself (`catchAsyncError` → `ResultAsync<T, AppError>` → `handleApiError` → `errorHandler`, error codes from `@shared/config`) is described in `architecture.md`. Conventions on top of it:
+
+- Prefer the shared `catchError` utils over hand-written `try/catch`. Choose by intent: `catchAsyncError(promise)` reports to Sentry — use it when a throw is genuinely exceptional; `catchSyncError(() => …)` does not — use it for expected, recoverable failures (input validation, parsing untrusted data, `new URL(...)`, `JSON.parse`). Each app has its own copy: backend `src/error/utils/catchError.ts`, frontend `src/features/error/utils/catchError.ts`.
+- Handle Results as values (`.match(...)`, `.unwrapOr(...)`); reserve raw `try/catch` for cases the helpers can't express. Never leak internal stack traces in responses.
