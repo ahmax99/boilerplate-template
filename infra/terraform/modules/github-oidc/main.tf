@@ -446,13 +446,15 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Resource = "*"
       },
       {
-        Sid    = "CloudWatchLogs"
-        Effect = "Allow"
-        Action = ["logs:*"]
-        Resource = [
-          "arn:aws:logs:*:*:log-group:/aws/lambda/${var.project_name}-${var.environment}-*",
-          "arn:aws:logs:*:*:log-group:/aws/lambda/${var.project_name}-${var.environment}-*:*"
-        ]
+        # logs:DescribeLogGroups is a list action that authorizes only against "*"
+        # (it has no resource-level scoping). Lambda@Edge (/aws/lambda/us-east-1.<fn>)
+        # and WAF (aws-waf-logs-*) log groups also fall outside the /aws/lambda/<prefix>-*
+        # pattern. This role is intentionally high-privilege and reviewer-gated, so grant
+        # logs:* account-wide rather than chase every log-group naming variation.
+        Sid      = "CloudWatchLogs"
+        Effect   = "Allow"
+        Action   = ["logs:*"]
+        Resource = "*"
       },
       {
         Sid      = "STSCallerIdentity"
