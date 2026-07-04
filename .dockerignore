@@ -60,4 +60,4 @@ docker-compose*
 
 # CI/CD
 .github
-.husky
+lefthook.yml

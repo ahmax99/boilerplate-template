@@ -84,91 +84,6 @@
     "ast_hash": "417c229afabc5c85108c2016e27e2271",
     "semantic_hash": ""
   },
-  ".husky/_/applypatch-msg": {
-    "mtime": 1783082372.715389,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/commit-msg": {
-    "mtime": 1783082372.7138813,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/h": {
-    "mtime": 1775059600.5595593,
-    "ast_hash": "15239a01c5554e56ff745570fb583a91",
-    "semantic_hash": ""
-  },
-  ".husky/_/husky.sh": {
-    "mtime": 1783082372.718394,
-    "ast_hash": "13871d2ab13e8423790ecb2c01c78c18",
-    "semantic_hash": ""
-  },
-  ".husky/_/post-applypatch": {
-    "mtime": 1783082372.715389,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/post-checkout": {
-    "mtime": 1783082372.716396,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/post-commit": {
-    "mtime": 1783082372.7138813,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/post-merge": {
-    "mtime": 1783082372.7173948,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/post-rewrite": {
-    "mtime": 1783082372.716396,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/pre-applypatch": {
-    "mtime": 1783082372.715389,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/pre-auto-gc": {
-    "mtime": 1783082372.7173948,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/pre-commit": {
-    "mtime": 1783082389.3966317,
-    "ast_hash": "bc2d4fe847b55185f6860867c050f2b3",
-    "semantic_hash": ""
-  },
-  ".husky/_/pre-merge-commit": {
-    "mtime": 1783082372.7138813,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/pre-push": {
-    "mtime": 1783082372.7173948,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/pre-rebase": {
-    "mtime": 1783082372.716396,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/_/prepare-commit-msg": {
-    "mtime": 1783082372.7138813,
-    "ast_hash": "0b71c2e7d39daa010985d529f1320b37",
-    "semantic_hash": ""
-  },
-  ".husky/post-commit": {
-    "mtime": 1783005766.352787,
-    "ast_hash": "b1229cab0b6518439f75fd05f76c5a0a",
-    "semantic_hash": ""
-  },
   ".mcp.json": {
     "mtime": 1783099848.2967312,
     "ast_hash": "31ae1dbb675c8710255dec9ef5fb16b4",
@@ -365,8 +280,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/package.json": {
-    "mtime": 1783149748.2305343,
-    "ast_hash": "b6e418af0e7e5a48a8b5d6bdf7c41f8d",
+    "mtime": 1783150101.159309,
+    "ast_hash": "c45c7f9172d385df1f2a1673d4f5d900",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/postcss.config.mjs": {
@@ -520,13 +435,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Button.tsx": {
-    "mtime": 1783149748.234053,
-    "ast_hash": "d3da42599c9af26afe2089a35396951b",
+    "mtime": 1783150101.1603067,
+    "ast_hash": "4af0f4fb87a8190928d345257bbbc298",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/ButtonLink.tsx": {
-    "mtime": 1783149748.234053,
-    "ast_hash": "51e5aebaf56a11b5323c84a65129eaa9",
+    "mtime": 1783150101.1613078,
+    "ast_hash": "d02e9d349c0ef573c3cfe10eee9a57ca",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Input.tsx": {
@@ -535,8 +450,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Label.tsx": {
-    "mtime": 1783149748.234053,
-    "ast_hash": "8f82cdaea54363cf92a5b70068136dd7",
+    "mtime": 1783150101.1613078,
+    "ast_hash": "197578a93ae9d4d7df1d668bc87eafdd",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Separator.tsx": {
@@ -630,8 +545,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/ActionButton.tsx": {
-    "mtime": 1783149748.235054,
-    "ast_hash": "b59a33d88b6fd1767e125c70110ec71f",
+    "mtime": 1783150101.1626601,
+    "ast_hash": "d49aaa7e990fdc4514ad0e865caa17a2",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/Field.tsx": {
@@ -715,8 +630,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/components/OAuth2Start.tsx": {
-    "mtime": 1783149748.234053,
-    "ast_hash": "7b5ec0d3f151c20f85c143470d5b5d20",
+    "mtime": 1783150101.1626601,
+    "ast_hash": "3b5d9a3ad02fb3f749236f97beffd6ed",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/providers/PermissionProvider.tsx": {
@@ -770,8 +685,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/server/services/auth.ts": {
-    "mtime": 1783149748.2400534,
-    "ast_hash": "c28713afc2d732cbbb909d49ad4ccf11",
+    "mtime": 1783150101.1636639,
+    "ast_hash": "4eb3bdf08a026a41a15d9044e33d465a",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/server/services/role.ts": {
@@ -880,8 +795,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/error/utils/catchError.ts": {
-    "mtime": 1783149748.234053,
-    "ast_hash": "e39ab615ad9ca137fa5b9fef1beecb0a",
+    "mtime": 1783150101.1646595,
+    "ast_hash": "722ee5c171b5febf8428dd7bebac8413",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/client/components/ContactForm.tsx": {
@@ -1040,8 +955,8 @@
     "semantic_hash": ""
   },
   "biome.json": {
-    "mtime": 1783149748.2320397,
-    "ast_hash": "335665f8875458a5617ff9ae7c2b0eb4",
+    "mtime": 1783150101.1656594,
+    "ast_hash": "c1f153719881672ae5a01de888f2c37b",
     "semantic_hash": ""
   },
   "commitlint.config.js": {
@@ -1140,8 +1055,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/cognito/main.tf": {
-    "mtime": 1777043209.3623645,
-    "ast_hash": "1db95734af0634403220cc17a21e78f0",
+    "mtime": 1783151981.6732278,
+    "ast_hash": "33c261854c997983987b0180bc8104e7",
     "semantic_hash": ""
   },
   "infra/terraform/modules/cognito/outputs.tf": {
@@ -1200,13 +1115,13 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-edge/locals.tf": {
-    "mtime": 1777623763.3217556,
-    "ast_hash": "f22ca1c3d3f67de44a87eaf7ecc5221f",
+    "mtime": 1783151981.739705,
+    "ast_hash": "3218730cf610042738741c02c18ce700",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-edge/main.tf": {
-    "mtime": 1777623629.9163432,
-    "ast_hash": "d2f98aa88f21d30a8959e3ff1d19f279",
+    "mtime": 1783151981.7437043,
+    "ast_hash": "56c7a4fd2c50a7eabb3a2495bc772386",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-edge/outputs.tf": {
@@ -1240,8 +1155,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda/main.tf": {
-    "mtime": 1777944518.0245912,
-    "ast_hash": "8201c46dad5a6e00b63724311092cb93",
+    "mtime": 1783151981.723633,
+    "ast_hash": "eb1a6fef0f62912d4adbc79b3cd2aaf4",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda/outputs.tf": {
@@ -1250,8 +1165,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda/variables.tf": {
-    "mtime": 1777634359.5757754,
-    "ast_hash": "c8c939276377f196e8b141600eed9dc1",
+    "mtime": 1783151981.729681,
+    "ast_hash": "fd6f846ac57a1a331f35004e05b641bf",
     "semantic_hash": ""
   },
   "infra/terraform/modules/route53/main.tf": {
@@ -1270,8 +1185,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/s3/main.tf": {
-    "mtime": 1777426856.6776557,
-    "ast_hash": "8d6edeb9fa451fa5920941c8c0a70d20",
+    "mtime": 1783151981.7759657,
+    "ast_hash": "ac5cbc39e57e1a6084ed64cba65559c3",
     "semantic_hash": ""
   },
   "infra/terraform/modules/s3/outputs.tf": {
@@ -1335,8 +1250,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1783005946.1407578,
-    "ast_hash": "53eda916bbf8df324b83abcd2b49fb46",
+    "mtime": 1783152329.820255,
+    "ast_hash": "c96e612faeb9e8f5e529935cc48e89e1",
     "semantic_hash": ""
   },
   "release-please-config.json": {
@@ -1445,13 +1360,13 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1783149582.0798407,
-    "ast_hash": "e64a5e2014428fb9baa10b84a028e7e2",
+    "mtime": 1783152867.4974623,
+    "ast_hash": "d3624b8d01faa2f2828a57873a576175",
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1783005775.0557187,
-    "ast_hash": "ed2156ab1357325234994f76c8c91b74",
+    "mtime": 1783152855.6019034,
+    "ast_hash": "4a9f49e25614dff46d72962d7d8a4c88",
     "semantic_hash": ""
   },
   ".claude/skills/shadcn/evals/evals.json": {
@@ -1460,7 +1375,7 @@
     "semantic_hash": ""
   },
   ".impeccable/hook.cache.json": {
-    "mtime": 1783137386.6075459,
+    "mtime": 1783153706.4237933,
     "ast_hash": "afff01f34c72a33048cbd5579165d047",
     "semantic_hash": ""
   },
@@ -1495,13 +1410,23 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Button.variants.ts": {
-    "mtime": 1783149748.234053,
-    "ast_hash": "d0fae05a6039e40b867156cb334d2c86",
+    "mtime": 1783150101.1603067,
+    "ast_hash": "bac557642e3dbc4945d4c608ec182243",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/utils/redirect.ts": {
-    "mtime": 1783149748.234053,
-    "ast_hash": "594af95bdfeb5dc4ec8d39ef7323b17c",
+    "mtime": 1783150101.1636639,
+    "ast_hash": "d0ebf9de09ce0892f6c4119b5b9b3f12",
+    "semantic_hash": ""
+  },
+  "lefthook.yml": {
+    "mtime": 1783153706.301271,
+    "ast_hash": "e8cee8520ae6d45aebf208024f15fa13",
+    "semantic_hash": ""
+  },
+  ".lefthook/post-commit/update-graph.sh": {
+    "mtime": 1783153694.8901727,
+    "ast_hash": "b1229cab0b6518439f75fd05f76c5a0a",
     "semantic_hash": ""
   }
 }

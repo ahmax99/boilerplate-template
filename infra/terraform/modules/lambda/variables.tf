@@ -93,7 +93,7 @@ variable "alias_name" {
 variable "function_url_auth_type" {
   description = "Authorization type for Lambda Function URL: NONE or AWS_IAM"
   type        = string
-  
+
   validation {
     condition     = contains(["NONE", "AWS_IAM"], var.function_url_auth_type)
     error_message = "Must be NONE or AWS_IAM"

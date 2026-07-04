@@ -57,6 +57,19 @@ jobs:
       - name: Terraform fmt check
         run: terraform -chdir=infra/terraform fmt -check -recursive
 
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: latest
+
+      - name: Init TFLint
+        run: tflint --chdir=infra/terraform --init
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run TFLint
+        run: tflint --chdir=infra/terraform --recursive --format compact
+
       - name: Terraform init
         run: terraform -chdir=infra/terraform init -backend-config=backends/dev.hcl
 

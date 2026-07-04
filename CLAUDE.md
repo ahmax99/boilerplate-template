@@ -26,12 +26,12 @@ turbo db:generate --filter=@shared/neon   # prisma generate — runs as neon's p
 cd shared/neon && bun run db:migrate       # prisma migrate dev (interactive)
 ```
 
-There is **no test runner configured** in this repo yet. CI runs SonarQube, dependency security audits (`bun audit` + SBOM/Grype), and React Doctor — not unit tests. Type-checking and Biome run locally (Husky pre-commit hook, `/pre-commit`, and the per-step gates in `/implement`), not in CI.
+There is **no test runner configured** in this repo yet. CI runs SonarQube, dependency security audits (`bun audit` + SBOM/Grype), and React Doctor — not unit tests. Type-checking and Biome run locally (Lefthook pre-commit hook, `/pre-commit`, and the per-step gates in `/implement`), not in CI.
 
 ### Tooling notes
 
 - **Biome** (not ESLint/Prettier) is the linter+formatter. Config in `biome.json`: single quotes, no semicolons, 2-space indent, 80 cols, `trailingCommas: none`. `noExplicitAny` is an **error**. Imports are auto-organized into ordered groups; Tailwind classes are auto-sorted (`useSortedClasses`).
-- A Husky pre-commit hook runs `lint-staged` → `biome check --write` on staged TS/JS/YAML.
+- Git hooks are managed by **Lefthook** (`lefthook.yml`, installed via the `prepare` script). Pre-commit runs `biome check --write` on staged TS/JS/YAML and `terraform fmt -recursive` when `infra/terraform/**` HCL is staged; `commit-msg` runs commitlint; `pre-push` runs `turbo run check-types build --affected`; `post-commit` rebuilds the graphify graph.
 - Package versions are kept in sync across workspaces with `syncpack` (`bun run check-mismatches` / `bun run sync-packages`).
 - **[fallow](https://docs.fallow.tools/)** is a *local* static-analysis CLI configured by `.fallowrc.json` (repo root). It flags unused/dead code, semantic code duplication (≥3 occurrences, `**/lib/**` ignored), high complexity, and architecture drift across the `apps/*` + `shared/*` workspaces. Run `fallow` from the repo root.
 - **SonarQube** is the *CI* code-quality backstop. It scans every push to `main` and every PR (dependabot excluded) for bugs, vulnerabilities, and code smells — you don't run it locally.

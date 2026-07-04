@@ -31,8 +31,7 @@ Modern full-stack monorepo boilerplate built with Turborepo, Bun, and TypeScript
 
 ### Code Quality
 - **[Biome](https://biomejs.dev/)** - Fast linter and formatter
-- **[Husky](https://typicode.github.io/husky/)** - Git hooks
-- **[lint-staged](https://github.com/okonet/lint-staged)** - Run linters on staged files
+- **[Lefthook](https://lefthook.dev/)** - Git hooks (pre-commit runs Biome on staged files + `terraform fmt`)
 - **[fallow](https://docs.fallow.tools/)** - Static analysis for unused code, duplication, complexity, and architecture drift
 - **[sonarqube](https://docs.sonarsource.com)** -  Continuous inspection platform used to automate code reviews and detect bugs, security vulnerabilities, and code smell
 
@@ -47,7 +46,7 @@ bun run graphify:install   # install graphify via uv
 bun run graphify:build     # generate graphify-out/ (uses graphify update — no API key needed)
 ```
 
-After this, the graph rebuilds automatically after every commit via a Husky post-commit hook. Other developers who clone the repo can use the pre-committed `graphify-out/` immediately without running setup.
+After this, the graph rebuilds automatically after every commit via a Lefthook post-commit hook. Other developers who clone the repo can use the pre-committed `graphify-out/` immediately without running setup.
 
 > If `bun run graphify:build` prompts for an API key or errors on Markdown files, add `docs/` to `.graphifyignore` and re-run.
 

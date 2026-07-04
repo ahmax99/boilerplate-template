@@ -11,16 +11,10 @@
     "check-types": "turbo run check-types",
     "check-format": "biome check",
     "format": "biome format --write",
-    "prepare": "husky",
-    "lint-staged": "lint-staged",
+    "prepare": "lefthook install",
     "graphify:install": "$HOME/.local/bin/uv tool install \"graphifyy[mcp]\"",
     "graphify:build": "$HOME/.local/bin/graphify update .",
     "graphify:serve": "$HOME/.local/bin/graphify-mcp graphify-out/graph.json"
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx,yml,yaml}": [
-      "biome check --staged --write --no-errors-on-unmatched --files-ignore-unknown=true"
-    ]
   },
   "repository": {
     "type": "git",
@@ -30,8 +24,7 @@
     "@biomejs/biome": "2.5.1",
     "@commitlint/cli": "^21.1.0",
     "@commitlint/config-conventional": "^21.1.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^17.0.8",
+    "lefthook": "^2.1.9",
     "turbo": "^2.10.0",
     "typescript": "^6.0.3"
   },

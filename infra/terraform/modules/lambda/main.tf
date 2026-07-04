@@ -129,7 +129,7 @@ resource "aws_cloudwatch_log_group" "lambda" {
 resource "aws_lambda_function" "this" {
   function_name = var.function_name
   role          = aws_iam_role.lambda.arn
-  
+
   package_type = "Image"
   image_uri    = var.image_uri
 
@@ -175,7 +175,7 @@ resource "aws_lambda_alias" "this" {
 
   name             = var.alias_name
   function_name    = aws_lambda_function.this.function_name
-  function_version = "1"  # Initial version - CodeDeploy will manage updates
+  function_version = "1" # Initial version - CodeDeploy will manage updates
 
   lifecycle {
     ignore_changes = [function_version]

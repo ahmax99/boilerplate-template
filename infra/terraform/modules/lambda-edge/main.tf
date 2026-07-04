@@ -44,7 +44,7 @@ resource "aws_lambda_function" "this" {
   filename         = data.archive_file.function.output_path
   source_code_hash = data.archive_file.function.output_base64sha256
 
-  
+
   timeout     = 5 # viewer-request: max 5 seconds
   memory_size = 128
 

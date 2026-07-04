@@ -75,8 +75,8 @@ resource "aws_cognito_user_pool" "this" {
 # Cognito User Pool Domain
 # -------------------
 resource "aws_cognito_user_pool_domain" "this" {
-  domain               = var.user_pool_domain
-  user_pool_id         = aws_cognito_user_pool.this.id
+  domain                = var.user_pool_domain
+  user_pool_id          = aws_cognito_user_pool.this.id
   managed_login_version = 2
 }
 
@@ -145,8 +145,8 @@ resource "aws_cognito_user_pool_client" "web_app" {
   read_attributes  = ["email", "email_verified", "name"]
   write_attributes = ["email", "name"]
 
-  generate_secret = var.generate_client_secret
-  enable_token_revocation = true
+  generate_secret               = var.generate_client_secret
+  enable_token_revocation       = true
   prevent_user_existence_errors = "ENABLED"
 
   depends_on = [aws_cognito_identity_provider.google]

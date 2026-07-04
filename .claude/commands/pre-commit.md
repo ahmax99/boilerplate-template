@@ -2,7 +2,7 @@
 
 Run a quick quality gate on staged/changed files before committing.
 
-> Note: a Husky pre-commit hook already runs `lint-staged` → `biome check --write` on staged files. This command is the broader, pre-push-quality gate (types + a security eyeball) that the git hook doesn't cover.
+> Note: a Lefthook pre-commit hook already runs `biome check --write` on staged files (and `terraform fmt` on staged HCL). This command is the broader, pre-push-quality gate (types + a security eyeball) that the git hook doesn't cover.
 
 ## Process
 

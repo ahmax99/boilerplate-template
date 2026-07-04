@@ -616,32 +616,60 @@
       "norm_label": "terraform-plan-comment.sh script"
     },
     {
-      "label": "husky.sh",
+      "label": "update-graph.sh",
       "file_type": "code",
-      "source_file": ".husky/_/husky.sh",
+      "source_file": ".lefthook/post-commit/update-graph.sh",
       "source_location": "L1",
       "metadata": {
         "language": "bash",
         "kind": "file"
       },
       "_origin": "ast",
-      "id": "husky_husky",
-      "community": 7,
-      "norm_label": "husky.sh"
+      "id": "lefthook_post_commit_update_graph",
+      "community": 3,
+      "norm_label": "update-graph.sh"
     },
     {
-      "label": "husky.sh script",
+      "label": "update-graph.sh script",
       "file_type": "code",
-      "source_file": ".husky/_/husky.sh",
+      "source_file": ".lefthook/post-commit/update-graph.sh",
       "source_location": "L1",
       "metadata": {
         "language": "bash",
         "kind": "bash_entrypoint"
       },
       "_origin": "ast",
-      "id": "husky_husky_sh__entry",
-      "community": 7,
-      "norm_label": "husky.sh script"
+      "id": "lefthook_post_commit_update_graph_sh__entry",
+      "community": 3,
+      "norm_label": "update-graph.sh script"
+    },
+    {
+      "label": "PATH",
+      "file_type": "code",
+      "source_file": ".lefthook/post-commit/update-graph.sh",
+      "source_location": "L2",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "_origin": "ast",
+      "id": "lefthook_post_commit_update_graph_path",
+      "community": 3,
+      "norm_label": "path"
+    },
+    {
+      "label": "GRAPHIFY_RUNNING",
+      "file_type": "code",
+      "source_file": ".lefthook/post-commit/update-graph.sh",
+      "source_location": "L12",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "_origin": "ast",
+      "id": "lefthook_post_commit_update_graph_graphify_running",
+      "community": 3,
+      "norm_label": "graphify_running"
     },
     {
       "label": ".mcp.json",
@@ -2624,7 +2652,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_page",
-      "community": 3,
+      "community": 15,
       "norm_label": "page.tsx"
     },
     {
@@ -2634,7 +2662,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_page_metadata",
-      "community": 3,
+      "community": 15,
       "norm_label": "metadata"
     },
     {
@@ -2644,7 +2672,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_page_editaccountpage",
-      "community": 3,
+      "community": 15,
       "norm_label": "editaccountpage()"
     },
     {
@@ -2674,7 +2702,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_page",
-      "community": 3,
+      "community": 15,
       "norm_label": "page.tsx"
     },
     {
@@ -2684,7 +2712,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_page_metadata",
-      "community": 3,
+      "community": 15,
       "norm_label": "metadata"
     },
     {
@@ -2694,7 +2722,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_page_accountpage",
-      "community": 3,
+      "community": 15,
       "norm_label": "accountpage()"
     },
     {
@@ -2754,7 +2782,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page",
-      "community": 72,
+      "community": 15,
       "norm_label": "page.tsx"
     },
     {
@@ -2764,7 +2792,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page_metadata",
-      "community": 72,
+      "community": 15,
       "norm_label": "metadata"
     },
     {
@@ -2774,7 +2802,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page_createpostpage",
-      "community": 72,
+      "community": 15,
       "norm_label": "createpostpage()"
     },
     {
@@ -2784,7 +2812,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page",
-      "community": 3,
+      "community": 15,
       "norm_label": "page.tsx"
     },
     {
@@ -2794,7 +2822,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page_metadata",
-      "community": 3,
+      "community": 15,
       "norm_label": "metadata"
     },
     {
@@ -2804,7 +2832,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page_contactpage",
-      "community": 3,
+      "community": 15,
       "norm_label": "contactpage()"
     },
     {
@@ -2844,7 +2872,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page",
-      "community": 3,
+      "community": 15,
       "norm_label": "page.tsx"
     },
     {
@@ -2854,7 +2882,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page_metadata",
-      "community": 3,
+      "community": 15,
       "norm_label": "metadata"
     },
     {
@@ -2864,7 +2892,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page_homepage",
-      "community": 3,
+      "community": 15,
       "norm_label": "homepage()"
     },
     {
@@ -2894,7 +2922,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_page",
-      "community": 32,
+      "community": 15,
       "norm_label": "page.tsx"
     },
     {
@@ -2904,7 +2932,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_page_postdetailpageprops",
-      "community": 32,
+      "community": 15,
       "norm_label": "postdetailpageprops"
     },
     {
@@ -2914,7 +2942,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_page_generatemetadata",
-      "community": 32,
+      "community": 15,
       "norm_label": "generatemetadata()"
     },
     {
@@ -2924,7 +2952,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_page_postdetailpage",
-      "community": 32,
+      "community": 5,
       "norm_label": "postdetailpage()"
     },
     {
@@ -3004,7 +3032,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_auth_login_page",
-      "community": 0,
+      "community": 74,
       "norm_label": "page.tsx"
     },
     {
@@ -3014,7 +3042,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_auth_login_page_loginpage",
-      "community": 0,
+      "community": 74,
       "norm_label": "loginpage()"
     },
     {
@@ -3024,7 +3052,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_presigned_url_route",
-      "community": 72,
+      "community": 15,
       "norm_label": "route.ts"
     },
     {
@@ -3034,7 +3062,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_presigned_url_route_get",
-      "community": 72,
+      "community": 15,
       "norm_label": "get()"
     },
     {
@@ -3044,7 +3072,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route",
-      "community": 72,
+      "community": 15,
       "norm_label": "route.ts"
     },
     {
@@ -3054,7 +3082,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route_put",
-      "community": 72,
+      "community": 15,
       "norm_label": "put()"
     },
     {
@@ -3064,7 +3092,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route_delete",
-      "community": 72,
+      "community": 15,
       "norm_label": "delete()"
     },
     {
@@ -3134,7 +3162,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_commentid_route",
-      "community": 73,
+      "community": 5,
       "norm_label": "route.ts"
     },
     {
@@ -3144,7 +3172,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_commentid_route_delete",
-      "community": 73,
+      "community": 5,
       "norm_label": "delete()"
     },
     {
@@ -3154,7 +3182,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_route",
-      "community": 73,
+      "community": 5,
       "norm_label": "route.ts"
     },
     {
@@ -3164,7 +3192,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_route_get",
-      "community": 73,
+      "community": 5,
       "norm_label": "get()"
     },
     {
@@ -3174,7 +3202,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_route_post",
-      "community": 73,
+      "community": 5,
       "norm_label": "post()"
     },
     {
@@ -3204,7 +3232,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_posts_postid_route",
-      "community": 32,
+      "community": 5,
       "norm_label": "route.ts"
     },
     {
@@ -3214,7 +3242,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_posts_postid_route_get",
-      "community": 32,
+      "community": 5,
       "norm_label": "get()"
     },
     {
@@ -3274,7 +3302,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_global_error",
-      "community": 6,
+      "community": 74,
       "norm_label": "global-error.tsx"
     },
     {
@@ -3284,7 +3312,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_global_error_globalerrorprops",
-      "community": 6,
+      "community": 74,
       "norm_label": "globalerrorprops"
     },
     {
@@ -3294,7 +3322,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_global_error_globalerror",
-      "community": 6,
+      "community": 74,
       "norm_label": "globalerror()"
     },
     {
@@ -3554,7 +3582,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_herosection",
-      "community": 3,
+      "community": 15,
       "norm_label": "herosection.tsx"
     },
     {
@@ -3564,7 +3592,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_herosection_herosection",
-      "community": 3,
+      "community": 15,
       "norm_label": "herosection()"
     },
     {
@@ -3574,7 +3602,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_index",
-      "community": 3,
+      "community": 15,
       "norm_label": "index.ts"
     },
     {
@@ -3584,7 +3612,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pageheader",
-      "community": 19,
+      "community": 15,
       "norm_label": "pageheader.tsx"
     },
     {
@@ -3604,7 +3632,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pagetemplate",
-      "community": 3,
+      "community": 15,
       "norm_label": "pagetemplate.tsx"
     },
     {
@@ -3614,7 +3642,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pagetemplate_pagetemplateprops",
-      "community": 3,
+      "community": 15,
       "norm_label": "pagetemplateprops"
     },
     {
@@ -3624,7 +3652,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pagetemplate_pagetemplate",
-      "community": 3,
+      "community": 15,
       "norm_label": "pagetemplate()"
     },
     {
@@ -3634,7 +3662,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_index",
-      "community": 3,
+      "community": 15,
       "norm_label": "index.ts"
     },
     {
@@ -3894,7 +3922,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_logo",
-      "community": 19,
+      "community": 15,
       "norm_label": "logo.tsx"
     },
     {
@@ -3904,7 +3932,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_logo_logo",
-      "community": 19,
+      "community": 15,
       "norm_label": "logo()"
     },
     {
@@ -4004,7 +4032,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_actionbutton_actionbutton",
-      "community": 44,
+      "community": 71,
       "norm_label": "actionbutton()"
     },
     {
@@ -4014,7 +4042,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field",
-      "community": 17,
+      "community": 71,
       "norm_label": "field.tsx"
     },
     {
@@ -4024,7 +4052,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldvariants",
-      "community": 17,
+      "community": 71,
       "norm_label": "fieldvariants"
     },
     {
@@ -4034,7 +4062,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_field",
-      "community": 17,
+      "community": 71,
       "norm_label": "field()"
     },
     {
@@ -4044,7 +4072,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldcontent",
-      "community": 17,
+      "community": 71,
       "norm_label": "fieldcontent()"
     },
     {
@@ -4054,7 +4082,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldlabel",
-      "community": 17,
+      "community": 71,
       "norm_label": "fieldlabel()"
     },
     {
@@ -4064,7 +4092,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldtitle",
-      "community": 17,
+      "community": 71,
       "norm_label": "fieldtitle()"
     },
     {
@@ -4074,7 +4102,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fielderroritem",
-      "community": 17,
+      "community": 71,
       "norm_label": "fielderroritem"
     },
     {
@@ -4084,7 +4112,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_dedupeerrormessages",
-      "community": 17,
+      "community": 71,
       "norm_label": "dedupeerrormessages()"
     },
     {
@@ -4094,7 +4122,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fielderrorlist",
-      "community": 17,
+      "community": 71,
       "norm_label": "fielderrorlist()"
     },
     {
@@ -4104,7 +4132,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_resolvefielderrorcontent",
-      "community": 17,
+      "community": 71,
       "norm_label": "resolvefielderrorcontent()"
     },
     {
@@ -4114,7 +4142,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fielderror",
-      "community": 17,
+      "community": 71,
       "norm_label": "fielderror()"
     },
     {
@@ -4154,7 +4182,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formfield",
-      "community": 17,
+      "community": 71,
       "norm_label": "formfield.tsx"
     },
     {
@@ -4164,7 +4192,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formfield_formfieldprops",
-      "community": 17,
+      "community": 71,
       "norm_label": "formfieldprops"
     },
     {
@@ -4174,7 +4202,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formfield_formfield",
-      "community": 17,
+      "community": 71,
       "norm_label": "formfield()"
     },
     {
@@ -4184,7 +4212,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_index",
-      "community": 44,
+      "community": 71,
       "norm_label": "index.ts"
     },
     {
@@ -4444,7 +4472,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index",
-      "community": 72,
+      "community": 15,
       "norm_label": "index.ts"
     },
     {
@@ -4454,7 +4482,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_updateuser",
-      "community": 72,
+      "community": 15,
       "norm_label": "updateuser()"
     },
     {
@@ -4464,7 +4492,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_deleteuser",
-      "community": 72,
+      "community": 15,
       "norm_label": "deleteuser()"
     },
     {
@@ -4474,7 +4502,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_fetchpresignedurl",
-      "community": 72,
+      "community": 15,
       "norm_label": "fetchpresignedurl()"
     },
     {
@@ -4514,7 +4542,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton",
-      "community": 44,
+      "community": 71,
       "norm_label": "authactionbutton.tsx"
     },
     {
@@ -4524,7 +4552,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_actionresult",
-      "community": 44,
+      "community": 71,
       "norm_label": "actionresult"
     },
     {
@@ -4534,7 +4562,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_authactionbuttonprops",
-      "community": 44,
+      "community": 71,
       "norm_label": "authactionbuttonprops"
     },
     {
@@ -4544,7 +4572,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_handleauthaction",
-      "community": 44,
+      "community": 71,
       "norm_label": "handleauthaction()"
     },
     {
@@ -4554,7 +4582,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_authactionbutton",
-      "community": 44,
+      "community": 74,
       "norm_label": "authactionbutton()"
     },
     {
@@ -4584,7 +4612,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_oauth2start",
-      "community": 0,
+      "community": 74,
       "norm_label": "oauth2start.tsx"
     },
     {
@@ -4594,7 +4622,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_oauth2start_oauth2start",
-      "community": 0,
+      "community": 74,
       "norm_label": "oauth2start()"
     },
     {
@@ -4664,7 +4692,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_toastmessages",
-      "community": 72,
+      "community": 15,
       "norm_label": "toastmessages.ts"
     },
     {
@@ -4714,7 +4742,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes",
-      "community": 19,
+      "community": 15,
       "norm_label": "routes.ts"
     },
     {
@@ -4724,7 +4752,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes_protected_routes",
-      "community": 19,
+      "community": 15,
       "norm_label": "protected_routes"
     },
     {
@@ -4734,7 +4762,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes_public_routes",
-      "community": 19,
+      "community": 15,
       "norm_label": "public_routes"
     },
     {
@@ -4744,7 +4772,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes_public_auth_routes",
-      "community": 19,
+      "community": 15,
       "norm_label": "public_auth_routes"
     },
     {
@@ -4794,7 +4822,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_api_index",
-      "community": 72,
+      "community": 15,
       "norm_label": "index.ts"
     },
     {
@@ -4814,7 +4842,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_api_index_getme",
-      "community": 72,
+      "community": 15,
       "norm_label": "getme()"
     },
     {
@@ -4824,7 +4852,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_components_logoutbutton",
-      "community": 19,
+      "community": 15,
       "norm_label": "logoutbutton.tsx"
     },
     {
@@ -4834,7 +4862,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_components_logoutbutton_logoutbutton",
-      "community": 19,
+      "community": 15,
       "norm_label": "logoutbutton()"
     },
     {
@@ -5054,7 +5082,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_redirect",
-      "community": 0,
+      "community": 74,
       "norm_label": "redirect.ts"
     },
     {
@@ -5064,7 +5092,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_redirect_saferelativepath",
-      "community": 0,
+      "community": 74,
       "norm_label": "saferelativepath()"
     },
     {
@@ -5074,7 +5102,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_api_index",
-      "community": 21,
+      "community": 71,
       "norm_label": "index.ts"
     },
     {
@@ -5084,7 +5112,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_api_index_createcomment",
-      "community": 21,
+      "community": 71,
       "norm_label": "createcomment()"
     },
     {
@@ -5094,7 +5122,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_api_index_deletecomment",
-      "community": 21,
+      "community": 71,
       "norm_label": "deletecomment()"
     },
     {
@@ -5104,7 +5132,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform",
-      "community": 21,
+      "community": 71,
       "norm_label": "commentform.tsx"
     },
     {
@@ -5114,7 +5142,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentfieldconfig",
-      "community": 21,
+      "community": 71,
       "norm_label": "commentfieldconfig"
     },
     {
@@ -5124,7 +5152,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentformconfig",
-      "community": 21,
+      "community": 71,
       "norm_label": "commentformconfig"
     },
     {
@@ -5134,7 +5162,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentformprops",
-      "community": 21,
+      "community": 71,
       "norm_label": "commentformprops"
     },
     {
@@ -5144,7 +5172,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentform",
-      "community": 21,
+      "community": 71,
       "norm_label": "commentform()"
     },
     {
@@ -5154,7 +5182,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton",
-      "community": 21,
+      "community": 71,
       "norm_label": "deletecommentbutton.tsx"
     },
     {
@@ -5164,7 +5192,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton_deletecommentbuttonprops",
-      "community": 21,
+      "community": 71,
       "norm_label": "deletecommentbuttonprops"
     },
     {
@@ -5174,7 +5202,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton_deletecommentbutton",
-      "community": 21,
+      "community": 71,
       "norm_label": "deletecommentbutton()"
     },
     {
@@ -5184,7 +5212,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_hooks_usecommentactions",
-      "community": 21,
+      "community": 71,
       "norm_label": "usecommentactions.ts"
     },
     {
@@ -5194,7 +5222,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_hooks_usecommentactions_usecommentactions",
-      "community": 21,
+      "community": 71,
       "norm_label": "usecommentactions()"
     },
     {
@@ -5204,7 +5232,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_schemas_commentform_schema",
-      "community": 21,
+      "community": 71,
       "norm_label": "commentform.schema.ts"
     },
     {
@@ -5214,7 +5242,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_schemas_commentform_schema_commentformmodel",
-      "community": 21,
+      "community": 71,
       "norm_label": "commentformmodel"
     },
     {
@@ -5224,7 +5252,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_schemas_commentform_schema_createcommentschema",
-      "community": 21,
+      "community": 71,
       "norm_label": "createcommentschema"
     },
     {
@@ -5234,7 +5262,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index",
-      "community": 73,
+      "community": 5,
       "norm_label": "index.ts"
     },
     {
@@ -5244,7 +5272,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index_fetchallcomments",
-      "community": 73,
+      "community": 5,
       "norm_label": "fetchallcomments()"
     },
     {
@@ -5254,7 +5282,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index_createcomment",
-      "community": 73,
+      "community": 5,
       "norm_label": "createcomment()"
     },
     {
@@ -5264,7 +5292,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index_deletecomment",
-      "community": 73,
+      "community": 5,
       "norm_label": "deletecomment()"
     },
     {
@@ -5274,7 +5302,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_components_commentsection",
-      "community": 21,
+      "community": 71,
       "norm_label": "commentsection.tsx"
     },
     {
@@ -5284,7 +5312,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_components_commentsection_commentsectionprops",
-      "community": 21,
+      "community": 71,
       "norm_label": "commentsectionprops"
     },
     {
@@ -5294,7 +5322,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_components_commentsection_commentsection",
-      "community": 42,
+      "community": 71,
       "norm_label": "commentsection()"
     },
     {
@@ -5324,7 +5352,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_tracking_utils_captureerror",
-      "community": 6,
+      "community": 74,
       "norm_label": "captureerror.ts"
     },
     {
@@ -5334,7 +5362,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_tracking_utils_captureerror_captureerror",
-      "community": 6,
+      "community": 74,
       "norm_label": "captureerror()"
     },
     {
@@ -5344,7 +5372,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_components_triggertesterror",
-      "community": 6,
+      "community": 74,
       "norm_label": "triggertesterror.tsx"
     },
     {
@@ -5354,7 +5382,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_components_triggertesterror_triggertesterror",
-      "community": 6,
+      "community": 74,
       "norm_label": "triggertesterror()"
     },
     {
@@ -5364,7 +5392,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_hooks_useerrorhandler",
-      "community": 6,
+      "community": 74,
       "norm_label": "useerrorhandler.ts"
     },
     {
@@ -5374,7 +5402,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_hooks_useerrorhandler_error_display",
-      "community": 6,
+      "community": 74,
       "norm_label": "error_display"
     },
     {
@@ -5384,7 +5412,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_hooks_useerrorhandler_useerrorhandler",
-      "community": 74,
+      "community": 71,
       "norm_label": "useerrorhandler()"
     },
     {
@@ -5394,7 +5422,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_lib_handleerror",
-      "community": 6,
+      "community": 74,
       "norm_label": "handleerror.ts"
     },
     {
@@ -5404,7 +5432,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_lib_handleerror_handleclienterror",
-      "community": 6,
+      "community": 74,
       "norm_label": "handleclienterror()"
     },
     {
@@ -5414,7 +5442,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_lib_handleerror_handleclientautherror",
-      "community": 6,
+      "community": 74,
       "norm_label": "handleclientautherror()"
     },
     {
@@ -5444,7 +5472,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_stores_useerrorstore",
-      "community": 6,
+      "community": 74,
       "norm_label": "useerrorstore.ts"
     },
     {
@@ -5454,7 +5482,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_stores_useerrorstore_errorstore",
-      "community": 6,
+      "community": 74,
       "norm_label": "errorstore"
     },
     {
@@ -5464,7 +5492,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_stores_useerrorstore_useerrorstore",
-      "community": 6,
+      "community": 74,
       "norm_label": "useerrorstore"
     },
     {
@@ -5474,7 +5502,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_apperror",
-      "community": 6,
+      "community": 74,
       "norm_label": "apperror.ts"
     },
     {
@@ -5484,7 +5512,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_apperror_apperror",
-      "community": 6,
+      "community": 74,
       "norm_label": "apperror"
     },
     {
@@ -5494,7 +5522,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_apperror_apperror_constructor",
-      "community": 6,
+      "community": 74,
       "norm_label": ".constructor()"
     },
     {
@@ -5504,7 +5532,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror",
-      "community": 6,
+      "community": 74,
       "norm_label": "maptoapperror.ts"
     },
     {
@@ -5514,7 +5542,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_stringifyunknownerror",
-      "community": 6,
+      "community": 74,
       "norm_label": "stringifyunknownerror()"
     },
     {
@@ -5524,7 +5552,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_maptoapperror",
-      "community": 6,
+      "community": 74,
       "norm_label": "maptoapperror()"
     },
     {
@@ -5534,7 +5562,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_server_lib_handleapierror",
-      "community": 6,
+      "community": 74,
       "norm_label": "handleapierror.ts"
     },
     {
@@ -5554,7 +5582,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_utils_catcherror",
-      "community": 6,
+      "community": 74,
       "norm_label": "catcherror.ts"
     },
     {
@@ -5564,7 +5592,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchsyncerror",
-      "community": 0,
+      "community": 74,
       "norm_label": "catchsyncerror()"
     },
     {
@@ -5574,7 +5602,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchasyncerror",
-      "community": 6,
+      "community": 74,
       "norm_label": "catchasyncerror()"
     },
     {
@@ -5904,7 +5932,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata",
-      "community": 3,
+      "community": 15,
       "norm_label": "generatepagemetadata.ts"
     },
     {
@@ -5914,7 +5942,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata_generatepagemetadataprops",
-      "community": 3,
+      "community": 15,
       "norm_label": "generatepagemetadataprops"
     },
     {
@@ -5924,7 +5952,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata_generatepagemetadata",
-      "community": 3,
+      "community": 15,
       "norm_label": "generatepagemetadata()"
     },
     {
@@ -5934,7 +5962,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index",
-      "community": 22,
+      "community": 74,
       "norm_label": "index.ts"
     },
     {
@@ -5944,7 +5972,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index_fetchpostimage",
-      "community": 32,
+      "community": 5,
       "norm_label": "fetchpostimage()"
     },
     {
@@ -5954,7 +5982,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index_createpostclient",
-      "community": 22,
+      "community": 74,
       "norm_label": "createpostclient()"
     },
     {
@@ -5964,7 +5992,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index_uploadimage",
-      "community": 22,
+      "community": 74,
       "norm_label": "uploadimage()"
     },
     {
@@ -6044,7 +6072,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_hooks_usepostactions",
-      "community": 22,
+      "community": 74,
       "norm_label": "usepostactions.ts"
     },
     {
@@ -6064,7 +6092,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_constants_index",
-      "community": 22,
+      "community": 74,
       "norm_label": "index.ts"
     },
     {
@@ -6124,7 +6152,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_api_index_fetchpost",
-      "community": 32,
+      "community": 5,
       "norm_label": "fetchpost()"
     },
     {
@@ -6154,7 +6182,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail",
-      "community": 42,
+      "community": 71,
       "norm_label": "postdetail.tsx"
     },
     {
@@ -6164,7 +6192,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail_postdetailprops",
-      "community": 42,
+      "community": 71,
       "norm_label": "postdetailprops"
     },
     {
@@ -6174,7 +6202,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail_postdetail",
-      "community": 42,
+      "community": 71,
       "norm_label": "postdetail()"
     },
     {
@@ -6244,7 +6272,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_apiclient",
-      "community": 22,
+      "community": 74,
       "norm_label": "apiclient.ts"
     },
     {
@@ -6254,7 +6282,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_apiclient_apiclient",
-      "community": 22,
+      "community": 74,
       "norm_label": "apiclient"
     },
     {
@@ -6354,7 +6382,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_serverapiclient_serverauthapiclient",
-      "community": 72,
+      "community": 15,
       "norm_label": "serverauthapiclient"
     },
     {
@@ -6384,7 +6412,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy",
-      "community": 19,
+      "community": 15,
       "norm_label": "proxy.ts"
     },
     {
@@ -6394,7 +6422,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_protectedpaths",
-      "community": 19,
+      "community": 15,
       "norm_label": "protectedpaths"
     },
     {
@@ -6404,7 +6432,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_isprotectedpath",
-      "community": 19,
+      "community": 15,
       "norm_label": "isprotectedpath()"
     },
     {
@@ -6414,7 +6442,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_proxy",
-      "community": 19,
+      "community": 15,
       "norm_label": "proxy()"
     },
     {
@@ -6424,7 +6452,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_config",
-      "community": 19,
+      "community": 15,
       "norm_label": "config"
     },
     {
@@ -6794,7 +6822,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "biome_linter_rules",
-      "community": 4,
+      "community": 17,
       "norm_label": "rules"
     },
     {
@@ -6804,7 +6832,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "biome_rules_recommended",
-      "community": 4,
+      "community": 17,
       "norm_label": "recommended"
     },
     {
@@ -6814,7 +6842,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "biome_rules_complexity",
-      "community": 4,
+      "community": 17,
       "norm_label": "complexity"
     },
     {
@@ -6824,7 +6852,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "biome_complexity_noadjacentspacesinregex",
-      "community": 4,
+      "community": 17,
       "norm_label": "noadjacentspacesinregex"
     },
     {
@@ -6834,7 +6862,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "biome_complexity_noextrabooleancast",
-      "community": 4,
+      "community": 17,
       "norm_label": "noextrabooleancast"
     },
     {
@@ -6844,7 +6872,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "biome_complexity_nouselesscatch",
-      "community": 4,
+      "community": 17,
       "norm_label": "nouselesscatch"
     },
     {
@@ -6854,7 +6882,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "biome_complexity_nouselessescapeinregex",
-      "community": 4,
+      "community": 17,
       "norm_label": "nouselessescapeinregex"
     },
     {
@@ -6864,7 +6892,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "biome_complexity_nouselesstypeconstraint",
-      "community": 4,
+      "community": 17,
       "norm_label": "nouselesstypeconstraint"
     },
     {
@@ -7164,7 +7192,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "biome_rules_nursery",
-      "community": 4,
+      "community": 17,
       "norm_label": "nursery"
     },
     {
@@ -7174,7 +7202,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "biome_nursery_usesortedclasses",
-      "community": 4,
+      "community": 17,
       "norm_label": "usesortedclasses"
     },
     {
@@ -7184,7 +7212,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "biome_rules_security",
-      "community": 4,
+      "community": 17,
       "norm_label": "security"
     },
     {
@@ -7194,7 +7222,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "biome_security_nodangerouslysetinnerhtmlwithchildren",
-      "community": 4,
+      "community": 17,
       "norm_label": "nodangerouslysetinnerhtmlwithchildren"
     },
     {
@@ -7204,7 +7232,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "biome_rules_style",
-      "community": 4,
+      "community": 28,
       "norm_label": "style"
     },
     {
@@ -7214,7 +7242,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "biome_style_nocommonjs",
-      "community": 4,
+      "community": 28,
       "norm_label": "nocommonjs"
     },
     {
@@ -7224,7 +7252,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "biome_style_nonamespace",
-      "community": 4,
+      "community": 28,
       "norm_label": "nonamespace"
     },
     {
@@ -7234,7 +7262,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "biome_style_usearrayliterals",
-      "community": 4,
+      "community": 28,
       "norm_label": "usearrayliterals"
     },
     {
@@ -7244,7 +7272,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "biome_style_useasconstassertion",
-      "community": 4,
+      "community": 28,
       "norm_label": "useasconstassertion"
     },
     {
@@ -7254,7 +7282,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "biome_style_useblockstatements",
-      "community": 4,
+      "community": 28,
       "norm_label": "useblockstatements"
     },
     {
@@ -8078,20 +8106,10 @@
       "norm_label": "prepare"
     },
     {
-      "label": "lint-staged",
-      "file_type": "code",
-      "source_file": "package.json",
-      "source_location": "L15",
-      "_origin": "ast",
-      "id": "package_scripts_lint_staged",
-      "community": 12,
-      "norm_label": "lint-staged"
-    },
-    {
       "label": "graphify:install",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "package_scripts_graphify_install",
       "community": 12,
@@ -8101,7 +8119,7 @@
       "label": "graphify:build",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "package_scripts_graphify_build",
       "community": 12,
@@ -8111,37 +8129,17 @@
       "label": "graphify:serve",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "package_scripts_graphify_serve",
       "community": 12,
       "norm_label": "graphify:serve"
     },
     {
-      "label": "lint-staged",
-      "file_type": "code",
-      "source_file": "package.json",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "package_lint_staged",
-      "community": 12,
-      "norm_label": "lint-staged"
-    },
-    {
-      "label": "*.{ts,tsx,js,jsx,yml,yaml}",
-      "file_type": "code",
-      "source_file": "package.json",
-      "source_location": "L21",
-      "_origin": "ast",
-      "id": "package_lint_staged_ts_tsx_js_jsx_yml_yaml",
-      "community": 12,
-      "norm_label": "*.{ts,tsx,js,jsx,yml,yaml}"
-    },
-    {
       "label": "repository",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L25",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "package_repository",
       "community": 12,
@@ -8151,7 +8149,7 @@
       "label": "type",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L26",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "package_repository_type",
       "community": 12,
@@ -8161,7 +8159,7 @@
       "label": "url",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L27",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "package_repository_url",
       "community": 12,
@@ -8171,87 +8169,77 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L29",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "package_devdependencies",
-      "community": 7,
+      "community": 12,
       "norm_label": "devdependencies"
     },
     {
       "label": "@biomejs/biome",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L30",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "package_devdependencies_biomejs_biome",
-      "community": 7,
+      "community": 12,
       "norm_label": "@biomejs/biome"
     },
     {
       "label": "@commitlint/cli",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L31",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "package_devdependencies_commitlint_cli",
-      "community": 7,
+      "community": 12,
       "norm_label": "@commitlint/cli"
     },
     {
       "label": "@commitlint/config-conventional",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L32",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "package_devdependencies_commitlint_config_conventional",
-      "community": 7,
+      "community": 12,
       "norm_label": "@commitlint/config-conventional"
     },
     {
-      "label": "husky",
+      "label": "lefthook",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L33",
+      "source_location": "L27",
       "_origin": "ast",
-      "id": "package_devdependencies_husky",
-      "community": 7,
-      "norm_label": "husky"
-    },
-    {
-      "label": "lint-staged",
-      "file_type": "code",
-      "source_file": "package.json",
-      "source_location": "L34",
-      "_origin": "ast",
-      "id": "package_devdependencies_lint_staged",
-      "community": 7,
-      "norm_label": "lint-staged"
+      "id": "package_devdependencies_lefthook",
+      "community": 12,
+      "norm_label": "lefthook"
     },
     {
       "label": "turbo",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L35",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "package_devdependencies_turbo",
-      "community": 7,
+      "community": 12,
       "norm_label": "turbo"
     },
     {
       "label": "typescript",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L36",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "package_devdependencies_typescript",
-      "community": 7,
+      "community": 12,
       "norm_label": "typescript"
     },
     {
       "label": "overrides",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L38",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "package_overrides",
       "community": 12,
@@ -8261,7 +8249,7 @@
       "label": "picomatch",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L39",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "package_overrides_picomatch",
       "community": 12,
@@ -8271,7 +8259,7 @@
       "label": "packageManager",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L41",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "package_packagemanager",
       "community": 12,
@@ -8281,7 +8269,7 @@
       "label": "workspaces",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L42",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "package_workspaces",
       "community": 12,
@@ -8291,7 +8279,7 @@
       "label": "engines",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L43",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "package_engines",
       "community": 12,
@@ -8301,7 +8289,7 @@
       "label": "node",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L44",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "package_engines_node",
       "community": 12,
@@ -9694,7 +9682,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "turbo",
-      "community": 7,
+      "community": 12,
       "norm_label": "turbo.json"
     },
     {
@@ -9704,7 +9692,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "turbo_schema",
-      "community": 7,
+      "community": 12,
       "norm_label": "$schema"
     },
     {
@@ -9714,7 +9702,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "turbo_ui",
-      "community": 7,
+      "community": 12,
       "norm_label": "ui"
     },
     {
@@ -10161,7 +10149,7 @@
       "label": "Prerequisites",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L39",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "readme_prerequisites",
       "community": 13,
@@ -10171,7 +10159,7 @@
       "label": "Workspace Structure",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L54",
+      "source_location": "L53",
       "_origin": "ast",
       "id": "readme_workspace_structure",
       "community": 13,
@@ -10181,7 +10169,7 @@
       "label": "Monorepo Features",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L58",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "readme_monorepo_features",
       "community": 13,
@@ -10191,7 +10179,7 @@
       "label": "Apps (`apps/`)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L66",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "readme_apps_apps",
       "community": 13,
@@ -10201,7 +10189,7 @@
       "label": "`backend-boilerplate`",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L68",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "readme_backend_boilerplate",
       "community": 13,
@@ -10211,7 +10199,7 @@
       "label": "`nextjs-boilerplate`",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L80",
+      "source_location": "L79",
       "_origin": "ast",
       "id": "readme_nextjs_boilerplate",
       "community": 13,
@@ -10221,7 +10209,7 @@
       "label": "Shared Packages (`shared/`)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L92",
+      "source_location": "L91",
       "_origin": "ast",
       "id": "readme_shared_packages_shared",
       "community": 13,
@@ -10231,7 +10219,7 @@
       "label": "`@shared/config`",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L94",
+      "source_location": "L93",
       "_origin": "ast",
       "id": "readme_shared_config",
       "community": 13,
@@ -10241,7 +10229,7 @@
       "label": "`@shared/neon`",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L102",
+      "source_location": "L101",
       "_origin": "ast",
       "id": "readme_shared_neon",
       "community": 13,
@@ -10251,7 +10239,7 @@
       "label": "`@shared/typescript-config`",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L111",
+      "source_location": "L110",
       "_origin": "ast",
       "id": "readme_shared_typescript_config",
       "community": 13,
@@ -10261,7 +10249,7 @@
       "label": "Getting Started",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L114",
+      "source_location": "L113",
       "_origin": "ast",
       "id": "readme_getting_started",
       "community": 13,
@@ -10271,7 +10259,7 @@
       "label": "Using this template",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L116",
+      "source_location": "L115",
       "_origin": "ast",
       "id": "readme_using_this_template",
       "community": 13,
@@ -10281,9 +10269,9 @@
       "label": "Prerequisites",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L126",
+      "source_location": "L125",
       "_origin": "ast",
-      "id": "readme_prerequisites_126",
+      "id": "readme_prerequisites_125",
       "community": 13,
       "norm_label": "prerequisites"
     },
@@ -10291,7 +10279,7 @@
       "label": "Installation",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L131",
+      "source_location": "L130",
       "_origin": "ast",
       "id": "readme_installation",
       "community": 13,
@@ -10301,7 +10289,7 @@
       "label": "Development",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L138",
+      "source_location": "L137",
       "_origin": "ast",
       "id": "readme_development",
       "community": 13,
@@ -10311,7 +10299,7 @@
       "label": "Build",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L150",
+      "source_location": "L149",
       "_origin": "ast",
       "id": "readme_build",
       "community": 13,
@@ -10321,7 +10309,7 @@
       "label": "Other scripts",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L162",
+      "source_location": "L161",
       "_origin": "ast",
       "id": "readme_other_scripts",
       "community": 13,
@@ -10331,7 +10319,7 @@
       "label": "Environment Setup",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L166",
+      "source_location": "L165",
       "_origin": "ast",
       "id": "readme_environment_setup",
       "community": 13,
@@ -10341,7 +10329,7 @@
       "label": "AI-Driven Development",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L175",
+      "source_location": "L174",
       "_origin": "ast",
       "id": "readme_ai_driven_development",
       "community": 13,
@@ -10725,24 +10713,33 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "contains",
+      "relation": "defines",
       "confidence": "EXTRACTED",
-      "source_file": ".husky/_/husky.sh",
-      "source_location": "L1",
+      "source_file": ".lefthook/post-commit/update-graph.sh",
+      "source_location": "L12",
       "weight": 1.0,
-      "source": "husky_husky",
-      "target": "husky_husky_sh__entry",
+      "source": "lefthook_post_commit_update_graph",
+      "target": "lefthook_post_commit_update_graph_graphify_running",
       "confidence_score": 1.0
     },
     {
-      "relation": "imports",
+      "relation": "defines",
       "confidence": "EXTRACTED",
-      "source_file": "package.json",
-      "source_location": "L33",
+      "source_file": ".lefthook/post-commit/update-graph.sh",
+      "source_location": "L2",
       "weight": 1.0,
-      "context": "import",
-      "source": "package_devdependencies_husky",
-      "target": "husky_husky",
+      "source": "lefthook_post_commit_update_graph",
+      "target": "lefthook_post_commit_update_graph_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".lefthook/post-commit/update-graph.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "lefthook_post_commit_update_graph",
+      "target": "lefthook_post_commit_update_graph_sh__entry",
       "confidence_score": 1.0
     },
     {
@@ -16437,12 +16434,12 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "apps/nextjs-boilerplate/src/components/atoms/Button.tsx",
       "source_location": "L16",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_components_atoms_button_button",
-      "target": "apps_nextjs_boilerplate_src_components_atoms_button_variants_buttonvariants",
-      "confidence_score": 1.0
+      "target": "apps_nextjs_boilerplate_src_components_atoms_button_variants_buttonvariants"
     },
     {
       "relation": "calls",
@@ -25851,7 +25848,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L29",
+      "source_location": "L23",
       "weight": 1.0,
       "source": "package",
       "target": "package_devdependencies",
@@ -25861,20 +25858,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L43",
+      "source_location": "L36",
       "weight": 1.0,
       "source": "package",
       "target": "package_engines",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "package.json",
-      "source_location": "L20",
-      "weight": 1.0,
-      "source": "package",
-      "target": "package_lint_staged",
       "confidence_score": 1.0
     },
     {
@@ -25891,7 +25878,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L38",
+      "source_location": "L31",
       "weight": 1.0,
       "source": "package",
       "target": "package_overrides",
@@ -25901,7 +25888,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L41",
+      "source_location": "L34",
       "weight": 1.0,
       "source": "package",
       "target": "package_packagemanager",
@@ -25911,7 +25898,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L25",
+      "source_location": "L19",
       "weight": 1.0,
       "source": "package",
       "target": "package_repository",
@@ -25941,7 +25928,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L42",
+      "source_location": "L35",
       "weight": 1.0,
       "source": "package",
       "target": "package_workspaces",
@@ -26021,7 +26008,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_graphify_build",
@@ -26031,7 +26018,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L15",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_graphify_install",
@@ -26041,20 +26028,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L17",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_graphify_serve",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "package.json",
-      "source_location": "L15",
-      "weight": 1.0,
-      "source": "package_scripts",
-      "target": "package_scripts_lint_staged",
       "confidence_score": 1.0
     },
     {
@@ -26091,17 +26068,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L21",
-      "weight": 1.0,
-      "source": "package_lint_staged",
-      "target": "package_lint_staged_ts_tsx_js_jsx_yml_yaml",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "package.json",
-      "source_location": "L26",
+      "source_location": "L20",
       "weight": 1.0,
       "source": "package_repository",
       "target": "package_repository_type",
@@ -26111,7 +26078,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L27",
+      "source_location": "L21",
       "weight": 1.0,
       "source": "package_repository",
       "target": "package_repository_url",
@@ -26121,7 +26088,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L30",
+      "source_location": "L24",
       "weight": 1.0,
       "source": "package_devdependencies",
       "target": "package_devdependencies_biomejs_biome",
@@ -26131,7 +26098,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L31",
+      "source_location": "L25",
       "weight": 1.0,
       "source": "package_devdependencies",
       "target": "package_devdependencies_commitlint_cli",
@@ -26141,7 +26108,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L32",
+      "source_location": "L26",
       "weight": 1.0,
       "source": "package_devdependencies",
       "target": "package_devdependencies_commitlint_config_conventional",
@@ -26151,27 +26118,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L33",
+      "source_location": "L27",
       "weight": 1.0,
       "source": "package_devdependencies",
-      "target": "package_devdependencies_husky",
+      "target": "package_devdependencies_lefthook",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L34",
-      "weight": 1.0,
-      "source": "package_devdependencies",
-      "target": "package_devdependencies_lint_staged",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "package.json",
-      "source_location": "L35",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "package_devdependencies",
       "target": "package_devdependencies_turbo",
@@ -26181,7 +26138,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L36",
+      "source_location": "L29",
       "weight": 1.0,
       "source": "package_devdependencies",
       "target": "package_devdependencies_typescript",
@@ -26191,7 +26148,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L35",
+      "source_location": "L28",
       "weight": 1.0,
       "context": "import",
       "source": "package_devdependencies_turbo",
@@ -26202,7 +26159,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L39",
+      "source_location": "L32",
       "weight": 1.0,
       "source": "package_overrides",
       "target": "package_overrides_picomatch",
@@ -26212,7 +26169,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L44",
+      "source_location": "L37",
       "weight": 1.0,
       "source": "package_engines",
       "target": "package_engines_node",
@@ -27870,7 +27827,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L175",
+      "source_location": "L174",
       "weight": 1.0,
       "source": "readme_boilerplate_template",
       "target": "readme_ai_driven_development",
@@ -27880,7 +27837,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L166",
+      "source_location": "L165",
       "weight": 1.0,
       "source": "readme_boilerplate_template",
       "target": "readme_environment_setup",
@@ -27890,7 +27847,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L114",
+      "source_location": "L113",
       "weight": 1.0,
       "source": "readme_boilerplate_template",
       "target": "readme_getting_started",
@@ -27900,7 +27857,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L58",
+      "source_location": "L57",
       "weight": 1.0,
       "source": "readme_boilerplate_template",
       "target": "readme_monorepo_features",
@@ -27910,7 +27867,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L39",
+      "source_location": "L38",
       "weight": 1.0,
       "source": "readme_boilerplate_template",
       "target": "readme_prerequisites",
@@ -27930,7 +27887,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L54",
+      "source_location": "L53",
       "weight": 1.0,
       "source": "readme_boilerplate_template",
       "target": "readme_workspace_structure",
@@ -28000,7 +27957,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L66",
+      "source_location": "L65",
       "weight": 1.0,
       "source": "readme_monorepo_features",
       "target": "readme_apps_apps",
@@ -28010,7 +27967,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L92",
+      "source_location": "L91",
       "weight": 1.0,
       "source": "readme_monorepo_features",
       "target": "readme_shared_packages_shared",
@@ -28020,7 +27977,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L68",
+      "source_location": "L67",
       "weight": 1.0,
       "source": "readme_apps_apps",
       "target": "readme_backend_boilerplate",
@@ -28030,7 +27987,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L80",
+      "source_location": "L79",
       "weight": 1.0,
       "source": "readme_apps_apps",
       "target": "readme_nextjs_boilerplate",
@@ -28040,7 +27997,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L94",
+      "source_location": "L93",
       "weight": 1.0,
       "source": "readme_shared_packages_shared",
       "target": "readme_shared_config",
@@ -28050,7 +28007,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L102",
+      "source_location": "L101",
       "weight": 1.0,
       "source": "readme_shared_packages_shared",
       "target": "readme_shared_neon",
@@ -28060,7 +28017,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L111",
+      "source_location": "L110",
       "weight": 1.0,
       "source": "readme_shared_packages_shared",
       "target": "readme_shared_typescript_config",
@@ -28070,7 +28027,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L150",
+      "source_location": "L149",
       "weight": 1.0,
       "source": "readme_getting_started",
       "target": "readme_build",
@@ -28080,7 +28037,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L138",
+      "source_location": "L137",
       "weight": 1.0,
       "source": "readme_getting_started",
       "target": "readme_development",
@@ -28090,7 +28047,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L131",
+      "source_location": "L130",
       "weight": 1.0,
       "source": "readme_getting_started",
       "target": "readme_installation",
@@ -28100,7 +28057,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L162",
+      "source_location": "L161",
       "weight": 1.0,
       "source": "readme_getting_started",
       "target": "readme_other_scripts",
@@ -28110,17 +28067,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L126",
+      "source_location": "L125",
       "weight": 1.0,
       "source": "readme_getting_started",
-      "target": "readme_prerequisites_126",
+      "target": "readme_prerequisites_125",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L116",
+      "source_location": "L115",
       "weight": 1.0,
       "source": "readme_getting_started",
       "target": "readme_using_this_template",
@@ -28128,5 +28085,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "45c2ca92c5faf90df60130c6f1dc4bce44e42cea"
+  "built_at_commit": "27600b4e39d2bb66a1818032733b38c5fb431f27"
 }
