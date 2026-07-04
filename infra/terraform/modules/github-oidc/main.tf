@@ -257,7 +257,7 @@ resource "aws_iam_policy" "terraform_plan_state" {
   count = var.enable_terraform_roles ? 1 : 0
 
   name        = "${var.role_name}-terraform-plan-state"
-  description = "S3 state read + lock access for terraform plan role"
+  description = "S3 state read + lock and secret-value read for terraform plan role"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -285,6 +285,12 @@ resource "aws_iam_policy" "terraform_plan_state" {
           "s3:DeleteObject"
         ]
         Resource = "${var.state_bucket_arn}/${var.environment}/*.tflock"
+      },
+      {
+        Sid      = "TerraformStateSecretRead"
+        Effect   = "Allow"
+        Action   = ["secretsmanager:GetSecretValue"]
+        Resource = "arn:aws:secretsmanager:*:*:secret:${var.project_name}-${var.environment}/*"
       }
     ]
   })
