@@ -1,7 +1,7 @@
-# Graph Report - boilerplate-template  (2026-07-04)
+# Graph Report - boilerplate-template  (2026-07-05)
 
 ## Corpus Check
-- 291 files · ~34,859 words
+- 291 files · ~34,773 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e97b798f`
+- Built from commit: `7980e7e2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -47,6 +47,7 @@
 - [[_COMMUNITY_assist|assist]]
 - [[_COMMUNITY_compilerOptions|compilerOptions]]
 - [[_COMMUNITY_compilerOptions|compilerOptions]]
+- [[_COMMUNITY_organizeImports|organizeImports]]
 - [[_COMMUNITY_tsconfig.json|tsconfig.json]]
 - [[_COMMUNITY_CLAUDE|CLAUDE.md]]
 - [[_COMMUNITY_release-please-config.json|release-please-config.json]]
@@ -82,7 +83,6 @@
 - [[_COMMUNITY_terraform-plan-comment.sh|terraform-plan-comment.sh]]
 - [[_COMMUNITY_PostForm.tsx|PostForm.tsx]]
 - [[_COMMUNITY_AccountForm.tsx|AccountForm.tsx]]
-- [[_COMMUNITY_useSortedAttributes|useSortedAttributes]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 53 edges
@@ -234,7 +234,7 @@ Nodes (3): CommentSection(), PostDetail(), PostDetailProps
 
 ### Community 29 - "assist"
 Cohesion: 0.22
-Nodes (9): source, assist, actions, enabled, includes, groups, level, options (+1 more)
+Nodes (9): source, assist, actions, enabled, includes, sortOrder, useSortedAttributes, level (+1 more)
 
 ### Community 30 - "compilerOptions"
 Cohesion: 0.22
@@ -243,6 +243,10 @@ Nodes (8): compilerOptions, module, outDir, rootDir, target, exclude, extends, i
 ### Community 31 - "compilerOptions"
 Cohesion: 0.22
 Nodes (8): compilerOptions, module, outDir, rootDir, target, exclude, extends, include
+
+### Community 32 - "organizeImports"
+Cohesion: 0.50
+Nodes (4): groups, level, options, organizeImports
 
 ### Community 33 - "tsconfig.json"
 Cohesion: 0.25
@@ -303,10 +307,6 @@ Nodes (12): createComment(), deleteComment(), CommentFieldConfig, CommentForm(),
 ### Community 74 - "AccountForm.tsx"
 Cohesion: 0.21
 Nodes (12): deleteUser(), updateUser(), uploadProfileImage(), AccountForm(), AccountFormConfig, AccountFormProps, FieldConfig, DeleteAccountButton() (+4 more)
-
-### Community 77 - "useSortedAttributes"
-Cohesion: 0.50
-Nodes (4): sortOrder, useSortedAttributes, level, options
 
 ## Knowledge Gaps
 - **463 isolated node(s):** `auto-format.sh script`, `paths`, `protect-bash.sh script`, `stop-typecheck.sh script`, `$schema` (+458 more)

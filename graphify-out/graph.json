@@ -7908,7 +7908,7 @@
       "source_location": "L225",
       "_origin": "ast",
       "id": "biome_source_organizeimports",
-      "community": 29,
+      "community": 32,
       "norm_label": "organizeimports"
     },
     {
@@ -7918,7 +7918,7 @@
       "source_location": "L226",
       "_origin": "ast",
       "id": "biome_organizeimports_level",
-      "community": 29,
+      "community": 32,
       "norm_label": "level"
     },
     {
@@ -7928,7 +7928,7 @@
       "source_location": "L227",
       "_origin": "ast",
       "id": "biome_organizeimports_options",
-      "community": 29,
+      "community": 32,
       "norm_label": "options"
     },
     {
@@ -7938,7 +7938,7 @@
       "source_location": "L228",
       "_origin": "ast",
       "id": "biome_options_groups",
-      "community": 29,
+      "community": 32,
       "norm_label": "groups"
     },
     {
@@ -7948,7 +7948,7 @@
       "source_location": "L242",
       "_origin": "ast",
       "id": "biome_source_usesortedattributes",
-      "community": 77,
+      "community": 29,
       "norm_label": "usesortedattributes"
     },
     {
@@ -7958,7 +7958,7 @@
       "source_location": "L243",
       "_origin": "ast",
       "id": "biome_usesortedattributes_level",
-      "community": 77,
+      "community": 29,
       "norm_label": "level"
     },
     {
@@ -7968,7 +7968,7 @@
       "source_location": "L244",
       "_origin": "ast",
       "id": "biome_usesortedattributes_options",
-      "community": 77,
+      "community": 29,
       "norm_label": "options"
     },
     {
@@ -7978,7 +7978,7 @@
       "source_location": "L245",
       "_origin": "ast",
       "id": "biome_options_sortorder",
-      "community": 77,
+      "community": 29,
       "norm_label": "sortorder"
     },
     {
@@ -10065,7 +10065,7 @@
       "label": "Codebase graph",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L58",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "claude_codebase_graph",
       "community": 34,
@@ -10075,7 +10075,7 @@
       "label": "Context management",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L70",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "claude_context_management",
       "community": 34,
@@ -27814,7 +27814,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L58",
+      "source_location": "L44",
       "weight": 1.0,
       "source": "claude_claude_md",
       "target": "claude_codebase_graph",
@@ -27834,7 +27834,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L70",
+      "source_location": "L54",
       "weight": 1.0,
       "source": "claude_claude_md",
       "target": "claude_context_management",
@@ -28132,5 +28132,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "e97b798fab1f9d0c4e83351d16368df6aa9d8bea"
+  "built_at_commit": "7980e7e27a158f968d8fbe808992e996d395c7fb"
 }

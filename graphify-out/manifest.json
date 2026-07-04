@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   ".claude/settings.json": {
-    "mtime": 1783176672.7488298,
-    "ast_hash": "2e65cc6c81b7fd8d826548d43f6ca2bb",
+    "mtime": 1783177829.0475922,
+    "ast_hash": "25c955016674ff8104ebc51318a04912",
     "semantic_hash": ""
   },
   ".fallowrc.json": {
@@ -1345,8 +1345,8 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1783175661.5373738,
-    "ast_hash": "5ddbe6629a17a140ddee060834a7a227",
+    "mtime": 1783177679.7886412,
+    "ast_hash": "33765f732f9911b78065b8dcb6e54407",
     "semantic_hash": ""
   },
   "README.md": {
@@ -1360,7 +1360,7 @@
     "semantic_hash": ""
   },
   ".impeccable/hook.cache.json": {
-    "mtime": 1783176510.316752,
+    "mtime": 1783177829.2258034,
     "ast_hash": "afff01f34c72a33048cbd5579165d047",
     "semantic_hash": ""
   },
