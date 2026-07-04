@@ -1040,8 +1040,8 @@
     "semantic_hash": ""
   },
   "biome.json": {
-    "mtime": 1780577839.3211725,
-    "ast_hash": "6edbc13ae1920d1f906b2412148a0937",
+    "mtime": 1783137386.469593,
+    "ast_hash": "f6626b8d0f322bb8f67f63c71dfd5e46",
     "semantic_hash": ""
   },
   "commitlint.config.js": {
@@ -1460,7 +1460,7 @@
     "semantic_hash": ""
   },
   ".impeccable/hook.cache.json": {
-    "mtime": 1783133108.0254128,
+    "mtime": 1783137386.6075459,
     "ast_hash": "afff01f34c72a33048cbd5579165d047",
     "semantic_hash": ""
   },

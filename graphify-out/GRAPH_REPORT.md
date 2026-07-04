@@ -1,7 +1,7 @@
 # Graph Report - boilerplate-template  (2026-07-04)
 
 ## Corpus Check
-- 296 files · ~34,730 words
+- 296 files · ~34,731 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `fcaf162e`
+- Built from commit: `a7948bfa`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -172,7 +172,7 @@ Nodes (21): ErrorCode, ErrorDefinition, Comment, CommentIdParams, CommentModel, 
 
 ### Community 15 - "organizeImports"
 Cohesion: 0.50
-Nodes (4): sortOrder, useSortedAttributes, level, options
+Nodes (4): groups, level, options, organizeImports
 
 ### Community 16 - "compilerOptions"
 Cohesion: 0.11
@@ -212,7 +212,7 @@ Nodes (10): arrowParentheses, attributePosition, bracketSameLine, bracketSpacing
 
 ### Community 29 - "assist"
 Cohesion: 0.22
-Nodes (9): source, assist, actions, enabled, includes, groups, level, options (+1 more)
+Nodes (9): source, assist, actions, enabled, includes, sortOrder, useSortedAttributes, level (+1 more)
 
 ### Community 30 - "compilerOptions"
 Cohesion: 0.22
