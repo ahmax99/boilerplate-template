@@ -8,13 +8,6 @@ module "route53" {
   domain_name                         = var.domain_name
   cloudfront_distribution_domain_name = module.cloudfront.distribution_domain_name
   cloudfront_hosted_zone_id           = module.cloudfront.hosted_zone_id
-
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-route53"
-    }
-  )
 }
 
 # -------------------
@@ -51,8 +44,6 @@ module "cloudfront" {
   backend_function_url  = module.backend.function_url
 
   static_assets_bucket_domain_name = module.s3_static_assets.bucket_regional_domain_name
-  static_assets_bucket_id          = module.s3_static_assets.bucket_id
-  static_assets_bucket_arn         = module.s3_static_assets.bucket_arn
   logs_bucket_id                   = module.s3_logs.bucket_id
   web_acl_id                       = module.waf.web_acl_arn
 

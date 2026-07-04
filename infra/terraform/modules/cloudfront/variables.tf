@@ -18,16 +18,6 @@ variable "static_assets_bucket_domain_name" {
   type        = string
 }
 
-variable "static_assets_bucket_id" {
-  description = "S3 bucket ID that holds /_next/static/* and /static/* files"
-  type        = string
-}
-
-variable "static_assets_bucket_arn" {
-  description = "S3 bucket ARN for the static assets bucket"
-  type        = string
-}
-
 variable "logs_bucket_id" {
   description = "S3 bucket for CloudFront access logs"
   type        = string
