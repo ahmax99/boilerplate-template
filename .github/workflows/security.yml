@@ -11,10 +11,6 @@ jobs:
     if: "!startsWith(github.head_ref, 'release-please--branches--')"
     permissions:
       contents: read
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
       - name: Checkout
