@@ -17,6 +17,7 @@ async function AuthorizedLayoutContent({
   const user = await getMe()
   const rules = getUserPermissions(user).rules
 
+  // react-doctor-disable-next-line react-doctor/nextjs-no-use-search-params-without-suspense -- AbilityProvider is already wrapped in <Suspense> below (see .react-doctor/false-positives.md)
   return <AbilityProvider rules={rules}>{children}</AbilityProvider>
 }
 

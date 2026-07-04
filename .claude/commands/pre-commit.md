@@ -13,7 +13,9 @@ Run these checks in parallel (one message, parallel Bash calls):
 
 Then review changed files (`git diff --cached --name-only` for staged, or `git diff --name-only` for unstaged):
 
-3. **Quick security scan** on changed files:
+3. **React health regression** — if the change touches React code (`.tsx`/`.jsx`, or anything under `apps/nextjs-boilerplate/src/`), run `npx react-doctor@latest --verbose --scope changed`. `--scope changed` reports only issues the branch introduced vs the base, so a clean run means no regression. New **errors** are a FAIL; warnings are advisory — mention them but don't block. Skip this check entirely for backend/infra-only changes. (CI runs the same gate via `react-doctor.yml`, so catching it here avoids a red PR.)
+
+4. **Quick security scan** on changed files:
    - No hardcoded secrets, API keys, or tokens
    - No `.env` files staged (`.env.example` is fine)
    - No stray `console.log` in production code (the backend logger / intentional logging utilities are fine)
@@ -31,6 +33,7 @@ Report results concisely:
 ## Pre-commit Check
 - Format + lint: PASS/FAIL
 - Types: PASS/FAIL
+- React Doctor: PASS/FAIL/SKIPPED (no React changes)
 - Security scan: PASS/FAIL
 
 [Issues found, if any]

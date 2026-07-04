@@ -29,6 +29,7 @@ export const AbilityProvider = ({
     params.delete('error')
 
     const query = params.size ? `?${params}` : ''
+    // react-doctor-disable-next-line react-doctor/nextjs-no-client-side-redirect -- same-page query-param cleanup (strips ?error), not navigation (see .react-doctor/false-positives.md)
     router.replace(`${pathname}${query}`)
   }, [error, pathname, router, searchParams])
 

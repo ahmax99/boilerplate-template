@@ -22,6 +22,7 @@ export const PostDetail = async ({
         className="object-cover"
         fill
         loading="eager"
+        sizes="100vw"
         src={postImage}
         unoptimized
       />

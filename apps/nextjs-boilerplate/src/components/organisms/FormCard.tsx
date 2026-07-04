@@ -1,12 +1,12 @@
-import { Button } from '../atoms'
+import { Button } from '../atoms/Button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
-  LoadingSwap
-} from '../molecules'
+  CardTitle
+} from '../molecules/Card'
+import { LoadingSwap } from '../molecules/LoadingSwap'
 
 interface FormCardProps {
   title: string

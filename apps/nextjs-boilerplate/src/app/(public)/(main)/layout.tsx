@@ -10,6 +10,7 @@ async function PublicLayoutContent({
 }: Readonly<{ children: React.ReactNode }>) {
   const rules = getUserPermissions().rules
 
+  // react-doctor-disable-next-line react-doctor/nextjs-no-use-search-params-without-suspense -- AbilityProvider is already wrapped in <Suspense> below (see .react-doctor/false-positives.md)
   return <AbilityProvider rules={rules}>{children}</AbilityProvider>
 }
 

@@ -49,6 +49,7 @@ After implementing each step, self-check:
 3. Is all external input validated with a `@shared/config` Zod schema at the controller boundary?
 4. Are services returning `ResultAsync` (not throwing), and are multi-step writes wrapped in `prisma.$transaction([...])`?
 5. If the Prisma schema changed, run `/db-check` before applying the migration.
+6. If the step touched React code (`apps/nextjs-boilerplate`), run `npx react-doctor@latest --verbose --scope changed` and fix any new **errors** before moving on (warnings are advisory). CI enforces the same gate on the PR, so regressions caught here are regressions the reviewer never sees.
 
 There is **no test runner** configured in this repo. Don't write or run tests unless the plan explicitly adds one. If a quality gate fails, fix it before moving on — do not accumulate technical debt across steps.
 

@@ -26,7 +26,7 @@ turbo db:generate --filter=@shared/neon   # prisma generate — runs as neon's p
 cd shared/neon && bun run db:migrate       # prisma migrate dev (interactive)
 ```
 
-There is **no test runner configured** in this repo yet. CI runs type-checking, Biome, `njsscan`, and SonarQube — not unit tests.
+There is **no test runner configured** in this repo yet. CI runs SonarQube, dependency security audits (`bun audit` + SBOM/Grype), and React Doctor — not unit tests. Type-checking and Biome run locally (Husky pre-commit hook, `/pre-commit`, and the per-step gates in `/implement`), not in CI.
 
 ### Tooling notes
 
@@ -35,6 +35,7 @@ There is **no test runner configured** in this repo yet. CI runs type-checking, 
 - Package versions are kept in sync across workspaces with `syncpack` (`bun run check-mismatches` / `bun run sync-packages`).
 - **[fallow](https://docs.fallow.tools/)** is a *local* static-analysis CLI configured by `.fallowrc.json` (repo root). It flags unused/dead code, semantic code duplication (≥3 occurrences, `**/lib/**` ignored), high complexity, and architecture drift across the `apps/*` + `shared/*` workspaces. Run `fallow` from the repo root.
 - **SonarQube** is the *CI* code-quality backstop. It scans every push to `main` and every PR (dependabot excluded) for bugs, vulnerabilities, and code smells — you don't run it locally.
+- **[react-doctor](https://github.com/millionco/react-doctor)** is the React-specific scanner (security, performance, correctness, a11y, architecture; 0–100 health score). It runs both *locally* — `npx react-doctor@latest --verbose --scope changed` after React changes, full triage via the `react-doctor` skill (`/doctor`) — and in *CI* (`react-doctor.yml`): PRs are gated on new **errors** (warnings advisory), pushes to `main` get a non-blocking health snapshot. Rule config lives in `doctor.config.*` if one exists.
 
 ## Rules
 

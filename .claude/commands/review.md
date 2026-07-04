@@ -13,6 +13,7 @@ Issue these in one parallel Bash batch:
 - `bun run check-format`
 - `bun run check-types`
 - `git diff --name-only origin/main...HEAD`
+- `npx react-doctor@latest --verbose --scope changed` — React-only scanner; reports just the issues this branch introduced (clean when the diff has no React files). New **errors** count as a gate FAIL; warnings are advisory (list them, don't block).
 
 (This repo has no test runner; there are no tests to run here.)
 
@@ -49,6 +50,7 @@ Order issues **by file (in diff order) and within each file by line number**. Se
 ### Phase 1 — Deterministic checks
 - Format: PASS/FAIL
 - TypeScript: PASS/FAIL
+- React Doctor: PASS/FAIL (new errors only) — score if reported
 
 ### Scores
 - Security: X/5  (security-reviewer)

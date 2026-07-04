@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { type UseFormRegister, useForm } from 'react-hook-form'
 
 import { Input } from '@/components/atoms'
 import { FormCard, FormField } from '@/components/organisms'
@@ -31,6 +31,42 @@ interface AccountFormProps {
   config: AccountFormConfig
 }
 
+const FieldInput = ({
+  field,
+  error,
+  register,
+  onImageChange
+}: Readonly<{
+  field: FieldConfig
+  error: boolean
+  register: UseFormRegister<UpdateProfileSchema>
+  onImageChange: (file: File) => void
+}>) => {
+  if (field.name === 'image')
+    return (
+      <Input
+        accept="image/*"
+        aria-invalid={error}
+        id={field.name}
+        onChange={(e) => {
+          const file = e.target.files?.[0]
+          if (file) onImageChange(file)
+        }}
+        type="file"
+      />
+    )
+
+  return (
+    <Input
+      id={field.name}
+      placeholder={field.description}
+      type="text"
+      {...register(field.name)}
+      aria-invalid={error}
+    />
+  )
+}
+
 export const AccountForm = ({ config }: Readonly<AccountFormProps>) => {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const {
@@ -43,35 +79,6 @@ export const AccountForm = ({ config }: Readonly<AccountFormProps>) => {
     defaultValues: config.defaultValues
   })
   const { handleUpdateProfile } = useAccountActions()
-
-  const renderFieldInput = (field: FieldConfig) => {
-    const fieldError = errors[field.name as keyof typeof errors]
-
-    if (field.name === 'image') {
-      return (
-        <Input
-          accept="image/*"
-          aria-invalid={!!fieldError}
-          id={field.name}
-          onChange={(e) => {
-            const file = e.target.files?.[0]
-            if (file) setImageFile(file)
-          }}
-          type="file"
-        />
-      )
-    } else {
-      return (
-        <Input
-          id={field.name}
-          placeholder={field.description}
-          type="text"
-          {...register(field.name)}
-          aria-invalid={!!fieldError}
-        />
-      )
-    }
-  }
 
   const onSubmit = async (data: UpdateProfileSchema) =>
     await handleUpdateProfile(data, imageFile, () => {
@@ -94,7 +101,12 @@ export const AccountForm = ({ config }: Readonly<AccountFormProps>) => {
           label={field.label}
           name={field.name}
         >
-          {renderFieldInput(field)}
+          <FieldInput
+            error={!!errors[field.name as keyof typeof errors]}
+            field={field}
+            onImageChange={setImageFile}
+            register={register}
+          />
         </FormField>
       ))}
     </FormCard>

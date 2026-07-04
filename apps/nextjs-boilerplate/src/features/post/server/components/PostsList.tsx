@@ -19,6 +19,7 @@ export const PostsList = async ({ posts, imageUrls }: PostsListProps) => (
             className="rounded-t-lg object-cover"
             fill
             loading="eager"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             src={imageUrls[index] ?? ''}
             unoptimized
           />
