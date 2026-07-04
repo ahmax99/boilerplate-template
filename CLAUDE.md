@@ -52,6 +52,9 @@ There is **no test runner configured** in this repo yet. CI runs SonarQube, depe
 **Shared:**
 - New Zod schemas/types go in `@shared/config`, never in an individual app
 
+**Infra:**
+- Terraform changes (`infra/terraform/**`) follow `.claude/rules/infra.md` — environments are `backends/*.hcl` + `vars/*.tfvars` (never per-env directories), no secret values in `.tf`/`.tfvars`, and the local gates are `terraform fmt -check` + `tflint` + `terraform validate` (mirroring `terraform-plan.yml`)
+
 ## Codebase graph
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships. Use it to navigate the repo without re-reading files. Query the graph via the `graphify` MCP tools in any session.

@@ -50,6 +50,7 @@ After implementing each step, self-check:
 4. Are services returning `ResultAsync` (not throwing), and are multi-step writes wrapped in `prisma.$transaction([...])`?
 5. If the Prisma schema changed, run `/db-check` before applying the migration.
 6. If the step touched React code (`apps/nextjs-boilerplate`), run `bunx react-doctor@latest --verbose --scope changed` and fix any new **errors** before moving on (warnings are advisory). CI enforces the same gate on the PR, so regressions caught here are regressions the reviewer never sees.
+7. If the step touched `infra/terraform/**`, run the Terraform gates from `.claude/rules/infra.md` (`terraform fmt -check`, `tflint`, `terraform validate`) and fix failures before moving on — they mirror what `terraform-plan.yml` will reject on the PR. Steps 1–2 (`check-types` / `check-format`) don't cover HCL, so these are the *only* local gates for infra steps.
 
 There is **no test runner** configured in this repo. Don't write or run tests unless the plan explicitly adds one. If a quality gate fails, fix it before moving on — do not accumulate technical debt across steps.
 
@@ -68,6 +69,7 @@ The enabled plugins (see `.claude/rules/harness.md`) cover gaps the project comm
 
 - **Frontend UI** — build `nextjs-boilerplate` components/pages via the project `app-design` skill, which wires the `impeccable` plugin (`/impeccable craft|shape`) and the `shadcn` skill into this repo's component conventions.
 - **Unfamiliar API** — pull current docs with `context7` (MCP) before using an Elysia/Next.js/Prisma/CASL/Zod feature; don't rely on memory.
+- **Terraform work** — the `terraform-skill` plugin (antonbabenko) triggers on Terraform/HCL tasks with best-practice patterns for modules, testing, and state ops; `.claude/rules/infra.md` holds this repo's specific conventions and wins on conflicts.
 - **Verifying the UI** — there is no unit-test runner here, so use `playwright` (MCP) to drive a browser and confirm a flow actually works.
 - **A bug you can't place** — use `superpowers:systematic-debugging` (root-cause first) instead of guess-and-patch.
 - **A messy diff that works** — run `code-simplifier` over the just-written code before suggesting `/qa`.

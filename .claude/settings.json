@@ -25,7 +25,7 @@
       "Bash(sed *)"
     ]
   },
-  "enabledMcpjsonServers": ["graphify"],
+  "enabledMcpjsonServers": ["graphify", "terraform"],
   "hooks": {
     "SessionStart": [
       {
@@ -117,13 +117,8 @@
     "claude-md-management@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
-    "terraform@claude-plugins-official": true,
     "deploy-on-aws@claude-plugins-official": true,
-    "packer-builders@hashicorp": true,
-    "packer-hcp@hashicorp": true,
-    "terraform-code-generation@hashicorp": true,
-    "terraform-module-generation@hashicorp": true,
-    "terraform-provider-development@hashicorp": true,
+    "terraform-skill@antonbabenko": true,
     "context-mode@context-mode": true,
     "impeccable@impeccable": true
   }

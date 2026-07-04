@@ -15,7 +15,9 @@ Then review changed files (`git diff --cached --name-only` for staged, or `git d
 
 3. **React health regression** — if the change touches React code (`.tsx`/`.jsx`, or anything under `apps/nextjs-boilerplate/src/`), run `bunx react-doctor@latest --verbose --scope changed`. `--scope changed` reports only issues the branch introduced vs the base, so a clean run means no regression. New **errors** are a FAIL; warnings are advisory — mention them but don't block. Skip this check entirely for backend/infra-only changes. (CI runs the same gate via `react-doctor.yml`, so catching it here avoids a red PR.)
 
-4. **Quick security scan** on changed files:
+4. **Terraform gates** — if the change touches `infra/terraform/**`, run `terraform -chdir=infra/terraform fmt -check -recursive` and `tflint --chdir=infra/terraform --recursive --format compact --minimum-failure-severity=error` (plus `terraform -chdir=infra/terraform validate` for anything beyond formatting). These mirror `terraform-plan.yml`, so a failure here is a failure the PR would hit. Skip entirely for non-infra changes. Also eyeball: no secret values in `.tf`/`.tfvars`, no new `.trivyignore` entry without a justification comment.
+
+5. **Quick security scan** on changed files:
    - No hardcoded secrets, API keys, or tokens
    - No `.env` files staged (`.env.example` is fine)
    - No stray `console.log` in production code (the backend logger / intentional logging utilities are fine)
@@ -34,6 +36,7 @@ Report results concisely:
 - Format + lint: PASS/FAIL
 - Types: PASS/FAIL
 - React Doctor: PASS/FAIL/SKIPPED (no React changes)
+- Terraform (fmt / tflint / validate): PASS/FAIL/SKIPPED (no infra changes)
 - Security scan: PASS/FAIL
 
 [Issues found, if any]

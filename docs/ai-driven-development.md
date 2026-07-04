@@ -80,6 +80,7 @@ The project commands above are *codebase-specific* orchestrators. This template 
 | Implement (UI) | `impeccable` + project `app-design` skill | Distinctive, production-grade UI. `/impeccable init` defines a per-app `PRODUCT.md`/`DESIGN.md` (optionally seeded from an [awesome-design-md](https://github.com/voltagent/awesome-design-md) reference); `craft`/`shape` build, `critique`/`audit`/`polish` review. The `app-design` skill (`.claude/skills/app-design/`) sets precedence between impeccable, the `shadcn` skill, and this repo's component rules. |
 | Implement (isolation) | `superpowers:using-git-worktrees` | Isolates feature work in a separate worktree so it doesn't disturb your main checkout. |
 | Implement (stuck) | `superpowers:systematic-debugging` | A disciplined find-the-root-cause loop instead of guess-and-patch when something breaks. |
+| Implement (infra) | `terraform-skill` + `terraform` / `deploy-on-aws` (MCP) | Generic Terraform best practice (modules, tests, state ops) from the antonbabenko skill; authoritative Terraform Registry lookups (provider schemas, module inputs) from HashiCorp's terraform-mcp-server; AWS docs/pricing from deploy-on-aws. This repo's own conventions and local gates live in `.claude/rules/infra.md`, which wins on conflict. |
 | Verify | `playwright` (MCP) | Drives a real browser to verify UI and end-to-end flows. This repo has **no unit-test runner**, so browser-level verification is how you confirm the frontend actually works. |
 | Verify | `superpowers:verification-before-completion` | Forbids "it's done" claims without running the command and showing the output. Evidence before assertions. |
 | Review | `code-simplifier` | After the diff works (but before `/qa`), simplifies the just-written code for clarity without changing behavior. |
@@ -91,8 +92,10 @@ The project commands above are *codebase-specific* orchestrators. This template 
 
 > **Project commands vs. plugins, in one line:** plugins decide *what to build and
 > in what order*; the `/spec`→`/plan`→`/implement`→`/qa` commands build it
-> *correctly in this codebase*. The `terraform` plugin is enabled but out of scope
-> for app development — ignore it unless you're touching `infra/`.
+> *correctly in this codebase*. Infra work rides the same pipeline: specs and plans
+> can include Terraform steps, `/implement` gates them with `terraform fmt`/`tflint`/
+> `terraform validate` (mirroring `terraform-plan.yml`), and `/qa`/`/review` add an
+> `infra-reviewer` pass when the diff touches `infra/terraform/**`.
 
 ## What keeps the agent on the rails
 
@@ -105,6 +108,7 @@ The agent isn't guessing how this codebase works — it reads a set of rule file
 | `.claude/rules/conventions.md` | *How to write code here* — validation at the boundary, the neverthrow `Result` flow, auth/CASL, exports. |
 | `.claude/rules/principles.md` | *Why* — clean-code + *A Philosophy of Software Design*. (Tech-stack docs win on conflict.) |
 | `.claude/rules/code-review.md` | The checklist the reviewers grade against. |
+| `.claude/rules/infra.md` | Terraform conventions — layout, environments-as-config, state safety, and the local gates that mirror the CI pipeline. |
 
 Two safety nets run automatically while you work: edited files are auto-formatted with Biome, secret-bearing files and destructive shell commands are blocked, and a type-check gates the end of each turn. You don't invoke these — they just run.
 

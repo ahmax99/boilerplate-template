@@ -12,8 +12,8 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 
 - `/spec <description>` — Spec agent: captures the *what & why* (problem, requirements, acceptance criteria, non-goals) of a feature and writes it to `docs/specs/<YYYY-MM-DD-slug>.md`. The upstream artifact.
 - `/plan <task | path/to/spec.md>` — Planner agent: expands a task or a spec into a detailed implementation plan with ordered steps and acceptance criteria. Writes to `.claude/plans/<YYYY-MM-DD-slug>.md` and records it in the `.claude/plans/.current` pointer file. Use `/plan list` to view all plans and `/plan switch <prefix>` to repoint `.current`.
-- `/implement [context]` — Generator agent: implements the current plan step by step, self-checking `bun run check-types` + `bun run check-format` after each step.
-- `/qa [scope]` — QA orchestrator: runs the deterministic gates, then spawns three reviewers in parallel (security, correctness, acceptance-criteria) and synthesizes a scored verdict against the plan's acceptance criteria.
+- `/implement [context]` — Generator agent: implements the current plan step by step, self-checking `bun run check-types` + `bun run check-format` after each step (plus the Terraform gates from `.claude/rules/infra.md` for steps that touch `infra/terraform/**`).
+- `/qa [scope]` — QA orchestrator: runs the deterministic gates, then spawns three reviewers in parallel (security, correctness, acceptance-criteria — plus infra when the diff touches `infra/terraform/**`) and synthesizes a scored verdict against the plan's acceptance criteria.
 
 ## Quality Commands
 
@@ -28,8 +28,9 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 - `security-reviewer` — Cognito `auth: true` enforcement, CASL authorization, Zod-at-the-boundary, the BFF rule, secrets, S3 scoping. Emits **Security**.
 - `correctness-reviewer` — neverthrow `Result` flow, `AppError` usage, layer boundaries, Prisma queries/transactions, type safety, code quality. Emits **Correctness**, **Architecture**, **Code quality**.
 - `acceptance-criteria-reviewer` — walks the plan's acceptance criteria against the diff. Emits **Acceptance criteria**. (`/qa` only — it needs a plan.)
+- `infra-reviewer` — Terraform/HCL diffs: IAM least privilege, public exposure, state safety, destructive-change risk, module conventions. Emits **Infrastructure**. (Spawned by `/qa` and `/review` only when the diff touches `infra/terraform/**`.)
 
-So `/qa` produces five scores from three reviewers; `/review` produces four (it drops acceptance-criteria).
+So `/qa` produces five scores from three reviewers (six from four when infra is in the diff); `/review` produces four (it drops acceptance-criteria; five with infra).
 
 ## Hooks (automatic)
 
@@ -69,6 +70,8 @@ Where each plugin fits the spec → plan → implement → review → ship flow:
 - **`superpowers:finishing-a-development-branch`** — structured merge / PR / cleanup once QA is green.
 - **`context7`** (MCP) — fetch *current* docs for any library (Elysia, Next.js, Prisma, CASL, Zod, Tailwind) instead of relying on the training cutoff. Use anytime; especially before applying an unfamiliar API.
 - **`claude-md-management`** (`/revise-claude-md`, `claude-md-improver`) — keep `CLAUDE.md` and the rule files accurate as conventions evolve.
-- **`terraform`** — enabled but out of scope for app development; ignore unless touching `infra/`.
+- **`terraform-skill`** (antonbabenko) — generic Terraform/OpenTofu best practice: module design, native `terraform test`, state ops, CI/CD and scan patterns. Triggers automatically on Terraform/HCL work. Repo-specific conventions and the local gates live in `.claude/rules/infra.md`, which wins on conflict; the `infra-reviewer` subagent covers review.
+- **`terraform`** (MCP, `.mcp.json`) — HashiCorp's terraform-mcp-server (Docker): authoritative Terraform Registry lookups — provider resource/data-source schemas, module inputs, versions. Use it before writing HCL against an unfamiliar resource, the way `context7` is used for app libraries.
+- **`deploy-on-aws`** (MCP: `awsknowledge` / `awsiac` / `awspricing`) — AWS documentation search, IaC validation helpers, and pricing lookups. Use for AWS service questions and cost estimates during infra work; the deploy skills themselves are out of scope (this repo's deployment is already defined in `infra/terraform/`).
 
 For the full developer-facing walkthrough of this flow, see `docs/ai-driven-development.md`.

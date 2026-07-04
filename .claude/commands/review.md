@@ -17,6 +17,15 @@ Issue these in one parallel Bash batch:
 
 (This repo has no test runner; there are no tests to run here.)
 
+**If the diff list contains `infra/terraform/**` files**, run the Terraform gates (local mirror of `terraform-plan.yml`) in a follow-up parallel batch:
+
+- `terraform -chdir=infra/terraform fmt -check -recursive`
+- `tflint --chdir=infra/terraform --recursive --format compact --minimum-failure-severity=error` (run `tflint --chdir=infra/terraform --init` first if it complains about missing plugins)
+- `terraform -chdir=infra/terraform validate` (if init is missing, run `terraform -chdir=infra/terraform init -backend=false` first)
+- `trivy config infra/terraform --ignorefile infra/terraform/.trivyignore --severity CRITICAL,HIGH` — only if `trivy` is installed; otherwise SKIPPED (CI enforces it in `security.yml`)
+
+Any Terraform gate failure counts as a Phase 1 FAIL. Skip all four when the diff has no infra files.
+
 Capture exit codes and outputs.
 
 ## Phase 2 — Spawn reviewers (parallel Task batch)
@@ -35,6 +44,8 @@ Single message, two parallel Task tool calls:
 
 2. `subagent_type: "correctness-reviewer"` — same prompt shape.
 
+3. `subagent_type: "infra-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `infra/terraform/**` files**. Include it in the same parallel batch.
+
 ## Phase 3 — Synthesize
 
 Order issues **by file (in diff order) and within each file by line number**. Severity is an inline tag, not a section header.
@@ -51,12 +62,14 @@ Order issues **by file (in diff order) and within each file by line number**. Se
 - Format: PASS/FAIL
 - TypeScript: PASS/FAIL
 - React Doctor: PASS/FAIL (new errors only) — score if reported
+- Terraform (fmt / tflint / validate / trivy): PASS/FAIL/SKIPPED (no infra changes)
 
 ### Scores
 - Security: X/5  (security-reviewer)
 - Correctness: X/5  (correctness-reviewer)
 - Architecture: X/5  (correctness-reviewer)
 - Code quality: X/5  (correctness-reviewer)
+- Infrastructure: X/5  (infra-reviewer — omit when the diff has no infra/terraform/** files)
 
 ### Issues
 
