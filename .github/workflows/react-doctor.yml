@@ -1,9 +1,5 @@
 name: React Doctor
 
-# Scans only the React issues a PR introduces (scope: changed), posts a sticky
-# summary comment + inline review comments, and sets a commit status with the
-# 0-100 health score. Pushes to main run a full-project health snapshot that
-# never fails the build. Docs: https://react.doctor/ci
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
@@ -31,13 +27,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Full history so the scan can diff against the PR base; a shallow
-          # checkout makes it flag pre-existing issues as new.
           fetch-depth: 0
 
       - name: React Doctor scan
         uses: millionco/react-doctor@v2
         with:
-          # New errors fail the PR; warnings stay advisory. Loosen to `none`
-          # (report-only) if it blocks before the team is ready.
           blocking: error
