@@ -25,7 +25,7 @@ Issue these in a single message with multiple Bash tool calls in parallel:
 - `bun run check-format`
 - `bun run check-types`
 - `git diff --name-only origin/main...HEAD`
-- `npx react-doctor@latest --verbose --scope changed` — React-only scanner; reports just the issues this branch introduced. It reports clean when the diff has no React files, so run it unconditionally in the batch. New **errors** count as a gate FAIL; warnings are advisory (list them, don't block).
+- `bunx react-doctor@latest --verbose --scope changed` — React-only scanner; reports just the issues this branch introduced. It reports clean when the diff has no React files, so run it unconditionally in the batch. New **errors** count as a gate FAIL; warnings are advisory (list them, don't block).
 
 Capture each exit code and stdout/stderr.
 

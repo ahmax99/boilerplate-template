@@ -122,6 +122,8 @@
       "!**/.next/**",
       "!**/coverage/**",
       "!**/node_modules/**",
+      "!**/graphify-out/**",
+      "!**/generated/**",
       "!**/*.d.ts",
       "!**/tsconfig*.json",
       "!**/pnpm-lock.yaml",

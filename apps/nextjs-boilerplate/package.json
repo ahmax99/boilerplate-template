@@ -7,7 +7,7 @@
     "check-types": "tsc --noEmit",
     "dev": "next dev",
     "start": "bun --bun next start",
-    "doctor": "npx react-doctor@latest"
+    "doctor": "bunx react-doctor@latest"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.1075.0",

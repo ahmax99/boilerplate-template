@@ -3,11 +3,13 @@
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
+import { safeRelativePath } from '@/features/auth/utils/redirect'
+
 export const OAuth2Start = () => {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    const callbackUrl = searchParams.get('callbackUrl')
+    const callbackUrl = safeRelativePath(searchParams.get('callbackUrl'))
     const loginUrl = callbackUrl
       ? `/api/auth/login?callbackUrl=${encodeURIComponent(callbackUrl)}`
       : '/api/auth/login'
