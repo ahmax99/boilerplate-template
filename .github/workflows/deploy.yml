@@ -177,11 +177,11 @@ jobs:
       - name: Deploy backend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
-          function-name: ${{ vars.PROJECT_NAME }}-dev-backend
+          function-name: ${{ github.event.repository.name }}-dev-backend
           image-uri: ${{ needs.build-backend.outputs.image-uri }}
           alias-name: dev
-          codedeploy-app: ${{ vars.PROJECT_NAME }}-dev-backend
-          codedeploy-group: ${{ vars.PROJECT_NAME }}-dev-backend-dg
+          codedeploy-app: ${{ github.event.repository.name }}-dev-backend
+          codedeploy-group: ${{ github.event.repository.name }}-dev-backend-dg
           aws-region: ${{ env.AWS_REGION }}
           git-sha: ${{ github.sha }}
           release-tag: ${{ env.IMAGE_TAG }}
@@ -210,11 +210,11 @@ jobs:
       - name: Deploy frontend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
-          function-name: ${{ vars.PROJECT_NAME }}-dev-frontend
+          function-name: ${{ github.event.repository.name }}-dev-frontend
           image-uri: ${{ needs.build-frontend.outputs.image-uri }}
           alias-name: dev
-          codedeploy-app: ${{ vars.PROJECT_NAME }}-dev-frontend
-          codedeploy-group: ${{ vars.PROJECT_NAME }}-dev-frontend-dg
+          codedeploy-app: ${{ github.event.repository.name }}-dev-frontend
+          codedeploy-group: ${{ github.event.repository.name }}-dev-frontend-dg
           aws-region: ${{ env.AWS_REGION }}
           git-sha: ${{ github.sha }}
           release-tag: ${{ env.IMAGE_TAG }}
@@ -254,11 +254,11 @@ jobs:
       - name: Deploy backend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
-          function-name: ${{ vars.PROJECT_NAME }}-prod-backend
+          function-name: ${{ github.event.repository.name }}-prod-backend
           image-uri: ${{ needs.build-backend.outputs.image-uri }}
           alias-name: prod
-          codedeploy-app: ${{ vars.PROJECT_NAME }}-prod-backend
-          codedeploy-group: ${{ vars.PROJECT_NAME }}-prod-backend-dg
+          codedeploy-app: ${{ github.event.repository.name }}-prod-backend
+          codedeploy-group: ${{ github.event.repository.name }}-prod-backend-dg
           aws-region: ${{ env.AWS_REGION }}
           git-sha: ${{ github.sha }}
           release-tag: ${{ env.IMAGE_TAG }}
@@ -289,11 +289,11 @@ jobs:
       - name: Deploy frontend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
-          function-name: ${{ vars.PROJECT_NAME }}-prod-frontend
+          function-name: ${{ github.event.repository.name }}-prod-frontend
           image-uri: ${{ needs.build-frontend.outputs.image-uri }}
           alias-name: prod
-          codedeploy-app: ${{ vars.PROJECT_NAME }}-prod-frontend
-          codedeploy-group: ${{ vars.PROJECT_NAME }}-prod-frontend-dg
+          codedeploy-app: ${{ github.event.repository.name }}-prod-frontend
+          codedeploy-group: ${{ github.event.repository.name }}-prod-frontend-dg
           aws-region: ${{ env.AWS_REGION }}
           git-sha: ${{ github.sha }}
           release-tag: ${{ env.IMAGE_TAG }}
