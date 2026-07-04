@@ -5,7 +5,8 @@ import type { Button as ButtonPrimitive } from '@base-ui/react/button'
 import type { VariantProps } from 'class-variance-authority'
 import { toast } from 'sonner'
 
-import { Button, type buttonVariants } from '../atoms/Button'
+import { Button } from '../atoms/Button'
+import type { buttonVariants } from '../atoms/Button.variants'
 import {
   AlertDialog,
   AlertDialogAction,

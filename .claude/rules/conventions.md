@@ -46,5 +46,6 @@ Always use named exports, never default exports — except where Next.js require
 
 ## Error Handling
 
+- Prefer the shared `catchError` utils over hand-written `try/catch`: `catchAsyncError(promise)` for async work and `catchSyncError(() => …)` for synchronous calls that can throw (`new URL(...)`, `JSON.parse`, …). Both map the failure to an `AppError` and return a neverthrow `Result`/`ResultAsync`, so callers handle it as a value (`.match(...)`, `.unwrapOr(...)`). `catchAsyncError` also reports to Sentry — use it when a throw is genuinely exceptional; `catchSyncError` does not — use it for expected, recoverable failures (input validation, parsing untrusted data). Each app has its own copy: backend `src/error/utils/catchError.ts`, frontend `src/features/error/utils/catchError.ts`. Reserve raw `try/catch` for cases these helpers can't express.
 - Service methods wrap their async work in `catchAsyncError(...)` and return `ResultAsync<T, AppError>`; they never `throw` to the caller. Signal failures with `throw new AppError(code, msg)` **only inside** the wrapped body, using codes from `@shared/config` (`errorDefinition`).
 - Controllers wrap every service call in `handleApiError(...)`; the mounted `errorHandler` plugin converts the `AppError` into the HTTP response. No raw `try/catch` in controllers, and never leak internal stack traces.

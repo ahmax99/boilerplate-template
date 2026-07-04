@@ -66,7 +66,7 @@ These don't need a spec or plan — run them on whatever you've changed:
 - **`/pre-commit`** — fast gate before committing: Biome (lint + format) + types + a security eyeball. Also nudges toward a [Conventional Commits](https://www.conventionalcommits.org) message.
 - **`/db-check`** — reviews Prisma schema/migration changes for data loss,
   performance, compatibility, and authz/soft-delete risks. Run it whenever you touch `shared/neon/prisma/`.
-- **`/doctor`** — full React health triage via [react-doctor](https://github.com/millionco/react-doctor): scans for security, performance, correctness, and accessibility issues with a 0–100 score, then walks a scan → triage → fix → validate loop. The quick regression check (`npx react-doctor@latest --scope changed`) already runs inside `/implement`, `/pre-commit`, `/review`, and `/qa` for React-touching changes — and in CI on every PR, where new errors fail the build.
+- **`/doctor`** — full React health triage via [react-doctor](https://github.com/millionco/react-doctor): scans for security, performance, correctness, and accessibility issues with a 0–100 score, then walks a scan → triage → fix → validate loop. The quick regression check (`bunx react-doctor@latest --scope changed`) already runs inside `/implement`, `/pre-commit`, `/review`, and `/qa` for React-touching changes — and in CI on every PR, where new errors fail the build.
 
 ## Plugin skills that supercharge each phase
 

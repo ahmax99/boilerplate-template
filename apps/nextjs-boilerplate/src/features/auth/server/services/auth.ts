@@ -14,6 +14,7 @@ import {
   generatePKCE,
   generateState
 } from '../../utils/pkce'
+import { safeRelativePath } from '../../utils/redirect'
 import { createUser } from '../api'
 import { assignDefaultRoleGroup } from './role'
 import { destroySession, getSessionData, setSessionData } from './session'
@@ -57,7 +58,7 @@ export const handleLogin = async (callbackUrl?: string) => {
     codeVerifier,
     state,
     nonce,
-    callbackUrl: callbackUrl || PUBLIC_ROUTES.HOME
+    callbackUrl: safeRelativePath(callbackUrl) ?? PUBLIC_ROUTES.HOME
   })
 
   const config = await getOIDCClient()
@@ -146,14 +147,15 @@ export const handleCallback = async (
   })
   await clearPKCEData()
 
-  // idempotent - returns existing user if already created
-  await createUser(
-    { cognitoSub: claims.sub, email, name: claims.name as string },
-    idToken
-  )
-
-  // assign user to default "Users" group on first login
-  await assignDefaultRoleGroup(claims.sub)
+  await Promise.all([
+    // idempotent - returns existing user if already created
+    createUser(
+      { cognitoSub: claims.sub, email, name: claims.name as string },
+      idToken
+    ),
+    // assign user to default "Users" group on first login
+    assignDefaultRoleGroup(claims.sub)
+  ])
 
   log.info({ userId: claims.sub }, 'User authenticated successfully')
 

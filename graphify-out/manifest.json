@@ -365,8 +365,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/package.json": {
-    "mtime": 1783099848.2967312,
-    "ast_hash": "dfff46b8793e7182205f6076e493a0f6",
+    "mtime": 1783138316.9622042,
+    "ast_hash": "b6e418af0e7e5a48a8b5d6bdf7c41f8d",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/postcss.config.mjs": {
@@ -395,8 +395,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/(authorized)/layout.tsx": {
-    "mtime": 1783136138.8920615,
-    "ast_hash": "7827888f0a24bf034a082bb4b93ab859",
+    "mtime": 1783137771.2672396,
+    "ast_hash": "5d74f40c9823081e2e96b0af25058440",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/(authorized)/posts/create/loading.tsx": {
@@ -415,8 +415,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx": {
-    "mtime": 1783136143.6087184,
-    "ast_hash": "36d42a5555007d457bc037129ecd7c8b",
+    "mtime": 1783137771.2682397,
+    "ast_hash": "00fcf23e45c5307b9ef078e5eb166428",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/(public)/(main)/page.tsx": {
@@ -460,8 +460,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/account/route.ts": {
-    "mtime": 1783134473.563854,
-    "ast_hash": "eac994f203ae6d2b94e78991980845ce",
+    "mtime": 1783137771.2692385,
+    "ast_hash": "c61bdad9920cfde6d4f8da5110c16d99",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/auth/callback/route.ts": {
@@ -520,13 +520,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Button.tsx": {
-    "mtime": 1772905146.132224,
-    "ast_hash": "7225b3117e5d6259359b8e7528809b9a",
+    "mtime": 1783138731.2988577,
+    "ast_hash": "d3da42599c9af26afe2089a35396951b",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/ButtonLink.tsx": {
-    "mtime": 1780578676.634399,
-    "ast_hash": "5ef6de10ec26d88c5f76d05796e91374",
+    "mtime": 1783138744.331001,
+    "ast_hash": "51e5aebaf56a11b5323c84a65129eaa9",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Input.tsx": {
@@ -535,8 +535,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Label.tsx": {
-    "mtime": 1783136547.0550582,
-    "ast_hash": "7a40a2c44fec114a6f07a01d270c3662",
+    "mtime": 1783139177.922281,
+    "ast_hash": "8f82cdaea54363cf92a5b70068136dd7",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Separator.tsx": {
@@ -565,8 +565,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx": {
-    "mtime": 1783135274.134613,
-    "ast_hash": "417522e989ede6da61f0fe62a05a926c",
+    "mtime": 1783137771.2692385,
+    "ast_hash": "7c7f0ba1b883804b65344a3923ad83e6",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/common/HeroSection.tsx": {
@@ -580,8 +580,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/layout/PageHeader.tsx": {
-    "mtime": 1783135278.2302127,
-    "ast_hash": "1e3c345ec4838414fc337a3082154b6f",
+    "mtime": 1783137771.2707987,
+    "ast_hash": "637ee5d374ee8cc735fff1c8295da966",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/layout/PageTemplate.tsx": {
@@ -630,18 +630,18 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/ActionButton.tsx": {
-    "mtime": 1783135284.1927266,
-    "ast_hash": "d055bfc1dfc98f9411fbd943815226f4",
+    "mtime": 1783138745.8641412,
+    "ast_hash": "d49aaa7e990fdc4514ad0e865caa17a2",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/Field.tsx": {
-    "mtime": 1783134486.684548,
-    "ast_hash": "a50d2c4ae6c5a11425f10c8aff043209",
+    "mtime": 1783137771.272804,
+    "ast_hash": "58e4b66b7698de1f3a645d23f1bb6ba0",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/FormCard.tsx": {
-    "mtime": 1783135292.3674731,
-    "ast_hash": "447725d098bc5d4651711d368cf76494",
+    "mtime": 1783137771.272804,
+    "ast_hash": "68c9160bb1768b0796762592bedeeae4",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/FormField.tsx": {
@@ -670,13 +670,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/account/client/components/AccountForm.tsx": {
-    "mtime": 1783134848.7426472,
-    "ast_hash": "e5c8ce809be8f89b193830da1f59f611",
+    "mtime": 1783137771.2738085,
+    "ast_hash": "00606e7f51f3611af91e347fac3aad53",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/account/client/components/AccountManagement.tsx": {
-    "mtime": 1783135317.8529046,
-    "ast_hash": "5b58c8c8184fa6e2529b61d2f064a500",
+    "mtime": 1783137771.2748046,
+    "ast_hash": "75a44cc777a0f022535fc5596c076008",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/account/client/components/DeleteAccountButton.tsx": {
@@ -705,8 +705,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/components/AuthActionButton.tsx": {
-    "mtime": 1783134626.7078612,
-    "ast_hash": "d64f1e5c7497ff1b8134ebad56d8b7ff",
+    "mtime": 1783137771.275804,
+    "ast_hash": "2e4310f8a2de2308f3cf2dbcb3e4e8ce",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/components/OAuth2Callback.tsx": {
@@ -715,13 +715,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/components/OAuth2Start.tsx": {
-    "mtime": 1776432256.8081775,
-    "ast_hash": "5ece6f610e39512e3d4e45c4b34b8b73",
+    "mtime": 1783138983.3900836,
+    "ast_hash": "7b5ec0d3f151c20f85c143470d5b5d20",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/providers/PermissionProvider.tsx": {
-    "mtime": 1783136148.828778,
-    "ast_hash": "e7b40fffe1c39d2eb2aa2d7bd78512d4",
+    "mtime": 1783137771.276806,
+    "ast_hash": "fa4210d9ad9635d3103ff7d11c98e540",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/constants/cookie.ts": {
@@ -770,13 +770,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/server/services/auth.ts": {
-    "mtime": 1782999739.8931415,
-    "ast_hash": "0a078a7711baf490eeedacab3b623361",
+    "mtime": 1783139036.1031418,
+    "ast_hash": "c28713afc2d732cbbb909d49ad4ccf11",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/server/services/role.ts": {
-    "mtime": 1783134193.123168,
-    "ast_hash": "952e17c673e22cbe93a70cfea8290bd7",
+    "mtime": 1783137771.276806,
+    "ast_hash": "e8dfac0e9f56c682c0dfd7a0c7f46169",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/server/services/session.ts": {
@@ -885,8 +885,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/client/components/ContactForm.tsx": {
-    "mtime": 1783134897.1780608,
-    "ast_hash": "cda1e66ad278daf06f4ee71073551b1e",
+    "mtime": 1783137771.277807,
+    "ast_hash": "b14da4a48dfe2fdcc8de594f0cbb5f7d",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/client/hooks/useContactActions.ts": {
@@ -905,8 +905,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/server/api/sendContactEmail.ts": {
-    "mtime": 1783136133.7573004,
-    "ast_hash": "5cc514cde701351fbf4caf01bb225e4c",
+    "mtime": 1783137771.2788043,
+    "ast_hash": "bdfbf41f6b059b9099554d043d514086",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/server/components/ContactConfirmationEmail.tsx": {
@@ -950,8 +950,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/post/client/components/PostForm.tsx": {
-    "mtime": 1783134928.3789005,
-    "ast_hash": "da386cd41da3f1ea87781f3b56682aa1",
+    "mtime": 1783137771.2793152,
+    "ast_hash": "0b6ef87789e726158de2c3853224ca50",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/post/client/hooks/usePostActions.ts": {
@@ -975,13 +975,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/post/server/components/PostDetail.tsx": {
-    "mtime": 1783134557.4640033,
-    "ast_hash": "20b8d6804bcfd52a3ec2df812de37e43",
+    "mtime": 1783137771.2803159,
+    "ast_hash": "c2f5e53cf091cadb7fca6881a0e69635",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/post/server/components/PostsList.tsx": {
-    "mtime": 1783134552.2183118,
-    "ast_hash": "9e6d2e343f7e15a4654ab0c5d8c5b7cf",
+    "mtime": 1783137771.2803159,
+    "ast_hash": "304703b7a7566331e27ed931a74fa824",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/instrumentation-client.ts": {
@@ -1015,8 +1015,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/lib/sig4.ts": {
-    "mtime": 1783134467.9835708,
-    "ast_hash": "5fe65ffdf0ed2da63438d0a08feea5e1",
+    "mtime": 1783137771.281315,
+    "ast_hash": "bce87216b98025e9c14d3ef6dd71163a",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/proxy.ts": {
@@ -1040,8 +1040,8 @@
     "semantic_hash": ""
   },
   "biome.json": {
-    "mtime": 1783137386.469593,
-    "ast_hash": "f6626b8d0f322bb8f67f63c71dfd5e46",
+    "mtime": 1783137771.2823148,
+    "ast_hash": "435801b2db9706c48e30ac56c24c65a6",
     "semantic_hash": ""
   },
   "commitlint.config.js": {
@@ -1445,8 +1445,8 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1783133479.6719954,
-    "ast_hash": "26601477b704a183c8ee6d4e2792d101",
+    "mtime": 1783138025.6503527,
+    "ast_hash": "e64a5e2014428fb9baa10b84a028e7e2",
     "semantic_hash": ""
   },
   "README.md": {
@@ -1487,6 +1487,21 @@
   ".claude/skills/shadcn/assets/shadcn.png": {
     "mtime": 1783099824.2066743,
     "ast_hash": "cb56bf002d36bb860c3d320a23bd871a",
+    "semantic_hash": ""
+  },
+  "apps/nextjs-boilerplate/.claude/settings.local.json": {
+    "mtime": 1783138387.199429,
+    "ast_hash": "26a2c71f6477a94dd094af5056f20a46",
+    "semantic_hash": ""
+  },
+  "apps/nextjs-boilerplate/src/components/atoms/Button.variants.ts": {
+    "mtime": 1783138712.9655695,
+    "ast_hash": "d0fae05a6039e40b867156cb334d2c86",
+    "semantic_hash": ""
+  },
+  "apps/nextjs-boilerplate/src/features/auth/utils/redirect.ts": {
+    "mtime": 1783139130.348369,
+    "ast_hash": "b0bbd5871a201b112e0a542cad4a2eed",
     "semantic_hash": ""
   }
 }

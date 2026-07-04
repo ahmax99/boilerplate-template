@@ -21,7 +21,7 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 - `/pre-commit` — Quick quality gate: Biome (lint + format) + types + a security eyeball before committing.
 - `/design-review` — Design-quality review of UI changes: impeccable critique + audit driven through Playwright, reported as Blockers/High/Medium/Nitpicks. Complements `/qa` (which covers code correctness) for any UI-touching branch.
 - `/db-check` — Database migration safety: reviews Prisma schema changes for data loss, performance, compatibility, and authz/soft-delete risks.
-- `/doctor` — React health triage via the `react-doctor` skill (`.claude/skills/react-doctor/`): scans React code for security, performance, correctness, a11y, and architecture issues (0–100 score) and runs the canonical scan → triage → fix → validate loop. The quick form — `npx react-doctor@latest --verbose --scope changed` — is also a per-step gate in `/implement` and a Phase 1 gate in `/qa` + `/review` + `/pre-commit` for React-touching diffs. CI mirrors it in `react-doctor.yml` (new errors fail the PR).
+- `/doctor` — React health triage via the `react-doctor` skill (`.claude/skills/react-doctor/`): scans React code for security, performance, correctness, a11y, and architecture issues (0–100 score) and runs the canonical scan → triage → fix → validate loop. The quick form — `bunx react-doctor@latest --verbose --scope changed` — is also a per-step gate in `/implement` and a Phase 1 gate in `/qa` + `/review` + `/pre-commit` for React-touching diffs. CI mirrors it in `react-doctor.yml` (new errors fail the PR).
 
 ## Reviewer subagents (`.claude/agents/`)
 
