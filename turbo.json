@@ -1,5 +1,5 @@
 {
-  "$schema": "https://v2-9-18.turborepo.dev/schema.json",
+  "$schema": "https://v2-10.turborepo.dev/schema.json",
   "ui": "tui",
   "tasks": {
     "build": {
@@ -40,7 +40,8 @@
       "outputs": ["prisma/migrations/**"]
     },
     "db:deploy": {
-      "cache": false
+      "cache": false,
+      "env": ["DATABASE_URL"]
     }
   }
 }
