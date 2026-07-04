@@ -399,7 +399,7 @@ module "ecr_backend" {
   environment     = var.environment
   repository_name = "${local.name_prefix}-backend"
 
-  image_tag_mutability = "MUTABLE"
+  image_tag_mutability = "IMMUTABLE"
   scan_on_push         = true
 
   lifecycle_policy = {
@@ -422,7 +422,7 @@ module "ecr_frontend" {
   environment     = var.environment
   repository_name = "${local.name_prefix}-frontend"
 
-  image_tag_mutability = "MUTABLE"
+  image_tag_mutability = "IMMUTABLE"
   scan_on_push         = true
 
   lifecycle_policy = {

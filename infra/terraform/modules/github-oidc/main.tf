@@ -397,7 +397,46 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
       {
         Sid    = "S3InfraManagement"
         Effect = "Allow"
-        Action = ["s3:*"]
+        Action = [
+          "s3:CreateBucket",
+          "s3:DeleteBucket",
+          "s3:ListBucket",
+          "s3:ListBucketVersions",
+          "s3:GetBucketLocation",
+          "s3:GetBucketTagging",
+          "s3:PutBucketTagging",
+          "s3:GetBucketOwnershipControls",
+          "s3:PutBucketOwnershipControls",
+          "s3:GetBucketAcl",
+          "s3:PutBucketAcl",
+          "s3:GetBucketVersioning",
+          "s3:PutBucketVersioning",
+          "s3:GetEncryptionConfiguration",
+          "s3:PutEncryptionConfiguration",
+          "s3:GetBucketPublicAccessBlock",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:GetBucketCORS",
+          "s3:PutBucketCORS",
+          "s3:GetBucketPolicy",
+          "s3:PutBucketPolicy",
+          "s3:DeleteBucketPolicy",
+          "s3:GetBucketPolicyStatus",
+          "s3:GetBucketLogging",
+          "s3:PutBucketLogging",
+          "s3:GetLifecycleConfiguration",
+          "s3:PutLifecycleConfiguration",
+          "s3:GetBucketWebsite",
+          "s3:GetBucketNotification",
+          "s3:GetBucketRequestPayment",
+          "s3:GetReplicationConfiguration",
+          "s3:GetAccelerateConfiguration",
+          "s3:GetBucketObjectLockConfiguration",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:GetObjectVersion",
+          "s3:DeleteObjectVersion"
+        ]
         Resource = [
           "arn:aws:s3:::${var.project_name}-${var.environment}-*",
           "arn:aws:s3:::${var.project_name}-${var.environment}-*/*"
