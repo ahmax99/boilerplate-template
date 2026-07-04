@@ -1,7 +1,7 @@
 # Graph Report - boilerplate-template  (2026-07-04)
 
 ## Corpus Check
-- 296 files · ~34,538 words
+- 296 files · ~34,625 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b690f36d`
+- Built from commit: `ac4746c1`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -30,6 +30,7 @@
 - [[_COMMUNITY_scripts|scripts]]
 - [[_COMMUNITY_Boilerplate Template|Boilerplate Template]]
 - [[_COMMUNITY_post.model.ts|post.model.ts]]
+- [[_COMMUNITY_organizeImports|organizeImports]]
 - [[_COMMUNITY_compilerOptions|compilerOptions]]
 - [[_COMMUNITY_useAccountActions.ts|useAccountActions.ts]]
 - [[_COMMUNITY_package.json|package.json]]
@@ -53,7 +54,6 @@
 - [[_COMMUNITY_page.tsx|page.tsx]]
 - [[_COMMUNITY_page.tsx|page.tsx]]
 - [[_COMMUNITY_javascript|javascript]]
-- [[_COMMUNITY_organizeImports|organizeImports]]
 - [[_COMMUNITY_vcs|vcs]]
 - [[_COMMUNITY_protect-env.sh|protect-env.sh]]
 - [[_COMMUNITY_session-start.sh|session-start.sh]]
@@ -170,6 +170,10 @@ Nodes (27): AI-Driven Development, Apps (`apps/`), Authorization & Storage, Back
 Cohesion: 0.07
 Nodes (21): ErrorCode, ErrorDefinition, Comment, CommentIdParams, CommentModel, CreateCommentBody, EmailModel, EmailUser (+13 more)
 
+### Community 15 - "organizeImports"
+Cohesion: 0.50
+Nodes (4): groups, level, options, organizeImports
+
 ### Community 16 - "compilerOptions"
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowSyntheticDefaultImports, declaration, declarationMap, esModuleInterop, incremental, isolatedModules, lib (+9 more)
@@ -208,7 +212,7 @@ Nodes (10): arrowParentheses, attributePosition, bracketSameLine, bracketSpacing
 
 ### Community 29 - "assist"
 Cohesion: 0.22
-Nodes (9): source, assist, actions, enabled, includes, groups, level, options (+1 more)
+Nodes (9): source, assist, actions, enabled, includes, sortOrder, useSortedAttributes, level (+1 more)
 
 ### Community 30 - "compilerOptions"
 Cohesion: 0.22
@@ -253,10 +257,6 @@ Nodes (4): name, publishConfig, access, version
 ### Community 43 - "javascript"
 Cohesion: 0.50
 Nodes (4): javascript, globals, parser, unsafeParameterDecoratorsEnabled
-
-### Community 44 - "organizeImports"
-Cohesion: 0.50
-Nodes (4): sortOrder, useSortedAttributes, level, options
 
 ### Community 45 - "vcs"
 Cohesion: 0.50

@@ -7764,7 +7764,7 @@
       "source_location": "L222",
       "_origin": "ast",
       "id": "biome_source_organizeimports",
-      "community": 29,
+      "community": 15,
       "norm_label": "organizeimports"
     },
     {
@@ -7774,7 +7774,7 @@
       "source_location": "L223",
       "_origin": "ast",
       "id": "biome_organizeimports_level",
-      "community": 29,
+      "community": 15,
       "norm_label": "level"
     },
     {
@@ -7784,7 +7784,7 @@
       "source_location": "L224",
       "_origin": "ast",
       "id": "biome_organizeimports_options",
-      "community": 29,
+      "community": 15,
       "norm_label": "options"
     },
     {
@@ -7794,7 +7794,7 @@
       "source_location": "L225",
       "_origin": "ast",
       "id": "biome_options_groups",
-      "community": 29,
+      "community": 15,
       "norm_label": "groups"
     },
     {
@@ -7804,7 +7804,7 @@
       "source_location": "L239",
       "_origin": "ast",
       "id": "biome_source_usesortedattributes",
-      "community": 44,
+      "community": 29,
       "norm_label": "usesortedattributes"
     },
     {
@@ -7814,7 +7814,7 @@
       "source_location": "L240",
       "_origin": "ast",
       "id": "biome_usesortedattributes_level",
-      "community": 44,
+      "community": 29,
       "norm_label": "level"
     },
     {
@@ -7824,7 +7824,7 @@
       "source_location": "L241",
       "_origin": "ast",
       "id": "biome_usesortedattributes_options",
-      "community": 44,
+      "community": 29,
       "norm_label": "options"
     },
     {
@@ -7834,7 +7834,7 @@
       "source_location": "L242",
       "_origin": "ast",
       "id": "biome_options_sortorder",
-      "community": 44,
+      "community": 29,
       "norm_label": "sortorder"
     },
     {
@@ -9878,14 +9878,14 @@
       "norm_label": "cache"
     },
     {
-      "label": "persistent",
+      "label": "env",
       "file_type": "code",
       "source_file": "turbo.json",
       "source_location": "L44",
       "_origin": "ast",
-      "id": "turbo_db_deploy_persistent",
+      "id": "turbo_db_deploy_env",
       "community": 7,
-      "norm_label": "persistent"
+      "norm_label": "env"
     },
     {
       "label": "CHANGELOG.md",
@@ -9951,7 +9951,7 @@
       "label": "Rules",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L39",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "claude_rules",
       "community": 34,
@@ -9961,7 +9961,7 @@
       "label": "Codebase graph",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L54",
+      "source_location": "L55",
       "_origin": "ast",
       "id": "claude_codebase_graph",
       "community": 34,
@@ -9971,7 +9971,7 @@
       "label": "Context management",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L66",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "claude_context_management",
       "community": 34,
@@ -27425,7 +27425,7 @@
       "source_location": "L44",
       "weight": 1.0,
       "source": "turbo_tasks_db_deploy",
-      "target": "turbo_db_deploy_persistent",
+      "target": "turbo_db_deploy_env",
       "confidence_score": 1.0
     },
     {
@@ -27452,7 +27452,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L54",
+      "source_location": "L55",
       "weight": 1.0,
       "source": "claude_claude_md",
       "target": "claude_codebase_graph",
@@ -27472,7 +27472,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L66",
+      "source_location": "L67",
       "weight": 1.0,
       "source": "claude_claude_md",
       "target": "claude_context_management",
@@ -27482,7 +27482,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0,
       "source": "claude_claude_md",
       "target": "claude_rules",
@@ -27770,5 +27770,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "b690f36d0d0bd83f466d4566436c3ec39f0b6722"
+  "built_at_commit": "ac4746c1429b5fab74d561979cd41c5bf6b7121a"
 }
