@@ -220,7 +220,7 @@ resource "aws_s3_bucket_policy" "static_assets" {
 
 # -------------------
 # Terraform Plan Role (read-only, used by PR plan workflow)
-# Trust: pull_request OIDC sub claim only
+# Trust: pull_request sub, plus the environment:<env> sub since the plan job
 # -------------------
 resource "aws_iam_role" "terraform_plan" {
   count = var.enable_terraform_roles ? 1 : 0
@@ -240,7 +240,10 @@ resource "aws_iam_role" "terraform_plan" {
         Condition = {
           StringEquals = {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
-            "token.actions.githubusercontent.com:sub" = "repo:${var.github_org}/${var.project_name}:pull_request"
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:${var.github_org}/${var.project_name}:pull_request",
+              "repo:${var.github_org}/${var.project_name}:environment:${var.environment}"
+            ]
           }
         }
       }
