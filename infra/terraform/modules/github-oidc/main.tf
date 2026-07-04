@@ -257,7 +257,7 @@ resource "aws_iam_policy" "terraform_plan_state" {
   count = var.enable_terraform_roles ? 1 : 0
 
   name        = "${var.role_name}-terraform-plan-state"
-  description = "S3 state bucket read access for terraform plan role"
+  description = "S3 state read + lock access for terraform plan role"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -275,6 +275,16 @@ resource "aws_iam_policy" "terraform_plan_state" {
           var.state_bucket_arn,
           "${var.state_bucket_arn}/${var.environment}/*"
         ]
+      },
+      {
+        Sid    = "TerraformStateLock"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = "${var.state_bucket_arn}/${var.environment}/*.tflock"
       }
     ]
   })
