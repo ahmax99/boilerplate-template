@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   group: terraform-apply-${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}
-  cancel-in-progress: false  # NEVER cancel a mid-apply — partial state is worse than waiting
+  cancel-in-progress: false
 
 jobs:
   apply-dev:
@@ -27,7 +27,7 @@ jobs:
     env:
       TF_IN_AUTOMATION: "true"
       AWS_REGION: ${{ vars.AWS_REGION }}
-      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
+      TF_VAR_project_name: ${{ github.event.repository.name }}
       TF_VAR_environment: dev
       TF_VAR_aws_region: ${{ vars.AWS_REGION }}
       TF_VAR_domain_name: ${{ vars.TF_VAR_domain_name }}
@@ -63,7 +63,7 @@ jobs:
         uses: ./.github/actions/terraform-apply-env
         with:
           environment: dev
-          project-name: ${{ vars.PROJECT_NAME }}
+          project-name: ${{ github.event.repository.name }}
           aws-region: ${{ env.AWS_REGION }}
           next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
           next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
@@ -79,7 +79,7 @@ jobs:
     env:
       TF_IN_AUTOMATION: "true"
       AWS_REGION: ${{ vars.AWS_REGION }}
-      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
+      TF_VAR_project_name: ${{ github.event.repository.name }}
       TF_VAR_environment: prod
       TF_VAR_aws_region: ${{ vars.AWS_REGION }}
       TF_VAR_domain_name: ${{ vars.TF_VAR_domain_name }}
@@ -114,7 +114,7 @@ jobs:
         uses: ./.github/actions/terraform-apply-env
         with:
           environment: prod
-          project-name: ${{ vars.PROJECT_NAME }}
+          project-name: ${{ github.event.repository.name }}
           aws-region: ${{ env.AWS_REGION }}
           next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
           next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}

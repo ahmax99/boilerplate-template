@@ -24,7 +24,7 @@ jobs:
     env:
       TF_IN_AUTOMATION: "true"
       AWS_REGION: ${{ vars.AWS_REGION }}
-      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
+      TF_VAR_project_name: ${{ github.event.repository.name }}
       TF_VAR_environment: dev
       TF_VAR_aws_region: ${{ vars.AWS_REGION }}
       TF_VAR_domain_name: ${{ vars.TF_VAR_domain_name }}
