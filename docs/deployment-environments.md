@@ -42,8 +42,6 @@ Set these under each environment in **Settings → Environments → \<name\> →
 | `ECR_BACKEND_REPOSITORY_URL` | variable | `<account-id>.dkr.ecr.ap-northeast-1.amazonaws.com/boilerplate-template-dev-backend` | ECR repos are owned by the dev Terraform state and shared between environments |
 | `ECR_FRONTEND_REPOSITORY_URL` | variable | `<account-id>.dkr.ecr.ap-northeast-1.amazonaws.com/boilerplate-template-dev-frontend` | Same shared ECR |
 
-> **Note:** `project_name` is no longer a GitHub variable — the deploy and Terraform workflows derive it from `${{ github.event.repository.name }}` (the repo name). It backs resource names (ECR repos, Lambda functions, CodeDeploy apps, S3 buckets), so renaming the GitHub repo will change those names on the next apply.
-
 ### Per-environment values
 
 | Name | Type | `dev` value | `prod` value | Notes |
