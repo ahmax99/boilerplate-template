@@ -42,6 +42,14 @@ Always use named exports, never default exports — except where Next.js require
 - Feature-specific components go in `features/<name>/client/components/` (client) or `features/<name>/server/components/` (server); never in `src/components/`.
 - Server components (`features/<name>/server/components/`) must have no `'use client'`, no React hooks, and no browser APIs.
 
+## Rendering (nextjs-boilerplate)
+
+Cache Components is enabled (`cacheComponents: true` in `next.config.ts`). It replaces the old route-segment config for controlling rendering.
+
+- **Never use `export const dynamic = 'force-dynamic'`** (nor the sibling segment configs `revalidate`, `fetchCache`, `dynamicParams` used for the same purpose). Under Cache Components these are the wrong tool — dynamic-ness is driven by *accessing request data*, not by a segment flag.
+- To opt a Server Component into dynamic rendering, access request data at the top of the component **before** any non-deterministic call: `await connection()`, `cookies()`, `headers()`, or `await params` / `searchParams`. This access must precede any `Date.now()`, `Math.random()`, or uncached `fetch()` in that render, or the production build fails to prerender (`used Date.now() before accessing … Request data`). See `app/(public)/(main)/posts/page.tsx` calling `await connection()` before `fetchAllPosts()`.
+- Wrap genuinely cacheable work in `'use cache'` rather than forcing the whole route dynamic.
+
 ## Error Handling
 
 The pipeline itself (`catchAsyncError` → `ResultAsync<T, AppError>` → `handleApiError` → `errorHandler`, error codes from `@shared/config`) is described in `architecture.md`. Conventions on top of it:

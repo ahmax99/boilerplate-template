@@ -1,8 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { fetchImage } from '@/features/media/server/api'
+import { withRequestLogging } from '@/lib/requestLogging'
 
-export async function GET(request: NextRequest) {
+export const GET = withRequestLogging(async (request: NextRequest) => {
   const imagePath = request.nextUrl.searchParams.get('path')
 
   if (!imagePath) return new NextResponse(null, { status: 400 })
@@ -16,4 +17,4 @@ export async function GET(request: NextRequest) {
       'Cache-Control': 'public, max-age=31536000, immutable'
     }
   })
-}
+})

@@ -3,8 +3,10 @@ import 'server-only'
 import ky from 'ky'
 
 import { env } from '@/config/env'
+import { logger } from '@/config/logger'
 import { getTokens } from '@/features/auth/server/services/token'
 import { AppError } from '@/features/error/lib/AppError'
+import { logAfterResponse, logBeforeRequest } from '@/lib/requestLogging'
 
 import { signingHook } from './sig4'
 
@@ -15,6 +17,8 @@ import { signingHook } from './sig4'
 export const ID_TOKEN_HEADER = 'X-Id-Token'
 
 const isProduction = env.NODE_ENV === 'production'
+
+const log = logger.child({ module: 'backend-client' })
 
 const baseConfig = {
   prefix: env.BACKEND_INTERNAL_URL,
@@ -32,7 +36,11 @@ const baseConfig = {
 export const serverApiClient = ky.create({
   ...baseConfig,
   hooks: {
-    beforeRequest: isProduction ? [signingHook] : []
+    beforeRequest: [
+      logBeforeRequest(log),
+      ...(isProduction ? [signingHook] : [])
+    ],
+    afterResponse: [logAfterResponse(log)]
   }
 })
 
@@ -51,9 +59,11 @@ export const serverAuthApiClient = ky.create({
 
         request.headers.set(ID_TOKEN_HEADER, idToken)
       },
+      logBeforeRequest(log),
       ...(isProduction ? [signingHook] : [])
     ],
     afterResponse: [
+      logAfterResponse(log),
       ({ response }) => {
         if (response.status === 401) throw new AppError('UNAUTHORIZED')
       }

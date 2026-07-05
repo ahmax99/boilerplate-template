@@ -13,5 +13,22 @@ export const logger = pino({
         translateTime: 'SYS:HH:MM:ss'
       }
     }
-  })
+  }),
+  redact: {
+    paths: [
+      'req.headers.authorization',
+      'req.headers.cookie',
+      'req.headers["x-id-token"]',
+      '*.password',
+      '*.token',
+      '*.secret',
+      '*.idToken',
+      '*.accessToken',
+      '*.refreshToken',
+      '*.id_token',
+      '*.access_token',
+      '*.refresh_token'
+    ],
+    censor: '[REDACTED]'
+  }
 })

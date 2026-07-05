@@ -3,8 +3,9 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { env } from '@/config/env'
 import type { CallbackParams } from '@/features/auth/schemas/auth.schema'
 import { handleCallback } from '@/features/auth/server/services/auth'
+import { withRequestLogging } from '@/lib/requestLogging'
 
-export const GET = async (request: NextRequest) => {
+export const GET = withRequestLogging(async (request: NextRequest) => {
   const params = Object.fromEntries(
     request.nextUrl.searchParams
   ) as CallbackParams
@@ -18,4 +19,4 @@ export const GET = async (request: NextRequest) => {
   const { redirectUrl } = await handleCallback(publicUrl, params)
 
   return NextResponse.redirect(new URL(redirectUrl, env.NEXT_PUBLIC_BASE_URL))
-}
+})

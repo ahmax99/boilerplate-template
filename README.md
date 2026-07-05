@@ -167,7 +167,7 @@ Type checking, Biome formatting/linting, package-version syncing and update chec
 Each package requiring environment variables includes an `.env.example` file:
 
 - **`shared/neon`** - Requires `DATABASE_URL` for Neon PostgreSQL
-- **`apps/backend-boilerplate`** - See app-specific `.env.example` for full configuration
+- **`apps/backend-boilerplate`** and **`apps/nextjs-boilerplate`** - See app-specific `.env.example` for full configuration
 
 Copy `.env.example` to `.env` in each package and fill in your credentials.
 

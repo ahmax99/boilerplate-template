@@ -35,9 +35,9 @@ export const loggerPlugin = () =>
         (ctx.path === '/' || ctx.path === '/health')
     },
     customProps: (ctx) => {
-      if ('user' in ctx && ctx.user) {
+      if ('user' in ctx && ctx.user)
         return { userId: (ctx.user as { cognitoSub?: string }).cognitoSub }
-      }
+
       return {}
     }
   })
