@@ -1,16 +1,16 @@
 # Graph Report - boilerplate-template  (2026-07-05)
 
 ## Corpus Check
-- 291 files · ~34,773 words
+- 292 files · ~35,150 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1018 nodes · 1688 edges · 71 communities (51 shown, 20 thin omitted)
+- 1025 nodes · 1711 edges · 73 communities (53 shown, 20 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 6 edges (avg confidence: 0.75)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `7980e7e2`
+- Built from commit: `a1dca22b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -57,7 +57,9 @@
 - [[_COMMUNITY_scripts|scripts]]
 - [[_COMMUNITY_package.json|package.json]]
 - [[_COMMUNITY_page.tsx|page.tsx]]
+- [[_COMMUNITY_generatePageMetadata.ts|generatePageMetadata.ts]]
 - [[_COMMUNITY_javascript|javascript]]
+- [[_COMMUNITY_page.tsx|page.tsx]]
 - [[_COMMUNITY_vcs|vcs]]
 - [[_COMMUNITY_protect-env.sh|protect-env.sh]]
 - [[_COMMUNITY_session-start.sh|session-start.sh]]
@@ -82,7 +84,7 @@
 - [[_COMMUNITY_terraform-ecr-check.sh|terraform-ecr-check.sh]]
 - [[_COMMUNITY_terraform-plan-comment.sh|terraform-plan-comment.sh]]
 - [[_COMMUNITY_PostForm.tsx|PostForm.tsx]]
-- [[_COMMUNITY_AccountForm.tsx|AccountForm.tsx]]
+- [[_COMMUNITY_compilerOptions|compilerOptions]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 53 edges
@@ -90,10 +92,10 @@
 3. `correctness` - 29 edges
 4. `env` - 20 edges
 5. `compilerOptions` - 16 edges
-6. `getMe()` - 14 edges
-7. `scripts` - 14 edges
-8. `formatter` - 13 edges
-9. `handleCallback()` - 12 edges
+6. `scripts` - 14 edges
+7. `formatter` - 13 edges
+8. `getMe()` - 12 edges
+9. `withRequestLogging()` - 12 edges
 10. `PUBLIC_ROUTES` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -101,7 +103,7 @@
   apps/nextjs-boilerplate/src/app/layout.tsx → apps/nextjs-boilerplate/src/utils/mergeClass.ts
 - `FieldInput()` --calls--> `register()`  [INFERRED]
   apps/nextjs-boilerplate/src/features/account/client/components/AccountForm.tsx → apps/nextjs-boilerplate/src/instrumentation.ts
-- `catchSyncError()` --indirect_call--> `mapToAppError()`  [INFERRED]
+- `catchAsyncError()` --indirect_call--> `mapToAppError()`  [INFERRED]
   apps/nextjs-boilerplate/src/features/error/utils/catchError.ts → apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts
 - `FieldInput()` --calls--> `register()`  [INFERRED]
   apps/nextjs-boilerplate/src/features/mailing/client/components/ContactForm.tsx → apps/nextjs-boilerplate/src/instrumentation.ts
@@ -114,11 +116,11 @@
 - 1-file cycle: `apps/nextjs-boilerplate/src/components/molecules/Avatar.tsx -> apps/nextjs-boilerplate/src/components/molecules/Avatar.tsx`
 - 1-file cycle: `apps/nextjs-boilerplate/src/components/molecules/Tabs.tsx -> apps/nextjs-boilerplate/src/components/molecules/Tabs.tsx`
 
-## Communities (71 total, 20 thin omitted)
+## Communities (73 total, 20 thin omitted)
 
 ### Community 0 - "auth.ts"
-Cohesion: 0.05
-Nodes (52): GET(), GET(), GET(), GET(), geistMono, geistSans, RootLayout(), env (+44 more)
+Cohesion: 0.17
+Nodes (10): env, FieldInput(), COOKIE_OPTIONS, SESSION_CONFIG, FieldInput(), FieldInput(), register(), cognitoClient (+2 more)
 
 ### Community 1 - "errorHandler.ts"
 Cohesion: 0.07
@@ -126,7 +128,7 @@ Nodes (38): env, logger, loggerPlugin(), AppError, errorHandler, captureError(),
 
 ### Community 2 - "cn"
 Cohesion: 0.07
-Nodes (43): Button(), buttonVariants, ButtonLink(), Input(), Label(), Separator(), Skeleton(), Spinner() (+35 more)
+Nodes (40): Button(), buttonVariants, ButtonLink(), Separator(), Skeleton(), Spinner(), AlertDialog(), AlertDialogAction() (+32 more)
 
 ### Community 3 - "page.tsx"
 Cohesion: 0.50
@@ -137,16 +139,16 @@ Cohesion: 0.04
 Nodes (47): noAdjacentSpacesInRegex, noExtraBooleanCast, noUselessCatch, noUselessEscapeInRegex, noUselessTypeConstraint, noChildrenProp, noConstantCondition, noConstAssign (+39 more)
 
 ### Community 5 - "page.tsx"
-Cohesion: 0.12
-Nodes (19): DELETE(), GET(), POST(), GET(), GET(), GET(), POST(), metadata (+11 more)
+Cohesion: 0.22
+Nodes (9): GET, GET, POST, metadata, PostsListPage(), createPostServer(), fetchAllPosts(), fetchPreSignedUrl() (+1 more)
 
 ### Community 6 - "ContactForm.tsx"
-Cohesion: 0.08
-Nodes (29): GlobalErrorProps, FormCard(), ERROR_DISPLAY, handleClientAuthError(), handleClientError(), ErrorStore, useErrorStore, AppError (+21 more)
+Cohesion: 0.05
+Nodes (49): metadata, Input(), Textarea(), FormCard(), deleteUser(), fetchProfileImage(), updateUser(), uploadProfileImage() (+41 more)
 
 ### Community 7 - "devDependencies"
-Cohesion: 0.06
-Nodes (35): devDependencies, @biomejs/biome, @commitlint/cli, @commitlint/config-conventional, lefthook, turbo, typescript, cache (+27 more)
+Cohesion: 0.08
+Nodes (26): cache, dependsOn, env, inputs, outputs, dependsOn, cache, env (+18 more)
 
 ### Community 8 - "dependencies"
 Cohesion: 0.06
@@ -165,8 +167,8 @@ Cohesion: 0.07
 Nodes (30): dependencies, aws4fetch, @aws-sdk/client-cognito-identity-provider, @base-ui/react, @casl/ability, @casl/react, class-variance-authority, clsx (+22 more)
 
 ### Community 12 - "scripts"
-Cohesion: 0.08
-Nodes (25): engines, node, name, overrides, picomatch, packageManager, repository, type (+17 more)
+Cohesion: 0.06
+Nodes (34): devDependencies, @biomejs/biome, @commitlint/cli, @commitlint/config-conventional, lefthook, turbo, typescript, engines (+26 more)
 
 ### Community 13 - "Boilerplate Template"
 Cohesion: 0.07
@@ -178,35 +180,35 @@ Nodes (21): ErrorCode, ErrorDefinition, Comment, CommentIdParams, CommentModel, 
 
 ### Community 15 - "organizeImports"
 Cohesion: 0.06
-Nodes (41): GET(), DELETE(), PUT(), EditAccountPage(), metadata, AccountPage(), metadata, AuthorizedLayoutContent() (+33 more)
+Nodes (52): GET, GET, EditAccountPage(), metadata, AccountPage(), metadata, AuthorizedLayoutContent(), CreatePostPage() (+44 more)
 
 ### Community 16 - "compilerOptions"
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowSyntheticDefaultImports, declaration, declarationMap, esModuleInterop, incremental, isolatedModules, lib (+9 more)
 
 ### Community 17 - "useAccountActions.ts"
-Cohesion: 0.23
-Nodes (11): dedupeErrorMessages(), Field(), FieldContent(), FieldError(), FieldErrorItem, FieldLabel(), FieldTitle(), fieldVariants (+3 more)
+Cohesion: 0.13
+Nodes (12): GlobalErrorProps, OAuth2Start(), safeRelativePath(), mapToAppError(), stringifyUnknownError(), captureError(), catchSyncError(), EmailModel (+4 more)
 
 ### Community 18 - "package.json"
 Cohesion: 0.12
 Nodes (15): dependencies, zod, devDependencies, @shared/typescript-config, @types/node, typescript, main, name (+7 more)
 
 ### Community 19 - "organizeImports"
-Cohesion: 0.27
-Nodes (8): FieldConfig, PostForm(), PostFormConfig, PostFormProps, PostFormSchema, usePostActions(), CreatePostSchema, PostFormModel
+Cohesion: 0.16
+Nodes (11): GET, logger, fetchImage(), log, logAfterResponse(), logBeforeRequest(), RouteHandler, baseConfig (+3 more)
 
 ### Community 20 - "devDependencies"
-Cohesion: 0.15
-Nodes (13): devDependencies, babel-plugin-react-compiler, pino-pretty, postcss, react-doctor, shadcn, @shared/typescript-config, tailwindcss (+5 more)
+Cohesion: 0.17
+Nodes (12): devDependencies, babel-plugin-react-compiler, pino-pretty, postcss, shadcn, @shared/typescript-config, tailwindcss, @tailwindcss/postcss (+4 more)
 
 ### Community 21 - "scratch-graph-test.ts"
-Cohesion: 0.29
-Nodes (4): ActionButton(), ActionResult, AuthActionButton(), AuthActionButtonProps
+Cohesion: 0.23
+Nodes (8): GET, DELETE, PUT, GET, deleteUser(), fetchPresignedUrl(), updateUser(), withRequestLogging()
 
 ### Community 22 - "index.ts"
-Cohesion: 0.43
-Nodes (3): createPostClient(), uploadImage(), apiClient
+Cohesion: 0.31
+Nodes (8): GET, generateMetadata(), PostDetailPage(), PostDetailPageProps, fetchAllComments(), generatePageMetadata(), fetchPostImage(), fetchPost()
 
 ### Community 23 - "biome.json"
 Cohesion: 0.18
@@ -229,8 +231,8 @@ Cohesion: 0.20
 Nodes (10): arrowParentheses, attributePosition, bracketSameLine, bracketSpacing, jsxQuoteStyle, quoteProperties, quoteStyle, semicolons (+2 more)
 
 ### Community 28 - "style"
-Cohesion: 0.50
-Nodes (3): CommentSection(), PostDetail(), PostDetailProps
+Cohesion: 0.28
+Nodes (6): DELETE, GET, POST, createComment(), deleteComment(), serverAuthApiClient
 
 ### Community 29 - "assist"
 Cohesion: 0.22
@@ -280,9 +282,17 @@ Nodes (6): scripts, build, check-types, dev, doctor, start
 Cohesion: 0.40
 Nodes (4): name, publishConfig, access, version
 
+### Community 42 - "generatePageMetadata.ts"
+Cohesion: 0.32
+Nodes (5): geistMono, geistSans, RootLayout(), METADATA, GeneratePageMetadataProps
+
 ### Community 43 - "javascript"
 Cohesion: 0.50
 Nodes (4): javascript, globals, parser, unsafeParameterDecoratorsEnabled
+
+### Community 44 - "page.tsx"
+Cohesion: 0.33
+Nodes (3): metadata, FeatureSection(), HeroSection()
 
 ### Community 45 - "vcs"
 Cohesion: 0.50
@@ -301,32 +311,32 @@ Cohesion: 0.67
 Nodes (3): linter, enabled, includes
 
 ### Community 71 - "PostForm.tsx"
-Cohesion: 0.22
-Nodes (12): createComment(), deleteComment(), CommentFieldConfig, CommentForm(), CommentFormConfig, CommentFormProps, DeleteCommentButton(), DeleteCommentButtonProps (+4 more)
+Cohesion: 0.10
+Nodes (26): Label(), ActionButton(), dedupeErrorMessages(), Field(), FieldContent(), FieldError(), FieldErrorItem, FieldLabel() (+18 more)
 
-### Community 74 - "AccountForm.tsx"
-Cohesion: 0.21
-Nodes (12): deleteUser(), updateUser(), uploadProfileImage(), AccountForm(), AccountFormConfig, AccountFormProps, FieldConfig, DeleteAccountButton() (+4 more)
+### Community 72 - "compilerOptions"
+Cohesion: 0.50
+Nodes (4): compilerOptions, allowJs, jsx, noEmit
 
 ## Knowledge Gaps
-- **463 isolated node(s):** `auto-format.sh script`, `paths`, `protect-bash.sh script`, `stop-typecheck.sh script`, `$schema` (+458 more)
+- **479 isolated node(s):** `auto-format.sh script`, `paths`, `protect-bash.sh script`, `stop-typecheck.sh script`, `$schema` (+474 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `cn` to `auth.ts`, `useAccountActions.ts`, `organizeImports`?**
+- **Why does `cn()` connect `cn` to `generatePageMetadata.ts`, `organizeImports`, `ContactForm.tsx`, `PostForm.tsx`?**
   _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Why does `rules` connect `correctness` to `suspicious`, `linter`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **Why does `env` connect `auth.ts` to `AccountForm.tsx`, `index.ts`, `ContactForm.tsx`, `PostForm.tsx`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
+- **Why does `env` connect `auth.ts` to `cn`, `ContactForm.tsx`, `generatePageMetadata.ts`, `organizeImports`, `useAccountActions.ts`, `organizeImports`?**
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **What connects `auto-format.sh script`, `paths`, `protect-bash.sh script` to the rest of the system?**
-  _463 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `auth.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.05030864197530864 - nodes in this community are weakly interconnected._
+  _479 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `errorHandler.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.07191780821917808 - nodes in this community are weakly interconnected._
 - **Should `cn` be split into smaller, more focused modules?**
-  _Cohesion score 0.06783511846802986 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07177033492822966 - nodes in this community are weakly interconnected._
+- **Should `correctness` be split into smaller, more focused modules?**
+  _Cohesion score 0.0425531914893617 - nodes in this community are weakly interconnected._

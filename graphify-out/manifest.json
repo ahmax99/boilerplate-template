@@ -40,7 +40,7 @@
     "semantic_hash": ""
   },
   ".claude/settings.json": {
-    "mtime": 1783177829.0475922,
+    "mtime": 1783222056.6175787,
     "ast_hash": "25c955016674ff8104ebc51318a04912",
     "semantic_hash": ""
   },
@@ -50,8 +50,8 @@
     "semantic_hash": ""
   },
   ".github/scripts/build-and-push.sh": {
-    "mtime": 1781433958.1023483,
-    "ast_hash": "5e57260f1253162b871c1bab81badcd4",
+    "mtime": 1783178254.5420387,
+    "ast_hash": "84f62828db424b48c4dc725aee444f5d",
     "semantic_hash": ""
   },
   ".github/scripts/deploy-lambda.sh": {
@@ -70,22 +70,22 @@
     "semantic_hash": ""
   },
   ".github/scripts/terraform-bootstrap.sh": {
-    "mtime": 1781440291.9992473,
-    "ast_hash": "1343ed4f42dbe7aab43bec4f8740ece1",
+    "mtime": 1783178254.5425549,
+    "ast_hash": "f154725f8b911218ad3beb641a73d3a0",
     "semantic_hash": ""
   },
   ".github/scripts/terraform-ecr-check.sh": {
-    "mtime": 1781440002.0191102,
-    "ast_hash": "1b243b75f6c3eddc1bdbc301fa8d0512",
+    "mtime": 1783178254.5425549,
+    "ast_hash": "66247bd5973879621f73bc16897aa8e4",
     "semantic_hash": ""
   },
   ".github/scripts/terraform-plan-comment.sh": {
-    "mtime": 1781439268.0780692,
-    "ast_hash": "417c229afabc5c85108c2016e27e2271",
+    "mtime": 1783178254.5430665,
+    "ast_hash": "c3f72ff82cf736ce0962eca16d89abb2",
     "semantic_hash": ""
   },
   ".mcp.json": {
-    "mtime": 1783176378.9345908,
+    "mtime": 1783222056.6155806,
     "ast_hash": "9a35e2330608538fe6445a63b4d3ed0e",
     "semantic_hash": ""
   },
@@ -105,7 +105,7 @@
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/package.json": {
-    "mtime": 1782617659.5569718,
+    "mtime": 1783222056.6155806,
     "ast_hash": "cec22d2fc5a752e3572d6da297a43ba5",
     "semantic_hash": ""
   },
@@ -115,12 +115,12 @@
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/config/logger.ts": {
-    "mtime": 1782618418.528914,
-    "ast_hash": "4e70456297bbcfe9c1c8f9d6182991f2",
+    "mtime": 1783222056.6185806,
+    "ast_hash": "fa3d91e1014752868e5a682d6f39d1a7",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/constants/index.ts": {
-    "mtime": 1782998937.3108554,
+    "mtime": 1783222056.61658,
     "ast_hash": "3929cbb223fc54f2a6c07892885b7245",
     "semantic_hash": ""
   },
@@ -130,7 +130,7 @@
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/error/lib/errorHandler.ts": {
-    "mtime": 1782618420.200801,
+    "mtime": 1783222056.6175787,
     "ast_hash": "9d3fe5a9c182ec3249aaeedcf0aa5a81",
     "semantic_hash": ""
   },
@@ -140,22 +140,22 @@
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/error/utils/catchError.ts": {
-    "mtime": 1782618420.642334,
+    "mtime": 1783222056.6281018,
     "ast_hash": "733dfe218aca781b893c8e1de0ac5853",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/error/utils/handleApiError.ts": {
-    "mtime": 1782618421.3225386,
+    "mtime": 1783222056.6326046,
     "ast_hash": "5caef98bfb0e8298d8ac8ed45ac52543",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/index.ts": {
-    "mtime": 1782618417.7719638,
+    "mtime": 1783222056.6240933,
     "ast_hash": "65a32351b0b3662a514c88e767591c95",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/lib/authorizeResource.ts": {
-    "mtime": 1782997522.263929,
+    "mtime": 1783222056.6281018,
     "ast_hash": "428ea82cd36cc6f621a163c5c81cd741",
     "semantic_hash": ""
   },
@@ -165,92 +165,92 @@
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/lib/s3.ts": {
-    "mtime": 1782618422.0524893,
+    "mtime": 1783222056.6251004,
     "ast_hash": "2fcc43aa2a20ee17d029b25bf758f7c0",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/auth/auth.plugin.ts": {
-    "mtime": 1782618422.7662776,
+    "mtime": 1783222056.6270988,
     "ast_hash": "188a7548b1bcc8d6a80090cc2d7cf599",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/auth/jwt.ts": {
-    "mtime": 1782618423.6221905,
+    "mtime": 1783222056.6251004,
     "ast_hash": "229680c118964abee021b64ffd6410fa",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/auth/permission.ts": {
-    "mtime": 1782618424.9548109,
+    "mtime": 1783222056.6326046,
     "ast_hash": "97691075cd0aff08fd3954f80d7f4675",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/comments/comment.controller.ts": {
-    "mtime": 1782618435.6072383,
+    "mtime": 1783222056.6301005,
     "ast_hash": "fd39c4f852ec56da4eb3a86cbdf66c1b",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/comments/comment.plugin.ts": {
-    "mtime": 1782618435.1928859,
+    "mtime": 1783222056.6326046,
     "ast_hash": "190dd69c7b14a4c57603242b4bbfacc8",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/comments/comment.service.ts": {
-    "mtime": 1782996349.3289728,
+    "mtime": 1783222056.6291008,
     "ast_hash": "5dcf6b1d9e4a09ddb572c3b2ee0b3713",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/images/image.controller.ts": {
-    "mtime": 1782998960.448053,
+    "mtime": 1783222056.626099,
     "ast_hash": "d2a1f11b155106b53045023cab967ec6",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/images/image.plugin.ts": {
-    "mtime": 1782618442.977743,
+    "mtime": 1783222056.6301005,
     "ast_hash": "57b87942031f760a18f2560ebe648202",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/images/image.service.ts": {
-    "mtime": 1782618446.9127395,
+    "mtime": 1783222056.6320994,
     "ast_hash": "a4df14aa52b1e68eb7bb6d6472d29edb",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/posts/post.controller.ts": {
-    "mtime": 1782618429.2821982,
+    "mtime": 1783222056.6376164,
     "ast_hash": "db84cd74f675715170f7f23fdf7dd95b",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/posts/post.plugin.ts": {
-    "mtime": 1782618427.1010537,
+    "mtime": 1783222056.6386173,
     "ast_hash": "90ade8e24a548a0101b5dc5f8317bcd3",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/posts/post.service.ts": {
-    "mtime": 1782996302.3386314,
+    "mtime": 1783222056.6326046,
     "ast_hash": "caf59d75261eccb16137d8406701ec91",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/upload/upload.service.ts": {
-    "mtime": 1782996361.616856,
+    "mtime": 1783222056.631101,
     "ast_hash": "91f3cb57b0cfcdb4b9e1fbb51547c008",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/users/user.controller.ts": {
-    "mtime": 1782618440.300601,
+    "mtime": 1783222056.6376164,
     "ast_hash": "25512746a951950cb06953e77d41baaf",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/users/user.plugin.ts": {
-    "mtime": 1782618437.974994,
+    "mtime": 1783222056.6346178,
     "ast_hash": "fdce0ac44d3157c0a71c5c7e6835b9c7",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/modules/users/user.service.ts": {
-    "mtime": 1782618442.0224085,
+    "mtime": 1783222056.635617,
     "ast_hash": "bb830b713dc5ec057ffece348cab349e",
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/src/routes/index.ts": {
-    "mtime": 1782618451.4299016,
+    "mtime": 1783222056.6386173,
     "ast_hash": "87dfe7818d1a3e4a6044d2f7ff5304ac",
     "semantic_hash": ""
   },
@@ -265,7 +265,7 @@
     "semantic_hash": ""
   },
   "apps/backend-boilerplate/tsconfig.json": {
-    "mtime": 1782618417.002163,
+    "mtime": 1783222056.6145804,
     "ast_hash": "49d9529f45ca654c881ee72c64d0e5f7",
     "semantic_hash": ""
   },
@@ -280,8 +280,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/package.json": {
-    "mtime": 1783150101.159309,
-    "ast_hash": "c45c7f9172d385df1f2a1673d4f5d900",
+    "mtime": 1783222056.6145804,
+    "ast_hash": "9c701340102b87d9905d6fed45a8f058",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/postcss.config.mjs": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/(authorized)/layout.tsx": {
-    "mtime": 1783137771.2672396,
-    "ast_hash": "5d74f40c9823081e2e96b0af25058440",
+    "mtime": 1783222056.6376164,
+    "ast_hash": "7827888f0a24bf034a082bb4b93ab859",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/(authorized)/posts/create/loading.tsx": {
@@ -330,8 +330,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx": {
-    "mtime": 1783137771.2682397,
-    "ast_hash": "00fcf23e45c5307b9ef078e5eb166428",
+    "mtime": 1783222056.6506503,
+    "ast_hash": "36d42a5555007d457bc037129ecd7c8b",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/(public)/(main)/page.tsx": {
@@ -370,58 +370,58 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/account/presigned-url/route.ts": {
-    "mtime": 1777101380.0813909,
-    "ast_hash": "2385876fdd3e7580160dca19b2c17098",
+    "mtime": 1783221133.3796453,
+    "ast_hash": "8340a4005f0a4ef313d89fedd9ccfa53",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/account/route.ts": {
-    "mtime": 1783137771.2692385,
-    "ast_hash": "c61bdad9920cfde6d4f8da5110c16d99",
+    "mtime": 1783221133.3906505,
+    "ast_hash": "3f68cd2145a239dd688c45949d0a2426",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/auth/callback/route.ts": {
-    "mtime": 1777626856.8107562,
-    "ast_hash": "5d87b733109b632a187b32e69bfc9fe2",
+    "mtime": 1783221133.4026568,
+    "ast_hash": "ffb4d6c9ff48660b1d5ace126264e6c8",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/auth/login/route.ts": {
-    "mtime": 1776605739.6264868,
-    "ast_hash": "b8cea0ab71165022eeef628bf0881646",
+    "mtime": 1783221133.412645,
+    "ast_hash": "7b67777f83b8975272c5d83a775fc2e7",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/auth/logout/route.ts": {
-    "mtime": 1776585445.1909015,
-    "ast_hash": "e648ea544f7b1862142f0cfedb1151c4",
+    "mtime": 1783221133.423652,
+    "ast_hash": "0e46d249a1102bcd062a6aead036dfab",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/comments/[commentId]/route.ts": {
-    "mtime": 1777105249.418071,
-    "ast_hash": "170408f6c37eac572f0dcfc229feba48",
+    "mtime": 1783221133.44065,
+    "ast_hash": "905fcdc36242fc8bbf42e03b16178e8e",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/comments/route.ts": {
-    "mtime": 1776429716.5853436,
-    "ast_hash": "62743a13e83f5950ed6088c2da73ccc5",
+    "mtime": 1783221133.4306495,
+    "ast_hash": "302aaf53e3229b893dc5df6048751a5c",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/images/route.ts": {
-    "mtime": 1777968607.813678,
-    "ast_hash": "fc1c477f88dc910d75375847c78818bc",
+    "mtime": 1783221133.450838,
+    "ast_hash": "2838bb4ee1598d220c262f3edf5c4e04",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/posts/[postId]/route.ts": {
-    "mtime": 1777105258.3067224,
-    "ast_hash": "8d05bcfd50709535a626f4eeee6b0fc7",
+    "mtime": 1783221133.4818347,
+    "ast_hash": "8f6dcd65e8e13fbf2b9e0b122fc2a0ab",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/posts/presigned-url/route.ts": {
-    "mtime": 1777101373.1526234,
-    "ast_hash": "59d17c79b57499d2eaa67430dd15e164",
+    "mtime": 1783221133.459838,
+    "ast_hash": "a3a099cbb75e9efe9f7a06c4a3779dc2",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/posts/route.ts": {
-    "mtime": 1780580418.1086864,
-    "ast_hash": "403f6c7a6d596a5d0a1c28420db2c8a3",
+    "mtime": 1783221133.471835,
+    "ast_hash": "52d9e1625bc68aefbb016aa7a44174d9",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/global-error.tsx": {
@@ -435,13 +435,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Button.tsx": {
-    "mtime": 1783150101.1603067,
-    "ast_hash": "4af0f4fb87a8190928d345257bbbc298",
+    "mtime": 1783222056.6521575,
+    "ast_hash": "d3da42599c9af26afe2089a35396951b",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/ButtonLink.tsx": {
-    "mtime": 1783150101.1613078,
-    "ast_hash": "d02e9d349c0ef573c3cfe10eee9a57ca",
+    "mtime": 1783222056.6506503,
+    "ast_hash": "51e5aebaf56a11b5323c84a65129eaa9",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Input.tsx": {
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Label.tsx": {
-    "mtime": 1783150101.1613078,
-    "ast_hash": "197578a93ae9d4d7df1d668bc87eafdd",
+    "mtime": 1783222056.6506503,
+    "ast_hash": "8f82cdaea54363cf92a5b70068136dd7",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Separator.tsx": {
@@ -480,8 +480,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx": {
-    "mtime": 1783137771.2692385,
-    "ast_hash": "7c7f0ba1b883804b65344a3923ad83e6",
+    "mtime": 1783222056.6506503,
+    "ast_hash": "417522e989ede6da61f0fe62a05a926c",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/common/HeroSection.tsx": {
@@ -495,8 +495,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/layout/PageHeader.tsx": {
-    "mtime": 1783137771.2707987,
-    "ast_hash": "637ee5d374ee8cc735fff1c8295da966",
+    "mtime": 1783222056.6521575,
+    "ast_hash": "1e3c345ec4838414fc337a3082154b6f",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/layout/PageTemplate.tsx": {
@@ -545,27 +545,27 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/ActionButton.tsx": {
-    "mtime": 1783150101.1626601,
-    "ast_hash": "d49aaa7e990fdc4514ad0e865caa17a2",
+    "mtime": 1783222056.666708,
+    "ast_hash": "b59a33d88b6fd1767e125c70110ec71f",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/Field.tsx": {
-    "mtime": 1783137771.272804,
-    "ast_hash": "58e4b66b7698de1f3a645d23f1bb6ba0",
+    "mtime": 1783222056.6657078,
+    "ast_hash": "a50d2c4ae6c5a11425f10c8aff043209",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/FormCard.tsx": {
-    "mtime": 1783137771.272804,
-    "ast_hash": "68c9160bb1768b0796762592bedeeae4",
+    "mtime": 1783222056.6657078,
+    "ast_hash": "447725d098bc5d4651711d368cf76494",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/FormField.tsx": {
-    "mtime": 1782659497.5369973,
+    "mtime": 1783222056.6657078,
     "ast_hash": "4807199762ab115cd58e7f9b666eb4e8",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/organisms/index.ts": {
-    "mtime": 1782659336.8302011,
+    "mtime": 1783222056.6687098,
     "ast_hash": "36a72b0c90c7377a86487d4327986503",
     "semantic_hash": ""
   },
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/config/logger.ts": {
-    "mtime": 1777950410.1639273,
-    "ast_hash": "d2613cce2ce8057b3c81d4aa2caf8727",
+    "mtime": 1783220400.581081,
+    "ast_hash": "f4f0421f12904c9aadd0f34130d105f1",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/account/client/api/index.ts": {
@@ -585,13 +585,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/account/client/components/AccountForm.tsx": {
-    "mtime": 1783137771.2738085,
-    "ast_hash": "00606e7f51f3611af91e347fac3aad53",
+    "mtime": 1783222056.687747,
+    "ast_hash": "e5c8ce809be8f89b193830da1f59f611",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/account/client/components/AccountManagement.tsx": {
-    "mtime": 1783137771.2748046,
-    "ast_hash": "75a44cc777a0f022535fc5596c076008",
+    "mtime": 1783222056.6752274,
+    "ast_hash": "5b58c8c8184fa6e2529b61d2f064a500",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/account/client/components/DeleteAccountButton.tsx": {
@@ -620,8 +620,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/components/AuthActionButton.tsx": {
-    "mtime": 1783137771.275804,
-    "ast_hash": "2e4310f8a2de2308f3cf2dbcb3e4e8ce",
+    "mtime": 1783222056.6687098,
+    "ast_hash": "d64f1e5c7497ff1b8134ebad56d8b7ff",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/components/OAuth2Callback.tsx": {
@@ -630,13 +630,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/components/OAuth2Start.tsx": {
-    "mtime": 1783150101.1626601,
-    "ast_hash": "3b5d9a3ad02fb3f749236f97beffd6ed",
+    "mtime": 1783222056.6732223,
+    "ast_hash": "7b5ec0d3f151c20f85c143470d5b5d20",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/client/providers/PermissionProvider.tsx": {
-    "mtime": 1783137771.276806,
-    "ast_hash": "fa4210d9ad9635d3103ff7d11c98e540",
+    "mtime": 1783222056.6707098,
+    "ast_hash": "e7b40fffe1c39d2eb2aa2d7bd78512d4",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/constants/cookie.ts": {
@@ -685,13 +685,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/server/services/auth.ts": {
-    "mtime": 1783150101.1636639,
-    "ast_hash": "4eb3bdf08a026a41a15d9044e33d465a",
+    "mtime": 1783222056.6742225,
+    "ast_hash": "c28713afc2d732cbbb909d49ad4ccf11",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/server/services/role.ts": {
-    "mtime": 1783137771.276806,
-    "ast_hash": "e8dfac0e9f56c682c0dfd7a0c7f46169",
+    "mtime": 1783222056.6722152,
+    "ast_hash": "952e17c673e22cbe93a70cfea8290bd7",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/server/services/session.ts": {
@@ -760,7 +760,7 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/error/client/hooks/useErrorHandler.ts": {
-    "mtime": 1782659061.4363158,
+    "mtime": 1783222056.6772265,
     "ast_hash": "8e361e7245496ac13e465fb8e9347016",
     "semantic_hash": ""
   },
@@ -795,13 +795,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/error/utils/catchError.ts": {
-    "mtime": 1783150101.1646595,
-    "ast_hash": "722ee5c171b5febf8428dd7bebac8413",
+    "mtime": 1783222056.6792278,
+    "ast_hash": "e39ab615ad9ca137fa5b9fef1beecb0a",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/client/components/ContactForm.tsx": {
-    "mtime": 1783137771.277807,
-    "ast_hash": "b14da4a48dfe2fdcc8de594f0cbb5f7d",
+    "mtime": 1783222056.680227,
+    "ast_hash": "cda1e66ad278daf06f4ee71073551b1e",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/client/hooks/useContactActions.ts": {
@@ -820,8 +820,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/server/api/sendContactEmail.ts": {
-    "mtime": 1783137771.2788043,
-    "ast_hash": "bdfbf41f6b059b9099554d043d514086",
+    "mtime": 1783222056.6792278,
+    "ast_hash": "5cc514cde701351fbf4caf01bb225e4c",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/mailing/server/components/ContactConfirmationEmail.tsx": {
@@ -865,8 +865,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/post/client/components/PostForm.tsx": {
-    "mtime": 1783137771.2793152,
-    "ast_hash": "0b6ef87789e726158de2c3853224ca50",
+    "mtime": 1783222056.6847475,
+    "ast_hash": "da386cd41da3f1ea87781f3b56682aa1",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/post/client/hooks/usePostActions.ts": {
@@ -890,13 +890,13 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/post/server/components/PostDetail.tsx": {
-    "mtime": 1783137771.2803159,
-    "ast_hash": "c2f5e53cf091cadb7fca6881a0e69635",
+    "mtime": 1783222056.6907468,
+    "ast_hash": "20b8d6804bcfd52a3ec2df812de37e43",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/post/server/components/PostsList.tsx": {
-    "mtime": 1783137771.2803159,
-    "ast_hash": "304703b7a7566331e27ed931a74fa824",
+    "mtime": 1783222056.6907468,
+    "ast_hash": "9e6d2e343f7e15a4654ab0c5d8c5b7cf",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/instrumentation-client.ts": {
@@ -905,8 +905,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/instrumentation.ts": {
-    "mtime": 1777950444.5681593,
-    "ast_hash": "557d8dbb0defa3fa98f45c4c4531dc5a",
+    "mtime": 1783222000.925548,
+    "ast_hash": "6633c4d68e187f8d022ad757e918ad0f",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/lib/apiClient.ts": {
@@ -925,17 +925,17 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/lib/serverApiClient.ts": {
-    "mtime": 1777625374.5731804,
-    "ast_hash": "b8e5b113044bda23e6aabfdcc66c82da",
+    "mtime": 1783222636.8920295,
+    "ast_hash": "b9369cf8d1cc012f648a260b8df9a3ff",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/lib/sig4.ts": {
-    "mtime": 1783137771.281315,
-    "ast_hash": "bce87216b98025e9c14d3ef6dd71163a",
+    "mtime": 1783222056.6857462,
+    "ast_hash": "5fe65ffdf0ed2da63438d0a08feea5e1",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/proxy.ts": {
-    "mtime": 1782999762.9739969,
+    "mtime": 1783222056.6857462,
     "ast_hash": "4391ad889211610fdf3db15342f44631",
     "semantic_hash": ""
   },
@@ -955,32 +955,32 @@
     "semantic_hash": ""
   },
   "biome.json": {
-    "mtime": 1783150101.1656594,
-    "ast_hash": "c1f153719881672ae5a01de888f2c37b",
+    "mtime": 1783222056.6155806,
+    "ast_hash": "335665f8875458a5617ff9ae7c2b0eb4",
     "semantic_hash": ""
   },
   "commitlint.config.js": {
-    "mtime": 1781609404.0175624,
+    "mtime": 1783222056.680227,
     "ast_hash": "b4ac2bbe33fa1272aa26e57f9873e784",
     "semantic_hash": ""
   },
   "infra/terraform/backend.tf": {
-    "mtime": 1781363134.954691,
-    "ast_hash": "a1b3fa8d6979004da3224bb8e995632f",
+    "mtime": 1783178254.6073954,
+    "ast_hash": "52e03f4f5530344d8b0630fe93a62669",
     "semantic_hash": ""
   },
   "infra/terraform/data.tf": {
-    "mtime": 1783175657.2835462,
+    "mtime": 1783178254.6103988,
     "ast_hash": "d24815cc9134fb83f1a7613d3864a975",
     "semantic_hash": ""
   },
   "infra/terraform/locals.tf": {
-    "mtime": 1783175657.284546,
+    "mtime": 1783178254.6113963,
     "ast_hash": "869cc72273a41593d814fd0173498ae2",
     "semantic_hash": ""
   },
   "infra/terraform/main.tf": {
-    "mtime": 1783175657.284546,
+    "mtime": 1783178254.6113963,
     "ast_hash": "943e3f557739b81b700da3d34b3129ba",
     "semantic_hash": ""
   },
@@ -1020,7 +1020,7 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/cloudfront/variables.tf": {
-    "mtime": 1783175657.2855475,
+    "mtime": 1783178254.6129003,
     "ast_hash": "82afc2cfe43f2a3496c50e51218fe276",
     "semantic_hash": ""
   },
@@ -1045,8 +1045,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/cognito/main.tf": {
-    "mtime": 1783151981.6732278,
-    "ast_hash": "33c261854c997983987b0180bc8104e7",
+    "mtime": 1783178254.613906,
+    "ast_hash": "368d3ffd084a941025469e53633896eb",
     "semantic_hash": ""
   },
   "infra/terraform/modules/cognito/outputs.tf": {
@@ -1070,33 +1070,33 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/ecr/variables.tf": {
-    "mtime": 1781364043.001512,
-    "ast_hash": "c525a46451e690a8e60ed9542c8963d5",
+    "mtime": 1783178254.6149063,
+    "ast_hash": "003afa3920cf161e860fcaec60ee93ee",
     "semantic_hash": ""
   },
   "infra/terraform/modules/github-oidc/data.tf": {
-    "mtime": 1781443353.5103004,
-    "ast_hash": "37185361690e1178d7cb7df134a88f89",
+    "mtime": 1783178254.6159053,
+    "ast_hash": "8143e9326975e7da8de7fbb23efaf260",
     "semantic_hash": ""
   },
   "infra/terraform/modules/github-oidc/locals.tf": {
-    "mtime": 1781443297.831797,
-    "ast_hash": "ab8d0126b1fc03e76aa0fbf7638d461d",
+    "mtime": 1783178254.6169055,
+    "ast_hash": "e0e754b5f53ac1f95a8ff6dec4a601fd",
     "semantic_hash": ""
   },
   "infra/terraform/modules/github-oidc/main.tf": {
-    "mtime": 1783175657.288548,
+    "mtime": 1783178254.6169055,
     "ast_hash": "592d76c8a55dca3a2659b79f5d918cc0",
     "semantic_hash": ""
   },
   "infra/terraform/modules/github-oidc/outputs.tf": {
-    "mtime": 1781443397.954469,
-    "ast_hash": "9a220cdc1933fe4008b39f4c686d8611",
+    "mtime": 1783178254.6184916,
+    "ast_hash": "7caa96a3d2ba86cf5efa62f577ee6ebd",
     "semantic_hash": ""
   },
   "infra/terraform/modules/github-oidc/variables.tf": {
-    "mtime": 1781443378.1695251,
-    "ast_hash": "9ac85e0f5636eba4be13be5baa88ca7e",
+    "mtime": 1783178254.6184916,
+    "ast_hash": "c58f18758d7433f713a850f993027d97",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-edge/data.tf": {
@@ -1105,13 +1105,13 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-edge/locals.tf": {
-    "mtime": 1783151981.739705,
-    "ast_hash": "3218730cf610042738741c02c18ce700",
+    "mtime": 1783178254.619499,
+    "ast_hash": "b9959cd44caffcf16b2dc1185f5565ab",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-edge/main.tf": {
-    "mtime": 1783151981.7437043,
-    "ast_hash": "56c7a4fd2c50a7eabb3a2495bc772386",
+    "mtime": 1783178254.6204984,
+    "ast_hash": "df30b5f1e63f97e17f7e8bbfc947181b",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-edge/outputs.tf": {
@@ -1140,8 +1140,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda/main.tf": {
-    "mtime": 1783151981.723633,
-    "ast_hash": "eb1a6fef0f62912d4adbc79b3cd2aaf4",
+    "mtime": 1783178254.6214986,
+    "ast_hash": "5ed789b3fd1e9d68c719a156946e9b62",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda/outputs.tf": {
@@ -1150,8 +1150,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda/variables.tf": {
-    "mtime": 1783151981.729681,
-    "ast_hash": "fd6f846ac57a1a331f35004e05b641bf",
+    "mtime": 1783178254.6214986,
+    "ast_hash": "4e98d494de7c434cac1afb4c78fc8538",
     "semantic_hash": ""
   },
   "infra/terraform/modules/route53/main.tf": {
@@ -1165,13 +1165,13 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/route53/variables.tf": {
-    "mtime": 1783175657.2905462,
+    "mtime": 1783178254.623003,
     "ast_hash": "34a0dd9a299915337d1fc67b7cabddba",
     "semantic_hash": ""
   },
   "infra/terraform/modules/s3/main.tf": {
-    "mtime": 1783151981.7759657,
-    "ast_hash": "ac5cbc39e57e1a6084ed64cba65559c3",
+    "mtime": 1783178254.62401,
+    "ast_hash": "ac133326b4f8d167003a11d184ad9815",
     "semantic_hash": ""
   },
   "infra/terraform/modules/s3/outputs.tf": {
@@ -1220,22 +1220,22 @@
     "semantic_hash": ""
   },
   "infra/terraform/outputs.tf": {
-    "mtime": 1781433227.4365706,
-    "ast_hash": "49b070e4269e83444759364347809870",
+    "mtime": 1783178254.6255052,
+    "ast_hash": "5e9e32cd23bf948b5d4df143e6c11e1b",
     "semantic_hash": ""
   },
   "infra/terraform/providers.tf": {
-    "mtime": 1783175657.2925453,
+    "mtime": 1783178254.6265085,
     "ast_hash": "d6d58dc979c9675cc90d0dca966822fa",
     "semantic_hash": ""
   },
   "infra/terraform/variables.tf": {
-    "mtime": 1781363232.225236,
-    "ast_hash": "5f574e846a1ad3811edae35412b185a6",
+    "mtime": 1783178254.6265085,
+    "ast_hash": "0ff8e0404f94a3b4234b25c25692baa0",
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1783154421.7571983,
+    "mtime": 1783222056.6145804,
     "ast_hash": "12a89ff366904e7bd6f3576d1dc7cd9f",
     "semantic_hash": ""
   },
@@ -1245,7 +1245,7 @@
     "semantic_hash": ""
   },
   "shared/config/package.json": {
-    "mtime": 1782617659.558976,
+    "mtime": 1783222056.6145804,
     "ast_hash": "16bf2a2dda4e46323b2db2898bf10686",
     "semantic_hash": ""
   },
@@ -1290,7 +1290,7 @@
     "semantic_hash": ""
   },
   "shared/neon/package.json": {
-    "mtime": 1782617659.557976,
+    "mtime": 1783222056.6145804,
     "ast_hash": "fa9fbee611ea8097df45b489f1ab5a90",
     "semantic_hash": ""
   },
@@ -1335,7 +1335,7 @@
     "semantic_hash": ""
   },
   "turbo.json": {
-    "mtime": 1783135850.056561,
+    "mtime": 1783222056.6145804,
     "ast_hash": "5d719130dfcaa4000b6196683dd2ec76",
     "semantic_hash": ""
   },
@@ -1345,128 +1345,133 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1783177679.7886412,
+    "mtime": 1783178254.5519018,
     "ast_hash": "33765f732f9911b78065b8dcb6e54407",
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1783152855.6019034,
-    "ast_hash": "4a9f49e25614dff46d72962d7d8a4c88",
+    "mtime": 1783180627.7271519,
+    "ast_hash": "38a04bf8fb64a98b595fc28dc6bc6058",
     "semantic_hash": ""
   },
   ".claude/skills/shadcn/evals/evals.json": {
-    "mtime": 1783099848.2967312,
+    "mtime": 1783222056.6175787,
     "ast_hash": "14eed42e07f934b2d4e6520dcbbda35b",
     "semantic_hash": ""
   },
   ".impeccable/hook.cache.json": {
-    "mtime": 1783177829.2258034,
-    "ast_hash": "afff01f34c72a33048cbd5579165d047",
+    "mtime": 1783220613.7945893,
+    "ast_hash": "3ad6becbb7dee5e4a9f60827ff493751",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/.impeccable/design.json": {
-    "mtime": 1783099848.297733,
+    "mtime": 1783222056.6376164,
     "ast_hash": "c7be3e3a550aa82985a926507d17b531",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/.impeccable/live/config.json": {
-    "mtime": 1783099848.2967312,
+    "mtime": 1783222056.6376164,
     "ast_hash": "7cdace06f1017cda9ba30957c8102ef0",
     "semantic_hash": ""
   },
   "skills-lock.json": {
-    "mtime": 1783099848.2967312,
+    "mtime": 1783222056.6155806,
     "ast_hash": "4163308365334049e9bff794c0b6b15f",
     "semantic_hash": ""
   },
   ".claude/skills/shadcn/assets/shadcn-small.png": {
-    "mtime": 1783099824.2066743,
+    "mtime": 1783178254.5227547,
     "ast_hash": "72349c6b7f303e6be598a2196391291b",
     "semantic_hash": ""
   },
   ".claude/skills/shadcn/assets/shadcn.png": {
-    "mtime": 1783099824.2066743,
+    "mtime": 1783178254.5232694,
     "ast_hash": "cb56bf002d36bb860c3d320a23bd871a",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/.claude/settings.local.json": {
-    "mtime": 1783138387.199429,
-    "ast_hash": "26a2c71f6477a94dd094af5056f20a46",
+    "mtime": 1783222056.6346178,
+    "ast_hash": "257c57c4682d234d97aa8eeeb883b50d",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/atoms/Button.variants.ts": {
-    "mtime": 1783150101.1603067,
-    "ast_hash": "bac557642e3dbc4945d4c608ec182243",
+    "mtime": 1783222056.6551778,
+    "ast_hash": "d0fae05a6039e40b867156cb334d2c86",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/features/auth/utils/redirect.ts": {
-    "mtime": 1783150101.1636639,
-    "ast_hash": "d0ebf9de09ce0892f6c4119b5b9b3f12",
+    "mtime": 1783222056.683741,
+    "ast_hash": "594af95bdfeb5dc4ec8d39ef7323b17c",
     "semantic_hash": ""
   },
   "lefthook.yml": {
-    "mtime": 1783154105.093456,
-    "ast_hash": "75b74cfa2c95bc20db4fdaf379d155ba",
+    "mtime": 1783178254.6285052,
+    "ast_hash": "f98734b270c7fbac5d4e463d9253b0d5",
     "semantic_hash": ""
   },
   ".lefthook/post-commit/update-graph.sh": {
-    "mtime": 1783153694.8901727,
-    "ast_hash": "b1229cab0b6518439f75fd05f76c5a0a",
+    "mtime": 1783178254.550853,
+    "ast_hash": "233bfb8ac1bb38a29f80e83b7fd1886f",
     "semantic_hash": ""
   },
   "infra/terraform/modules/cloudfront/versions.tf": {
-    "mtime": 1783175657.2865467,
+    "mtime": 1783178254.6129003,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/modules/codedeploy/versions.tf": {
-    "mtime": 1783175657.2865467,
+    "mtime": 1783178254.6129003,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/modules/cognito/versions.tf": {
-    "mtime": 1783175657.287547,
+    "mtime": 1783178254.6149063,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/modules/ecr/versions.tf": {
-    "mtime": 1783175657.287547,
+    "mtime": 1783178254.6159053,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/modules/github-oidc/versions.tf": {
-    "mtime": 1783175657.288548,
+    "mtime": 1783178254.619499,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-permissions/versions.tf": {
-    "mtime": 1783175657.2895463,
+    "mtime": 1783178254.6214986,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda/versions.tf": {
-    "mtime": 1783175657.2895463,
+    "mtime": 1783178254.623003,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/modules/route53/versions.tf": {
-    "mtime": 1783175657.2905462,
+    "mtime": 1783178254.62401,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/modules/s3/versions.tf": {
-    "mtime": 1783175657.2915459,
+    "mtime": 1783178254.6255052,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/modules/secret-manager/versions.tf": {
-    "mtime": 1783175657.2915459,
+    "mtime": 1783178254.6255052,
     "ast_hash": "0380ad33ae4f3d5c626a24c95c908441",
     "semantic_hash": ""
   },
   "infra/terraform/versions.tf": {
-    "mtime": 1783175657.2925453,
+    "mtime": 1783178254.6275094,
     "ast_hash": "241d825606b8a8254a712b17e17d1065",
+    "semantic_hash": ""
+  },
+  "apps/nextjs-boilerplate/src/lib/requestLogging.ts": {
+    "mtime": 1783222023.9890263,
+    "ast_hash": "042217dac4d5e8cd42befdcc1d50abc5",
     "semantic_hash": ""
   }
 }
