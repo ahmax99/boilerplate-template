@@ -14,8 +14,22 @@ variable "repository_name" {
 }
 
 variable "image_tag_mutability" {
-  description = "The tag mutability setting for the repository (MUTABLE or IMMUTABLE)"
+  description = "Tag mutability for the repository: MUTABLE, IMMUTABLE, or the *_WITH_EXCLUSION variants."
   type        = string
+
+  validation {
+    condition     = contains(["MUTABLE", "IMMUTABLE", "IMMUTABLE_WITH_EXCLUSION", "MUTABLE_WITH_EXCLUSION"], var.image_tag_mutability)
+    error_message = "image_tag_mutability must be one of MUTABLE, IMMUTABLE, IMMUTABLE_WITH_EXCLUSION, MUTABLE_WITH_EXCLUSION."
+  }
+}
+
+variable "image_tag_mutability_exclusion_filters" {
+  description = "Tag patterns exempt from image_tag_mutability. Only applied when image_tag_mutability is IMMUTABLE_WITH_EXCLUSION or MUTABLE_WITH_EXCLUSION. Each filter_type must be WILDCARD; each filter allows letters, numbers, and ._- plus up to 2 '*' (max 128 chars)."
+  type = list(object({
+    filter      = string
+    filter_type = string
+  }))
+  default = []
 }
 
 variable "scan_on_push" {

@@ -399,8 +399,11 @@ module "ecr_backend" {
   environment     = var.environment
   repository_name = "${local.name_prefix}-backend"
 
-  image_tag_mutability = "IMMUTABLE"
-  scan_on_push         = true
+  image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
+  image_tag_mutability_exclusion_filters = [
+    { filter = "latest*", filter_type = "WILDCARD" }
+  ]
+  scan_on_push = true
 
   lifecycle_policy = {
     max_image_count = 10
@@ -422,8 +425,14 @@ module "ecr_frontend" {
   environment     = var.environment
   repository_name = "${local.name_prefix}-frontend"
 
-  image_tag_mutability = "IMMUTABLE"
-  scan_on_push         = true
+  # Content tags (git SHA, v* releases) are immutable so a deployed image can't
+  # be swapped; `latest` is excluded because the deploy pipeline re-pushes it as
+  # the bootstrap sentinel and the Lambda baseline image (see main.tf image_uri).
+  image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
+  image_tag_mutability_exclusion_filters = [
+    { filter = "latest*", filter_type = "WILDCARD" }
+  ]
+  scan_on_push = true
 
   lifecycle_policy = {
     max_image_count = 10
