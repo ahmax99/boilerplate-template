@@ -4,10 +4,15 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+concurrency:
+  group: auto-merge-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   dependabot-auto-merge:
     name: Auto-merge Dependabot PR
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     if: github.actor == 'dependabot[bot]'
     permissions:
       contents: write
@@ -21,7 +26,7 @@ jobs:
         id: meta
       - name: Fetch Dependabot metadata
         id: metadata
-        uses: dependabot/fetch-metadata@v2
+        uses: dependabot/fetch-metadata@21025c705c08248db411dc16f3619e6b5f9ea21a # v2
       - name: Auto-merge eligible updates
         if: >
           steps.metadata.outputs.update-type != 'version-update:semver-major' &&
@@ -30,28 +35,3 @@ jobs:
         run: |
           gh pr review "$GITHUB_HEAD_REF" --approve
           gh pr merge "$GITHUB_HEAD_REF" --auto --squash
-
-  github-dir-auto-merge:
-    name: Auto-merge .github/-only PR
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    steps:
-      - name: Check if all changes are within .github/
-        id: check_files
-        run: |
-          non_github=$(gh pr view ${{ github.event.pull_request.number }} \
-            --repo ${{ github.repository }} \
-            --json files \
-            --jq '[.files[].path | select(startswith(".github/") | not)] | length')
-          echo "count=$non_github" >> "$GITHUB_OUTPUT"
-
-      - name: Auto-merge if only .github/ files changed
-        if: steps.check_files.outputs.count == '0'
-        run: |
-          gh pr review ${{ github.event.pull_request.number }} --approve
-          gh pr merge ${{ github.event.pull_request.number }} --auto --squash

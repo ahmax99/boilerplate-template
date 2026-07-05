@@ -29,8 +29,9 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 - `correctness-reviewer` — neverthrow `Result` flow, `AppError` usage, layer boundaries, Prisma queries/transactions, type safety, code quality. Emits **Correctness**, **Architecture**, **Code quality**.
 - `acceptance-criteria-reviewer` — walks the plan's acceptance criteria against the diff. Emits **Acceptance criteria**. (`/qa` only — it needs a plan.)
 - `infra-reviewer` — Terraform/HCL diffs: IAM least privilege, public exposure, state safety, destructive-change risk, module conventions. Emits **Infrastructure**. (Spawned by `/qa` and `/review` only when the diff touches `infra/terraform/**`.)
+- `cicd-reviewer` — GitHub Actions / CI-CD diffs: least-privilege `GITHUB_TOKEN`, action SHA-pinning, expression injection, fork-safety, OIDC usage, concurrency/timeout hygiene, deploy-pipeline invariants, DORA-metric impact. Emits **CI/CD**. (Spawned by `/qa` and `/review` only when the diff touches `.github/**`.) It doubles as a standalone **DevOps engineer** agent — dispatch it directly to audit, improve, or author workflows and DORA instrumentation.
 
-So `/qa` produces five scores from three reviewers (six from four when infra is in the diff); `/review` produces four (it drops acceptance-criteria; five with infra).
+So `/qa` produces five scores from three reviewers (plus Infrastructure and/or CI/CD when the diff touches `infra/terraform/**` or `.github/**`); `/review` produces four (it drops acceptance-criteria; same conditional additions).
 
 ## Hooks (automatic)
 

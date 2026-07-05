@@ -26,6 +26,13 @@ Issue these in one parallel Bash batch:
 
 Any Terraform gate failure counts as a Phase 1 FAIL. Skip all four when the diff has no infra files.
 
+**If the diff list contains `.github/**` files**, run the CI/CD gates in the same follow-up batch, each only if the tool is installed (otherwise SKIPPED):
+
+- `actionlint` (from the repo root)
+- `zizmor .github/workflows --min-severity medium`
+
+An `actionlint` failure counts as a Phase 1 FAIL; `zizmor` findings are advisory input for the cicd-reviewer.
+
 Capture exit codes and outputs.
 
 ## Phase 2 — Spawn reviewers (parallel Task batch)
@@ -46,6 +53,8 @@ Single message, two parallel Task tool calls:
 
 3. `subagent_type: "infra-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `infra/terraform/**` files**. Include it in the same parallel batch.
 
+4. `subagent_type: "cicd-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `.github/**` files**. Include it in the same parallel batch.
+
 ## Phase 3 — Synthesize
 
 Order issues **by file (in diff order) and within each file by line number**. Severity is an inline tag, not a section header.
@@ -63,6 +72,7 @@ Order issues **by file (in diff order) and within each file by line number**. Se
 - TypeScript: PASS/FAIL
 - React Doctor: PASS/FAIL (new errors only) — score if reported
 - Terraform (fmt / tflint / validate / trivy): PASS/FAIL/SKIPPED (no infra changes)
+- CI/CD (actionlint / zizmor): PASS/FAIL/SKIPPED (no .github changes)
 
 ### Scores
 - Security: X/5  (security-reviewer)
@@ -70,6 +80,7 @@ Order issues **by file (in diff order) and within each file by line number**. Se
 - Architecture: X/5  (correctness-reviewer)
 - Code quality: X/5  (correctness-reviewer)
 - Infrastructure: X/5  (infra-reviewer — omit when the diff has no infra/terraform/** files)
+- CI/CD: X/5  (cicd-reviewer — omit when the diff has no .github/** files)
 
 ### Issues
 
