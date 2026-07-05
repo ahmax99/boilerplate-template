@@ -13,6 +13,7 @@ jobs:
     name: Lint Commit Messages
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    if: ${{ !startsWith(github.head_ref, 'release-please--branches--') }}
     permissions:
       contents: read
 
