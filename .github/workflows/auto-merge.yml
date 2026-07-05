@@ -61,3 +61,23 @@ jobs:
       - name: Merge now that a human has approved the major-version bump
         if: steps.metadata.outputs.update-type == 'version-update:semver-major'
         run: gh pr merge "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" --auto --squash
+
+  release-please-merge-on-approval:
+    name: Merge release-please PR on approval
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: >
+      github.event_name == 'pull_request_review' &&
+      github.event.review.state == 'approved' &&
+      github.event.pull_request.user.login == 'github-actions[bot]' &&
+      startsWith(github.event.pull_request.head.ref, 'release-please--branches--') &&
+      github.event.pull_request.merged == false
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Merge now that a human has approved the release PR
+        run: gh pr merge "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" --auto --squash
