@@ -7,10 +7,15 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+concurrency:
+  group: sonarqube-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   sonarqube:
     name: SonarQube
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: github.actor != 'dependabot[bot]' && !startsWith(github.head_ref, 'release-please--branches--')
     permissions:
       contents: read
@@ -20,6 +25,6 @@ jobs:
         with:
           fetch-depth: 0
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 # v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

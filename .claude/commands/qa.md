@@ -36,6 +36,13 @@ Issue these in a single message with multiple Bash tool calls in parallel:
 
 Any Terraform gate failure counts as a Phase 1 FAIL. Skip all four when the diff has no infra files.
 
+**If the diff list contains `.github/**` files**, run the CI/CD gates in the same follow-up batch, each only if the tool is installed (otherwise SKIPPED):
+
+- `actionlint` (from the repo root)
+- `zizmor .github/workflows --min-severity medium`
+
+An `actionlint` failure counts as a Phase 1 FAIL; `zizmor` findings are advisory input for the cicd-reviewer.
+
 Capture each exit code and stdout/stderr.
 
 ## Phase 2 — Spawn reviewers (parallel Task batch)
@@ -58,6 +65,8 @@ In a single message with three parallel Task tool calls, invoke:
 
 4. `subagent_type: "infra-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `infra/terraform/**` files**. Include it in the same parallel batch.
 
+5. `subagent_type: "cicd-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `.github/**` files**. Include it in the same parallel batch.
+
 Do not pass code excerpts — the subagents read the diff themselves.
 
 ## Phase 3 — Synthesize
@@ -72,6 +81,7 @@ Merge the three returned reports into one unified report. **Scores are copied ve
 - TypeScript: PASS/FAIL
 - React Doctor: PASS/FAIL (new errors only) — score if reported
 - Terraform (fmt / tflint / validate / trivy): PASS/FAIL/SKIPPED (no infra changes)
+- CI/CD (actionlint / zizmor): PASS/FAIL/SKIPPED (no .github changes)
 - Changed files: <count>
 
 ### Acceptance criteria
@@ -84,6 +94,7 @@ Merge the three returned reports into one unified report. **Scores are copied ve
 - Architecture: X/5  (correctness-reviewer)
 - Code quality: X/5  (correctness-reviewer)
 - Infrastructure: X/5  (infra-reviewer — omit when the diff has no infra/terraform/** files)
+- CI/CD: X/5  (cicd-reviewer — omit when the diff has no .github/** files)
 
 ### Issues (file-ordered, severity inline)
 

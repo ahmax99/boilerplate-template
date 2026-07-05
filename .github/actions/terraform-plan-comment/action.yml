@@ -24,6 +24,8 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
         PR_NUMBER: ${{ inputs.pr-number }}
+        PLAN_FILE: ${{ inputs.plan-file }}
+        ENVIRONMENT: ${{ inputs.environment }}
       run: |
         chmod +x .github/scripts/terraform-plan-comment.sh
-        .github/scripts/terraform-plan-comment.sh "${{ inputs.plan-file }}" "${{ inputs.environment }}"
+        .github/scripts/terraform-plan-comment.sh "$PLAN_FILE" "$ENVIRONMENT"

@@ -29,7 +29,9 @@ runs:
   steps:
     - name: Terraform init
       shell: bash
-      run: terraform -chdir=infra/terraform init -reconfigure -backend-config=backends/${{ inputs.environment }}.hcl
+      env:
+        ENVIRONMENT: ${{ inputs.environment }}
+      run: terraform -chdir=infra/terraform init -reconfigure -backend-config="backends/${ENVIRONMENT}.hcl"
 
     # ── Idempotency check: does :latest exist in both ECR repos for this env? ──
     - name: Check ECR image state
@@ -65,10 +67,13 @@ runs:
     - name: Surface outputs to job summary
       if: always()
       shell: bash
+      env:
+        ENVIRONMENT: ${{ inputs.environment }}
+        MODE: ${{ steps.ecr-check.outputs.mode }}
       run: |
         {
-          echo "## Terraform Apply — ${{ inputs.environment }}"
-          echo "**Mode:** ${{ steps.ecr-check.outputs.mode }}"
+          echo "## Terraform Apply — ${ENVIRONMENT}"
+          echo "**Mode:** ${MODE}"
           echo ""
           echo "### Outputs"
           echo '```'
