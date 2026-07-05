@@ -1,5 +1,5 @@
 data "aws_route53_zone" "main" {
-  name         = "ahmax99.online"
+  name         = var.root_domain
   private_zone = false
 }
 

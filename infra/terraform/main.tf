@@ -5,7 +5,7 @@ module "route53" {
   source = "./modules/route53"
 
   zone_id                             = data.aws_route53_zone.main.zone_id
-  domain_name                         = var.domain_name
+  domain_name                         = local.domain_name
   cloudfront_distribution_domain_name = module.cloudfront.distribution_domain_name
   cloudfront_hosted_zone_id           = module.cloudfront.hosted_zone_id
 }
@@ -20,7 +20,7 @@ module "acm" {
     aws = aws.us_east_1
   }
 
-  domain_name               = var.domain_name
+  domain_name               = local.domain_name
   subject_alternative_names = []
   zone_id                   = data.aws_route53_zone.main.zone_id
 
@@ -47,7 +47,7 @@ module "cloudfront" {
   logs_bucket_id                   = module.s3_logs.bucket_id
   web_acl_id                       = module.waf.web_acl_arn
 
-  domain_name                    = var.domain_name
+  domain_name                    = local.domain_name
   acm_certificate_arn            = module.acm.certificate_arn
   lambda_edge_viewer_request_arn = module.lambda_edge.qualified_arn
 
@@ -70,7 +70,7 @@ module "lambda_edge" {
   }
 
   name_prefix                 = local.name_prefix
-  allowed_hosts               = [var.domain_name]
+  allowed_hosts               = [local.domain_name]
   cloudfront_distribution_arn = local.cloudfront_distribution_arn
 
   tags = merge(
@@ -125,11 +125,11 @@ module "cognito" {
   app_client_name  = "${local.name_prefix}-web-app-client"
 
   callback_urls = [
-    "https://${var.domain_name}/api/auth/callback",
+    "https://${local.domain_name}/api/auth/callback",
     "http://localhost:3000/api/auth/callback",
   ]
   logout_urls = [
-    "https://${var.domain_name}",
+    "https://${local.domain_name}",
     "http://localhost:3000",
   ]
 
@@ -196,7 +196,7 @@ module "backend" {
     COGNITO_CLIENT_ID        = module.cognito.client_id
     COGNITO_USERPOOL_ID      = module.cognito.user_pool_id
     DATABASE_URL_SECRET_NAME = module.database_secret.secret_name
-    FRONTEND_URL             = "https://${var.domain_name}"
+    FRONTEND_URL             = "https://${local.domain_name}"
     NODE_ENV                 = "production"
     S3_BUCKET_NAME           = local.s3_uploads_bucket_name
     SENTRY_DSN               = var.sentry_dsn
@@ -204,7 +204,7 @@ module "backend" {
 
   enable_function_url    = true
   function_url_auth_type = "AWS_IAM"
-  cors_allow_origins     = ["https://${var.domain_name}"]
+  cors_allow_origins     = ["https://${local.domain_name}"]
   cors_allow_methods     = ["*"]
   cors_allow_headers     = ["Content-Type", "Authorization", "Accept", "X-Id-Token"]
   cors_max_age           = 86400
@@ -251,7 +251,7 @@ module "frontend" {
 
   enable_function_url    = true
   function_url_auth_type = "AWS_IAM"
-  cors_allow_origins     = ["https://${var.domain_name}"]
+  cors_allow_origins     = ["https://${local.domain_name}"]
   cors_allow_methods     = ["*"]
   cors_allow_headers     = ["Content-Type", "Authorization", "Accept", "X-Id-Token"]
   cors_max_age           = 86400
@@ -335,7 +335,7 @@ module "s3_uploads" {
   block_public_access  = true
   enable_acl           = false
   enable_cors          = true
-  cors_allowed_origins = ["https://${var.domain_name}", "http://localhost:3000"]
+  cors_allowed_origins = ["https://${local.domain_name}", "http://localhost:3000"]
   cors_allowed_methods = ["GET", "PUT", "POST", "DELETE", "HEAD"]
   cors_allowed_headers = ["*"]
   cors_max_age_seconds = 3600

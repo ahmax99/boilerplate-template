@@ -2,7 +2,7 @@
 aws_region   = "ap-northeast-1"
 project_name = "boilerplate-template"
 environment  = "dev"             # dev | prod
-domain_name  = "dev.boilerplate-template.ahmax99.online"
+root_domain  = "ahmax99.online"
 
 # GitHub OIDC variables
 github_org = "ahmax99"

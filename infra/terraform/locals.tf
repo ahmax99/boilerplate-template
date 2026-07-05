@@ -7,6 +7,8 @@ locals {
 
   name_prefix = "${var.project_name}-${var.environment}"
 
+  domain_name = var.environment == "prod" ? "${var.project_name}.${var.root_domain}" : "${var.environment}.${var.project_name}.${var.root_domain}"
+
   # S3 bucket names
   s3_uploads_bucket_name       = "${local.name_prefix}-uploads"
   s3_logs_bucket_name          = "${local.name_prefix}-logs"

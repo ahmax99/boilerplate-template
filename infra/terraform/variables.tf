@@ -13,8 +13,8 @@ variable "environment" {
   type        = string
 }
 
-variable "domain_name" {
-  description = "Application domain name"
+variable "root_domain" {
+  description = "Root domain (Route 53 hosted zone name) the app's domain is derived from"
   type        = string
 }
 
