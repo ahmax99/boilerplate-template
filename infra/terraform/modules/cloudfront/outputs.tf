@@ -22,8 +22,3 @@ output "backend_oac_id" {
   description = "OAC ID for the backend Lambda origin"
   value       = aws_cloudfront_origin_access_control.backend.id
 }
-
-output "frontend_oac_id" {
-  description = "OAC ID for the frontend Lambda origin"
-  value       = aws_cloudfront_origin_access_control.frontend.id
-}
