@@ -48,8 +48,6 @@ resource "aws_lambda_permission" "cloudfront_invoke_frontend_fn" {
 # The frontend Function URL is AWS_IAM-authed. With OAC removed, the only caller
 # is the origin-request SigV4 signer, which authenticates as the Lambda@Edge role.
 # The CloudFront service-principal grants above only cover the (now-gone) OAC path;
-# the edge role needs its own resource-based grant or every frontend request —
-# reads included — is rejected with a Function URL AccessDeniedException.
 # -------------------
 resource "aws_lambda_permission" "edge_signer_invoke_frontend" {
   statement_id           = "AllowEdgeSignerInvokeFrontend"
