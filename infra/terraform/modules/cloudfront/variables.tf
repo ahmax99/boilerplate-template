@@ -47,3 +47,8 @@ variable "lambda_edge_viewer_request_arn" {
   description = "Versioned ARN of the Lambda@Edge function to run on viewer-request (must be in us-east-1)"
   type        = string
 }
+
+variable "lambda_edge_origin_request_arn" {
+  description = "Versioned ARN of the Lambda@Edge SigV4 signer to run on origin-request for frontend-lambda behaviors (must be in us-east-1)"
+  type        = string
+}

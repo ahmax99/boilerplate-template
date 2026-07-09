@@ -50,6 +50,7 @@ module "cloudfront" {
   domain_name                    = local.domain_name
   acm_certificate_arn            = module.acm.certificate_arn
   lambda_edge_viewer_request_arn = module.lambda_edge.qualified_arn
+  lambda_edge_origin_request_arn = module.lambda_edge.signer_qualified_arn
 
   tags = merge(
     local.common_tags,
@@ -72,6 +73,10 @@ module "lambda_edge" {
   name_prefix                 = local.name_prefix
   allowed_hosts               = [local.domain_name]
   cloudfront_distribution_arn = local.cloudfront_distribution_arn
+
+  signer_region           = var.aws_region
+  frontend_function_arn   = module.frontend.function_arn
+  frontend_function_alias = module.frontend.alias_name
 
   tags = merge(
     local.common_tags,

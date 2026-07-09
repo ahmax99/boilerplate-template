@@ -5,9 +5,9 @@ on:
     branches:
       - main
     paths:
-      - 'infra/terraform/**'
+      - "infra/terraform/**"
     tags:
-      - 'v*'
+      - "v*"
   workflow_dispatch: # dev only — prod requires a v* tag push
 
 permissions:
@@ -37,6 +37,10 @@ jobs:
         uses: ./.github/actions/terraform-env
         with:
           environment: dev
+          aws-region: ${{ vars.AWS_REGION }}
+          root-domain: ${{ vars.TF_VAR_root_domain }}
+          contact-to-email: ${{ vars.TF_VAR_contact_to_email }}
+          from-email: ${{ vars.TF_VAR_from_email }}
           database-url: ${{ secrets.TF_VAR_database_url }}
           google-client-id: ${{ secrets.TF_VAR_google_client_id }}
           google-client-secret: ${{ secrets.TF_VAR_google_client_secret }}
@@ -74,7 +78,7 @@ jobs:
     if: github.event_name == 'push' && github.ref_type == 'tag'
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    environment: prod  # required-reviewer gate (already configured for deploy.yml)
+    environment: prod # required-reviewer gate (already configured for deploy.yml)
 
     env:
       TF_IN_AUTOMATION: "true"
@@ -88,6 +92,10 @@ jobs:
         uses: ./.github/actions/terraform-env
         with:
           environment: prod
+          aws-region: ${{ vars.AWS_REGION }}
+          root-domain: ${{ vars.TF_VAR_root_domain }}
+          contact-to-email: ${{ vars.TF_VAR_contact_to_email }}
+          from-email: ${{ vars.TF_VAR_from_email }}
           database-url: ${{ secrets.TF_VAR_database_url }}
           google-client-id: ${{ secrets.TF_VAR_google_client_id }}
           google-client-secret: ${{ secrets.TF_VAR_google_client_secret }}

@@ -282,300 +282,6 @@
       "norm_label": "stop-typecheck.sh script"
     },
     {
-      "label": "bootstrap_labels.sh",
-      "file_type": "code",
-      "source_file": ".claude/skills/backlog-runner/scripts/bootstrap_labels.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_backlog_runner_scripts_bootstrap_labels",
-      "community": 44,
-      "norm_label": "bootstrap_labels.sh"
-    },
-    {
-      "label": "bootstrap_labels.sh script",
-      "file_type": "code",
-      "source_file": ".claude/skills/backlog-runner/scripts/bootstrap_labels.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_backlog_runner_scripts_bootstrap_labels_sh__entry",
-      "community": 44,
-      "norm_label": "bootstrap_labels.sh script"
-    },
-    {
-      "label": "verify_qa_gate.sh",
-      "file_type": "code",
-      "source_file": ".claude/skills/backlog-runner/scripts/verify_qa_gate.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_backlog_runner_scripts_verify_qa_gate",
-      "community": 76,
-      "norm_label": "verify_qa_gate.sh"
-    },
-    {
-      "label": "verify_qa_gate.sh script",
-      "file_type": "code",
-      "source_file": ".claude/skills/backlog-runner/scripts/verify_qa_gate.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_backlog_runner_scripts_verify_qa_gate_sh__entry",
-      "community": 76,
-      "norm_label": "verify_qa_gate.sh script"
-    },
-    {
-      "label": "loop_progress.py",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_loop_progress",
-      "community": 74,
-      "norm_label": "loop_progress.py"
-    },
-    {
-      "label": "_vwidth()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_loop_progress_vwidth",
-      "community": 74,
-      "norm_label": "_vwidth()"
-    },
-    {
-      "label": "progress_bar()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L30",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_loop_progress_progress_bar",
-      "community": 74,
-      "norm_label": "progress_bar()"
-    },
-    {
-      "label": "phase_breadcrumb()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_loop_progress_phase_breadcrumb",
-      "community": 74,
-      "norm_label": "phase_breadcrumb()"
-    },
-    {
-      "label": "blueprint_box()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L47",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_loop_progress_blueprint_box",
-      "community": 74,
-      "norm_label": "blueprint_box()"
-    },
-    {
-      "label": "_main()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L59",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_loop_progress_main",
-      "community": 74,
-      "norm_label": "_main()"
-    },
-    {
-      "label": "test_loop_progress.py",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_loop_progress",
-      "community": 74,
-      "norm_label": "test_loop_progress.py"
-    },
-    {
-      "label": "test_progress_bar_basic()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_progress_bar_basic",
-      "community": 74,
-      "norm_label": "test_progress_bar_basic()"
-    },
-    {
-      "label": "test_progress_bar_full()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L13",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_progress_bar_full",
-      "community": 74,
-      "norm_label": "test_progress_bar_full()"
-    },
-    {
-      "label": "test_progress_bar_zero_total_is_safe()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L19",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_progress_bar_zero_total_is_safe",
-      "community": 74,
-      "norm_label": "test_progress_bar_zero_total_is_safe()"
-    },
-    {
-      "label": "test_phase_breadcrumb_marks_current()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L25",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_phase_breadcrumb_marks_current",
-      "community": 74,
-      "norm_label": "test_phase_breadcrumb_marks_current()"
-    },
-    {
-      "label": "test_phase_breadcrumb_rejects_unknown()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L31",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_phase_breadcrumb_rejects_unknown",
-      "community": 74,
-      "norm_label": "test_phase_breadcrumb_rejects_unknown()"
-    },
-    {
-      "label": "test_blueprint_box_frames_fields()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L39",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_blueprint_box_frames_fields",
-      "community": 74,
-      "norm_label": "test_blueprint_box_frames_fields()"
-    },
-    {
-      "label": "test_cli_bar()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L50",
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_cli_bar",
-      "community": 74,
-      "norm_label": "test_cli_bar()"
-    },
-    {
-      "label": "test_verifiers.sh",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_verifiers.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_verifiers",
-      "community": 81,
-      "norm_label": "test_verifiers.sh"
-    },
-    {
-      "label": "test_verifiers.sh script",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_verifiers.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_verifiers_sh__entry",
-      "community": 81,
-      "norm_label": "test_verifiers.sh script"
-    },
-    {
-      "label": "check()",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_verifiers.sh",
-      "source_location": "L6",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_tests_test_verifiers_check",
-      "community": 81,
-      "norm_label": "check()"
-    },
-    {
-      "label": "verifier_template.sh",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/verifier_template.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_verifier_template",
-      "community": 82,
-      "norm_label": "verifier_template.sh"
-    },
-    {
-      "label": "verifier_template.sh script",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/verifier_template.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_verifier_template_sh__entry",
-      "community": 82,
-      "norm_label": "verifier_template.sh script"
-    },
-    {
-      "label": "verify_example.sh",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/verify_example.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_verify_example",
-      "community": 83,
-      "norm_label": "verify_example.sh"
-    },
-    {
-      "label": "verify_example.sh script",
-      "file_type": "code",
-      "source_file": ".claude/skills/loop-maker/scripts/verify_example.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "_origin": "ast",
-      "id": "claude_skills_loop_maker_scripts_verify_example_sh__entry",
-      "community": 83,
-      "norm_label": "verify_example.sh script"
-    },
-    {
       "label": ".fallowrc.json",
       "file_type": "code",
       "source_file": ".fallowrc.json",
@@ -2962,7 +2668,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_page",
-      "community": 15,
+      "community": 44,
       "norm_label": "page.tsx"
     },
     {
@@ -2972,7 +2678,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_page_metadata",
-      "community": 15,
+      "community": 44,
       "norm_label": "metadata"
     },
     {
@@ -2982,7 +2688,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_page_editaccountpage",
-      "community": 15,
+      "community": 44,
       "norm_label": "editaccountpage()"
     },
     {
@@ -3012,7 +2718,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_page",
-      "community": 15,
+      "community": 44,
       "norm_label": "page.tsx"
     },
     {
@@ -3022,7 +2728,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_page_metadata",
-      "community": 15,
+      "community": 44,
       "norm_label": "metadata"
     },
     {
@@ -3032,7 +2738,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_page_accountpage",
-      "community": 15,
+      "community": 44,
       "norm_label": "accountpage()"
     },
     {
@@ -3092,7 +2798,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page",
-      "community": 15,
+      "community": 32,
       "norm_label": "page.tsx"
     },
     {
@@ -3102,7 +2808,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_page_metadata",
-      "community": 15,
+      "community": 32,
       "norm_label": "metadata"
     },
     {
@@ -3122,7 +2828,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page",
-      "community": 15,
+      "community": 32,
       "norm_label": "page.tsx"
     },
     {
@@ -3132,7 +2838,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page_metadata",
-      "community": 15,
+      "community": 32,
       "norm_label": "metadata"
     },
     {
@@ -3142,7 +2848,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_contact_page_contactpage",
-      "community": 15,
+      "community": 32,
       "norm_label": "contactpage()"
     },
     {
@@ -3182,7 +2888,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page",
-      "community": 15,
+      "community": 75,
       "norm_label": "page.tsx"
     },
     {
@@ -3192,7 +2898,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page_metadata",
-      "community": 15,
+      "community": 75,
       "norm_label": "metadata"
     },
     {
@@ -3202,7 +2908,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page_homepage",
-      "community": 15,
+      "community": 75,
       "norm_label": "homepage()"
     },
     {
@@ -3232,7 +2938,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_page",
-      "community": 15,
+      "community": 74,
       "norm_label": "page.tsx"
     },
     {
@@ -3242,7 +2948,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_page_postdetailpageprops",
-      "community": 15,
+      "community": 74,
       "norm_label": "postdetailpageprops"
     },
     {
@@ -3252,7 +2958,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_page_generatemetadata",
-      "community": 15,
+      "community": 74,
       "norm_label": "generatemetadata()"
     },
     {
@@ -3262,7 +2968,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_page_postdetailpage",
-      "community": 15,
+      "community": 74,
       "norm_label": "postdetailpage()"
     },
     {
@@ -3292,7 +2998,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_page",
-      "community": 15,
+      "community": 17,
       "norm_label": "page.tsx"
     },
     {
@@ -3302,7 +3008,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_page_metadata",
-      "community": 15,
+      "community": 17,
       "norm_label": "metadata"
     },
     {
@@ -3312,7 +3018,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_page_postslistpage",
-      "community": 15,
+      "community": 17,
       "norm_label": "postslistpage()"
     },
     {
@@ -3342,7 +3048,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_auth_login_page",
-      "community": 17,
+      "community": 21,
       "norm_label": "page.tsx"
     },
     {
@@ -3352,7 +3058,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_auth_login_page_loginpage",
-      "community": 17,
+      "community": 21,
       "norm_label": "loginpage()"
     },
     {
@@ -3362,7 +3068,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_presigned_url_route",
-      "community": 21,
+      "community": 28,
       "norm_label": "route.ts"
     },
     {
@@ -3372,7 +3078,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_presigned_url_route_get",
-      "community": 21,
+      "community": 28,
       "norm_label": "get"
     },
     {
@@ -3382,7 +3088,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route",
-      "community": 21,
+      "community": 28,
       "norm_label": "route.ts"
     },
     {
@@ -3392,7 +3098,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route_put",
-      "community": 21,
+      "community": 28,
       "norm_label": "put"
     },
     {
@@ -3402,7 +3108,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route_delete",
-      "community": 21,
+      "community": 28,
       "norm_label": "delete"
     },
     {
@@ -3412,7 +3118,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_auth_callback_route",
-      "community": 22,
+      "community": 0,
       "norm_label": "route.ts"
     },
     {
@@ -3422,7 +3128,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_auth_callback_route_get",
-      "community": 22,
+      "community": 0,
       "norm_label": "get"
     },
     {
@@ -3432,7 +3138,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_auth_login_route",
-      "community": 5,
+      "community": 0,
       "norm_label": "route.ts"
     },
     {
@@ -3442,7 +3148,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_auth_login_route_get",
-      "community": 5,
+      "community": 0,
       "norm_label": "get"
     },
     {
@@ -3452,7 +3158,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_auth_logout_route",
-      "community": 5,
+      "community": 17,
       "norm_label": "route.ts"
     },
     {
@@ -3462,7 +3168,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_auth_logout_route_get",
-      "community": 5,
+      "community": 17,
       "norm_label": "get"
     },
     {
@@ -3472,7 +3178,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_commentid_route",
-      "community": 28,
+      "community": 71,
       "norm_label": "route.ts"
     },
     {
@@ -3482,7 +3188,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_commentid_route_delete",
-      "community": 28,
+      "community": 71,
       "norm_label": "delete"
     },
     {
@@ -3492,7 +3198,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_route",
-      "community": 28,
+      "community": 71,
       "norm_label": "route.ts"
     },
     {
@@ -3502,7 +3208,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_route_get",
-      "community": 28,
+      "community": 71,
       "norm_label": "get"
     },
     {
@@ -3512,7 +3218,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_route_post",
-      "community": 28,
+      "community": 71,
       "norm_label": "post"
     },
     {
@@ -3542,7 +3248,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_posts_postid_route",
-      "community": 5,
+      "community": 17,
       "norm_label": "route.ts"
     },
     {
@@ -3552,7 +3258,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_posts_postid_route_get",
-      "community": 5,
+      "community": 17,
       "norm_label": "get"
     },
     {
@@ -3562,7 +3268,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_posts_presigned_url_route",
-      "community": 5,
+      "community": 17,
       "norm_label": "route.ts"
     },
     {
@@ -3572,7 +3278,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_posts_presigned_url_route_get",
-      "community": 5,
+      "community": 17,
       "norm_label": "get"
     },
     {
@@ -3582,7 +3288,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_posts_route",
-      "community": 5,
+      "community": 17,
       "norm_label": "route.ts"
     },
     {
@@ -3592,7 +3298,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_posts_route_get",
-      "community": 5,
+      "community": 17,
       "norm_label": "get"
     },
     {
@@ -3602,7 +3308,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_posts_route_post",
-      "community": 5,
+      "community": 17,
       "norm_label": "post"
     },
     {
@@ -3612,7 +3318,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_global_error",
-      "community": 17,
+      "community": 21,
       "norm_label": "global-error.tsx"
     },
     {
@@ -3622,7 +3328,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_global_error_globalerrorprops",
-      "community": 17,
+      "community": 21,
       "norm_label": "globalerrorprops"
     },
     {
@@ -3632,7 +3338,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_global_error_globalerror",
-      "community": 17,
+      "community": 21,
       "norm_label": "globalerror()"
     },
     {
@@ -3642,7 +3348,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_layout",
-      "community": 2,
+      "community": 72,
       "norm_label": "layout.tsx"
     },
     {
@@ -3652,7 +3358,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_layout_geistsans",
-      "community": 2,
+      "community": 72,
       "norm_label": "geistsans"
     },
     {
@@ -3662,7 +3368,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_layout_geistmono",
-      "community": 2,
+      "community": 72,
       "norm_label": "geistmono"
     },
     {
@@ -3672,7 +3378,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_layout_rootlayout",
-      "community": 2,
+      "community": 72,
       "norm_label": "rootlayout()"
     },
     {
@@ -3882,7 +3588,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_featuresection_featuresection",
-      "community": 15,
+      "community": 75,
       "norm_label": "featuresection()"
     },
     {
@@ -3892,7 +3598,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_herosection",
-      "community": 15,
+      "community": 75,
       "norm_label": "herosection.tsx"
     },
     {
@@ -3902,7 +3608,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_herosection_herosection",
-      "community": 15,
+      "community": 75,
       "norm_label": "herosection()"
     },
     {
@@ -3912,7 +3618,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_index",
-      "community": 15,
+      "community": 75,
       "norm_label": "index.ts"
     },
     {
@@ -3922,7 +3628,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pageheader",
-      "community": 15,
+      "community": 22,
       "norm_label": "pageheader.tsx"
     },
     {
@@ -3942,7 +3648,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pagetemplate",
-      "community": 15,
+      "community": 32,
       "norm_label": "pagetemplate.tsx"
     },
     {
@@ -3952,7 +3658,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pagetemplate_pagetemplateprops",
-      "community": 15,
+      "community": 32,
       "norm_label": "pagetemplateprops"
     },
     {
@@ -3962,7 +3668,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_pagetemplate_pagetemplate",
-      "community": 15,
+      "community": 32,
       "norm_label": "pagetemplate()"
     },
     {
@@ -3972,7 +3678,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_layout_index",
-      "community": 15,
+      "community": 32,
       "norm_label": "index.ts"
     },
     {
@@ -4232,7 +3938,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_logo",
-      "community": 15,
+      "community": 22,
       "norm_label": "logo.tsx"
     },
     {
@@ -4242,7 +3948,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_logo_logo",
-      "community": 15,
+      "community": 22,
       "norm_label": "logo()"
     },
     {
@@ -4342,7 +4048,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_actionbutton_actionbutton",
-      "community": 79,
+      "community": 73,
       "norm_label": "actionbutton()"
     },
     {
@@ -4352,7 +4058,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field",
-      "community": 71,
+      "community": 73,
       "norm_label": "field.tsx"
     },
     {
@@ -4362,7 +4068,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldvariants",
-      "community": 71,
+      "community": 73,
       "norm_label": "fieldvariants"
     },
     {
@@ -4372,7 +4078,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_field",
-      "community": 71,
+      "community": 73,
       "norm_label": "field()"
     },
     {
@@ -4382,7 +4088,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldcontent",
-      "community": 71,
+      "community": 73,
       "norm_label": "fieldcontent()"
     },
     {
@@ -4392,7 +4098,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldlabel",
-      "community": 71,
+      "community": 73,
       "norm_label": "fieldlabel()"
     },
     {
@@ -4402,7 +4108,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldtitle",
-      "community": 71,
+      "community": 73,
       "norm_label": "fieldtitle()"
     },
     {
@@ -4412,7 +4118,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fielderroritem",
-      "community": 71,
+      "community": 73,
       "norm_label": "fielderroritem"
     },
     {
@@ -4422,7 +4128,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_dedupeerrormessages",
-      "community": 71,
+      "community": 73,
       "norm_label": "dedupeerrormessages()"
     },
     {
@@ -4432,7 +4138,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fielderrorlist",
-      "community": 71,
+      "community": 73,
       "norm_label": "fielderrorlist()"
     },
     {
@@ -4442,7 +4148,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_resolvefielderrorcontent",
-      "community": 71,
+      "community": 73,
       "norm_label": "resolvefielderrorcontent()"
     },
     {
@@ -4452,7 +4158,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fielderror",
-      "community": 71,
+      "community": 73,
       "norm_label": "fielderror()"
     },
     {
@@ -4482,7 +4188,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formcard_formcard",
-      "community": 75,
+      "community": 6,
       "norm_label": "formcard()"
     },
     {
@@ -4492,7 +4198,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formfield",
-      "community": 71,
+      "community": 73,
       "norm_label": "formfield.tsx"
     },
     {
@@ -4502,7 +4208,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formfield_formfieldprops",
-      "community": 71,
+      "community": 73,
       "norm_label": "formfieldprops"
     },
     {
@@ -4522,7 +4228,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_index",
-      "community": 71,
+      "community": 73,
       "norm_label": "index.ts"
     },
     {
@@ -4532,7 +4238,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_config_env",
-      "community": 0,
+      "community": 5,
       "norm_label": "env.ts"
     },
     {
@@ -4542,7 +4248,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_config_env_env",
-      "community": 0,
+      "community": 5,
       "norm_label": "env"
     },
     {
@@ -4572,7 +4278,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index",
-      "community": 78,
+      "community": 6,
       "norm_label": "index.ts"
     },
     {
@@ -4582,7 +4288,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_fetchprofileimage",
-      "community": 2,
+      "community": 6,
       "norm_label": "fetchprofileimage()"
     },
     {
@@ -4592,7 +4298,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_updateuser",
-      "community": 78,
+      "community": 6,
       "norm_label": "updateuser()"
     },
     {
@@ -4602,7 +4308,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_uploadprofileimage",
-      "community": 78,
+      "community": 6,
       "norm_label": "uploadprofileimage()"
     },
     {
@@ -4612,7 +4318,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_deleteuser",
-      "community": 78,
+      "community": 6,
       "norm_label": "deleteuser()"
     },
     {
@@ -4622,7 +4328,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform",
-      "community": 73,
+      "community": 6,
       "norm_label": "accountform.tsx"
     },
     {
@@ -4632,7 +4338,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_fieldconfig",
-      "community": 73,
+      "community": 44,
       "norm_label": "fieldconfig"
     },
     {
@@ -4642,7 +4348,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_accountformconfig",
-      "community": 73,
+      "community": 6,
       "norm_label": "accountformconfig"
     },
     {
@@ -4652,7 +4358,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_accountformprops",
-      "community": 73,
+      "community": 6,
       "norm_label": "accountformprops"
     },
     {
@@ -4662,7 +4368,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_fieldinput",
-      "community": 73,
+      "community": 5,
       "norm_label": "fieldinput()"
     },
     {
@@ -4672,7 +4378,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_accountform",
-      "community": 79,
+      "community": 6,
       "norm_label": "accountform()"
     },
     {
@@ -4702,7 +4408,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountmanagement_accountmanagement",
-      "community": 2,
+      "community": 44,
       "norm_label": "accountmanagement()"
     },
     {
@@ -4712,7 +4418,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_deleteaccountbutton",
-      "community": 79,
+      "community": 6,
       "norm_label": "deleteaccountbutton.tsx"
     },
     {
@@ -4722,7 +4428,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_deleteaccountbutton_deleteaccountbutton",
-      "community": 79,
+      "community": 6,
       "norm_label": "deleteaccountbutton()"
     },
     {
@@ -4732,7 +4438,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_hooks_useaccountactions",
-      "community": 78,
+      "community": 6,
       "norm_label": "useaccountactions.ts"
     },
     {
@@ -4742,7 +4448,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_hooks_useaccountactions_useaccountactions",
-      "community": 79,
+      "community": 6,
       "norm_label": "useaccountactions()"
     },
     {
@@ -4752,7 +4458,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_schemas_accountform_schema",
-      "community": 73,
+      "community": 6,
       "norm_label": "accountform.schema.ts"
     },
     {
@@ -4762,7 +4468,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_schemas_accountform_schema_accountformmodel",
-      "community": 73,
+      "community": 6,
       "norm_label": "accountformmodel"
     },
     {
@@ -4772,7 +4478,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_schemas_accountform_schema_updateprofileschema",
-      "community": 73,
+      "community": 6,
       "norm_label": "updateprofileschema"
     },
     {
@@ -4782,7 +4488,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index",
-      "community": 21,
+      "community": 28,
       "norm_label": "index.ts"
     },
     {
@@ -4792,7 +4498,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_updateuser",
-      "community": 21,
+      "community": 28,
       "norm_label": "updateuser()"
     },
     {
@@ -4802,7 +4508,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_deleteuser",
-      "community": 21,
+      "community": 28,
       "norm_label": "deleteuser()"
     },
     {
@@ -4812,7 +4518,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_fetchpresignedurl",
-      "community": 21,
+      "community": 28,
       "norm_label": "fetchpresignedurl()"
     },
     {
@@ -4822,7 +4528,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_components_userinfo",
-      "community": 2,
+      "community": 6,
       "norm_label": "userinfo.tsx"
     },
     {
@@ -4832,7 +4538,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_components_userinfo_userinfoprops",
-      "community": 2,
+      "community": 6,
       "norm_label": "userinfoprops"
     },
     {
@@ -4842,7 +4548,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_components_userinfo_userinfo",
-      "community": 2,
+      "community": 6,
       "norm_label": "userinfo()"
     },
     {
@@ -4852,7 +4558,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton",
-      "community": 79,
+      "community": 73,
       "norm_label": "authactionbutton.tsx"
     },
     {
@@ -4862,7 +4568,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_actionresult",
-      "community": 79,
+      "community": 73,
       "norm_label": "actionresult"
     },
     {
@@ -4872,7 +4578,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_authactionbuttonprops",
-      "community": 79,
+      "community": 73,
       "norm_label": "authactionbuttonprops"
     },
     {
@@ -4882,7 +4588,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_handleauthaction",
-      "community": 79,
+      "community": 73,
       "norm_label": "handleauthaction()"
     },
     {
@@ -4892,7 +4598,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_authactionbutton",
-      "community": 79,
+      "community": 6,
       "norm_label": "authactionbutton()"
     },
     {
@@ -4922,7 +4628,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_oauth2start",
-      "community": 17,
+      "community": 21,
       "norm_label": "oauth2start.tsx"
     },
     {
@@ -4932,7 +4638,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_oauth2start_oauth2start",
-      "community": 17,
+      "community": 21,
       "norm_label": "oauth2start()"
     },
     {
@@ -4962,7 +4668,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_cookie",
-      "community": 0,
+      "community": 5,
       "norm_label": "cookie.ts"
     },
     {
@@ -4972,7 +4678,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_cookie_cookie_options",
-      "community": 0,
+      "community": 5,
       "norm_label": "cookie_options"
     },
     {
@@ -4982,7 +4688,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_session",
-      "community": 0,
+      "community": 5,
       "norm_label": "session.ts"
     },
     {
@@ -4992,7 +4698,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_session_session_config",
-      "community": 0,
+      "community": 5,
       "norm_label": "session_config"
     },
     {
@@ -5002,7 +4708,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_toastmessages",
-      "community": 15,
+      "community": 32,
       "norm_label": "toastmessages.ts"
     },
     {
@@ -5012,7 +4718,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_cognitoclient",
-      "community": 0,
+      "community": 5,
       "norm_label": "cognitoclient.ts"
     },
     {
@@ -5022,7 +4728,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_cognitoclient_getoidcclient",
-      "community": 22,
+      "community": 0,
       "norm_label": "getoidcclient()"
     },
     {
@@ -5052,7 +4758,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes",
-      "community": 15,
+      "community": 22,
       "norm_label": "routes.ts"
     },
     {
@@ -5062,7 +4768,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes_protected_routes",
-      "community": 15,
+      "community": 22,
       "norm_label": "protected_routes"
     },
     {
@@ -5072,7 +4778,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes_public_routes",
-      "community": 15,
+      "community": 22,
       "norm_label": "public_routes"
     },
     {
@@ -5082,7 +4788,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_routes_public_auth_routes",
-      "community": 15,
+      "community": 22,
       "norm_label": "public_auth_routes"
     },
     {
@@ -5092,7 +4798,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_schemas_auth_schema",
-      "community": 22,
+      "community": 0,
       "norm_label": "auth.schema.ts"
     },
     {
@@ -5102,7 +4808,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_schemas_auth_schema_authmodel",
-      "community": 22,
+      "community": 0,
       "norm_label": "authmodel"
     },
     {
@@ -5112,7 +4818,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_schemas_auth_schema_sessiondata",
-      "community": 22,
+      "community": 0,
       "norm_label": "sessiondata"
     },
     {
@@ -5122,7 +4828,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_schemas_auth_schema_callbackparams",
-      "community": 22,
+      "community": 0,
       "norm_label": "callbackparams"
     },
     {
@@ -5132,7 +4838,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_api_index",
-      "community": 15,
+      "community": 28,
       "norm_label": "index.ts"
     },
     {
@@ -5142,7 +4848,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_api_index_createuser",
-      "community": 22,
+      "community": 0,
       "norm_label": "createuser()"
     },
     {
@@ -5152,7 +4858,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_api_index_getme",
-      "community": 15,
+      "community": 44,
       "norm_label": "getme()"
     },
     {
@@ -5162,7 +4868,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_components_logoutbutton",
-      "community": 15,
+      "community": 22,
       "norm_label": "logoutbutton.tsx"
     },
     {
@@ -5172,7 +4878,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_components_logoutbutton_logoutbutton",
-      "community": 15,
+      "community": 22,
       "norm_label": "logoutbutton()"
     },
     {
@@ -5182,7 +4888,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_auth",
-      "community": 22,
+      "community": 0,
       "norm_label": "auth.ts"
     },
     {
@@ -5192,7 +4898,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_auth_log",
-      "community": 22,
+      "community": 0,
       "norm_label": "log"
     },
     {
@@ -5202,7 +4908,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_auth_session_checks",
-      "community": 22,
+      "community": 0,
       "norm_label": "session_checks"
     },
     {
@@ -5212,7 +4918,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_auth_getvalidtokendata",
-      "community": 22,
+      "community": 0,
       "norm_label": "getvalidtokendata()"
     },
     {
@@ -5222,7 +4928,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_auth_handlelogin",
-      "community": 22,
+      "community": 0,
       "norm_label": "handlelogin()"
     },
     {
@@ -5232,7 +4938,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_auth_validatecallbackparams",
-      "community": 22,
+      "community": 0,
       "norm_label": "validatecallbackparams()"
     },
     {
@@ -5242,7 +4948,7 @@
       "source_location": "L99",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_auth_validatesession",
-      "community": 22,
+      "community": 0,
       "norm_label": "validatesession()"
     },
     {
@@ -5252,7 +4958,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_auth_handlecallback",
-      "community": 22,
+      "community": 0,
       "norm_label": "handlecallback()"
     },
     {
@@ -5262,7 +4968,7 @@
       "source_location": "L165",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_auth_handlelogout",
-      "community": 22,
+      "community": 0,
       "norm_label": "handlelogout()"
     },
     {
@@ -5272,7 +4978,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_role",
-      "community": 0,
+      "community": 5,
       "norm_label": "role.ts"
     },
     {
@@ -5282,7 +4988,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_role_assigndefaultrolegroup",
-      "community": 22,
+      "community": 0,
       "norm_label": "assigndefaultrolegroup()"
     },
     {
@@ -5292,7 +4998,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_session",
-      "community": 22,
+      "community": 0,
       "norm_label": "session.ts"
     },
     {
@@ -5302,7 +5008,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_session_getsession",
-      "community": 22,
+      "community": 0,
       "norm_label": "getsession()"
     },
     {
@@ -5312,7 +5018,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_session_setsessiondata",
-      "community": 22,
+      "community": 0,
       "norm_label": "setsessiondata()"
     },
     {
@@ -5322,7 +5028,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_session_getsessiondata",
-      "community": 22,
+      "community": 0,
       "norm_label": "getsessiondata()"
     },
     {
@@ -5332,7 +5038,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_session_destroysession",
-      "community": 22,
+      "community": 0,
       "norm_label": "destroysession()"
     },
     {
@@ -5342,7 +5048,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_pkce",
-      "community": 22,
+      "community": 0,
       "norm_label": "pkce.ts"
     },
     {
@@ -5352,7 +5058,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_pkce_generatepkce",
-      "community": 22,
+      "community": 0,
       "norm_label": "generatepkce()"
     },
     {
@@ -5362,7 +5068,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_pkce_clearpkcedata",
-      "community": 22,
+      "community": 0,
       "norm_label": "clearpkcedata()"
     },
     {
@@ -5372,7 +5078,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_pkce_generatestate",
-      "community": 22,
+      "community": 0,
       "norm_label": "generatestate()"
     },
     {
@@ -5382,7 +5088,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_pkce_generatenonce",
-      "community": 22,
+      "community": 0,
       "norm_label": "generatenonce()"
     },
     {
@@ -5392,7 +5098,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_redirect",
-      "community": 17,
+      "community": 21,
       "norm_label": "redirect.ts"
     },
     {
@@ -5402,7 +5108,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_utils_redirect_saferelativepath",
-      "community": 17,
+      "community": 21,
       "norm_label": "saferelativepath()"
     },
     {
@@ -5412,7 +5118,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_api_index",
-      "community": 71,
+      "community": 73,
       "norm_label": "index.ts"
     },
     {
@@ -5422,7 +5128,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_api_index_createcomment",
-      "community": 71,
+      "community": 73,
       "norm_label": "createcomment()"
     },
     {
@@ -5432,7 +5138,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_api_index_deletecomment",
-      "community": 71,
+      "community": 73,
       "norm_label": "deletecomment()"
     },
     {
@@ -5442,7 +5148,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform",
-      "community": 71,
+      "community": 73,
       "norm_label": "commentform.tsx"
     },
     {
@@ -5452,7 +5158,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentfieldconfig",
-      "community": 71,
+      "community": 73,
       "norm_label": "commentfieldconfig"
     },
     {
@@ -5462,7 +5168,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentformconfig",
-      "community": 71,
+      "community": 73,
       "norm_label": "commentformconfig"
     },
     {
@@ -5472,7 +5178,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentformprops",
-      "community": 71,
+      "community": 73,
       "norm_label": "commentformprops"
     },
     {
@@ -5482,7 +5188,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentform",
-      "community": 71,
+      "community": 73,
       "norm_label": "commentform()"
     },
     {
@@ -5492,7 +5198,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton",
-      "community": 71,
+      "community": 73,
       "norm_label": "deletecommentbutton.tsx"
     },
     {
@@ -5502,7 +5208,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton_deletecommentbuttonprops",
-      "community": 71,
+      "community": 73,
       "norm_label": "deletecommentbuttonprops"
     },
     {
@@ -5512,7 +5218,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton_deletecommentbutton",
-      "community": 71,
+      "community": 73,
       "norm_label": "deletecommentbutton()"
     },
     {
@@ -5522,7 +5228,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_hooks_usecommentactions",
-      "community": 71,
+      "community": 73,
       "norm_label": "usecommentactions.ts"
     },
     {
@@ -5532,7 +5238,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_hooks_usecommentactions_usecommentactions",
-      "community": 71,
+      "community": 73,
       "norm_label": "usecommentactions()"
     },
     {
@@ -5542,7 +5248,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_schemas_commentform_schema",
-      "community": 71,
+      "community": 73,
       "norm_label": "commentform.schema.ts"
     },
     {
@@ -5552,7 +5258,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_schemas_commentform_schema_commentformmodel",
-      "community": 71,
+      "community": 73,
       "norm_label": "commentformmodel"
     },
     {
@@ -5562,7 +5268,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_schemas_commentform_schema_createcommentschema",
-      "community": 71,
+      "community": 73,
       "norm_label": "createcommentschema"
     },
     {
@@ -5572,7 +5278,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index",
-      "community": 28,
+      "community": 71,
       "norm_label": "index.ts"
     },
     {
@@ -5582,7 +5288,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index_fetchallcomments",
-      "community": 15,
+      "community": 74,
       "norm_label": "fetchallcomments()"
     },
     {
@@ -5592,7 +5298,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index_createcomment",
-      "community": 28,
+      "community": 71,
       "norm_label": "createcomment()"
     },
     {
@@ -5602,7 +5308,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index_deletecomment",
-      "community": 28,
+      "community": 71,
       "norm_label": "deletecomment()"
     },
     {
@@ -5642,7 +5348,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_tracking_config_sentry_edge_config",
-      "community": 0,
+      "community": 5,
       "norm_label": "sentry.edge.config.ts"
     },
     {
@@ -5652,7 +5358,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_tracking_config_sentry_server_config",
-      "community": 0,
+      "community": 5,
       "norm_label": "sentry.server.config.ts"
     },
     {
@@ -5662,7 +5368,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_tracking_utils_captureerror",
-      "community": 17,
+      "community": 21,
       "norm_label": "captureerror.ts"
     },
     {
@@ -5672,7 +5378,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_tracking_utils_captureerror_captureerror",
-      "community": 17,
+      "community": 21,
       "norm_label": "captureerror()"
     },
     {
@@ -5682,7 +5388,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_components_triggertesterror",
-      "community": 77,
+      "community": 42,
       "norm_label": "triggertesterror.tsx"
     },
     {
@@ -5692,7 +5398,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_components_triggertesterror_triggertesterror",
-      "community": 77,
+      "community": 42,
       "norm_label": "triggertesterror()"
     },
     {
@@ -5702,7 +5408,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_hooks_useerrorhandler",
-      "community": 77,
+      "community": 42,
       "norm_label": "useerrorhandler.ts"
     },
     {
@@ -5712,7 +5418,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_hooks_useerrorhandler_error_display",
-      "community": 77,
+      "community": 42,
       "norm_label": "error_display"
     },
     {
@@ -5732,7 +5438,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_lib_handleerror",
-      "community": 78,
+      "community": 6,
       "norm_label": "handleerror.ts"
     },
     {
@@ -5742,7 +5448,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_lib_handleerror_handleclienterror",
-      "community": 78,
+      "community": 6,
       "norm_label": "handleclienterror()"
     },
     {
@@ -5752,7 +5458,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_lib_handleerror_handleclientautherror",
-      "community": 78,
+      "community": 6,
       "norm_label": "handleclientautherror()"
     },
     {
@@ -5782,7 +5488,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_stores_useerrorstore",
-      "community": 77,
+      "community": 42,
       "norm_label": "useerrorstore.ts"
     },
     {
@@ -5792,7 +5498,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_stores_useerrorstore_errorstore",
-      "community": 77,
+      "community": 42,
       "norm_label": "errorstore"
     },
     {
@@ -5802,7 +5508,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_stores_useerrorstore_useerrorstore",
-      "community": 77,
+      "community": 42,
       "norm_label": "useerrorstore"
     },
     {
@@ -5812,7 +5518,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_apperror",
-      "community": 77,
+      "community": 42,
       "norm_label": "apperror.ts"
     },
     {
@@ -5822,7 +5528,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_apperror_apperror",
-      "community": 77,
+      "community": 42,
       "norm_label": "apperror"
     },
     {
@@ -5832,7 +5538,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_apperror_apperror_constructor",
-      "community": 77,
+      "community": 42,
       "norm_label": ".constructor()"
     },
     {
@@ -5842,27 +5548,37 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror",
-      "community": 17,
+      "community": 21,
       "norm_label": "maptoapperror.ts"
+    },
+    {
+      "label": "STATUS_TO_CODE",
+      "file_type": "code",
+      "source_file": "apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_status_to_code",
+      "community": 21,
+      "norm_label": "status_to_code"
     },
     {
       "label": "stringifyUnknownError()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts",
-      "source_location": "L5",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_stringifyunknownerror",
-      "community": 17,
+      "community": 21,
       "norm_label": "stringifyunknownerror()"
     },
     {
       "label": "mapToAppError()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts",
-      "source_location": "L17",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_maptoapperror",
-      "community": 17,
+      "community": 21,
       "norm_label": "maptoapperror()"
     },
     {
@@ -5892,7 +5608,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_utils_catcherror",
-      "community": 17,
+      "community": 21,
       "norm_label": "catcherror.ts"
     },
     {
@@ -5902,7 +5618,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchsyncerror",
-      "community": 17,
+      "community": 21,
       "norm_label": "catchsyncerror()"
     },
     {
@@ -5912,7 +5628,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchasyncerror",
-      "community": 78,
+      "community": 6,
       "norm_label": "catchasyncerror()"
     },
     {
@@ -5962,7 +5678,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_client_components_contactform_fieldinput",
-      "community": 73,
+      "community": 5,
       "norm_label": "fieldinput()"
     },
     {
@@ -6032,7 +5748,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema",
-      "community": 32,
+      "community": 6,
       "norm_label": "email.schema.ts"
     },
     {
@@ -6042,7 +5758,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema_emailuserschema",
-      "community": 32,
+      "community": 6,
       "norm_label": "emailuserschema"
     },
     {
@@ -6052,7 +5768,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema_emailmodel",
-      "community": 32,
+      "community": 6,
       "norm_label": "emailmodel"
     },
     {
@@ -6062,7 +5778,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema_emailuser",
-      "community": 32,
+      "community": 6,
       "norm_label": "emailuser"
     },
     {
@@ -6162,7 +5878,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail",
-      "community": 32,
+      "community": 6,
       "norm_label": "sendemail.ts"
     },
     {
@@ -6172,7 +5888,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail_resend",
-      "community": 32,
+      "community": 6,
       "norm_label": "resend"
     },
     {
@@ -6182,7 +5898,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail_sendemailparams",
-      "community": 32,
+      "community": 6,
       "norm_label": "sendemailparams"
     },
     {
@@ -6222,7 +5938,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_constants_index",
-      "community": 2,
+      "community": 72,
       "norm_label": "index.ts"
     },
     {
@@ -6232,7 +5948,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_constants_index_metadata",
-      "community": 2,
+      "community": 72,
       "norm_label": "metadata"
     },
     {
@@ -6242,7 +5958,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata",
-      "community": 15,
+      "community": 72,
       "norm_label": "generatepagemetadata.ts"
     },
     {
@@ -6252,7 +5968,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata_generatepagemetadataprops",
-      "community": 15,
+      "community": 72,
       "norm_label": "generatepagemetadataprops"
     },
     {
@@ -6262,7 +5978,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata_generatepagemetadata",
-      "community": 15,
+      "community": 74,
       "norm_label": "generatepagemetadata()"
     },
     {
@@ -6272,7 +5988,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index",
-      "community": 78,
+      "community": 6,
       "norm_label": "index.ts"
     },
     {
@@ -6282,7 +5998,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index_fetchpostimage",
-      "community": 15,
+      "community": 74,
       "norm_label": "fetchpostimage()"
     },
     {
@@ -6292,7 +6008,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index_createpostclient",
-      "community": 78,
+      "community": 6,
       "norm_label": "createpostclient()"
     },
     {
@@ -6302,7 +6018,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index_uploadimage",
-      "community": 78,
+      "community": 6,
       "norm_label": "uploadimage()"
     },
     {
@@ -6312,7 +6028,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_components_postform",
-      "community": 75,
+      "community": 6,
       "norm_label": "postform.tsx"
     },
     {
@@ -6322,7 +6038,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_components_postform_postformschema",
-      "community": 75,
+      "community": 6,
       "norm_label": "postformschema"
     },
     {
@@ -6332,7 +6048,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_components_postform_fieldconfig",
-      "community": 75,
+      "community": 32,
       "norm_label": "fieldconfig"
     },
     {
@@ -6342,7 +6058,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_components_postform_postformconfig",
-      "community": 75,
+      "community": 6,
       "norm_label": "postformconfig"
     },
     {
@@ -6352,7 +6068,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_components_postform_postformprops",
-      "community": 75,
+      "community": 6,
       "norm_label": "postformprops"
     },
     {
@@ -6362,7 +6078,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_components_postform_fieldinput",
-      "community": 73,
+      "community": 5,
       "norm_label": "fieldinput()"
     },
     {
@@ -6372,7 +6088,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_components_postform_postform",
-      "community": 75,
+      "community": 6,
       "norm_label": "postform()"
     },
     {
@@ -6382,7 +6098,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_hooks_usepostactions",
-      "community": 78,
+      "community": 6,
       "norm_label": "usepostactions.ts"
     },
     {
@@ -6392,7 +6108,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_hooks_usepostactions_usepostactions",
-      "community": 75,
+      "community": 6,
       "norm_label": "usepostactions()"
     },
     {
@@ -6402,7 +6118,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_constants_index",
-      "community": 78,
+      "community": 6,
       "norm_label": "index.ts"
     },
     {
@@ -6412,7 +6128,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_schemas_postform_schema",
-      "community": 75,
+      "community": 6,
       "norm_label": "postform.schema.ts"
     },
     {
@@ -6422,7 +6138,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_schemas_postform_schema_postformmodel",
-      "community": 75,
+      "community": 6,
       "norm_label": "postformmodel"
     },
     {
@@ -6432,7 +6148,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_schemas_postform_schema_createpostschema",
-      "community": 75,
+      "community": 6,
       "norm_label": "createpostschema"
     },
     {
@@ -6442,7 +6158,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_api_index",
-      "community": 5,
+      "community": 17,
       "norm_label": "index.ts"
     },
     {
@@ -6452,7 +6168,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_api_index_fetchallposts",
-      "community": 15,
+      "community": 17,
       "norm_label": "fetchallposts()"
     },
     {
@@ -6462,7 +6178,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_api_index_fetchpost",
-      "community": 15,
+      "community": 74,
       "norm_label": "fetchpost()"
     },
     {
@@ -6472,7 +6188,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_api_index_fetchpresignedurl",
-      "community": 5,
+      "community": 17,
       "norm_label": "fetchpresignedurl()"
     },
     {
@@ -6482,7 +6198,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_api_index_createpostserver",
-      "community": 5,
+      "community": 17,
       "norm_label": "createpostserver()"
     },
     {
@@ -6542,7 +6258,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postslist_postslist",
-      "community": 15,
+      "community": 17,
       "norm_label": "postslist()"
     },
     {
@@ -6552,7 +6268,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_instrumentation_client",
-      "community": 0,
+      "community": 5,
       "norm_label": "instrumentation-client.ts"
     },
     {
@@ -6562,7 +6278,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_instrumentation",
-      "community": 77,
+      "community": 19,
       "norm_label": "instrumentation.ts"
     },
     {
@@ -6572,7 +6288,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_instrumentation_register",
-      "community": 73,
+      "community": 5,
       "norm_label": "register()"
     },
     {
@@ -6582,7 +6298,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_instrumentation_onrequesterror",
-      "community": 77,
+      "community": 19,
       "norm_label": "onrequesterror()"
     },
     {
@@ -6592,7 +6308,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_apiclient",
-      "community": 78,
+      "community": 6,
       "norm_label": "apiclient.ts"
     },
     {
@@ -6602,7 +6318,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_apiclient_apiclient",
-      "community": 78,
+      "community": 6,
       "norm_label": "apiclient"
     },
     {
@@ -6652,7 +6368,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_cognito",
-      "community": 0,
+      "community": 5,
       "norm_label": "cognito.ts"
     },
     {
@@ -6662,7 +6378,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_cognito_cognitoclient",
-      "community": 0,
+      "community": 5,
       "norm_label": "cognitoclient"
     },
     {
@@ -6702,7 +6418,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_requestlogging_withrequestlogging",
-      "community": 5,
+      "community": 17,
       "norm_label": "withrequestlogging()"
     },
     {
@@ -6802,7 +6518,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy",
-      "community": 15,
+      "community": 22,
       "norm_label": "proxy.ts"
     },
     {
@@ -6812,7 +6528,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_protectedpaths",
-      "community": 15,
+      "community": 22,
       "norm_label": "protectedpaths"
     },
     {
@@ -6822,7 +6538,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_isprotectedpath",
-      "community": 15,
+      "community": 22,
       "norm_label": "isprotectedpath()"
     },
     {
@@ -6832,7 +6548,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_proxy",
-      "community": 15,
+      "community": 22,
       "norm_label": "proxy()"
     },
     {
@@ -6842,7 +6558,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_proxy_config",
-      "community": 15,
+      "community": 22,
       "norm_label": "config"
     },
     {
@@ -8272,7 +7988,7 @@
       "source_location": "L225",
       "_origin": "ast",
       "id": "biome_source_organizeimports",
-      "community": 29,
+      "community": 76,
       "norm_label": "organizeimports"
     },
     {
@@ -8282,7 +7998,7 @@
       "source_location": "L226",
       "_origin": "ast",
       "id": "biome_organizeimports_level",
-      "community": 29,
+      "community": 76,
       "norm_label": "level"
     },
     {
@@ -8292,7 +8008,7 @@
       "source_location": "L227",
       "_origin": "ast",
       "id": "biome_organizeimports_options",
-      "community": 29,
+      "community": 76,
       "norm_label": "options"
     },
     {
@@ -8302,7 +8018,7 @@
       "source_location": "L228",
       "_origin": "ast",
       "id": "biome_options_groups",
-      "community": 29,
+      "community": 76,
       "norm_label": "groups"
     },
     {
@@ -8312,7 +8028,7 @@
       "source_location": "L242",
       "_origin": "ast",
       "id": "biome_source_usesortedattributes",
-      "community": 42,
+      "community": 29,
       "norm_label": "usesortedattributes"
     },
     {
@@ -8322,7 +8038,7 @@
       "source_location": "L243",
       "_origin": "ast",
       "id": "biome_usesortedattributes_level",
-      "community": 42,
+      "community": 29,
       "norm_label": "level"
     },
     {
@@ -8332,7 +8048,7 @@
       "source_location": "L244",
       "_origin": "ast",
       "id": "biome_usesortedattributes_options",
-      "community": 42,
+      "community": 29,
       "norm_label": "options"
     },
     {
@@ -8342,7 +8058,7 @@
       "source_location": "L245",
       "_origin": "ast",
       "id": "biome_options_sortorder",
-      "community": 42,
+      "community": 29,
       "norm_label": "sortorder"
     },
     {
@@ -8562,7 +8278,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "package_devdependencies",
-      "community": 12,
+      "community": 7,
       "norm_label": "devdependencies"
     },
     {
@@ -8572,7 +8288,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "package_devdependencies_biomejs_biome",
-      "community": 12,
+      "community": 7,
       "norm_label": "@biomejs/biome"
     },
     {
@@ -8582,7 +8298,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "package_devdependencies_commitlint_cli",
-      "community": 12,
+      "community": 7,
       "norm_label": "@commitlint/cli"
     },
     {
@@ -8592,7 +8308,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "package_devdependencies_commitlint_config_conventional",
-      "community": 12,
+      "community": 7,
       "norm_label": "@commitlint/config-conventional"
     },
     {
@@ -8602,7 +8318,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "package_devdependencies_lefthook",
-      "community": 12,
+      "community": 7,
       "norm_label": "lefthook"
     },
     {
@@ -8612,7 +8328,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "package_devdependencies_turbo",
-      "community": 12,
+      "community": 7,
       "norm_label": "turbo"
     },
     {
@@ -8622,7 +8338,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "package_devdependencies_typescript",
-      "community": 12,
+      "community": 7,
       "norm_label": "typescript"
     },
     {
@@ -9952,7 +9668,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs",
-      "community": 0,
+      "community": 5,
       "norm_label": "nextjs.json"
     },
     {
@@ -9962,7 +9678,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_schema",
-      "community": 0,
+      "community": 5,
       "norm_label": "$schema"
     },
     {
@@ -9972,7 +9688,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_extends",
-      "community": 0,
+      "community": 5,
       "norm_label": "extends"
     },
     {
@@ -9982,7 +9698,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_compileroptions",
-      "community": 72,
+      "community": 77,
       "norm_label": "compileroptions"
     },
     {
@@ -9992,7 +9708,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_compileroptions_allowjs",
-      "community": 72,
+      "community": 77,
       "norm_label": "allowjs"
     },
     {
@@ -10002,7 +9718,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_compileroptions_jsx",
-      "community": 72,
+      "community": 77,
       "norm_label": "jsx"
     },
     {
@@ -10012,7 +9728,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_compileroptions_noemit",
-      "community": 72,
+      "community": 77,
       "norm_label": "noemit"
     },
     {
@@ -10072,7 +9788,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "turbo",
-      "community": 12,
+      "community": 7,
       "norm_label": "turbo.json"
     },
     {
@@ -10082,7 +9798,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "turbo_schema",
-      "community": 12,
+      "community": 7,
       "norm_label": "$schema"
     },
     {
@@ -10092,7 +9808,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "turbo_ui",
-      "community": 12,
+      "community": 7,
       "norm_label": "ui"
     },
     {
@@ -10899,252 +10615,6 @@
       "weight": 1.0,
       "source": "claude_hooks_stop_typecheck",
       "target": "claude_hooks_stop_typecheck_sh__entry",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/backlog-runner/scripts/bootstrap_labels.sh",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "claude_skills_backlog_runner_scripts_bootstrap_labels",
-      "target": "claude_skills_backlog_runner_scripts_bootstrap_labels_sh__entry",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/backlog-runner/scripts/verify_qa_gate.sh",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "claude_skills_backlog_runner_scripts_verify_qa_gate",
-      "target": "claude_skills_backlog_runner_scripts_verify_qa_gate_sh__entry",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L47",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_loop_progress_blueprint_box",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L59",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_loop_progress_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_loop_progress_phase_breadcrumb",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_loop_progress_progress_bar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L18",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_loop_progress_vwidth",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L3",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_loop_progress",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L49",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_loop_progress_blueprint_box",
-      "target": "claude_skills_loop_maker_scripts_loop_progress_vwidth",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L65",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_loop_progress_main",
-      "target": "claude_skills_loop_maker_scripts_loop_progress_progress_bar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L67",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_loop_progress_main",
-      "target": "claude_skills_loop_maker_scripts_loop_progress_phase_breadcrumb",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/loop_progress.py",
-      "source_location": "L70",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_loop_progress_main",
-      "target": "claude_skills_loop_maker_scripts_loop_progress_blueprint_box",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_blueprint_box_frames_fields",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L50",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_cli_bar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L25",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_phase_breadcrumb_marks_current",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L31",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_phase_breadcrumb_rejects_unknown",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_progress_bar_basic",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L13",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_progress_bar_full",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_loop_progress.py",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_loop_progress",
-      "target": "claude_skills_loop_maker_scripts_tests_test_loop_progress_test_progress_bar_zero_total_is_safe",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_verifiers.sh",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_verifiers",
-      "target": "claude_skills_loop_maker_scripts_tests_test_verifiers_check",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_verifiers.sh",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_tests_test_verifiers",
-      "target": "claude_skills_loop_maker_scripts_tests_test_verifiers_sh__entry",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/tests/test_verifiers.sh",
-      "source_location": "L8",
-      "weight": 1.0,
-      "context": "call",
-      "source": "claude_skills_loop_maker_scripts_tests_test_verifiers_sh__entry",
-      "target": "claude_skills_loop_maker_scripts_tests_test_verifiers_check",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/verifier_template.sh",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_verifier_template",
-      "target": "claude_skills_loop_maker_scripts_verifier_template_sh__entry",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".claude/skills/loop-maker/scripts/verify_example.sh",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "claude_skills_loop_maker_scripts_verify_example",
-      "target": "claude_skills_loop_maker_scripts_verify_example_sh__entry",
       "confidence_score": 1.0
     },
     {
@@ -23672,7 +23142,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts",
-      "source_location": "L3",
+      "source_location": "L5",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror",
       "target": "apps_nextjs_boilerplate_src_features_error_lib_apperror",
@@ -23726,7 +23196,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts",
-      "source_location": "L3",
+      "source_location": "L5",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror",
       "target": "apps_nextjs_boilerplate_src_features_error_lib_apperror_apperror",
@@ -23769,7 +23239,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts",
-      "source_location": "L17",
+      "source_location": "L23",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror",
       "target": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_maptoapperror",
@@ -23779,7 +23249,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts",
-      "source_location": "L5",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror",
+      "target": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_status_to_code",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts",
+      "source_location": "L11",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror",
       "target": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_stringifyunknownerror",
@@ -23801,7 +23281,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/error/lib/mapToAppError.ts",
-      "source_location": "L26",
+      "source_location": "L36",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_maptoapperror",
       "target": "apps_nextjs_boilerplate_src_features_error_lib_maptoapperror_stringifyunknownerror",
@@ -28989,5 +28469,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "a3042de14e9d28e8fcdcea23a7592b4ea8fd66d7"
+  "built_at_commit": "c4bbd77bce765e26ac57edb05206089c5d0c85a7"
 }
