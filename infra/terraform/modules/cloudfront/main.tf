@@ -9,25 +9,6 @@ resource "aws_cloudfront_origin_access_control" "backend" {
 }
 
 # -----------------------------------------------------------
-# CloudFront Origin Access Control — Frontend Lambda (orphaned)
-#
-# No longer referenced by any origin (see the frontend-lambda origin below —
-# the origin-request Lambda@Edge signer replaced it). Destroying this in the
-# same apply as the distribution update that dropped the reference races
-# CloudFront: it still considers the OAC "in use" until the distribution
-# finishes deploying, so `terraform destroy` fails with 409
-# OriginAccessControlInUse. Kept as an unreferenced resource for one deploy
-# cycle so the distribution update lands on its own; remove this block in a
-# follow-up change once that apply has gone out cleanly.
-# -----------------------------------------------------------
-resource "aws_cloudfront_origin_access_control" "frontend" {
-  name                              = "${var.name_prefix}-frontend-oac"
-  origin_access_control_origin_type = "lambda"
-  signing_behavior                  = "always"
-  signing_protocol                  = "sigv4"
-}
-
-# -----------------------------------------------------------
 # CloudFront Origin Access Control — S3 Static Assets
 # -----------------------------------------------------------
 resource "aws_cloudfront_origin_access_control" "static" {
