@@ -37,3 +37,8 @@ variable "cloudfront_distribution_arn" {
   description = "ARN of the CloudFront distribution"
   type        = string
 }
+
+variable "edge_signer_role_arn" {
+  description = "ARN of the Lambda@Edge execution role — granted invoke on the frontend Function URL so the origin-request SigV4 signer's requests are authorized (identity-based policy alone is insufficient once OAC is removed)"
+  type        = string
+}
