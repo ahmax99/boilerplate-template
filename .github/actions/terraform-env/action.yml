@@ -1,44 +1,42 @@
-name: 'Terraform Variables'
-description: 'Exports the shared TF_VAR_* environment to $GITHUB_ENV so downstream Terraform steps pick them up. Single source of truth for the TF var mapping shared by the plan and apply jobs — add new vars here, not in each caller.'
+name: "Terraform Variables"
+description: "Exports the shared TF_VAR_* environment to $GITHUB_ENV so downstream Terraform steps pick them up. Single source of truth for the TF var mapping shared by the plan and apply jobs — add new vars here, not in each caller."
 
 inputs:
   environment:
-    description: 'Target environment (dev, prod) — sets TF_VAR_environment'
+    description: "Target environment (dev, prod) — sets TF_VAR_environment"
     required: true
   database-url:
-    description: 'TF_VAR_database_url (secret)'
+    description: "TF_VAR_database_url (secret)"
     required: true
   google-client-id:
-    description: 'TF_VAR_google_client_id (secret)'
+    description: "TF_VAR_google_client_id (secret)"
     required: true
   google-client-secret:
-    description: 'TF_VAR_google_client_secret (secret)'
+    description: "TF_VAR_google_client_secret (secret)"
     required: true
   resend-api-key:
-    description: 'TF_VAR_resend_api_key (secret)'
+    description: "TF_VAR_resend_api_key (secret)"
     required: true
   session-secret:
-    description: 'TF_VAR_session_secret (secret)'
+    description: "TF_VAR_session_secret (secret)"
     required: true
   sentry-dsn:
-    description: 'TF_VAR_sentry_dsn (secret)'
+    description: "TF_VAR_sentry_dsn (secret)"
     required: true
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Export TF_VAR_* environment
       shell: bash
       env:
-        # Non-secret values are read from the vars/github contexts (available in
-        # composite actions); secrets must be threaded in as inputs.
         TF_VAR_project_name: ${{ github.event.repository.name }}
         TF_VAR_environment: ${{ inputs.environment }}
-        TF_VAR_aws_region: ${{ vars.AWS_REGION }}
-        TF_VAR_root_domain: ${{ vars.TF_VAR_root_domain }}
+        TF_VAR_aws_region: ${{ inputs.aws-region }}
+        TF_VAR_root_domain: ${{ inputs.root-domain }}
         TF_VAR_github_org: ${{ github.repository_owner }}
-        TF_VAR_contact_to_email: ${{ vars.TF_VAR_contact_to_email }}
-        TF_VAR_from_email: ${{ vars.TF_VAR_from_email }}
+        TF_VAR_contact_to_email: ${{ inputs.contact-to-email }}
+        TF_VAR_from_email: ${{ inputs.from-email }}
         TF_VAR_database_url: ${{ inputs.database-url }}
         TF_VAR_google_client_id: ${{ inputs.google-client-id }}
         TF_VAR_google_client_secret: ${{ inputs.google-client-secret }}
