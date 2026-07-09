@@ -9,16 +9,6 @@ resource "aws_cloudfront_origin_access_control" "backend" {
 }
 
 # -----------------------------------------------------------
-# CloudFront Origin Access Control — Frontend Lambda (SigV4)
-# -----------------------------------------------------------
-resource "aws_cloudfront_origin_access_control" "frontend" {
-  name                              = "${var.name_prefix}-frontend-oac"
-  origin_access_control_origin_type = "lambda"
-  signing_behavior                  = "always"
-  signing_protocol                  = "sigv4"
-}
-
-# -----------------------------------------------------------
 # CloudFront Origin Access Control — S3 Static Assets
 # -----------------------------------------------------------
 resource "aws_cloudfront_origin_access_control" "static" {
@@ -27,7 +17,6 @@ resource "aws_cloudfront_origin_access_control" "static" {
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
 }
-
 
 # -----------------------------------------------------------
 # Cache Policies
@@ -153,12 +142,13 @@ resource "aws_cloudfront_distribution" "this" {
 
   # ----------
   # Origin: Frontend Lambda (/* default)
-  # Lambda Function URL origins require custom_origin_config even with OAC
+  # No OAC here: OAC can't sign an anonymous browser request body, so the
+  # origin-request Lambda@Edge signer (below) supplies SigV4 instead.
+  # Lambda Function URL origins still require custom_origin_config.
   # ----------
   origin {
-    origin_id                = "frontend-lambda"
-    domain_name              = local.frontend_origin_domain
-    origin_access_control_id = aws_cloudfront_origin_access_control.frontend.id
+    origin_id   = "frontend-lambda"
+    domain_name = local.frontend_origin_domain
 
     custom_origin_config {
       http_port              = 80
@@ -223,6 +213,16 @@ resource "aws_cloudfront_distribution" "this" {
     compress                 = false
     cache_policy_id          = aws_cloudfront_cache_policy.no_cache.id
     origin_request_policy_id = aws_cloudfront_origin_request_policy.lambda_all.id
+
+    # frontend-lambda lost OAC signing when the OAC was removed (see origin block above) — this behavior needs the edge signer too, GET-only or not.
+    dynamic "lambda_function_association" {
+      for_each = toset(compact([var.lambda_edge_origin_request_arn]))
+      content {
+        event_type   = "origin-request"
+        lambda_arn   = lambda_function_association.value
+        include_body = true
+      }
+    }
   }
 
   # ----------
@@ -243,6 +243,17 @@ resource "aws_cloudfront_distribution" "this" {
         event_type   = "viewer-request"
         lambda_arn   = lambda_function_association.value
         include_body = false
+      }
+    }
+
+    # OAC can't sign an anonymous browser request body — this origin-request
+    # signer supplies SigV4 for the frontend Function URL instead.
+    dynamic "lambda_function_association" {
+      for_each = toset(compact([var.lambda_edge_origin_request_arn]))
+      content {
+        event_type   = "origin-request"
+        lambda_arn   = lambda_function_association.value
+        include_body = true
       }
     }
   }

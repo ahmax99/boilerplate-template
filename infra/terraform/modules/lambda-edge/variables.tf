@@ -17,3 +17,18 @@ variable "tags" {
   description = "Tags to apply to resources"
   type        = map(string)
 }
+
+variable "signer_region" {
+  description = "AWS region for the origin-request signer's SigV4 credential scope — must match the frontend Lambda Function URL's region"
+  type        = string
+}
+
+variable "frontend_function_arn" {
+  description = "ARN of the frontend Lambda function — the origin-request signer's SigV4 target"
+  type        = string
+}
+
+variable "frontend_function_alias" {
+  description = "Alias qualifier of the frontend Lambda function"
+  type        = string
+}
