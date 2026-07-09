@@ -73,7 +73,7 @@ A human clears a `-pending-approval` phase by adding `agent:approved` — a chec
 **Discovery priority each invocation:**
 1. `agent:approved` issues (resume, highest priority)
 2. `agent:qa-retry` issues (continue fix loop)
-3. `agent:implementing` issues with no retry flag (resume — a previous run likely died mid-phase; treated as resumable, not an error)
+3. `agent:implementing` issues with no retry flag (a previous run likely died mid-phase; "resume" means restart the phase's action from scratch — `/implement` and `/qa` re-run cleanly against the worktree's current state rather than trying to resume mid-command — treated as recoverable, not an error)
 4. `ready-for-agent` issues, oldest first (start a new worktree)
 
 Issues sitting in a `-pending-approval` state or `agent:blocked` (without `agent:approved`) are skipped and don't count against the 3-issue budget.
@@ -91,12 +91,14 @@ Holds the qa-retry counter and worktree bookkeeping. Disappears automatically wh
 | Current label | Action | Next label |
 |---|---|---|
 | `ready-for-agent` | `git worktree add ../wt-issue-<n> -b agent/issue-<n>`; run `/spec` from the issue title+body; post the spec as a comment | `agent:spec-pending-approval` |
-| `agent:approved` (was spec-pending) | Run `/plan docs/specs/<spec>.md` in the worktree; post the plan as a comment | `agent:plan-pending-approval` |
-| `agent:approved` (was plan-pending) | Run `/implement`, then `/qa`; pipe output through the verifier | `agent:pr-open` (pass) / `agent:qa-retry` (fail, retries<3) / `agent:blocked` (fail, retries=3) |
+| `agent:spec-pending-approval` + `agent:approved` | Run `/plan docs/specs/<spec>.md` in the worktree; post the plan as a comment; remove both labels | `agent:plan-pending-approval` |
+| `agent:plan-pending-approval` + `agent:approved` | Run `/implement`, then `/qa`; pipe output through the verifier; remove both labels | `agent:pr-open` (pass) / `agent:qa-retry` (fail, retries<3) / `agent:blocked` (fail, retries=3) |
 | `agent:qa-retry` | `/implement "fix: <qa findings>"`, re-run `/qa`, verifier again | same branching as above |
-| `agent:pr-open` (on pass) | `gh pr create` from the branch, referencing the issue | *(terminal for the loop)* |
+| `agent:pr-open` (on pass) | `gh pr create` from the branch, referencing the issue | *(terminal for the loop — see PR outcomes below)* |
 
-Each invocation advances a given issue by exactly one phase — spec and plan are never chained past their approval gates in the same run.
+Each invocation advances a given issue by exactly one phase — spec and plan are never chained past their approval gates in the same run. A `-pending-approval` label always co-exists with `agent:approved` once a human clears it; the skill reads the pair together to know which phase to run next, then removes both.
+
+**PR outcomes:** merged → the issue closes automatically (GitHub's "closes #n" linking) and the worktree is removed by the skill on its next invocation (checked via `gh pr view --json state`). Closed without merging → left as `agent:pr-open` with no further loop action; a human removes the worktree manually (`git worktree remove ../wt-issue-<n>`) if abandoning the issue for good.
 
 ## Verification
 
@@ -161,4 +163,3 @@ No new durable "knowledge" skill is needed — `backlog-runner` reads the same `
 
 - Verify the `/qa` report's exact markdown shape before finalizing `verify_qa_gate.sh`'s grep patterns.
 - Decide the exact `gh issue comment` / `gh issue edit --add-label` invocations and confirm `gh` auth scope covers label writes in CI-less local use.
-- Confirm worktree cleanup timing: after PR merge, or after PR open (leave it for manual cleanup once merged)?
