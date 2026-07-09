@@ -15,6 +15,10 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 - `/implement [context]` — Generator agent: implements the current plan step by step, self-checking `bun run check-types` + `bun run check-format` after each step (plus the Terraform gates from `.claude/rules/infra.md` for steps that touch `infra/terraform/**`).
 - `/qa [scope]` — QA orchestrator: runs the deterministic gates, then spawns three reviewers in parallel (security, correctness, acceptance-criteria — plus infra when the diff touches `infra/terraform/**`) and synthesizes a scored verdict against the plan's acceptance criteria.
 
+## Unattended loop (optional)
+
+- `/run-backlog [issue-number]` — manual trigger for the `backlog-runner` loop (`.claude/skills/backlog-runner/`, built with `loop-maker`): discovers `ready-for-agent` GitHub issues and orchestrates the same `/spec → /plan → /implement → /qa` commands above, advancing each issue one phase at a time and pausing at human gates (after spec, after plan, before merge). Gate and budget specifics live in `.claude/skills/backlog-runner/HUMAN-GATES.md`, not here.
+
 ## Quality Commands
 
 - `/review [files]` — Code-review orchestrator: spawns the security and correctness reviewers (no plan needed). Works on the current branch vs `origin/main`.

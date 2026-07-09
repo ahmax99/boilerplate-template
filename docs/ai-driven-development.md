@@ -58,6 +58,16 @@ You stay in the loop at every arrow: approve the spec before planning, approve t
 > Jump straight to `/plan "<task>"` and `/implement`, or just describe the change.
 > The spec step earns its keep on features with real requirements and edge cases.
 
+## Unattended: the backlog-runner loop (optional)
+
+Everything above is you driving the pipeline by hand, one command at a time. `backlog-runner` is an optional unattended driver over that *same* pipeline: it discovers `ready-for-agent` GitHub issues and runs `/spec → /plan → /implement → /qa` for you, advancing up to 3 issues per invocation — but it pauses for your approval after the spec and after the plan, and it never merges its own PR. You trigger it manually:
+
+```text
+/run-backlog
+```
+
+It's built as a Claude Code skill (`.claude/skills/backlog-runner/`) using the `loop-maker` skill's discovery → verification → human-gate pattern, so the same "you approve the risky parts" guarantee from the manual pipeline still holds — just at issue granularity instead of command granularity. The design rationale (why GitHub labels for state, why a separate deterministic verifier script judges `/qa`'s report instead of the model grading itself, why there's no wall-clock budget) lives in the design spec: `docs/superpowers/specs/2026-07-09-backlog-runner-agent-loop-design.md`. Gate and budget specifics live in `.claude/skills/backlog-runner/HUMAN-GATES.md`, not here.
+
 ## Quality commands (use any time)
 
 These don't need a spec or plan — run them on whatever you've changed:

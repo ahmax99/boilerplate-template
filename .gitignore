@@ -87,3 +87,7 @@ terraform.rc
 # Impeccable: machine-local caches + per-developer overrides.
 **/.impeccable/hook.cache.json
 **/.impeccable/config.local.json
+
+# backlog-runner ephemeral loop state (per-worktree)
+.agent-state.json
+.qa-report.md
