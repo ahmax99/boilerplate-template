@@ -1,31 +1,31 @@
-name: "Terraform Apply (per environment)"
-description: "init + idempotent apply (bootstrap or steady-state) + job summary for one environment"
+name: 'Terraform Apply (per environment)'
+description: 'init + idempotent apply (bootstrap or steady-state) + job summary for one environment'
 
 inputs:
   environment:
-    description: "Environment name (dev, prod) — selects backend config and ECR repo names"
+    description: 'Environment name (dev, prod) — selects backend config and ECR repo names'
     required: true
   project-name:
-    description: "Project name used to construct ECR repo names"
+    description: 'Project name used to construct ECR repo names'
     required: true
   aws-region:
-    description: "AWS region"
+    description: 'AWS region'
     required: true
   next-public-base-url:
-    description: "NEXT_PUBLIC_BASE_URL for the frontend Docker build (bootstrap path only)"
+    description: 'NEXT_PUBLIC_BASE_URL for the frontend Docker build (bootstrap path only)'
     required: false
-    default: ""
+    default: ''
   next-public-backend-url:
-    description: "NEXT_PUBLIC_BACKEND_URL for the frontend Docker build (bootstrap path only)"
+    description: 'NEXT_PUBLIC_BACKEND_URL for the frontend Docker build (bootstrap path only)'
     required: false
-    default: ""
+    default: ''
   next-public-sentry-dsn:
-    description: "NEXT_PUBLIC_SENTRY_DSN for the frontend Docker build (bootstrap path only)"
+    description: 'NEXT_PUBLIC_SENTRY_DSN for the frontend Docker build (bootstrap path only)'
     required: false
-    default: ""
+    default: ''
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Terraform init
       shell: bash
