@@ -117,6 +117,7 @@ module "lambda_permissions" {
   frontend_lambda_role_arn    = module.frontend.lambda_role_arn
   frontend_lambda_role_name   = module.frontend.lambda_role_name
   cloudfront_distribution_arn = local.cloudfront_distribution_arn
+  edge_signer_role_arn        = module.lambda_edge.edge_role_arn
 }
 
 # -------------------
