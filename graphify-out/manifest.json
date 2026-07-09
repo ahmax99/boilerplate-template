@@ -1130,8 +1130,8 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-permissions/main.tf": {
-    "mtime": 1783614899.4310048,
-    "ast_hash": "22295174ef60c9bcf2ed6df1886d6bce",
+    "mtime": 1783615019.4321434,
+    "ast_hash": "c9d6377c264dd2820c0cfbe2d33d1fbe",
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-permissions/variables.tf": {
