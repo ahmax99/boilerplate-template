@@ -1110,7 +1110,7 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-edge/main.tf": {
-    "mtime": 1783671802.892016,
+    "mtime": 1783672201.4663596,
     "ast_hash": "88f1f13f2f12de5048ef2781a61ff99f",
     "semantic_hash": ""
   },
@@ -1130,7 +1130,7 @@
     "semantic_hash": ""
   },
   "infra/terraform/modules/lambda-permissions/main.tf": {
-    "mtime": 1783671825.8046367,
+    "mtime": 1783672201.4673517,
     "ast_hash": "f88bc18081f8abf0b84a1c4ca8125f62",
     "semantic_hash": ""
   },
@@ -1360,8 +1360,8 @@
     "semantic_hash": ""
   },
   ".impeccable/hook.cache.json": {
-    "mtime": 1783671813.088018,
-    "ast_hash": "e4337a403c0dfaf6a12fa4cefef23e33",
+    "mtime": 1783687852.6202126,
+    "ast_hash": "df0af73af4abca1d45fbf0df11cd5abb",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/.impeccable/design.json": {

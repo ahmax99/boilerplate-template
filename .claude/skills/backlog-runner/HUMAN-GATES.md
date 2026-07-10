@@ -33,14 +33,17 @@ in-progress phase label, and posts a comment naming which condition tripped:
 
 1. `scripts/verify_qa_gate.sh` still exits 1 after 3 qa-retry cycles (see
    Budget below).
-2. The worktree's diff touches `infra/terraform/**` — **always** blocked
+2. The branch's diff touches `infra/terraform/**` — **always** blocked
    regardless of the QA gate's result, per `.claude/rules/infra.md`'s
    existing rule against unattended infrastructure state changes.
-3. Scope drift — the worktree's `git diff --stat` touches files not named in
+3. Scope drift — the branch's `git diff --stat` touches files not named in
    the plan's "Files to modify/create" list or acceptance criteria.
 4. Any non-deterministic failure — a crash, a tool error, or
    `scripts/verify_qa_gate.sh` exiting 2 (misuse/anomaly, distinct from a
    normal exit-1 gate fail). Never silently retried.
+5. The working tree is dirty (beyond `.claude/backlog-state/**`) immediately
+   before a `git checkout` into an issue's branch — switching over
+   uncommitted work risks losing it. Never silently stashed or discarded.
 
 ### How to clear a gate
 
@@ -94,8 +97,9 @@ would reset if the loop were interrupted mid-run.
 Durable queue state (which phase an issue is in) lives on the GitHub issue
 itself as labels + comments — visible to the whole team, and a checkable
 predicate rather than parsed prose. Ephemeral per-issue state (the
-`qa_retries` counter, the worktree path) lives in `.agent-state.json` inside
-that issue's own worktree — it is created when the worktree is created and
-disappears when the worktree is removed, so there is never a stale counter
-left over to reset by hand. See the design spec's State model section for
-the full rationale.
+`qa_retries` counter, the branch name) lives in
+`.claude/backlog-state/issue-<n>/.agent-state.json` in the main repo — it is
+created when the issue's branch is first checked out and disappears when the
+branch is deleted after merge, so there is never a stale counter left over to
+reset by hand. See the design spec's State model section for the full
+rationale.

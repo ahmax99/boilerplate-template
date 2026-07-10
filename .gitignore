@@ -88,6 +88,8 @@ terraform.rc
 **/.impeccable/hook.cache.json
 **/.impeccable/config.local.json
 
-# backlog-runner ephemeral loop state (per-worktree)
+# backlog-runner ephemeral loop state (per-issue, in the main repo)
+/.claude/backlog-state/*
+!/.claude/backlog-state/.gitkeep
 .agent-state.json
 .qa-report.md
