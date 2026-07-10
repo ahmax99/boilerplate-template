@@ -1,7 +1,12 @@
 # Backlog-runner agent loop — design
 
 **Date:** 2026-07-09
-**Status:** Approved, ready for planning
+**Status:** Approved, ready for planning. **Amended 2026-07-10** (issue #82):
+the per-issue git-worktree isolation described below (`../wt-issue-<n>`) was
+replaced with checking out each issue's branch directly in the main repo,
+guarded by a working-tree-clean check before every switch. This doc is kept
+as the historical record of the original decision — `.claude/skills/
+backlog-runner/SKILL.md` is the current, operative behavior.
 **Built with:** `loop-maker` (`.claude/skills/loop-maker`)
 
 ## Problem

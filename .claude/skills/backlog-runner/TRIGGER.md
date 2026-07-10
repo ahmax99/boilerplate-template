@@ -23,14 +23,16 @@ sweep over a queue, not a run-to-completion job.
 ## State file
 
 ```
-../wt-issue-<n>/.agent-state.json   (one per issue, inside that issue's worktree)
+.claude/backlog-state/issue-<n>/.agent-state.json   (one per issue, in the main repo)
 ```
 
 There is no single state file for the whole loop — durable queue state lives
 on the GitHub issue as labels/comments; this ephemeral per-issue file is
-created when `git worktree add ../wt-issue-<n>` runs and removed with the
-worktree. See `SKILL.md` and the design spec's State model for the full
-two-tier rationale.
+created when the issue's branch is first checked out and removed once the
+branch is deleted after merge. There is no separate per-issue worktree — the
+loop works directly in the main repo's working directory, one issue's branch
+at a time, guarded by the working-tree-clean check in `SKILL.md` step 0. See
+`SKILL.md` and the design spec's State model for the full two-tier rationale.
 
 ---
 
