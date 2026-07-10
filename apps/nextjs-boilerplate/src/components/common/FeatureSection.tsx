@@ -1,69 +1,46 @@
-import { BookOpen, PenTool } from 'lucide-react'
-
 import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/features/auth/lib/routes'
 
 import { ButtonLink } from '../atoms/ButtonLink'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '../molecules/Card'
+
+const NEXT_STEPS = [
+  {
+    title: 'Browse the demo',
+    description:
+      'A working posts and comments flow with authenticated CRUD and CASL-enforced authorization.',
+    href: PUBLIC_ROUTES.POSTS,
+    label: 'View posts'
+  },
+  {
+    title: 'Create a post',
+    description:
+      'Sign in and try the full write path — form validation, image upload, and the BFF boundary.',
+    href: PROTECTED_ROUTES.POST_CREATE,
+    label: 'Create post'
+  }
+] as const
 
 function FeatureSection() {
   return (
     <section className="px-4 py-6">
-      <div className="grid w-full gap-8 sm:grid-cols-2 lg:grid-cols-2">
-        <Card className="flex flex-col border-none shadow-md transition-shadow duration-300 hover:shadow-lg">
-          <CardHeader>
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <BookOpen className="h-6 w-6" />
+      <div className="divide-y divide-border rounded-xl border border-border">
+        {NEXT_STEPS.map((step) => (
+          <div
+            className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between"
+            key={step.title}
+          >
+            <div className="space-y-1">
+              <h2 className="font-medium text-foreground text-xl">
+                {step.title}
+              </h2>
+              <p className="max-w-md text-muted-foreground text-sm">
+                {step.description}
+              </p>
             </div>
-            <CardTitle>Blog</CardTitle>
-            <CardDescription>Read our latest articles</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-1">
-            <p className="text-muted-foreground text-sm">
-              Browse through a collection of interesting posts and tutorials.
-            </p>
-          </CardContent>
-          <CardFooter>
-            <ButtonLink
-              className="w-full"
-              href={PUBLIC_ROUTES.POSTS}
-              variant="outline"
-            >
-              Visit Blog
+            <ButtonLink href={step.href} variant="outline">
+              {step.label}
             </ButtonLink>
-          </CardFooter>
-        </Card>
-
-        <Card className="flex flex-col border-none shadow-md transition-shadow duration-300 hover:shadow-lg">
-          <CardHeader>
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <PenTool className="h-6 w-6" />
-            </div>
-            <CardTitle>Create Post</CardTitle>
-            <CardDescription>Share your thoughts</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-1">
-            <p className="text-muted-foreground text-sm">
-              Have something to say? Create a new blog post and share it with
-              the community.
-            </p>
-          </CardContent>
-          <CardFooter>
-            <ButtonLink
-              className="w-full"
-              href={PROTECTED_ROUTES.POST_CREATE}
-              variant="outline"
-            >
-              Create Post
-            </ButtonLink>
-          </CardFooter>
-        </Card>
+          </div>
+        ))}
       </div>
     </section>
   )

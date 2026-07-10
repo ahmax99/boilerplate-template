@@ -14,6 +14,9 @@ export const fetchPostImage = (imagePath: string) => {
 export const createPostClient = async (input: CreatePostBody) =>
   apiClient.post('posts', { json: input }).json<Post>()
 
+export const deletePostClient = async (id: Post['id']) =>
+  apiClient.delete(`posts/${id}`).json()
+
 export const uploadImage = async (file: File) => {
   const { presignedUrl, publicUrl, key } = await apiClient
     .get('posts/presigned-url', {

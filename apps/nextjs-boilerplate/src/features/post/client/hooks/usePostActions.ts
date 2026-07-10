@@ -1,11 +1,11 @@
 import { useRouter } from 'next/navigation'
-import type { CreatePostBody } from '@shared/config'
+import type { CreatePostBody, Post } from '@shared/config'
 
 import { PUBLIC_ROUTES } from '@/features/auth/lib/routes'
 import { useErrorHandler } from '@/features/error/client/hooks/useErrorHandler'
 import { handleClientError } from '@/features/error/client/lib/handleError'
 
-import { createPostClient, uploadImage } from '../api'
+import { createPostClient, deletePostClient, uploadImage } from '../api'
 
 export const usePostActions = () => {
   const router = useRouter()
@@ -42,7 +42,13 @@ export const usePostActions = () => {
     )
   }
 
+  const handleDeletePost = async (id: Post['id']) =>
+    handleClientError(deletePostClient(id), handleError, () =>
+      router.replace(PUBLIC_ROUTES.POSTS)
+    )
+
   return {
-    handleCreatePost
+    handleCreatePost,
+    handleDeletePost
   }
 }
