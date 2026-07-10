@@ -4,7 +4,8 @@ import { generatePageMetadata } from '@/features/metadata/utils/generatePageMeta
 
 export const metadata = generatePageMetadata({
   title: 'Home',
-  description: 'Welcome to our blog'
+  description:
+    'A production-grade full-stack boilerplate — Next.js BFF, Elysia API, Cognito auth, and Neon Postgres.'
 })
 
 export default function HomePage() {
