@@ -50,6 +50,11 @@ variable "cognito_user_pool_arn" {
   nullable    = true
 }
 
+variable "cognito_actions" {
+  description = "Cognito Identity Provider admin actions to grant when cognito_user_pool_arn is set (e.g. [\"cognito-idp:AdminAddUserToGroup\"]). Ignored when cognito_user_pool_arn is null; each caller should list only the actions it actually invokes."
+  type        = list(string)
+}
+
 variable "environment_variables" {
   description = "Environment variables for the Lambda function"
   type        = map(string)
