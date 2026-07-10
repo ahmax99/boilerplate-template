@@ -410,7 +410,7 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/app/api/posts/[postId]/route.ts": {
-    "mtime": 1783679138.9279747,
+    "mtime": 1783680591.513998,
     "ast_hash": "75f08162bcc3eafa3192f6b731fa72e3",
     "semantic_hash": ""
   },
@@ -480,8 +480,8 @@
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx": {
-    "mtime": 1783679290.888434,
-    "ast_hash": "b892e3b3f1246e2a94c2e19bdeb45056",
+    "mtime": 1783687163.5222533,
+    "ast_hash": "4f6e8d2ac433bed4c1da483cbe81f8af",
     "semantic_hash": ""
   },
   "apps/nextjs-boilerplate/src/components/common/HeroSection.tsx": {
