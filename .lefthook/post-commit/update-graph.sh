@@ -11,7 +11,4 @@ fi
 
 export GRAPHIFY_RUNNING=1
 
-$HOME/.local/bin/graphify update . && \
-  git add graphify-out/ && \
-  git diff --cached --quiet || \
-  git commit -m "chore: update codebase graph"
+$HOME/.local/bin/graphify update .

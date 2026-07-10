@@ -33,6 +33,7 @@ A module's value is its functionality divided by its interface. Maximize the fir
 ## Comments and naming carry the design
 
 - **Comments explain WHY, not WHAT.** The code already says what it does. Comments capture intent, invariants, and the non-obvious (why this order, why this guard, why not the simpler approach).
+- **Keep comments short — one line, ideally.** If the WHY needs multiple lines or a paragraph to explain, that's a sign the design is too complex, not that the comment needs more room.
 - Write the interface comment that lets a caller use a function *without reading its body*. If you can't, the abstraction is leaking.
 - Names are the cheapest documentation: precise, consistent, no abbreviations that need a decoder.
 

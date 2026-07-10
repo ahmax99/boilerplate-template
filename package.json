@@ -11,7 +11,7 @@
     "check-types": "turbo run check-types",
     "check-format": "biome check",
     "format": "biome format --write",
-    "prepare": "lefthook install || true && git config merge.ours.driver true",
+    "prepare": "lefthook install || true",
     "graphify:install": "$HOME/.local/bin/uv tool install \"graphifyy[mcp]\"",
     "graphify:build": "$HOME/.local/bin/graphify update .",
     "graphify:serve": "$HOME/.local/bin/graphify-mcp graphify-out/graph.json"
