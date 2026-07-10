@@ -1235,8 +1235,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1783612217.365032,
-    "ast_hash": "ea8202860385c58114b64a6f39cc0e12",
+    "mtime": 1783688887.2080712,
+    "ast_hash": "be9cd8e870e717009f2638bef933ca6b",
     "semantic_hash": ""
   },
   "release-please-config.json": {
@@ -1360,7 +1360,7 @@
     "semantic_hash": ""
   },
   ".impeccable/hook.cache.json": {
-    "mtime": 1783687852.6202126,
+    "mtime": 1783688785.5124526,
     "ast_hash": "df0af73af4abca1d45fbf0df11cd5abb",
     "semantic_hash": ""
   },
