@@ -1,7 +1,7 @@
 ---
 name: security-reviewer
 description: Reviews a git diff for security and data-protection issues — Cognito auth enforcement, CASL authorization, Zod validation at the boundary, the BFF rule, injection vectors, secrets exposure, S3 presigned-URL scoping. Returns a single Security score (1-5) plus per-file issues. Used by /qa and /review orchestrators.
-model: opus
+model: sonnet
 tools: Read, Grep, Bash
 ---
 

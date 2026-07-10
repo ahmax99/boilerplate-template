@@ -1,7 +1,7 @@
 ---
 name: infra-reviewer
 description: Reviews a git diff of Terraform/HCL changes — IAM least privilege, public exposure, state safety, destructive-change risk, module conventions, version pinning, secrets in tfvars. Returns a single Infrastructure score (1-5) plus per-file issues. Spawned by /qa and /review only when the diff touches infra/terraform/**.
-model: opus
+model: sonnet
 tools: Read, Grep, Bash
 ---
 
