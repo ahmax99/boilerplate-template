@@ -63,6 +63,7 @@ resource "aws_iam_role_policy" "cognito_admin" {
         Effect = "Allow"
         Action = [
           "cognito-idp:AdminAddUserToGroup",
+          "cognito-idp:AdminDeleteUser",
           "cognito-idp:AdminListGroupsForUser"
         ]
         Resource = var.cognito_user_pool_arn

@@ -116,8 +116,15 @@ export const userController = new Elysia({ prefix: '/users' })
   )
   .delete(
     '/:id',
-    async ({ params, user, userService }) =>
-      handleApiError(userService.delete(params.id, getUserPermissions(user))),
+    async ({ params, user, userService }) => {
+      const dbUser = await handleApiError(
+        userService.getMe(user.cognitoSub, user.role)
+      )
+
+      return handleApiError(
+        userService.delete(params.id, getUserPermissions(user, dbUser.id))
+      )
+    },
     {
       params: UserModel.userIdParams,
       auth: true,

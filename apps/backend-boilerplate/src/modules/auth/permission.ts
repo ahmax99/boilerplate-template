@@ -17,6 +17,7 @@ export const getUserPermissions = (user?: AuthUser, userId?: string) => {
     can('create', 'Comment')
     can('update', 'Comment', { authorId: userId })
     can('delete', 'Comment', { authorId: userId })
+    can('delete', 'User', { id: userId })
   }
 
   // Admins (Admins group)
