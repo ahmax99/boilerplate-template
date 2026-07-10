@@ -32,7 +32,7 @@ function FeatureSection() {
               <h2 className="font-medium text-foreground text-xl">
                 {step.title}
               </h2>
-              <p className="max-w-[28rem] text-muted-foreground text-sm">
+              <p className="max-w-md text-muted-foreground text-sm">
                 {step.description}
               </p>
             </div>
