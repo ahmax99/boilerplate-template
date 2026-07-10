@@ -105,9 +105,12 @@ resource "aws_iam_role_policy" "signer_invoke_frontend" {
     Statement = [
       {
         Effect = "Allow"
-        # Function URL invocation only — the signer never calls the Invoke API directly
+        # AWS_IAM function URLs created after Oct 2025 require BOTH lambda:InvokeFunctionUrl
+        # and lambda:InvokeFunction; granting only the former is denied at the URL with a
+        # 403 AccessDeniedException. Mirrors the frontend→backend grant in lambda-permissions.
         Action = [
-          "lambda:InvokeFunctionUrl"
+          "lambda:InvokeFunctionUrl",
+          "lambda:InvokeFunction"
         ]
         Resource = [
           var.frontend_function_arn,
