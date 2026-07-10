@@ -2942,7 +2942,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading.tsx"
     },
     {
@@ -2952,7 +2952,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_edit_loading_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading()"
     },
     {
@@ -2992,7 +2992,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading.tsx"
     },
     {
@@ -3002,7 +3002,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_account_loading_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading()"
     },
     {
@@ -3072,7 +3072,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading.tsx"
     },
     {
@@ -3082,7 +3082,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_authorized_posts_create_loading_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading()"
     },
     {
@@ -3159,7 +3159,7 @@
       "label": "PublicLayoutContent()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
-      "source_location": "L8",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_layout_publiclayoutcontent",
       "community": 15,
@@ -3169,7 +3169,7 @@
       "label": "PublicLayout()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
-      "source_location": "L17",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_layout_publiclayout",
       "community": 15,
@@ -3199,7 +3199,7 @@
       "label": "HomePage()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/page.tsx",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_page_homepage",
       "community": 15,
@@ -3212,7 +3212,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading.tsx"
     },
     {
@@ -3222,7 +3222,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_postid_loading_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading()"
     },
     {
@@ -3272,7 +3272,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading.tsx"
     },
     {
@@ -3282,7 +3282,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_public_main_posts_loading_loading",
-      "community": 2,
+      "community": 72,
       "norm_label": "loading()"
     },
     {
@@ -3362,7 +3362,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_presigned_url_route",
-      "community": 19,
+      "community": 17,
       "norm_label": "route.ts"
     },
     {
@@ -3372,7 +3372,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_presigned_url_route_get",
-      "community": 19,
+      "community": 17,
       "norm_label": "get"
     },
     {
@@ -3382,7 +3382,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route",
-      "community": 19,
+      "community": 17,
       "norm_label": "route.ts"
     },
     {
@@ -3392,7 +3392,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route_put",
-      "community": 19,
+      "community": 17,
       "norm_label": "put"
     },
     {
@@ -3402,7 +3402,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_account_route_delete",
-      "community": 19,
+      "community": 17,
       "norm_label": "delete"
     },
     {
@@ -3432,7 +3432,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_auth_login_route",
-      "community": 19,
+      "community": 17,
       "norm_label": "route.ts"
     },
     {
@@ -3442,7 +3442,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_auth_login_route_get",
-      "community": 19,
+      "community": 17,
       "norm_label": "get"
     },
     {
@@ -3472,7 +3472,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_commentid_route",
-      "community": 19,
+      "community": 17,
       "norm_label": "route.ts"
     },
     {
@@ -3482,7 +3482,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_commentid_route_delete",
-      "community": 19,
+      "community": 17,
       "norm_label": "delete"
     },
     {
@@ -3492,7 +3492,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_route",
-      "community": 19,
+      "community": 17,
       "norm_label": "route.ts"
     },
     {
@@ -3502,7 +3502,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_route_get",
-      "community": 19,
+      "community": 17,
       "norm_label": "get"
     },
     {
@@ -3512,7 +3512,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_comments_route_post",
-      "community": 19,
+      "community": 17,
       "norm_label": "post"
     },
     {
@@ -3522,7 +3522,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_images_route",
-      "community": 19,
+      "community": 21,
       "norm_label": "route.ts"
     },
     {
@@ -3532,7 +3532,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_api_images_route_get",
-      "community": 19,
+      "community": 21,
       "norm_label": "get"
     },
     {
@@ -3554,6 +3554,16 @@
       "id": "apps_nextjs_boilerplate_src_app_api_posts_postid_route_get",
       "community": 19,
       "norm_label": "get"
+    },
+    {
+      "label": "DELETE",
+      "file_type": "code",
+      "source_file": "apps/nextjs-boilerplate/src/app/api/posts/[postId]/route.ts",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "apps_nextjs_boilerplate_src_app_api_posts_postid_route_delete",
+      "community": 19,
+      "norm_label": "delete"
     },
     {
       "label": "route.ts",
@@ -3642,7 +3652,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_layout",
-      "community": 0,
+      "community": 19,
       "norm_label": "layout.tsx"
     },
     {
@@ -3652,7 +3662,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_layout_geistsans",
-      "community": 0,
+      "community": 19,
       "norm_label": "geistsans"
     },
     {
@@ -3662,7 +3672,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_layout_geistmono",
-      "community": 0,
+      "community": 19,
       "norm_label": "geistmono"
     },
     {
@@ -3672,7 +3682,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_app_layout_rootlayout",
-      "community": 0,
+      "community": 19,
       "norm_label": "rootlayout()"
     },
     {
@@ -3762,7 +3772,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_atoms_label",
-      "community": 2,
+      "community": 74,
       "norm_label": "label.tsx"
     },
     {
@@ -3772,7 +3782,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_atoms_label_label",
-      "community": 2,
+      "community": 74,
       "norm_label": "label()"
     },
     {
@@ -3782,7 +3792,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_atoms_separator",
-      "community": 2,
+      "community": 72,
       "norm_label": "separator.tsx"
     },
     {
@@ -3792,7 +3802,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_atoms_separator_separator",
-      "community": 2,
+      "community": 72,
       "norm_label": "separator()"
     },
     {
@@ -3802,7 +3812,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_atoms_skeleton",
-      "community": 2,
+      "community": 72,
       "norm_label": "skeleton.tsx"
     },
     {
@@ -3812,7 +3822,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_atoms_skeleton_skeleton",
-      "community": 2,
+      "community": 72,
       "norm_label": "skeleton()"
     },
     {
@@ -3862,7 +3872,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_atoms_index",
-      "community": 2,
+      "community": 72,
       "norm_label": "index.ts"
     },
     {
@@ -3872,17 +3882,27 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_featuresection",
-      "community": 2,
+      "community": 15,
       "norm_label": "featuresection.tsx"
+    },
+    {
+      "label": "NEXT_STEPS",
+      "file_type": "code",
+      "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "apps_nextjs_boilerplate_src_components_common_featuresection_next_steps",
+      "community": 15,
+      "norm_label": "next_steps"
     },
     {
       "label": "FeatureSection()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L15",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_common_featuresection_featuresection",
-      "community": 2,
+      "community": 15,
       "norm_label": "featuresection()"
     },
     {
@@ -3982,7 +4002,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialog.tsx"
     },
     {
@@ -3992,7 +4012,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialog",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialog()"
     },
     {
@@ -4002,7 +4022,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialogtrigger",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialogtrigger()"
     },
     {
@@ -4012,7 +4032,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialogportal",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialogportal()"
     },
     {
@@ -4032,7 +4052,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialogcontent",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialogcontent()"
     },
     {
@@ -4042,7 +4062,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialogheader",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialogheader()"
     },
     {
@@ -4052,7 +4072,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialogfooter",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialogfooter()"
     },
     {
@@ -4062,7 +4082,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialogtitle",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialogtitle()"
     },
     {
@@ -4072,7 +4092,7 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialogdescription",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialogdescription()"
     },
     {
@@ -4082,7 +4102,7 @@
       "source_location": "L132",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialogaction",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialogaction()"
     },
     {
@@ -4092,7 +4112,7 @@
       "source_location": "L145",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_alertdialog_alertdialogcancel",
-      "community": 2,
+      "community": 77,
       "norm_label": "alertdialogcancel()"
     },
     {
@@ -4132,7 +4152,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_card",
-      "community": 2,
+      "community": 78,
       "norm_label": "card.tsx"
     },
     {
@@ -4142,7 +4162,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_card_card",
-      "community": 2,
+      "community": 78,
       "norm_label": "card()"
     },
     {
@@ -4152,7 +4172,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_card_cardheader",
-      "community": 2,
+      "community": 78,
       "norm_label": "cardheader()"
     },
     {
@@ -4162,7 +4182,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_card_cardtitle",
-      "community": 2,
+      "community": 78,
       "norm_label": "cardtitle()"
     },
     {
@@ -4172,7 +4192,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_card_carddescription",
-      "community": 2,
+      "community": 78,
       "norm_label": "carddescription()"
     },
     {
@@ -4182,7 +4202,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_card_cardcontent",
-      "community": 2,
+      "community": 78,
       "norm_label": "cardcontent()"
     },
     {
@@ -4192,7 +4212,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_card_cardfooter",
-      "community": 2,
+      "community": 78,
       "norm_label": "cardfooter()"
     },
     {
@@ -4252,7 +4272,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_tabs",
-      "community": 2,
+      "community": 75,
       "norm_label": "tabs.tsx"
     },
     {
@@ -4262,7 +4282,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_tabs_tabs",
-      "community": 2,
+      "community": 75,
       "norm_label": "tabs()"
     },
     {
@@ -4272,7 +4292,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_tabs_tabslistvariants",
-      "community": 2,
+      "community": 75,
       "norm_label": "tabslistvariants"
     },
     {
@@ -4282,7 +4302,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_tabs_tabslist",
-      "community": 2,
+      "community": 75,
       "norm_label": "tabslist()"
     },
     {
@@ -4292,7 +4312,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_tabs_tabstrigger",
-      "community": 2,
+      "community": 75,
       "norm_label": "tabstrigger()"
     },
     {
@@ -4302,7 +4322,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_tabs_tabscontent",
-      "community": 2,
+      "community": 75,
       "norm_label": "tabscontent()"
     },
     {
@@ -4312,7 +4332,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_molecules_index",
-      "community": 2,
+      "community": 78,
       "norm_label": "index.ts"
     },
     {
@@ -4322,7 +4342,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_actionbutton",
-      "community": 2,
+      "community": 77,
       "norm_label": "actionbutton.tsx"
     },
     {
@@ -4332,7 +4352,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_actionbutton_actionbuttonprops",
-      "community": 2,
+      "community": 77,
       "norm_label": "actionbuttonprops"
     },
     {
@@ -4342,7 +4362,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_actionbutton_actionbutton",
-      "community": 73,
+      "community": 79,
       "norm_label": "actionbutton()"
     },
     {
@@ -4352,7 +4372,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field",
-      "community": 73,
+      "community": 74,
       "norm_label": "field.tsx"
     },
     {
@@ -4362,7 +4382,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldvariants",
-      "community": 73,
+      "community": 74,
       "norm_label": "fieldvariants"
     },
     {
@@ -4372,7 +4392,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_field",
-      "community": 73,
+      "community": 74,
       "norm_label": "field()"
     },
     {
@@ -4382,7 +4402,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldcontent",
-      "community": 73,
+      "community": 74,
       "norm_label": "fieldcontent()"
     },
     {
@@ -4392,7 +4412,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldlabel",
-      "community": 73,
+      "community": 74,
       "norm_label": "fieldlabel()"
     },
     {
@@ -4402,7 +4422,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fieldtitle",
-      "community": 73,
+      "community": 74,
       "norm_label": "fieldtitle()"
     },
     {
@@ -4412,7 +4432,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fielderroritem",
-      "community": 73,
+      "community": 74,
       "norm_label": "fielderroritem"
     },
     {
@@ -4422,7 +4442,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_dedupeerrormessages",
-      "community": 73,
+      "community": 74,
       "norm_label": "dedupeerrormessages()"
     },
     {
@@ -4432,7 +4452,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fielderrorlist",
-      "community": 73,
+      "community": 74,
       "norm_label": "fielderrorlist()"
     },
     {
@@ -4442,7 +4462,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_resolvefielderrorcontent",
-      "community": 73,
+      "community": 74,
       "norm_label": "resolvefielderrorcontent()"
     },
     {
@@ -4452,7 +4472,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_field_fielderror",
-      "community": 73,
+      "community": 74,
       "norm_label": "fielderror()"
     },
     {
@@ -4462,7 +4482,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formcard",
-      "community": 2,
+      "community": 78,
       "norm_label": "formcard.tsx"
     },
     {
@@ -4472,7 +4492,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formcard_formcardprops",
-      "community": 2,
+      "community": 78,
       "norm_label": "formcardprops"
     },
     {
@@ -4492,7 +4512,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formfield",
-      "community": 73,
+      "community": 74,
       "norm_label": "formfield.tsx"
     },
     {
@@ -4502,7 +4522,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_formfield_formfieldprops",
-      "community": 73,
+      "community": 74,
       "norm_label": "formfieldprops"
     },
     {
@@ -4522,7 +4542,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_components_organisms_index",
-      "community": 73,
+      "community": 75,
       "norm_label": "index.ts"
     },
     {
@@ -4532,7 +4552,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_config_env",
-      "community": 0,
+      "community": 76,
       "norm_label": "env.ts"
     },
     {
@@ -4542,7 +4562,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_config_env_env",
-      "community": 0,
+      "community": 76,
       "norm_label": "env"
     },
     {
@@ -4552,7 +4572,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_config_logger",
-      "community": 19,
+      "community": 21,
       "norm_label": "logger.ts"
     },
     {
@@ -4562,7 +4582,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_config_logger_logger",
-      "community": 19,
+      "community": 21,
       "norm_label": "logger"
     },
     {
@@ -4572,7 +4592,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index",
-      "community": 6,
+      "community": 73,
       "norm_label": "index.ts"
     },
     {
@@ -4582,7 +4602,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_fetchprofileimage",
-      "community": 2,
+      "community": 73,
       "norm_label": "fetchprofileimage()"
     },
     {
@@ -4592,7 +4612,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_updateuser",
-      "community": 6,
+      "community": 73,
       "norm_label": "updateuser()"
     },
     {
@@ -4602,7 +4622,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_uploadprofileimage",
-      "community": 6,
+      "community": 73,
       "norm_label": "uploadprofileimage()"
     },
     {
@@ -4612,7 +4632,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_api_index_deleteuser",
-      "community": 6,
+      "community": 73,
       "norm_label": "deleteuser()"
     },
     {
@@ -4632,7 +4652,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_fieldconfig",
-      "community": 73,
+      "community": 15,
       "norm_label": "fieldconfig"
     },
     {
@@ -4662,7 +4682,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_fieldinput",
-      "community": 0,
+      "community": 76,
       "norm_label": "fieldinput()"
     },
     {
@@ -4672,7 +4692,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountform_accountform",
-      "community": 73,
+      "community": 15,
       "norm_label": "accountform()"
     },
     {
@@ -4682,7 +4702,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountmanagement",
-      "community": 2,
+      "community": 75,
       "norm_label": "accountmanagement.tsx"
     },
     {
@@ -4692,7 +4712,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountmanagement_settabparam",
-      "community": 2,
+      "community": 75,
       "norm_label": "settabparam()"
     },
     {
@@ -4702,7 +4722,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_accountmanagement_accountmanagement",
-      "community": 2,
+      "community": 15,
       "norm_label": "accountmanagement()"
     },
     {
@@ -4712,7 +4732,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_deleteaccountbutton",
-      "community": 73,
+      "community": 75,
       "norm_label": "deleteaccountbutton.tsx"
     },
     {
@@ -4722,7 +4742,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_components_deleteaccountbutton_deleteaccountbutton",
-      "community": 73,
+      "community": 75,
       "norm_label": "deleteaccountbutton()"
     },
     {
@@ -4732,7 +4752,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_hooks_useaccountactions",
-      "community": 6,
+      "community": 73,
       "norm_label": "useaccountactions.ts"
     },
     {
@@ -4742,7 +4762,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_client_hooks_useaccountactions_useaccountactions",
-      "community": 73,
+      "community": 75,
       "norm_label": "useaccountactions()"
     },
     {
@@ -4782,7 +4802,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index",
-      "community": 19,
+      "community": 17,
       "norm_label": "index.ts"
     },
     {
@@ -4792,7 +4812,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_updateuser",
-      "community": 19,
+      "community": 17,
       "norm_label": "updateuser()"
     },
     {
@@ -4802,7 +4822,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_deleteuser",
-      "community": 19,
+      "community": 17,
       "norm_label": "deleteuser()"
     },
     {
@@ -4812,7 +4832,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_api_index_fetchpresignedurl",
-      "community": 19,
+      "community": 17,
       "norm_label": "fetchpresignedurl()"
     },
     {
@@ -4822,7 +4842,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_components_userinfo",
-      "community": 2,
+      "community": 73,
       "norm_label": "userinfo.tsx"
     },
     {
@@ -4832,7 +4852,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_components_userinfo_userinfoprops",
-      "community": 2,
+      "community": 73,
       "norm_label": "userinfoprops"
     },
     {
@@ -4842,7 +4862,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_account_server_components_userinfo_userinfo",
-      "community": 2,
+      "community": 73,
       "norm_label": "userinfo()"
     },
     {
@@ -4852,7 +4872,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton",
-      "community": 73,
+      "community": 75,
       "norm_label": "authactionbutton.tsx"
     },
     {
@@ -4862,7 +4882,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_actionresult",
-      "community": 73,
+      "community": 75,
       "norm_label": "actionresult"
     },
     {
@@ -4872,7 +4892,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_authactionbuttonprops",
-      "community": 73,
+      "community": 75,
       "norm_label": "authactionbuttonprops"
     },
     {
@@ -4882,7 +4902,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_handleauthaction",
-      "community": 73,
+      "community": 75,
       "norm_label": "handleauthaction()"
     },
     {
@@ -4892,7 +4912,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_client_components_authactionbutton_authactionbutton",
-      "community": 73,
+      "community": 75,
       "norm_label": "authactionbutton()"
     },
     {
@@ -4962,7 +4982,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_cookie",
-      "community": 0,
+      "community": 81,
       "norm_label": "cookie.ts"
     },
     {
@@ -4972,7 +4992,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_cookie_cookie_options",
-      "community": 0,
+      "community": 81,
       "norm_label": "cookie_options"
     },
     {
@@ -4982,7 +5002,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_session",
-      "community": 0,
+      "community": 81,
       "norm_label": "session.ts"
     },
     {
@@ -4992,7 +5012,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_constants_session_session_config",
-      "community": 0,
+      "community": 81,
       "norm_label": "session_config"
     },
     {
@@ -5012,7 +5032,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_lib_cognitoclient",
-      "community": 0,
+      "community": 76,
       "norm_label": "cognitoclient.ts"
     },
     {
@@ -5272,7 +5292,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_auth_server_services_role",
-      "community": 0,
+      "community": 76,
       "norm_label": "role.ts"
     },
     {
@@ -5412,7 +5432,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_api_index",
-      "community": 73,
+      "community": 79,
       "norm_label": "index.ts"
     },
     {
@@ -5422,7 +5442,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_api_index_createcomment",
-      "community": 73,
+      "community": 79,
       "norm_label": "createcomment()"
     },
     {
@@ -5432,7 +5452,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_api_index_deletecomment",
-      "community": 73,
+      "community": 79,
       "norm_label": "deletecomment()"
     },
     {
@@ -5442,7 +5462,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform",
-      "community": 73,
+      "community": 74,
       "norm_label": "commentform.tsx"
     },
     {
@@ -5452,7 +5472,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentfieldconfig",
-      "community": 73,
+      "community": 74,
       "norm_label": "commentfieldconfig"
     },
     {
@@ -5462,7 +5482,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentformconfig",
-      "community": 73,
+      "community": 79,
       "norm_label": "commentformconfig"
     },
     {
@@ -5472,7 +5492,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentformprops",
-      "community": 73,
+      "community": 74,
       "norm_label": "commentformprops"
     },
     {
@@ -5482,7 +5502,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_commentform_commentform",
-      "community": 73,
+      "community": 79,
       "norm_label": "commentform()"
     },
     {
@@ -5492,7 +5512,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton",
-      "community": 73,
+      "community": 79,
       "norm_label": "deletecommentbutton.tsx"
     },
     {
@@ -5502,7 +5522,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton_deletecommentbuttonprops",
-      "community": 73,
+      "community": 79,
       "norm_label": "deletecommentbuttonprops"
     },
     {
@@ -5512,7 +5532,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_components_deletecommentbutton_deletecommentbutton",
-      "community": 73,
+      "community": 79,
       "norm_label": "deletecommentbutton()"
     },
     {
@@ -5522,7 +5542,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_hooks_usecommentactions",
-      "community": 73,
+      "community": 79,
       "norm_label": "usecommentactions.ts"
     },
     {
@@ -5532,7 +5552,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_client_hooks_usecommentactions_usecommentactions",
-      "community": 73,
+      "community": 79,
       "norm_label": "usecommentactions()"
     },
     {
@@ -5542,7 +5562,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_schemas_commentform_schema",
-      "community": 73,
+      "community": 79,
       "norm_label": "commentform.schema.ts"
     },
     {
@@ -5552,7 +5572,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_schemas_commentform_schema_commentformmodel",
-      "community": 73,
+      "community": 79,
       "norm_label": "commentformmodel"
     },
     {
@@ -5562,7 +5582,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_schemas_commentform_schema_createcommentschema",
-      "community": 73,
+      "community": 79,
       "norm_label": "createcommentschema"
     },
     {
@@ -5572,7 +5592,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index",
-      "community": 19,
+      "community": 17,
       "norm_label": "index.ts"
     },
     {
@@ -5592,7 +5612,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index_createcomment",
-      "community": 19,
+      "community": 17,
       "norm_label": "createcomment()"
     },
     {
@@ -5602,7 +5622,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_api_index_deletecomment",
-      "community": 19,
+      "community": 17,
       "norm_label": "deletecomment()"
     },
     {
@@ -5612,7 +5632,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_components_commentsection",
-      "community": 2,
+      "community": 78,
       "norm_label": "commentsection.tsx"
     },
     {
@@ -5622,7 +5642,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_components_commentsection_commentsectionprops",
-      "community": 2,
+      "community": 78,
       "norm_label": "commentsectionprops"
     },
     {
@@ -5632,7 +5652,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_comment_server_components_commentsection_commentsection",
-      "community": 2,
+      "community": 72,
       "norm_label": "commentsection()"
     },
     {
@@ -5642,7 +5662,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_tracking_config_sentry_edge_config",
-      "community": 0,
+      "community": 76,
       "norm_label": "sentry.edge.config.ts"
     },
     {
@@ -5652,7 +5672,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_tracking_config_sentry_server_config",
-      "community": 0,
+      "community": 76,
       "norm_label": "sentry.server.config.ts"
     },
     {
@@ -5682,7 +5702,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_components_triggertesterror",
-      "community": 6,
+      "community": 80,
       "norm_label": "triggertesterror.tsx"
     },
     {
@@ -5692,7 +5712,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_components_triggertesterror_triggertesterror",
-      "community": 6,
+      "community": 80,
       "norm_label": "triggertesterror()"
     },
     {
@@ -5702,7 +5722,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_hooks_useerrorhandler",
-      "community": 6,
+      "community": 80,
       "norm_label": "useerrorhandler.ts"
     },
     {
@@ -5712,7 +5732,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_hooks_useerrorhandler_error_display",
-      "community": 6,
+      "community": 80,
       "norm_label": "error_display"
     },
     {
@@ -5762,7 +5782,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_providers_errorscreenprovider",
-      "community": 2,
+      "community": 77,
       "norm_label": "errorscreenprovider.tsx"
     },
     {
@@ -5782,7 +5802,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_stores_useerrorstore",
-      "community": 6,
+      "community": 80,
       "norm_label": "useerrorstore.ts"
     },
     {
@@ -5792,7 +5812,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_stores_useerrorstore_errorstore",
-      "community": 6,
+      "community": 80,
       "norm_label": "errorstore"
     },
     {
@@ -5802,7 +5822,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_client_stores_useerrorstore_useerrorstore",
-      "community": 6,
+      "community": 80,
       "norm_label": "useerrorstore"
     },
     {
@@ -5812,7 +5832,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_apperror",
-      "community": 6,
+      "community": 80,
       "norm_label": "apperror.ts"
     },
     {
@@ -5822,7 +5842,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_apperror_apperror",
-      "community": 6,
+      "community": 80,
       "norm_label": "apperror"
     },
     {
@@ -5832,7 +5852,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_error_lib_apperror_apperror_constructor",
-      "community": 6,
+      "community": 80,
       "norm_label": ".constructor()"
     },
     {
@@ -5972,7 +5992,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_client_components_contactform_fieldinput",
-      "community": 0,
+      "community": 76,
       "norm_label": "fieldinput()"
     },
     {
@@ -6042,7 +6062,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema",
-      "community": 0,
+      "community": 6,
       "norm_label": "email.schema.ts"
     },
     {
@@ -6052,7 +6072,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema_emailuserschema",
-      "community": 0,
+      "community": 6,
       "norm_label": "emailuserschema"
     },
     {
@@ -6062,7 +6082,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema_emailmodel",
-      "community": 0,
+      "community": 6,
       "norm_label": "emailmodel"
     },
     {
@@ -6072,7 +6092,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_schemas_email_schema_emailuser",
-      "community": 0,
+      "community": 6,
       "norm_label": "emailuser"
     },
     {
@@ -6172,7 +6192,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail",
-      "community": 0,
+      "community": 6,
       "norm_label": "sendemail.ts"
     },
     {
@@ -6182,7 +6202,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail_resend",
-      "community": 0,
+      "community": 6,
       "norm_label": "resend"
     },
     {
@@ -6192,7 +6212,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_mailing_server_utils_sendemail_sendemailparams",
-      "community": 0,
+      "community": 6,
       "norm_label": "sendemailparams"
     },
     {
@@ -6212,7 +6232,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_media_server_api",
-      "community": 19,
+      "community": 21,
       "norm_label": "api.ts"
     },
     {
@@ -6222,7 +6242,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_media_server_api_fetchimage",
-      "community": 19,
+      "community": 21,
       "norm_label": "fetchimage()"
     },
     {
@@ -6232,7 +6252,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_constants_index",
-      "community": 0,
+      "community": 19,
       "norm_label": "index.ts"
     },
     {
@@ -6242,7 +6262,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_constants_index_metadata",
-      "community": 0,
+      "community": 19,
       "norm_label": "metadata"
     },
     {
@@ -6252,7 +6272,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata",
-      "community": 15,
+      "community": 19,
       "norm_label": "generatepagemetadata.ts"
     },
     {
@@ -6262,7 +6282,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata_generatepagemetadataprops",
-      "community": 15,
+      "community": 19,
       "norm_label": "generatepagemetadataprops"
     },
     {
@@ -6272,7 +6292,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_metadata_utils_generatepagemetadata_generatepagemetadata",
-      "community": 15,
+      "community": 19,
       "norm_label": "generatepagemetadata()"
     },
     {
@@ -6282,7 +6302,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index",
-      "community": 6,
+      "community": 73,
       "norm_label": "index.ts"
     },
     {
@@ -6302,18 +6322,58 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index_createpostclient",
-      "community": 6,
+      "community": 73,
       "norm_label": "createpostclient()"
+    },
+    {
+      "label": "deletePostClient()",
+      "file_type": "code",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/api/index.ts",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "apps_nextjs_boilerplate_src_features_post_client_api_index_deletepostclient",
+      "community": 73,
+      "norm_label": "deletepostclient()"
     },
     {
       "label": "uploadImage()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/features/post/client/api/index.ts",
-      "source_location": "L17",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_api_index_uploadimage",
-      "community": 6,
+      "community": 73,
       "norm_label": "uploadimage()"
+    },
+    {
+      "label": "DeletePostButton.tsx",
+      "file_type": "code",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
+      "community": 73,
+      "norm_label": "deletepostbutton.tsx"
+    },
+    {
+      "label": "DeletePostButtonProps",
+      "file_type": "code",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton_deletepostbuttonprops",
+      "community": 73,
+      "norm_label": "deletepostbuttonprops"
+    },
+    {
+      "label": "DeletePostButton()",
+      "file_type": "code",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton_deletepostbutton",
+      "community": 73,
+      "norm_label": "deletepostbutton()"
     },
     {
       "label": "PostForm.tsx",
@@ -6372,7 +6432,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_components_postform_fieldinput",
-      "community": 0,
+      "community": 76,
       "norm_label": "fieldinput()"
     },
     {
@@ -6392,7 +6452,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_client_hooks_usepostactions",
-      "community": 6,
+      "community": 73,
       "norm_label": "usepostactions.ts"
     },
     {
@@ -6412,7 +6472,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_constants_index",
-      "community": 6,
+      "community": 73,
       "norm_label": "index.ts"
     },
     {
@@ -6496,33 +6556,43 @@
       "norm_label": "createpostserver()"
     },
     {
+      "label": "deletePostServer()",
+      "file_type": "code",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/server/api/index.ts",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "apps_nextjs_boilerplate_src_features_post_server_api_index_deletepostserver",
+      "community": 19,
+      "norm_label": "deletepostserver()"
+    },
+    {
       "label": "PostDetail.tsx",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/features/post/server/components/PostDetail.tsx",
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail",
-      "community": 2,
+      "community": 72,
       "norm_label": "postdetail.tsx"
     },
     {
       "label": "PostDetailProps",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/features/post/server/components/PostDetail.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail_postdetailprops",
-      "community": 2,
+      "community": 72,
       "norm_label": "postdetailprops"
     },
     {
       "label": "PostDetail()",
       "file_type": "code",
       "source_file": "apps/nextjs-boilerplate/src/features/post/server/components/PostDetail.tsx",
-      "source_location": "L13",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail_postdetail",
-      "community": 2,
+      "community": 72,
       "norm_label": "postdetail()"
     },
     {
@@ -6532,7 +6602,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postslist",
-      "community": 2,
+      "community": 78,
       "norm_label": "postslist.tsx"
     },
     {
@@ -6542,7 +6612,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_features_post_server_components_postslist_postslistprops",
-      "community": 2,
+      "community": 78,
       "norm_label": "postslistprops"
     },
     {
@@ -6562,7 +6632,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_instrumentation_client",
-      "community": 0,
+      "community": 76,
       "norm_label": "instrumentation-client.ts"
     },
     {
@@ -6572,7 +6642,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_instrumentation",
-      "community": 6,
+      "community": 21,
       "norm_label": "instrumentation.ts"
     },
     {
@@ -6582,7 +6652,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_instrumentation_register",
-      "community": 0,
+      "community": 76,
       "norm_label": "register()"
     },
     {
@@ -6592,7 +6662,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_instrumentation_onrequesterror",
-      "community": 6,
+      "community": 21,
       "norm_label": "onrequesterror()"
     },
     {
@@ -6602,7 +6672,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_apiclient",
-      "community": 6,
+      "community": 73,
       "norm_label": "apiclient.ts"
     },
     {
@@ -6612,7 +6682,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_apiclient_apiclient",
-      "community": 6,
+      "community": 73,
       "norm_label": "apiclient"
     },
     {
@@ -6662,7 +6732,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_cognito",
-      "community": 0,
+      "community": 76,
       "norm_label": "cognito.ts"
     },
     {
@@ -6672,7 +6742,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_cognito_cognitoclient",
-      "community": 0,
+      "community": 76,
       "norm_label": "cognitoclient"
     },
     {
@@ -6682,7 +6752,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_requestlogging",
-      "community": 19,
+      "community": 21,
       "norm_label": "requestlogging.ts"
     },
     {
@@ -6692,7 +6762,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_requestlogging_log",
-      "community": 19,
+      "community": 21,
       "norm_label": "log"
     },
     {
@@ -6702,7 +6772,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_requestlogging_routehandler",
-      "community": 19,
+      "community": 21,
       "norm_label": "routehandler"
     },
     {
@@ -6712,7 +6782,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_requestlogging_withrequestlogging",
-      "community": 19,
+      "community": 17,
       "norm_label": "withrequestlogging()"
     },
     {
@@ -6722,7 +6792,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_requestlogging_logbeforerequest",
-      "community": 19,
+      "community": 21,
       "norm_label": "logbeforerequest()"
     },
     {
@@ -6732,7 +6802,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_requestlogging_logafterresponse",
-      "community": 19,
+      "community": 21,
       "norm_label": "logafterresponse()"
     },
     {
@@ -6742,7 +6812,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_serverapiclient",
-      "community": 19,
+      "community": 21,
       "norm_label": "serverapiclient.ts"
     },
     {
@@ -6752,7 +6822,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_serverapiclient_log",
-      "community": 19,
+      "community": 21,
       "norm_label": "log"
     },
     {
@@ -6762,7 +6832,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_serverapiclient_baseconfig",
-      "community": 19,
+      "community": 21,
       "norm_label": "baseconfig"
     },
     {
@@ -6772,7 +6842,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_serverapiclient_serverapiclient",
-      "community": 19,
+      "community": 21,
       "norm_label": "serverapiclient"
     },
     {
@@ -6782,7 +6852,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_serverapiclient_serverauthapiclient",
-      "community": 19,
+      "community": 17,
       "norm_label": "serverauthapiclient"
     },
     {
@@ -6792,7 +6862,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_sig4",
-      "community": 19,
+      "community": 21,
       "norm_label": "sig4.ts"
     },
     {
@@ -6802,7 +6872,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_nextjs_boilerplate_src_lib_sig4_signinghook",
-      "community": 19,
+      "community": 21,
       "norm_label": "signinghook()"
     },
     {
@@ -7222,7 +7292,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "biome_linter_rules",
-      "community": 17,
+      "community": 4,
       "norm_label": "rules"
     },
     {
@@ -7232,7 +7302,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "biome_rules_recommended",
-      "community": 17,
+      "community": 4,
       "norm_label": "recommended"
     },
     {
@@ -7242,7 +7312,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "biome_rules_complexity",
-      "community": 17,
+      "community": 4,
       "norm_label": "complexity"
     },
     {
@@ -7252,7 +7322,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "biome_complexity_noadjacentspacesinregex",
-      "community": 17,
+      "community": 4,
       "norm_label": "noadjacentspacesinregex"
     },
     {
@@ -7262,7 +7332,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "biome_complexity_noextrabooleancast",
-      "community": 17,
+      "community": 4,
       "norm_label": "noextrabooleancast"
     },
     {
@@ -7272,7 +7342,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "biome_complexity_nouselesscatch",
-      "community": 17,
+      "community": 4,
       "norm_label": "nouselesscatch"
     },
     {
@@ -7282,7 +7352,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "biome_complexity_nouselessescapeinregex",
-      "community": 17,
+      "community": 4,
       "norm_label": "nouselessescapeinregex"
     },
     {
@@ -7292,7 +7362,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "biome_complexity_nouselesstypeconstraint",
-      "community": 17,
+      "community": 4,
       "norm_label": "nouselesstypeconstraint"
     },
     {
@@ -7592,7 +7662,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "biome_rules_nursery",
-      "community": 17,
+      "community": 4,
       "norm_label": "nursery"
     },
     {
@@ -7602,7 +7672,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "biome_nursery_usesortedclasses",
-      "community": 17,
+      "community": 4,
       "norm_label": "usesortedclasses"
     },
     {
@@ -7612,7 +7682,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "biome_rules_security",
-      "community": 17,
+      "community": 4,
       "norm_label": "security"
     },
     {
@@ -7622,7 +7692,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "biome_security_nodangerouslysetinnerhtmlwithchildren",
-      "community": 17,
+      "community": 4,
       "norm_label": "nodangerouslysetinnerhtmlwithchildren"
     },
     {
@@ -7632,7 +7702,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "biome_rules_style",
-      "community": 21,
+      "community": 4,
       "norm_label": "style"
     },
     {
@@ -7642,7 +7712,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "biome_style_nocommonjs",
-      "community": 21,
+      "community": 4,
       "norm_label": "nocommonjs"
     },
     {
@@ -7652,7 +7722,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "biome_style_nonamespace",
-      "community": 21,
+      "community": 4,
       "norm_label": "nonamespace"
     },
     {
@@ -7662,7 +7732,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "biome_style_usearrayliterals",
-      "community": 21,
+      "community": 4,
       "norm_label": "usearrayliterals"
     },
     {
@@ -7672,7 +7742,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "biome_style_useasconstassertion",
-      "community": 21,
+      "community": 4,
       "norm_label": "useasconstassertion"
     },
     {
@@ -7682,7 +7752,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "biome_style_useblockstatements",
-      "community": 21,
+      "community": 4,
       "norm_label": "useblockstatements"
     },
     {
@@ -9962,7 +10032,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs",
-      "community": 0,
+      "community": 76,
       "norm_label": "nextjs.json"
     },
     {
@@ -9972,7 +10042,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_schema",
-      "community": 0,
+      "community": 76,
       "norm_label": "$schema"
     },
     {
@@ -9982,7 +10052,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_extends",
-      "community": 0,
+      "community": 76,
       "norm_label": "extends"
     },
     {
@@ -9992,7 +10062,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_compileroptions",
-      "community": 0,
+      "community": 82,
       "norm_label": "compileroptions"
     },
     {
@@ -10002,7 +10072,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_compileroptions_allowjs",
-      "community": 0,
+      "community": 82,
       "norm_label": "allowjs"
     },
     {
@@ -10012,7 +10082,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_compileroptions_jsx",
-      "community": 0,
+      "community": 82,
       "norm_label": "jsx"
     },
     {
@@ -10022,7 +10092,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "shared_typescript_config_nextjs_compileroptions_noemit",
-      "community": 0,
+      "community": 82,
       "norm_label": "noemit"
     },
     {
@@ -15485,7 +15555,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
-      "source_location": "L17",
+      "source_location": "L26",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
       "target": "apps_nextjs_boilerplate_src_app_public_main_layout_publiclayout",
@@ -15495,7 +15565,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
-      "source_location": "L8",
+      "source_location": "L11",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
       "target": "apps_nextjs_boilerplate_src_app_public_main_layout_publiclayoutcontent",
@@ -15575,7 +15645,7 @@
       "source_location": "L6",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
-      "target": "apps_nextjs_boilerplate_src_features_error_client_providers_errorscreenprovider",
+      "target": "apps_nextjs_boilerplate_src_features_auth_server_api_index",
       "confidence_score": 1.0
     },
     {
@@ -15586,7 +15656,73 @@
       "source_location": "L6",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
+      "target": "apps_nextjs_boilerplate_src_features_auth_server_api_index_getme",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
+      "target": "apps_nextjs_boilerplate_src_features_auth_server_services_session",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
+      "target": "apps_nextjs_boilerplate_src_features_auth_server_services_session_getsessiondata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
+      "target": "apps_nextjs_boilerplate_src_features_error_client_providers_errorscreenprovider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
       "target": "apps_nextjs_boilerplate_src_features_error_client_providers_errorscreenprovider_errorscreenprovider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
+      "target": "apps_nextjs_boilerplate_src_features_error_utils_catcherror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_public_main_layout",
+      "target": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchasyncerror",
       "confidence_score": 1.0
     },
     {
@@ -15594,17 +15730,50 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
-      "source_location": "L11",
+      "source_location": "L20",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_app_public_main_layout_publiclayoutcontent",
       "target": "apps_nextjs_boilerplate_src_features_auth_lib_permission_getuserpermissions",
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_public_main_layout_publiclayoutcontent",
+      "target": "apps_nextjs_boilerplate_src_features_auth_server_api_index_getme",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_public_main_layout_publiclayoutcontent",
+      "target": "apps_nextjs_boilerplate_src_features_auth_server_services_session_getsessiondata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/layout.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_public_main_layout_publiclayoutcontent",
+      "target": "apps_nextjs_boilerplate_src_features_error_utils_catcherror_catchasyncerror",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/app/(public)/(main)/page.tsx",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_app_public_main_page",
       "target": "apps_nextjs_boilerplate_src_app_public_main_page_homepage",
@@ -16727,6 +16896,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/app/api/posts/[postId]/route.ts",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_api_posts_postid_route",
+      "target": "apps_nextjs_boilerplate_src_app_api_posts_postid_route_delete",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/api/posts/[postId]/route.ts",
       "source_location": "L7",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_app_api_posts_postid_route",
@@ -16742,6 +16921,17 @@
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_app_api_posts_postid_route",
       "target": "apps_nextjs_boilerplate_src_features_post_server_api_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/app/api/posts/[postId]/route.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_app_api_posts_postid_route",
+      "target": "apps_nextjs_boilerplate_src_features_post_server_api_index_deletepostserver",
       "confidence_score": 1.0
     },
     {
@@ -17157,12 +17347,12 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "apps/nextjs-boilerplate/src/components/atoms/Button.tsx",
       "source_location": "L16",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_components_atoms_button_button",
-      "target": "apps_nextjs_boilerplate_src_components_atoms_button_variants_buttonvariants",
-      "confidence_score": 1.0
+      "target": "apps_nextjs_boilerplate_src_components_atoms_button_variants_buttonvariants"
     },
     {
       "relation": "calls",
@@ -17365,7 +17555,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L5",
+      "source_location": "L3",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
       "target": "apps_nextjs_boilerplate_src_components_atoms_buttonlink",
@@ -17398,7 +17588,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L5",
+      "source_location": "L3",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
       "target": "apps_nextjs_boilerplate_src_components_atoms_buttonlink_buttonlink",
@@ -18007,87 +18197,20 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L15",
+      "source_location": "L22",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
       "target": "apps_nextjs_boilerplate_src_components_common_featuresection_featuresection",
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
+      "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
-      "target": "apps_nextjs_boilerplate_src_components_molecules_card",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
-      "target": "apps_nextjs_boilerplate_src_components_molecules_card_card",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
-      "target": "apps_nextjs_boilerplate_src_components_molecules_card_cardcontent",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
-      "target": "apps_nextjs_boilerplate_src_components_molecules_card_carddescription",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
-      "target": "apps_nextjs_boilerplate_src_components_molecules_card_cardfooter",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
-      "target": "apps_nextjs_boilerplate_src_components_molecules_card_cardheader",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
-      "target": "apps_nextjs_boilerplate_src_components_molecules_card_cardtitle",
+      "target": "apps_nextjs_boilerplate_src_components_common_featuresection_next_steps",
       "confidence_score": 1.0
     },
     {
@@ -18095,7 +18218,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L3",
+      "source_location": "L1",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
       "target": "apps_nextjs_boilerplate_src_features_auth_lib_routes",
@@ -18106,7 +18229,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L3",
+      "source_location": "L1",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
       "target": "apps_nextjs_boilerplate_src_features_auth_lib_routes_protected_routes",
@@ -18117,7 +18240,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/components/common/FeatureSection.tsx",
-      "source_location": "L3",
+      "source_location": "L1",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_components_common_featuresection",
       "target": "apps_nextjs_boilerplate_src_features_auth_lib_routes_public_routes",
@@ -19719,6 +19842,17 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
+      "target": "apps_nextjs_boilerplate_src_components_organisms_actionbutton_actionbutton",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/components/organisms/Field.tsx",
@@ -20240,6 +20374,17 @@
       "source_location": "L7",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_mailing_client_components_contactform",
+      "target": "apps_nextjs_boilerplate_src_components_organisms_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
       "target": "apps_nextjs_boilerplate_src_components_organisms_index",
       "confidence_score": 1.0
     },
@@ -24618,6 +24763,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/post/client/api/index.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_api_index",
+      "target": "apps_nextjs_boilerplate_src_features_post_client_api_index_deletepostclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/api/index.ts",
       "source_location": "L8",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_post_client_api_index",
@@ -24628,7 +24783,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/post/client/api/index.ts",
-      "source_location": "L17",
+      "source_location": "L20",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_post_client_api_index",
       "target": "apps_nextjs_boilerplate_src_features_post_client_api_index_uploadimage",
@@ -24697,7 +24852,115 @@
       "source_location": "L8",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_post_client_hooks_usepostactions",
+      "target": "apps_nextjs_boilerplate_src_features_post_client_api_index_deletepostclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/hooks/usePostActions.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_hooks_usepostactions",
       "target": "apps_nextjs_boilerplate_src_features_post_client_api_index_uploadimage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
+      "target": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton_deletepostbutton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
+      "target": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton_deletepostbuttonprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
+      "target": "apps_nextjs_boilerplate_src_features_post_client_hooks_usepostactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
+      "target": "apps_nextjs_boilerplate_src_features_post_client_hooks_usepostactions_usepostactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
+      "target": "apps_nextjs_boilerplate_src_lib_casl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
+      "target": "apps_nextjs_boilerplate_src_lib_casl_appability",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/server/components/PostDetail.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail",
+      "target": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/nextjs-boilerplate/src/features/post/client/components/DeletePostButton.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton_deletepostbutton",
+      "target": "apps_nextjs_boilerplate_src_features_post_client_hooks_usepostactions_usepostactions"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/server/components/PostDetail.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail",
+      "target": "apps_nextjs_boilerplate_src_features_post_client_components_deletepostbutton_deletepostbutton",
       "confidence_score": 1.0
     },
     {
@@ -24881,6 +25144,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/post/server/api/index.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "apps_nextjs_boilerplate_src_features_post_server_api_index",
+      "target": "apps_nextjs_boilerplate_src_features_post_server_api_index_deletepostserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/nextjs-boilerplate/src/features/post/server/api/index.ts",
       "source_location": "L5",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_post_server_api_index",
@@ -24944,7 +25217,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/post/server/components/PostDetail.tsx",
-      "source_location": "L13",
+      "source_location": "L15",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail",
       "target": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail_postdetail",
@@ -24954,7 +25227,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/nextjs-boilerplate/src/features/post/server/components/PostDetail.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "source": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail",
       "target": "apps_nextjs_boilerplate_src_features_post_server_components_postdetail_postdetailprops",
@@ -29009,5 +29282,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "71356aa08b970e931e5487d41dc8da2406befbfb"
+  "built_at_commit": "924dae18f640e602c34dc6519e979d5d6623105c"
 }

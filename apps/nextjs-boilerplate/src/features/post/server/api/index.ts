@@ -15,3 +15,6 @@ export const fetchPreSignedUrl = async (query: UploadImageQuery) =>
 
 export const createPostServer = async (post: Post) =>
   serverAuthApiClient.post('posts', { json: post }).json<Post>()
+
+export const deletePostServer = async (id: Post['id']) =>
+  serverAuthApiClient.delete(`posts/${id}`).json()

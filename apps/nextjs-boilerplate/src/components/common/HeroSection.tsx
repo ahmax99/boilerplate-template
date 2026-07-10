@@ -1,13 +1,14 @@
 function HeroSection() {
   return (
     <section className="flex flex-1 flex-col items-center justify-center px-4 py-16 text-center">
-      <div className="fade-in slide-in-from-bottom-4 animate-in space-y-6 duration-500">
-        <h1 className="h-20 bg-linear-to-r from-primary to-primary/60 bg-clip-text font-extrabold text-4xl text-transparent tracking-tight lg:text-6xl">
-          Welcome to My Blog
+      <div className="motion-safe:fade-in motion-safe:slide-in-from-bottom-4 space-y-6 motion-safe:animate-in motion-safe:duration-500">
+        <h1 className="font-semibold text-4xl text-foreground tracking-tight lg:text-6xl">
+          A full-stack boilerplate, proven end-to-end
         </h1>
-        <p className="text-muted-foreground text-xl leading-relaxed">
-          A simple Next.js 16 Boilerplate project exploring the new features and
-          best practices.
+        <p className="mx-auto max-w-2xl text-muted-foreground text-xl leading-relaxed">
+          Next.js BFF, Elysia API, Cognito auth, and Neon Postgres — wired
+          together and demonstrated below, ready to rename into your own
+          product.
         </p>
       </div>
     </section>
