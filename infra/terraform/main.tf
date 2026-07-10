@@ -191,7 +191,8 @@ module "backend" {
   reserved_concurrent_executions = -1
 
   s3_bucket_name        = local.s3_uploads_bucket_name
-  cognito_user_pool_arn = null
+  cognito_user_pool_arn = module.cognito.user_pool_arn
+  cognito_actions       = ["cognito-idp:AdminDeleteUser"]
 
   secrets_arns = [
     module.database_secret.secret_arn
@@ -240,6 +241,10 @@ module "frontend" {
 
   s3_bucket_name        = null
   cognito_user_pool_arn = module.cognito.user_pool_arn
+  cognito_actions = [
+    "cognito-idp:AdminAddUserToGroup",
+    "cognito-idp:AdminListGroupsForUser"
+  ]
 
   secrets_arns = []
 

@@ -59,13 +59,9 @@ resource "aws_iam_role_policy" "cognito_admin" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "AllowCognitoUserPoolAdmin"
-        Effect = "Allow"
-        Action = [
-          "cognito-idp:AdminAddUserToGroup",
-          "cognito-idp:AdminDeleteUser",
-          "cognito-idp:AdminListGroupsForUser"
-        ]
+        Sid      = "AllowCognitoUserPoolAdmin"
+        Effect   = "Allow"
+        Action   = var.cognito_actions
         Resource = var.cognito_user_pool_arn
       }
     ]
