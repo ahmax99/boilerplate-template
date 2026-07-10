@@ -1,7 +1,7 @@
 ---
 name: cicd-reviewer
 description: DevOps engineer for GitHub Actions / CI-CD. Review mode — reviews a git diff touching .github/** for least-privilege GITHUB_TOKEN, action pinning, fork-safety, expression injection, OIDC usage, concurrency/timeout hygiene, and deploy-pipeline safety; returns a single CI/CD score (1-5) plus per-file issues; spawned by /qa and /review when the diff touches .github/**. Engineer mode — dispatched standalone to audit, improve, or author workflows and to add DORA-metric instrumentation.
-model: opus
+model: sonnet
 tools: Read, Grep, Glob, Bash, Write, Edit
 ---
 

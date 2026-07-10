@@ -1,7 +1,7 @@
 ---
 name: correctness-reviewer
 description: Reviews a git diff for correctness, robustness, architecture compliance, and code quality — neverthrow Result flow, AppError usage, CASL enforcement, Prisma queries, pagination, edge cases, layer boundaries, type safety. Returns three scores (Correctness / Architecture / Code quality) plus per-file issues. Used by /qa and /review orchestrators.
-model: opus
+model: sonnet
 tools: Read, Grep, Bash
 ---
 

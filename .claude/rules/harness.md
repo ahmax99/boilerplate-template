@@ -10,10 +10,10 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 
 ## Workflow Commands (use in order for a feature)
 
-- `/spec <description>` — Spec agent: captures the *what & why* (problem, requirements, acceptance criteria, non-goals) of a feature and writes it to `docs/specs/<YYYY-MM-DD-slug>.md`. The upstream artifact.
-- `/plan <task | path/to/spec.md>` — Planner agent: expands a task or a spec into a detailed implementation plan with ordered steps and acceptance criteria. Writes to `.claude/plans/<YYYY-MM-DD-slug>.md` and records it in the `.claude/plans/.current` pointer file. Use `/plan list` to view all plans and `/plan switch <prefix>` to repoint `.current`.
-- `/implement [context]` — Generator agent: implements the current plan step by step, self-checking `bun run check-types` + `bun run check-format` after each step (plus the Terraform gates from `.claude/rules/infra.md` for steps that touch `infra/terraform/**`).
-- `/qa [scope]` — QA orchestrator: runs the deterministic gates, then spawns three reviewers in parallel (security, correctness, acceptance-criteria — plus infra when the diff touches `infra/terraform/**`) and synthesizes a scored verdict against the plan's acceptance criteria.
+- `/spec <description>` — Spec agent: captures the *what & why* (problem, requirements, acceptance criteria, non-goals) of a feature and writes it to `docs/specs/<YYYY-MM-DD-slug>.md`. The upstream artifact. Runs on **Opus**.
+- `/plan <task | path/to/spec.md>` — Planner agent: expands a task or a spec into a detailed implementation plan with ordered steps and acceptance criteria. Writes to `.claude/plans/<YYYY-MM-DD-slug>.md` and records it in the `.claude/plans/.current` pointer file. Use `/plan list` to view all plans and `/plan switch <prefix>` to repoint `.current`. Runs on **Opus**.
+- `/implement [context]` — Generator agent: implements the current plan step by step, self-checking `bun run check-types` + `bun run check-format` after each step (plus the Terraform gates from `.claude/rules/infra.md` for steps that touch `infra/terraform/**`). Runs on **Sonnet**.
+- `/qa [scope]` — QA orchestrator: runs the deterministic gates, then spawns three reviewers in parallel (security, correctness, acceptance-criteria — plus infra when the diff touches `infra/terraform/**`) and synthesizes a scored verdict against the plan's acceptance criteria. Runs on **Sonnet**, as do all of its spawned reviewer subagents.
 
 ## Unattended loop (optional)
 

@@ -1,3 +1,7 @@
+---
+model: sonnet
+---
+
 # Implement
 
 You are a **generator agent**. Your job is to implement features methodically, one step at a time, following the current plan.
