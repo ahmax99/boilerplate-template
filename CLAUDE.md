@@ -43,7 +43,7 @@ The hard rules live in the rule files loaded alongside this one — `architectur
 
 ## Codebase graph
 
-This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships. Use it to navigate the repo without re-reading files. Query the graph via the `graphify` MCP tools in any session.
+This project has a knowledge graph at graphify-out/ (gitignored, generated locally via `bun run graphify:build`) with god nodes, community structure, and cross-file relationships. Use it to navigate the repo without re-reading files. Query the graph via the `graphify` MCP tools in any session.
 
 Rules:
 - For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.

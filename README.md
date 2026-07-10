@@ -46,7 +46,7 @@ bun run graphify:install   # install graphify via uv
 bun run graphify:build     # generate graphify-out/ (uses graphify update — no API key needed)
 ```
 
-After this, the graph rebuilds automatically after every commit via a Lefthook post-commit hook. Other developers who clone the repo can use the pre-committed `graphify-out/` immediately without running setup.
+After this, the graph rebuilds automatically after every commit via a Lefthook post-commit hook. `graphify-out/` is gitignored (not committed), so run `bun run graphify:build` once after cloning to generate it.
 
 > If `bun run graphify:build` prompts for an API key or errors on Markdown files, add `docs/` to `.graphifyignore` and re-run.
 
