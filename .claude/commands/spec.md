@@ -1,3 +1,7 @@
+---
+model: opus
+---
+
 # Spec
 
 `/spec <feature description>` turns a rough feature idea into a structured **specification** — the *what* and *why*, before any *how*. The spec is the upstream artifact in this repo's spec-driven flow:

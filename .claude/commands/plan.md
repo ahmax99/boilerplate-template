@@ -1,3 +1,7 @@
+---
+model: opus
+---
+
 # Plan
 
 `/plan` dispatches on the first token of `$ARGUMENTS`:
