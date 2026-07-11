@@ -55,10 +55,9 @@ COPY --from=prepare /app/out/json/ .
 RUN bun install
 # Copy source code
 COPY --from=prepare /app/out/full/ .
-# Ensure public directory exists for public files
-RUN mkdir -p /app/apps/nextjs-boilerplate/public
-# Build the Next.js project (standalone output)
-RUN bunx --bun turbo build --filter=nextjs-boilerplate
+# Ensure public directory exists, then build the Next.js project (standalone output)
+RUN mkdir -p /app/apps/nextjs-boilerplate/public && \
+    bunx --bun turbo build --filter=nextjs-boilerplate
 
 # -------------------
 # Runner stage

@@ -13,6 +13,10 @@ pre-commit:
       run: terraform -chdir=infra/terraform fmt -recursive
       stage_fixed: true
 
+    - name: hadolint
+      glob: '**/Dockerfile'
+      run: command -v hadolint >/dev/null 2>&1 || { echo 'hadolint not installed locally, skipping Dockerfile lint (see https://github.com/hadolint/hadolint)'; exit 0; }; hadolint --config .hadolint.yaml {staged_files}
+
 commit-msg:
   commands:
     commitlint:
