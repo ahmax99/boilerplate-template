@@ -51,7 +51,7 @@ Next.js App Router. The app is a **BFF**: browser code never calls the Elysia ba
 - `atoms/` — primitives (Button, Input, Label, Skeleton, Spinner…); CVA for variants; root element marked `data-slot="<name>"`.
 - `molecules/` — composites of atoms (Card, Avatar, AlertDialog, Tabs…); may expose named subcomponents (e.g. `Card` + `CardHeader` + `CardContent` from one file).
 - `organisms/` — complex interactive components combining molecules (Field, ActionButton); may own local state and handlers.
-- `layout/` — page structure blocks (`PageTemplate`, `PageHeader`).
+- `layout/` — page structure blocks (`PageTemplate`, `PageHeader`, `DynamicMarker`).
 - `common/` — marketing/cross-page sections (`HeroSection`, `FeatureSection`).
 
 Atoms never import from molecules or organisms. Molecules import atoms only. Feature-specific UI belongs in `features/<name>/client/components/` or `features/<name>/server/components/`, not in `src/components/`.
@@ -59,6 +59,8 @@ Atoms never import from molecules or organisms. Molecules import atoms only. Fea
 **Auth flow** (`src/features/auth/`): OIDC with Cognito using `openid-client` + PKCE. State lives in **two** `iron-session` HttpOnly cookies — transient PKCE state in `auth_pkce`, and the completed session (holding only the refresh token) in `auth_session`. `src/proxy.ts` is the Next.js middleware that gates `PROTECTED_ROUTES` (redirects to login if `auth_session` is absent) — it only checks cookie *presence*, not validity; real verification happens in the backend. Read [`docs/authentication.md`](../../docs/authentication.md) — the implementation-level flow (mermaid diagrams for login/callback/authenticated-call/logout, the two-cookie model, CASL) — before changing anything in `features/auth/`, the BFF clients, or `proxy.ts`.
 
 Authorization mirrors the backend with CASL (`@casl/react`, `src/lib/casl.ts`, `PermissionProvider`).
+
+**Environment variables — build once, deploy many.** `src/config/env.ts` uses `@t3-oss/env-core` (not `env-nextjs`) — every variable is a **server-only** runtime value read from `process.env`, matching the backend's `env.ts` pattern. **Never add a `NEXT_PUBLIC_*` variable**: Next.js inlines those into the JS bundle at build time, which permanently binds one built Docker image to a single environment and breaks promoting the same image from dev to prod unchanged. If the browser genuinely needs a config value at runtime (e.g. the Sentry DSN), expose it through a runtime endpoint instead — see `app/api/config/route.ts` (a thin, `connection()`-gated route handler) and its consumer `src/instrumentation-client.ts` (fetches it client-side, initializes lazily). Client code needing the app's own origin uses same-origin relative paths (`/api/...`), never an absolute base URL from env.
 
 UI is shadcn/ui + Tailwind CSS 4. Import alias is `@/*` → `src/*`.
 
