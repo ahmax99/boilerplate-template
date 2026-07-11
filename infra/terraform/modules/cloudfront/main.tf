@@ -273,7 +273,7 @@ resource "aws_cloudfront_distribution" "this" {
   # ----------
   logging_config {
     include_cookies = false
-    bucket          = "${var.logs_bucket_id}.s3.amazonaws.com"
+    bucket          = var.logs_bucket_domain_name
     prefix          = "cloudfront/"
   }
 

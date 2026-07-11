@@ -3,7 +3,7 @@ data "archive_file" "function" {
   output_path = local.function_zip_path
 
   source {
-    content  = local_file.function_rendered.content
+    content  = local.function_source
     filename = "index.js"
   }
 }
@@ -13,7 +13,7 @@ data "archive_file" "signer" {
   output_path = local.signer_function_zip_path
 
   source {
-    content  = local_file.signer_rendered.content
+    content  = local.signer_function_source
     filename = "index.js"
   }
 }

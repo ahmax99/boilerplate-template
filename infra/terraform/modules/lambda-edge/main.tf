@@ -28,11 +28,6 @@ resource "aws_iam_role_policy_attachment" "lambda_edge_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-resource "local_file" "function_rendered" {
-  content  = local.function_source
-  filename = "${path.module}/function/index.rendered.js"
-}
-
 # -------------------
 # Lambda@Edge function
 # -------------------
@@ -56,7 +51,8 @@ resource "aws_lambda_function" "this" {
 resource "aws_lambda_permission" "cloudfront_invoke" {
   statement_id  = "AllowCloudFrontInvokeLambdaEdge"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.this.qualified_arn
+  function_name = aws_lambda_function.this.arn
+  qualifier     = aws_lambda_function.this.version
   principal     = "edgelambda.amazonaws.com"
   source_arn    = var.cloudfront_distribution_arn
 }
@@ -66,11 +62,6 @@ resource "aws_lambda_permission" "cloudfront_invoke" {
 # OAC cannot sign an anonymous browser request body, so this function signs
 # write requests to the frontend Function URL in the edge role's place.
 # -------------------
-resource "local_file" "signer_rendered" {
-  content  = local.signer_function_source
-  filename = "${path.module}/function/sign-origin-request.rendered.js"
-}
-
 resource "aws_lambda_function" "signer" {
   function_name    = "${var.name_prefix}-lambda-edge-sign-origin-request"
   role             = aws_iam_role.lambda_edge.arn
@@ -90,7 +81,8 @@ resource "aws_lambda_function" "signer" {
 resource "aws_lambda_permission" "cloudfront_invoke_signer" {
   statement_id  = "AllowCloudFrontInvokeLambdaEdgeSigner"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.signer.qualified_arn
+  function_name = aws_lambda_function.signer.arn
+  qualifier     = aws_lambda_function.signer.version
   principal     = "edgelambda.amazonaws.com"
   source_arn    = var.cloudfront_distribution_arn
 }
