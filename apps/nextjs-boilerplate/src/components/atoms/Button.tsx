@@ -1,9 +1,9 @@
 import { Button as ButtonPrimitive } from '@base-ui/react/button'
 import type { VariantProps } from 'class-variance-authority'
 
-import { buttonVariants } from './Button.variants'
-
 import { cn } from '@/utils/mergeClass'
+
+import { buttonVariants } from './Button.variants'
 
 function Button({
   className,

@@ -1,10 +1,9 @@
 'use client'
 
-import { TriangleAlert, User } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
-import { DeleteAccountButton } from './DeleteAccountButton'
+import { TriangleAlert, User } from 'lucide-react'
 
 import { Button } from '@/components/atoms'
 import {
@@ -16,6 +15,8 @@ import {
   TabsTrigger
 } from '@/components/molecules'
 import { PROTECTED_ROUTES } from '@/features/auth/lib/routes'
+
+import { DeleteAccountButton } from './DeleteAccountButton'
 
 const setTabParam = (
   router: ReturnType<typeof useRouter>,

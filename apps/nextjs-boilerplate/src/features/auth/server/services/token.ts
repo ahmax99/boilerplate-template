@@ -2,12 +2,12 @@
 
 import { refreshTokenGrant } from 'openid-client'
 
+import { logger } from '@/config/logger'
+import { AppError } from '@/features/error/lib/AppError'
+
 import { getOIDCClient } from '../../lib/cognitoClient'
 
 import { getSession } from './session'
-
-import { logger } from '@/config/logger'
-import { AppError } from '@/features/error/lib/AppError'
 
 const log = logger.child({ module: 'token' })
 

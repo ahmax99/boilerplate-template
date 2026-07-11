@@ -2,9 +2,9 @@
 
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { Label } from '../atoms/Label'
-
 import { cn } from '@/utils/mergeClass'
+
+import { Label } from '../atoms/Label'
 
 const fieldVariants = cva(
   'group/field flex w-full gap-3 data-[invalid=true]:text-destructive',

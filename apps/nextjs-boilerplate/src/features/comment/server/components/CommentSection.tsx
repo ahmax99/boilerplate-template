@@ -1,12 +1,6 @@
 import type { Comment, PostIdParams } from '@shared/config'
 import { MessageSquare } from 'lucide-react'
 
-import {
-  CommentForm,
-  type CommentFormConfig
-} from '../../client/components/CommentForm'
-import { DeleteCommentButton } from '../../client/components/DeleteCommentButton'
-
 import { Separator } from '@/components/atoms'
 import {
   Avatar,
@@ -16,6 +10,12 @@ import {
   CardHeader
 } from '@/components/molecules'
 import { env } from '@/config/env'
+
+import {
+  CommentForm,
+  type CommentFormConfig
+} from '../../client/components/CommentForm'
+import { DeleteCommentButton } from '../../client/components/DeleteCommentButton'
 
 interface CommentSectionProps {
   postId: PostIdParams['id']

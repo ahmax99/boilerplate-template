@@ -1,8 +1,5 @@
 import Link from 'next/link'
 
-import { ButtonLink } from '../atoms/ButtonLink'
-import { Logo } from '../molecules/Logo'
-
 import { getUserPermissions } from '@/features/auth/lib/permission'
 import {
   PROTECTED_ROUTES,
@@ -11,6 +8,9 @@ import {
 } from '@/features/auth/lib/routes'
 import { getMe } from '@/features/auth/server/api'
 import { LogoutButton } from '@/features/auth/server/components/LogoutButton'
+
+import { ButtonLink } from '../atoms/ButtonLink'
+import { Logo } from '../molecules/Logo'
 
 async function PageHeader() {
   const user = await getMe().catch(() => null)

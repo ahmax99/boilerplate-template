@@ -1,9 +1,9 @@
 import type { User } from '@shared/config'
 import { User as UserIcon } from 'lucide-react'
 
-import { fetchProfileImage } from '../../client/api'
-
 import { Avatar, AvatarImage } from '@/components/molecules'
+
+import { fetchProfileImage } from '../../client/api'
 
 interface UserInfoProps {
   user: User

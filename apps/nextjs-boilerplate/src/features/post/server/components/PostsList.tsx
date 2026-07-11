@@ -1,6 +1,7 @@
+import Image from 'next/image'
+
 import type { Post } from '@shared/config'
 import { Newspaper } from 'lucide-react'
-import Image from 'next/image'
 
 import { ButtonLink } from '@/components/atoms'
 import { Card, CardContent, CardFooter } from '@/components/molecules'

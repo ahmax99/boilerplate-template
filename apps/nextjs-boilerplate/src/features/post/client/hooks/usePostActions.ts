@@ -1,11 +1,12 @@
-import type { CreatePostBody, Post } from '@shared/config'
 import { useRouter } from 'next/navigation'
 
-import { createPostClient, deletePostClient, uploadImage } from '../api'
+import type { CreatePostBody, Post } from '@shared/config'
 
 import { PUBLIC_ROUTES } from '@/features/auth/lib/routes'
 import { useErrorHandler } from '@/features/error/client/hooks/useErrorHandler'
 import { handleClientError } from '@/features/error/client/lib/handleError'
+
+import { createPostClient, deletePostClient, uploadImage } from '../api'
 
 export const usePostActions = () => {
   const router = useRouter()

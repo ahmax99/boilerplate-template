@@ -1,17 +1,18 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
 import { type UseFormRegister, useForm } from 'react-hook-form'
+
+import { Input } from '@/components/atoms'
+import { FormCard, FormField } from '@/components/organisms'
 
 import { useAccountActions } from '../../client/hooks/useAccountActions'
 import {
   AccountFormModel,
   type UpdateProfileSchema
 } from '../../schemas/accountForm.schema'
-
-import { Input } from '@/components/atoms'
-import { FormCard, FormField } from '@/components/organisms'
 
 export interface FieldConfig {
   name: 'name' | 'image'

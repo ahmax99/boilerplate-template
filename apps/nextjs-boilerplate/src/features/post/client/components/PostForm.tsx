@@ -1,18 +1,19 @@
 'use client'
 
+import { useState } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { User } from '@shared/config'
-import { useState } from 'react'
 import { type UseFormRegister, useForm } from 'react-hook-form'
+
+import { Input, Textarea } from '@/components/atoms'
+import { FormCard, FormField } from '@/components/organisms'
 
 import {
   type CreatePostSchema,
   PostFormModel
 } from '../../schemas/postForm.schema'
 import { usePostActions } from '../hooks/usePostActions'
-
-import { Input, Textarea } from '@/components/atoms'
-import { FormCard, FormField } from '@/components/organisms'
 
 type PostFormSchema = CreatePostSchema
 

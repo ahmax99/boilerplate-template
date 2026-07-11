@@ -1,10 +1,11 @@
-import type { Comment, Post } from '@shared/config'
 import Image from 'next/image'
 
-import { DeletePostButton } from '../../client/components/DeletePostButton'
+import type { Comment, Post } from '@shared/config'
 
 import { Separator } from '@/components/atoms'
 import { CommentSection } from '@/features/comment/server/components/CommentSection'
+
+import { DeletePostButton } from '../../client/components/DeletePostButton'
 
 interface PostDetailProps {
   post: Post

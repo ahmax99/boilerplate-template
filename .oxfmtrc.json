@@ -25,9 +25,9 @@
     "customGroups": [
       {
         "groupName": "react-next",
-        "elementNamePattern": ["^react$", "^next(/.*)?$"]
+        "elementNamePattern": ["react", "next", "next/**"]
       },
-      { "groupName": "alias", "elementNamePattern": ["^@/.*"] }
+      { "groupName": "alias", "elementNamePattern": ["@/**"] }
     ],
     "newlinesBetween": true
   },

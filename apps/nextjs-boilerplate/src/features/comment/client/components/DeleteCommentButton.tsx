@@ -3,9 +3,9 @@
 import type { CommentIdParams } from '@shared/config'
 import { Trash2 } from 'lucide-react'
 
-import { useCommentActions } from '../hooks/useCommentActions'
-
 import { ActionButton } from '@/components/organisms'
+
+import { useCommentActions } from '../hooks/useCommentActions'
 
 interface DeleteCommentButtonProps {
   commentId: CommentIdParams['id']

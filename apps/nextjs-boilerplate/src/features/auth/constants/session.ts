@@ -1,8 +1,8 @@
 import type { SessionOptions } from 'iron-session'
 
-import { COOKIE_OPTIONS, PKCE_COOKIE_OPTIONS } from './cookie'
-
 import { env } from '@/config/env'
+
+import { COOKIE_OPTIONS, PKCE_COOKIE_OPTIONS } from './cookie'
 
 export const SESSION_CONFIG = {
   password: env.SESSION_SECRET,

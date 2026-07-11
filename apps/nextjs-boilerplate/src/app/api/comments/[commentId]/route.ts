@@ -1,5 +1,6 @@
-import type { CommentIdParams } from '@shared/config'
 import { NextResponse } from 'next/server'
+
+import type { CommentIdParams } from '@shared/config'
 
 import { deleteComment } from '@/features/comment/server/api'
 import { withRequestLogging } from '@/lib/requestLogging'

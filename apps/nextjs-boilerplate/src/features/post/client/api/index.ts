@@ -1,8 +1,8 @@
 import type { CreatePostBody, Post } from '@shared/config'
 
-import { PLACEHOLDER_IMAGE_URL } from '../../constants'
-
 import { apiClient } from '@/lib/apiClient'
+
+import { PLACEHOLDER_IMAGE_URL } from '../../constants'
 
 export const fetchPostImage = (imagePath: string) => {
   if (!imagePath) return PLACEHOLDER_IMAGE_URL

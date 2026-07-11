@@ -5,10 +5,10 @@ import { useAbility } from '@casl/react'
 import type { Post } from '@shared/config'
 import { Trash2 } from 'lucide-react'
 
-import { usePostActions } from '../hooks/usePostActions'
-
 import { ActionButton } from '@/components/organisms'
 import type { AppAbility } from '@/lib/casl'
+
+import { usePostActions } from '../hooks/usePostActions'
 
 interface DeletePostButtonProps {
   post: Pick<Post, 'id' | 'authorId'>

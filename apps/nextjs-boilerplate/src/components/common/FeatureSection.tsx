@@ -1,6 +1,6 @@
-import { ButtonLink } from '../atoms/ButtonLink'
-
 import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/features/auth/lib/routes'
+
+import { ButtonLink } from '../atoms/ButtonLink'
 
 const NEXT_STEPS = [
   {

@@ -1,5 +1,6 @@
-import type { PostIdParams } from '@shared/config'
 import { NextResponse } from 'next/server'
+
+import type { PostIdParams } from '@shared/config'
 
 import { deletePostServer, fetchPost } from '@/features/post/server/api'
 import { withRequestLogging } from '@/lib/requestLogging'

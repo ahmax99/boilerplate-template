@@ -1,8 +1,6 @@
 import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 
-import type { UpdateProfileSchema } from '../../schemas/accountForm.schema'
-import { deleteUser, updateUser, uploadProfileImage } from '../api'
+import { toast } from 'sonner'
 
 import { PROTECTED_ROUTES } from '@/features/auth/lib/routes'
 import { handleLogout } from '@/features/auth/server/services/auth'
@@ -11,6 +9,9 @@ import {
   handleClientAuthError,
   handleClientError
 } from '@/features/error/client/lib/handleError'
+
+import type { UpdateProfileSchema } from '../../schemas/accountForm.schema'
+import { deleteUser, updateUser, uploadProfileImage } from '../api'
 
 export const useAccountActions = () => {
   const router = useRouter()
