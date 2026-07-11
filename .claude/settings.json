@@ -124,7 +124,7 @@
     "skill-creator@claude-plugins-official": true,
     "deploy-on-aws@claude-plugins-official": true,
     "terraform-skill@antonbabenko": true,
-    "context-mode@context-mode": true,
+    "context-mode@context-mode": false,
     "impeccable@impeccable": true
   }
 }

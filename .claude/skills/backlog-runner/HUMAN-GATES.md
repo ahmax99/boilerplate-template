@@ -41,9 +41,13 @@ in-progress phase label, and posts a comment naming which condition tripped:
 4. Any non-deterministic failure — a crash, a tool error, or
    `scripts/verify_qa_gate.sh` exiting 2 (misuse/anomaly, distinct from a
    normal exit-1 gate fail). Never silently retried.
-5. The working tree is dirty (beyond `.claude/backlog-state/**`) immediately
-   before a `git checkout` into an issue's branch — switching over
-   uncommitted work risks losing it. Never silently stashed or discarded.
+5. A pre-existing worktree for the issue contains unexpected uncommitted
+   changes from an unrelated source (not this loop's own committed phase
+   output) — never silently stashed or discarded; block for human
+   inspection. This is the residual, worktree-scoped equivalent of the old
+   shared-directory version of this condition, which is now structurally
+   impossible: each issue has its own isolated worktree, so one issue's
+   uncommitted edits can no longer be at risk from another issue's checkout.
 
 ### How to clear a gate
 
@@ -98,8 +102,10 @@ Durable queue state (which phase an issue is in) lives on the GitHub issue
 itself as labels + comments — visible to the whole team, and a checkable
 predicate rather than parsed prose. Ephemeral per-issue state (the
 `qa_retries` counter, the branch name) lives in
-`.claude/backlog-state/issue-<n>/.agent-state.json` in the main repo — it is
-created when the issue's branch is first checked out and disappears when the
-branch is deleted after merge, so there is never a stale counter left over to
-reset by hand. See the design spec's State model section for the full
-rationale.
+`.claude/backlog-state/issue-<n>/.agent-state.json` in the issue's own
+worktree — it is created when the worktree is created and disposed when the
+worktree is removed after merge, so there is never a stale counter left over
+to reset by hand. See `SKILL.md`'s Conventions section for the full
+rationale, and commit `7d99155` (#73) for the original design — the design
+plan itself lives under the gitignored `.claude/plans/**`, so it isn't a
+committed, team-visible artifact.
