@@ -56,7 +56,7 @@ Next.js App Router. The app is a **BFF**: browser code never calls the Elysia ba
 
 Atoms never import from molecules or organisms. Molecules import atoms only. Feature-specific UI belongs in `features/<name>/client/components/` or `features/<name>/server/components/`, not in `src/components/`.
 
-**Auth flow** (`src/features/auth/`): OIDC with Cognito using `openid-client` + PKCE. Session is stored in an `iron-session` HttpOnly cookie (`auth_session`). `src/proxy.ts` is the Next.js middleware that gates `PROTECTED_ROUTES` (redirects to login if the cookie is absent) — it only checks cookie *presence*, not validity; real verification happens in the backend.
+**Auth flow** (`src/features/auth/`): OIDC with Cognito using `openid-client` + PKCE. State lives in **two** `iron-session` HttpOnly cookies — transient PKCE state in `auth_pkce`, and the completed session (holding only the refresh token) in `auth_session`. `src/proxy.ts` is the Next.js middleware that gates `PROTECTED_ROUTES` (redirects to login if `auth_session` is absent) — it only checks cookie *presence*, not validity; real verification happens in the backend. Read [`docs/authentication.md`](../../docs/authentication.md) — the implementation-level flow (mermaid diagrams for login/callback/authenticated-call/logout, the two-cookie model, CASL) — before changing anything in `features/auth/`, the BFF clients, or `proxy.ts`.
 
 Authorization mirrors the backend with CASL (`@casl/react`, `src/lib/casl.ts`, `PermissionProvider`).
 
