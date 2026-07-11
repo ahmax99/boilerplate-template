@@ -7,7 +7,7 @@ For provider/module facts (resource arguments, module inputs, latest versions), 
 ## Layout
 
 - `infra/terraform/` — the single root module. `main.tf` wires the reusable modules (CloudFront, Cognito, Lambda, S3, ECR, CodeDeploy, WAF, Route53/ACM, GitHub OIDC, Secrets Manager).
-- `infra/terraform/modules/<name>/` — reusable modules, each with `main.tf` + `variables.tf` + `outputs.tf` + `versions.tf`. New shared infra goes in a module, not inline in the root.
+- `infra/terraform/modules/<name>/` — reusable modules. `main.tf` + `variables.tf` + `outputs.tf` + `versions.tf` are the standard four; add `locals.tf`, `data.tf`, or `providers.tf` only when a module actually needs one. A per-module `README.md` is **not** a repo convention — no module has one today, and this isn't the place to invent that mandate.
 - **Environments are config, not directories.** One root module, switched by `-backend-config=backends/<env>.hcl` + `-var-file=vars/<env>.tfvars`. Never create per-environment directory trees.
 - `infra/terraform/bootstrap/` — separate root module that creates the state bucket. It has its own state; don't entangle it with the main root.
 
@@ -24,6 +24,21 @@ For provider/module facts (resource arguments, module inputs, latest versions), 
 - Stateful or hard-to-recreate resources (Cognito user pool, S3 buckets with data, Route53 zone) deserve `lifecycle { prevent_destroy = true }` or an explicit comment on why not.
 - Trivy findings are suppressed only in `infra/terraform/.trivyignore`, one ID per line **with a justification comment** (see AVD-AWS-0132 there for the pattern).
 - tflint config is `infra/terraform/.tflint.hcl` (terraform preset `recommended` + AWS ruleset). Fix findings rather than inline-disabling them; if a rule is genuinely wrong for this repo, disable it in `.tflint.hcl` with a comment.
+
+## Design conventions
+
+Practices this repo holds new/changed HCL to, beyond what tflint/trivy catch mechanically. These apply to *new* additions in a diff — they are not a mandate to refactor the module's existing, already-legitimate `depends_on`/`lifecycle`/`data` usages.
+
+- **Implicit dependencies over `depends_on`.** Order operations by referencing another resource's or module's attribute (`module.lambda.function_arn`) so Terraform infers the dependency from the graph. Add `depends_on` only for a dependency Terraform genuinely can't infer from any attribute reference (e.g. an IAM policy that must exist before a resource relies on it at runtime without referencing it in HCL). A new `depends_on` that duplicates an already-inferrable reference is the smell to flag, not the existing ones in `modules/s3`, `modules/lambda`, `modules/cognito`.
+- **No module-level `depends_on`; modules communicate via inputs/outputs.** Wire `module.X.output` into `module.Y`'s input in the root `main.tf` rather than reaching across modules with a `data` source or a module-level `depends_on`.
+- **Module outputs are a public API — export only what a caller consumes.** Don't add an `outputs.tf` attribute nobody in root `main.tf` reads.
+- **Small, single-responsibility modules.** One concern per `modules/<name>/`, mirroring the existing split (`acm`, `waf`, `cognito`, …) — don't grow a mega-module that owns unrelated concerns.
+- **Small module interfaces.** Expose only the `variable`s a module actually reads; don't pass through an input it never uses.
+- **No hardcoded environment-specific literals.** Region, account ID, domain, environment name, and ARNs come from `var.*` / `vars/*.tfvars` / `local.*` or a `data` source — never a literal in a resource block. This generalizes the existing secrets rule to all environment-specific values.
+- **`locals` for repeated expressions.** Factor a value used more than once into `locals.tf` — see `local.name_prefix = "${var.project_name}-${var.environment}"` and the derived bucket-name locals in `infra/terraform/locals.tf` as the pattern to follow.
+- **Prefer already-managed resources/outputs over re-reading via `data`.** If this root module already creates a resource, reference its attribute or a module output instead of a `data` source that re-reads it. This does **not** apply to legitimately external state this config doesn't manage — the externally-owned Route53 zone, `aws_caller_identity`, `aws_region`, a conditionally pre-existing OIDC provider, and `archive_file` build-time zips are all correct, expected `data` source usage.
+- **`lifecycle` blocks are justified exceptions, not defaults.** Any `ignore_changes` / `create_before_destroy` / `prevent_destroy` needs a reason — a comment, or an obvious one like `prevent_destroy` on a data-bearing bucket. This extends the existing stateful-resource `prevent_destroy` rule to all `lifecycle` meta-arguments.
+- **Consistent `<project>-<environment>-<resource>` naming.** Derive resource names/identifiers from `local.name_prefix` (e.g. `"${local.name_prefix}-backend"`) rather than hand-writing a name that breaks the pattern.
 
 ## Local gates (mirror of CI)
 
