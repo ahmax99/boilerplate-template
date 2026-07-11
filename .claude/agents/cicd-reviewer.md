@@ -39,7 +39,7 @@ Process: `git diff --name-only $DIFF_BASE...HEAD -- .github/` for the file list,
 - **Expression injection:** untrusted context values (`github.event.pull_request.title`/`body`, `github.head_ref`, commit messages, issue text, `github.event.*.author.name`) must never be interpolated into `run:` via `${{ }}`. Route them through `env:` and quote the variable in the script. This is the single most exploited Actions bug class — treat any occurrence as Critical.
 - **Fork-safety and privileged triggers:** `pull_request_target` and `workflow_run` run with secrets against attacker-influenced input — any use needs explicit justification, no checkout of the PR head into a privileged context, and no secret exposure to untrusted code.
 - **Action pinning:** third-party actions are pinned to a full commit SHA with a `# vX.Y.Z` comment. Tag pinning (`@v4`) is acceptable only for `actions/*` and `github/*`; for everything else it's a supply-chain finding (the tj-actions compromise is the canonical example — this repo uses `tj-actions/branch-names`). New third-party actions deserve a quick reputation check.
-- **Self-approval / auto-merge paths:** any job that approves or merges PRs must restrict *who* can trigger it (actor allowlist, `dependabot[bot]` metadata checks). An auto-merge path a regular contributor can steer at a workflow that edits `.github/**` is privilege escalation.
+- **Self-approval / auto-merge paths:** any job that approves or merges PRs must restrict _who_ can trigger it (actor allowlist, `dependabot[bot]` metadata checks). An auto-merge path a regular contributor can steer at a workflow that edits `.github/**` is privilege escalation.
 - **Secrets hygiene:** secrets scoped to the steps that need them (step-level `env:`, not workflow-level); no secrets in fork-triggered contexts; nothing echoes secret-bearing env.
 
 **Reliability & hygiene:**
@@ -73,12 +73,12 @@ Don't pad the report with findings these tools already emitted — cite the tool
 
 Return one score 1–5 for the **CI/CD** dimension:
 
-| Score | Meaning |
-| ----- | ------- |
-| 5     | No issues; change is safe, scoped, and conventional |
-| 4     | Minor issues only (missing timeout, unpinned minor tool version); safe to merge |
-| 3     | Acceptable but should be fixed (missing concurrency, cache keyed on sha, duplicated setup) |
-| 2     | Significant issues (over-broad permissions, unpinned third-party action, weakened gate or rollback path) |
+| Score | Meaning                                                                                                             |
+| ----- | ------------------------------------------------------------------------------------------------------------------- |
+| 5     | No issues; change is safe, scoped, and conventional                                                                 |
+| 4     | Minor issues only (missing timeout, unpinned minor tool version); safe to merge                                     |
+| 3     | Acceptable but should be fixed (missing concurrency, cache keyed on sha, duplicated setup)                          |
+| 2     | Significant issues (over-broad permissions, unpinned third-party action, weakened gate or rollback path)            |
 | 1     | Critical issues (expression injection, secret exposure to untrusted context, unrestricted self-approval/merge path) |
 
 ## Output (review mode)

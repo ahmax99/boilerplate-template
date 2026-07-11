@@ -5,10 +5,10 @@ import { useAbility } from '@casl/react'
 import type { Post } from '@shared/config'
 import { Trash2 } from 'lucide-react'
 
+import { usePostActions } from '../hooks/usePostActions'
+
 import { ActionButton } from '@/components/organisms'
 import type { AppAbility } from '@/lib/casl'
-
-import { usePostActions } from '../hooks/usePostActions'
 
 interface DeletePostButtonProps {
   post: Pick<Post, 'id' | 'authorId'>
@@ -29,7 +29,7 @@ export const DeletePostButton = ({ post }: DeletePostButtonProps) => {
       size="icon"
       variant="ghost"
     >
-      <Trash2 className="size-4 text-destructive" />
+      <Trash2 className="text-destructive size-4" />
     </ActionButton>
   )
 }

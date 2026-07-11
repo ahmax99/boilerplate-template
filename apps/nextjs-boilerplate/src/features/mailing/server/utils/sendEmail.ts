@@ -1,9 +1,9 @@
 import { Resend } from 'resend'
 
+import type { EmailUser } from '../../schemas/email.schema'
+
 import { env } from '@/config/env'
 import { catchAsyncError } from '@/features/error/utils/catchError'
-
-import type { EmailUser } from '../../schemas/email.schema'
 
 const resend = new Resend(env.RESEND_API_KEY)
 

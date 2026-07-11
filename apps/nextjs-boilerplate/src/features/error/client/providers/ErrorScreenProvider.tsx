@@ -3,6 +3,8 @@
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
+import { useErrorStore } from '../stores/useErrorStore'
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,8 +17,6 @@ import {
 } from '@/components/molecules'
 import { PUBLIC_ROUTES } from '@/features/auth/lib/routes'
 import { captureError } from '@/features/error-tracking/utils/captureError'
-
-import { useErrorStore } from '../stores/useErrorStore'
 
 export const ErrorScreenProvider = () => {
   const router = useRouter()

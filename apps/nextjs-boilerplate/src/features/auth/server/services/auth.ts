@@ -2,15 +2,13 @@
 
 import { authorizationCodeGrant, buildAuthorizationUrl } from 'openid-client'
 
-import { env } from '@/config/env'
-import { logger } from '@/config/logger'
-
 import { getOIDCClient } from '../../lib/cognitoClient'
 import { PUBLIC_ROUTES } from '../../lib/routes'
 import type { CallbackParams, PKCEData } from '../../schemas/auth.schema'
 import { generateNonce, generatePKCE, generateState } from '../../utils/pkce'
 import { safeRelativePath } from '../../utils/redirect'
 import { createUser } from '../api'
+
 import { assignDefaultRoleGroup } from './role'
 import {
   destroyPKCESession,
@@ -19,6 +17,9 @@ import {
   setPKCEData,
   setSessionData
 } from './session'
+
+import { env } from '@/config/env'
+import { logger } from '@/config/logger'
 
 const log = logger.child({ module: 'auth' })
 

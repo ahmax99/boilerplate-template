@@ -4,8 +4,10 @@ import { ActionButton } from '@/components/organisms'
 
 type ActionResult = { error: null } | { error: { message: string } }
 
-interface AuthActionButtonProps
-  extends Omit<React.ComponentProps<typeof ActionButton>, 'action'> {
+interface AuthActionButtonProps extends Omit<
+  React.ComponentProps<typeof ActionButton>,
+  'action'
+> {
   action: () => Promise<ActionResult>
   successMessage?: string
 }

@@ -38,7 +38,7 @@ Your invocation prompt will include:
 **Frontend (`apps/nextjs-boilerplate`):**
 
 - **BFF boundary:** browser/`'use client'` code never calls the Elysia backend directly and never receives the Cognito token. Auth'd calls go server-side through `serverAuthApiClient` (injects `X-Id-Token`, SigV4-signs to the Lambda Function URL in prod).
-- **Session:** the `iron-session` cookie (`auth_session`) stays HttpOnly; `src/proxy.ts` only gates on cookie *presence* — real verification is the backend's job, so don't treat a passing middleware check as proof of authorization.
+- **Session:** the `iron-session` cookie (`auth_session`) stays HttpOnly; `src/proxy.ts` only gates on cookie _presence_ — real verification is the backend's job, so don't treat a passing middleware check as proof of authorization.
 - No secrets in client bundles (only `NEXT_PUBLIC_*` may reach the browser).
 
 ## Scoring

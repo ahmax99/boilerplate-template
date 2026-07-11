@@ -1,14 +1,13 @@
 import 'server-only'
-
 import ky from 'ky'
+
+import { signingHook } from './sig4'
 
 import { env } from '@/config/env'
 import { logger } from '@/config/logger'
 import { getTokens } from '@/features/auth/server/services/token'
 import { AppError } from '@/features/error/lib/AppError'
 import { logAfterResponse, logBeforeRequest } from '@/lib/requestLogging'
-
-import { signingHook } from './sig4'
 
 // SigV4 (when calling Lambda Function URL with AWS_IAM auth) takes the
 // `Authorization` header for itself, so we send the Cognito ID token in a

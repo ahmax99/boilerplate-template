@@ -1,11 +1,11 @@
-import { useRouter } from 'next/navigation'
 import type { CommentIdParams } from '@shared/config'
-
-import { useErrorHandler } from '@/features/error/client/hooks/useErrorHandler'
-import { handleClientError } from '@/features/error/client/lib/handleError'
+import { useRouter } from 'next/navigation'
 
 import type { CreateCommentSchema } from '../../schemas/commentForm.schema'
 import { createComment, deleteComment } from '../api'
+
+import { useErrorHandler } from '@/features/error/client/hooks/useErrorHandler'
+import { handleClientError } from '@/features/error/client/lib/handleError'
 
 export const useCommentActions = () => {
   const router = useRouter()

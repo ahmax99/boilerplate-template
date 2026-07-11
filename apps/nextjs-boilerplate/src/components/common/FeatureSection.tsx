@@ -1,6 +1,6 @@
-import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/features/auth/lib/routes'
-
 import { ButtonLink } from '../atoms/ButtonLink'
+
+import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/features/auth/lib/routes'
 
 const NEXT_STEPS = [
   {
@@ -22,17 +22,17 @@ const NEXT_STEPS = [
 function FeatureSection() {
   return (
     <section className="px-4 py-6">
-      <div className="divide-y divide-border rounded-xl border border-border">
+      <div className="divide-border border-border divide-y rounded-xl border">
         {NEXT_STEPS.map((step) => (
           <div
             className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between"
             key={step.title}
           >
             <div className="space-y-1">
-              <h2 className="font-medium text-foreground text-xl">
+              <h2 className="text-foreground text-xl font-medium">
                 {step.title}
               </h2>
-              <p className="max-w-md text-muted-foreground text-sm">
+              <p className="text-muted-foreground max-w-md text-sm">
                 {step.description}
               </p>
             </div>

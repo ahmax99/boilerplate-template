@@ -34,7 +34,7 @@ A correct loop has three and only three components:
 2. **Evaluator** (separate from the generator) — a program, script, or checker
    that examines the generator's output and returns a binary verdict: pass or
    fail. "Binary" is literal: an exit code of 0 (success) or 1 (failure), not
-   a prose opinion. The evaluator must be a *separate file* from the loop
+   a prose opinion. The evaluator must be a _separate file_ from the loop
    skill. A generator that judges its own output is not a loop; it is an
    optimist.
 
@@ -54,12 +54,14 @@ discipline) means assembling six concerns and knowing what breaks when any one
 is missing.
 
 ### 1. Scheduling
+
 How the loop is triggered: a cron expression, a filesystem event, a webhook,
 an API poll, or a manual dispatch. Without a defined trigger, the loop only
 runs when someone remembers to start it — which is not a loop, it is a
 one-shot.
 
 ### 2. Isolation / worktrees
+
 When a loop does work that modifies files, it should operate in an isolated
 workspace (a worktree, a scratch directory, a container) so that partial or
 failed work cannot corrupt the main branch. Isolation also enables parallel
@@ -68,20 +70,23 @@ stepping on each other's changes. Without isolation, a bad iteration leaves
 the working tree in an undefined state, and parallel runs produce conflicts.
 
 ### 3. Skill
+
 The durable, read-only logic the agent loads each run: the goal definition,
 the action procedure, the discovery query, and the call to the verifier. It
-does not change between runs. It carries *logic*, never *state*. Without a
+does not change between runs. It carries _logic_, never _state_. Without a
 stable skill file, each invocation may behave differently because the
 instructions drifted.
 
 ### 4. Connectors
+
 The interfaces the loop uses to read from and write to the world: a GitHub
 API client, a filesystem reader, a database cursor, a message queue consumer.
 Without a defined connector, the loop's discovery or action step is
-underspecified — it knows *what* to do but not *how* to talk to the system
+underspecified — it knows _what_ to do but not _how_ to talk to the system
 that holds the data.
 
 ### 5. Sub-agents
+
 For work that can be decomposed, the orchestrating loop dispatches sub-agents
 to handle individual items in parallel. Each sub-agent is isolated (its own
 worktree or scratch space) and reports back a structured result. Without
@@ -89,6 +94,7 @@ sub-agents, a loop that processes many items must serialize them all, which
 is slow and means one failure blocks everything downstream.
 
 ### 6. Memory / state
+
 The external file (or issue tracker, or append-only log) that holds everything
 that changes between runs: cursors, counters, item status, iteration history,
 accumulated partial results. Without an external state file, the loop re-
@@ -99,8 +105,8 @@ across interruptions, and has no way to detect when it is done.
 
 ## The durable-vs-changing rule
 
-Split every piece of information by one question: *does this change between
-runs?*
+Split every piece of information by one question: _does this change between
+runs?_
 
 - **No** → it is durable. It belongs in a skill file, loaded read-only at
   the start of each run. Examples: the goal definition, a style guide, a
@@ -120,14 +126,14 @@ start when the skill is reloaded from disk in its original form.
 ## Q6 state-backend menu and isolation rule
 
 The answer to Q6 (what does the loop need to remember?) determines both what
-goes in the state file and *which* state backend to use. The choice depends on
+goes in the state file and _which_ state backend to use. The choice depends on
 the isolation model:
 
-| Isolation model | State backend |
-|---|---|
-| Single worker — one run at a time | `loops/<name>/STATE.md` — plain markdown file; the agent reads it at run start, overwrites it at run end |
-| Parallel / worktree — multiple workers per run | GitHub Project or GitHub Issues — one issue per work item; closing = done; supports concurrent reads and writes without file-lock conflicts |
-| Parallel but no GitHub access | `loops/<name>/iterations.jsonl` — append-only; each worker appends one JSON line per completed iteration; no file-lock required because appends are atomic at the OS level |
+| Isolation model                                | State backend                                                                                                                                                              |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Single worker — one run at a time              | `loops/<name>/STATE.md` — plain markdown file; the agent reads it at run start, overwrites it at run end                                                                   |
+| Parallel / worktree — multiple workers per run | GitHub Project or GitHub Issues — one issue per work item; closing = done; supports concurrent reads and writes without file-lock conflicts                                |
+| Parallel but no GitHub access                  | `loops/<name>/iterations.jsonl` — append-only; each worker appends one JSON line per completed iteration; no file-lock required because appends are atomic at the OS level |
 
 An optional MCP-backed tracker (task manager, project board) may layer on top
 of any of these to provide a richer view, but the backend above is always the
@@ -144,6 +150,7 @@ condition.
 ## Three failure modes
 
 ### 1. No separate verifier
+
 The generator checks its own output. Self-assessment is systematically biased
 toward "looks good" — a model that produced a flawed result is the least
 reliable judge of that result. The evaluator must be a separate program with a
@@ -151,12 +158,14 @@ checkable criterion. If you cannot write the verifier as a script with an exit
 code, the goal is not yet precise enough to automate.
 
 ### 2. Mutable state stored in the skill
+
 The skill file is read from disk on every cold start. Any state written into it
 during a run is overwritten the next time the loop fires. Counters silently
 reset. Progress is lost. Checksums go stale. The fix is always the same: move
 the mutable data out of the skill and into the state file.
 
 ### 3. No stop condition
+
 A loop that has no checkable exit predicate runs indefinitely — either cycling
 through already-completed work, burning tokens on items that will never
 satisfy the goal, or silently accumulating cost until something external
@@ -190,7 +199,7 @@ accordingly. The quality of a loop is bounded by the quality of its verifier.
 ### Token economics: budgets are mandatory
 
 Long-running loops can exhaust context windows, hit rate limits, or spend real
-money. Anthropic's *Building Effective Agents* guidance emphasizes setting
+money. Anthropic's _Building Effective Agents_ guidance emphasizes setting
 explicit token and cost budgets for agentic workflows — not as a soft
 suggestion but as a hard stop. Every loop designed with this skill must have
 a budget recorded in `HUMAN-GATES.md` before it is considered scaffolded. A

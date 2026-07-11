@@ -3,10 +3,7 @@ import type { PrismaQueryOf, Subjects } from '@casl/prisma'
 import type { Prisma } from '@shared/neon'
 
 export { subject } from '@casl/ability'
-export {
-  accessibleBy,
-  createPrismaAbility
-} from '@casl/prisma'
+export { accessibleBy, createPrismaAbility } from '@casl/prisma'
 
 type Action = 'create' | 'read' | 'update' | 'delete' | 'manage'
 

@@ -3,9 +3,9 @@
 import type { CommentIdParams } from '@shared/config'
 import { Trash2 } from 'lucide-react'
 
-import { ActionButton } from '@/components/organisms'
-
 import { useCommentActions } from '../hooks/useCommentActions'
+
+import { ActionButton } from '@/components/organisms'
 
 interface DeleteCommentButtonProps {
   commentId: CommentIdParams['id']
@@ -24,7 +24,7 @@ export const DeleteCommentButton = ({
       size="icon"
       variant="ghost"
     >
-      <Trash2 className="size-4 text-destructive" />
+      <Trash2 className="text-destructive size-4" />
     </ActionButton>
   )
 }

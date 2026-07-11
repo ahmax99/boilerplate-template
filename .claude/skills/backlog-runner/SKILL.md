@@ -30,6 +30,7 @@ again to keep going.
 This file is **read-only at runtime.** It carries logic, not state.
 
 Rules:
+
 - **Never write progress, counters, timestamps, or iteration results here.**
   All changing data belongs in the external state described below.
 - This file is loaded fresh on every `/run-backlog` invocation. Anything
@@ -43,6 +44,7 @@ Rules:
 The boundary is two-tier, per the original loop design (commit `7d99155`,
 #73) — `.claude/plans/**` is gitignored, so that design plan isn't a
 committed artifact; commit history is the durable reference:
+
 - **Durable queue state** — GitHub issue labels + comments (checkable, visible
   to the whole team).
 - **Ephemeral per-issue state** — `.claude/backlog-state/issue-<n>/.agent-state.json`
@@ -96,7 +98,7 @@ or resumed):
   (not a template string) on every subsequent phase for the same issue and
   when creating the PR.
 - **Re-entering an existing worktree:** before creating a new one, check `git
-  worktree list` for a path already associated with this issue (e.g. one
+worktree list` for a path already associated with this issue (e.g. one
   whose name embeds `issue-<n>`). If found, re-enter it (the native tool's
   `path` parameter, or the skill's fallback equivalent) instead of creating a
   second one for the same issue.
@@ -115,7 +117,7 @@ or resumed):
   worktree: `apps/backend-boilerplate/.env`, `apps/nextjs-boilerplate/.env`,
   `shared/neon/.env`. A worktree only contains tracked files, so these
   gitignored files are otherwise absent — and `/implement`'s gates (`bun run
-  check-types`, the dev server) need them. This is a filesystem copy into an
+check-types`, the dev server) need them. This is a filesystem copy into an
   already-gitignored destination; never `git add` these files.
 - **Commit before moving on.** Every phase that writes tracked files (the
   spec write, `/implement`'s code changes) must end with a `git commit` on
@@ -150,13 +152,13 @@ A `*-pending-approval` label always co-exists with `agent:approved` once a
 human clears it — read the **pair** together to know which phase to run next,
 then remove **both** labels when done.
 
-| Current label(s) | Action (in the issue's own worktree) | Next label |
-|---|---|---|
-| `ready-for-agent` | Create the issue's worktree from `main` (step 0), record its actual branch name in `.agent-state.json`; run `/spec` from the issue title+body; commit the spec file; post it as a `gh issue comment` | `agent:spec-pending-approval` |
-| `agent:spec-pending-approval` + `agent:approved` | Enter the issue's worktree (step 0); run `/plan docs/specs/<spec>.md`; post the plan as a comment; remove both labels | `agent:plan-pending-approval` |
-| `agent:plan-pending-approval` + `agent:approved` | Enter the issue's worktree (step 0); run `/implement`, then `/qa`; commit the implementation; hand off to the verifier (step 3 below); remove both labels | `agent:pr-open` / `agent:qa-retry` / `agent:blocked` (verifier-decided) |
-| `agent:qa-retry` | Enter the issue's worktree (step 0); `/implement "fix: <qa findings>"`; commit; re-run `/qa`; hand off to the verifier again | same branching as above |
-| `agent:pr-open` | Check `gh pr view --json state` — see PR outcome housekeeping below | *(terminal, or worktree removed)* |
+| Current label(s)                                 | Action (in the issue's own worktree)                                                                                                                                                                 | Next label                                                              |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `ready-for-agent`                                | Create the issue's worktree from `main` (step 0), record its actual branch name in `.agent-state.json`; run `/spec` from the issue title+body; commit the spec file; post it as a `gh issue comment` | `agent:spec-pending-approval`                                           |
+| `agent:spec-pending-approval` + `agent:approved` | Enter the issue's worktree (step 0); run `/plan docs/specs/<spec>.md`; post the plan as a comment; remove both labels                                                                                | `agent:plan-pending-approval`                                           |
+| `agent:plan-pending-approval` + `agent:approved` | Enter the issue's worktree (step 0); run `/implement`, then `/qa`; commit the implementation; hand off to the verifier (step 3 below); remove both labels                                            | `agent:pr-open` / `agent:qa-retry` / `agent:blocked` (verifier-decided) |
+| `agent:qa-retry`                                 | Enter the issue's worktree (step 0); `/implement "fix: <qa findings>"`; commit; re-run `/qa`; hand off to the verifier again                                                                         | same branching as above                                                 |
+| `agent:pr-open`                                  | Check `gh pr view --json state` — see PR outcome housekeeping below                                                                                                                                  | _(terminal, or worktree removed)_                                       |
 
 Never advance a second gated phase for the same issue in the same
 `/run-backlog` invocation — spec→plan and plan→implement are always separated
@@ -187,17 +189,19 @@ prose or scores in-model:
 ### 4 — State writes
 
 On every phase advance, update together:
+
 - `.claude/backlog-state/issue-<n>/.agent-state.json` — `{ "issue", "phase",
-  "qa_retries", "branch" }`. Increment `qa_retries` only on a qa-retry
+"qa_retries", "branch" }`. Increment `qa_retries` only on a qa-retry
   transition; every other transition leaves it unchanged (or initializes it
   to `0` on branch creation).
 - The durable GitHub label(s) (`gh issue edit --add-label ... --remove-label
-  ...`) and a `gh issue comment` explaining what happened this run.
+...`) and a `gh issue comment` explaining what happened this run.
 
 ### 5 — PR outcome housekeeping
 
 On a run where an issue is in `agent:pr-open`, check `gh pr view --json
 state`:
+
 - **MERGED** — remove the issue's worktree with `git worktree remove <path>`
   followed by `git branch -d <branch>` (path/branch read from
   `.agent-state.json` — never assume `agent/issue-<n>`). This is the default

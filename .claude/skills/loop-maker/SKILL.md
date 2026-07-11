@@ -92,12 +92,14 @@ answer, then move to the next.
 ### The 7 questions
 
 **Q1 — Goal** (maps to the loop's exit predicate)
+
 > What condition means the loop is done? State it as something you could
 > check with a program — a file exists, an HTTP endpoint returns 200, a count
 > reaches a target, a queue is empty. A vibe ("it looks good") won't work;
 > a checkable predicate will.
 
 **Q2 — Trigger** (maps to TRIGGER.md)
+
 > How does the loop start each run? Options: a cron schedule, a filesystem
 > event, an inbound webhook, an API poll, a manual `gh workflow dispatch`, or
 > "run until the goal predicate holds, then stop". Pin down the schedule or
@@ -105,29 +107,34 @@ answer, then move to the next.
 > Flag: verify the exact trigger syntax against current host docs.
 
 **Q3 — Discovery**
+
 > What does the loop look at each run to decide what to do? Examples: a
 > directory listing, a GitHub issue list, an RSS feed, a database query, an
 > API response. This determines the read connector.
 
 **Q4 — Action** (maps to the loop's core skill step)
+
 > What does the loop actually do each iteration — to what target, using which
 > connector? Note: if the action creates or modifies files, consider running
 > it in a worktree or scratch directory so each iteration is isolated and the
 > main branch is only updated after verification passes.
 
 **Q5 — Verification** (maps to the verifier — a SEPARATE checker)
+
 > How does the loop prove each iteration succeeded before moving on? This must
 > be a program with a binary verdict, not a model's opinion. The verifier runs
 > after every action and gates the next iteration. It is a separate file from
 > the loop skill — template at `scripts/verifier_template.sh`.
 
 **Q6 — State**
+
 > What does the loop need to remember between runs? Examples: which items have
 > been processed, the last cursor or timestamp, the current iteration count,
 > accumulated results. This goes in the state file — see the state backend
 > rule below.
 
 **Q7 — Human gates**
+
 > At which points must a human approve before the loop continues? At minimum:
 > before the first real run, and when the verifier signals an anomaly. Add
 > any domain-specific gates (e.g., before touching production data, before
@@ -172,12 +179,12 @@ Choose the loop pattern from the table below. Default: **ReAct + deterministic
 verifier** unless the brief clearly calls for something else. Load only the
 reference file for the chosen pattern — don't read the others.
 
-| Pattern | When to use | Reference file |
-|---|---|---|
+| Pattern                                      | When to use                                             | Reference file                                       |
+| -------------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------- |
 | **ReAct + deterministic verifier** (DEFAULT) | One workstream, "done" is a program-checkable predicate | `references/pattern-react-deterministic-verifier.md` |
-| Evaluator–optimizer | Criteria need judgement, not just a script | `references/pattern-evaluator-optimizer.md` |
-| Orchestrator–workers | Work genuinely parallelizes into independent subtasks | `references/pattern-orchestrator-workers.md` |
-| Ralph | Want a crude baseline / teaching loop | `references/pattern-ralph.md` |
+| Evaluator–optimizer                          | Criteria need judgement, not just a script              | `references/pattern-evaluator-optimizer.md`          |
+| Orchestrator–workers                         | Work genuinely parallelizes into independent subtasks   | `references/pattern-orchestrator-workers.md`         |
+| Ralph                                        | Want a crude baseline / teaching loop                   | `references/pattern-ralph.md`                        |
 
 State the chosen pattern and one-line rationale before moving to Phase 4.
 Flag: verify the host's scheduler and dispatch mechanics against
@@ -243,11 +250,11 @@ missing.
 Choose the state backend by isolation model, then record the choice in
 `loops/<loop-name>/STATE.md` or document it in `TRIGGER.md`:
 
-| Isolation model | State backend |
-|---|---|
-| Single worker (one run at a time) | `loops/<name>/STATE.md` — plain markdown, read+written each run |
-| Parallel / worktree | GitHub Project or GitHub Issues — one issue per work item; resolved = done |
-| Parallel but no GitHub | `loops/<name>/iterations.jsonl` — append-only; one JSON line per iteration |
+| Isolation model                   | State backend                                                              |
+| --------------------------------- | -------------------------------------------------------------------------- |
+| Single worker (one run at a time) | `loops/<name>/STATE.md` — plain markdown, read+written each run            |
+| Parallel / worktree               | GitHub Project or GitHub Issues — one issue per work item; resolved = done |
+| Parallel but no GitHub            | `loops/<name>/iterations.jsonl` — append-only; one JSON line per iteration |
 
 The user may override this recommendation. Document the choice and the reason
 for any override.

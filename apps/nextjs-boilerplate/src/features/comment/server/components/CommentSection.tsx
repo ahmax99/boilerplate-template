@@ -1,6 +1,12 @@
 import type { Comment, PostIdParams } from '@shared/config'
 import { MessageSquare } from 'lucide-react'
 
+import {
+  CommentForm,
+  type CommentFormConfig
+} from '../../client/components/CommentForm'
+import { DeleteCommentButton } from '../../client/components/DeleteCommentButton'
+
 import { Separator } from '@/components/atoms'
 import {
   Avatar,
@@ -10,12 +16,6 @@ import {
   CardHeader
 } from '@/components/molecules'
 import { env } from '@/config/env'
-
-import {
-  CommentForm,
-  type CommentFormConfig
-} from '../../client/components/CommentForm'
-import { DeleteCommentButton } from '../../client/components/DeleteCommentButton'
 
 interface CommentSectionProps {
   postId: PostIdParams['id']
@@ -42,7 +42,7 @@ export const CommentSection = async ({
     <Card>
       <CardHeader className="flex flex-row items-center gap-2 border-b">
         <MessageSquare className="size-5" />
-        <h2 className="font-bold text-xl">
+        <h2 className="text-xl font-bold">
           {comments.length} {comments.length <= 1 ? 'Comment' : 'Comments'}
         </h2>
       </CardHeader>
@@ -67,10 +67,10 @@ export const CommentSection = async ({
               </Avatar>
               <div className="flex flex-1 justify-between space-y-1">
                 <div className="flex flex-col">
-                  <p className="font-semibold text-sm">
+                  <p className="text-sm font-semibold">
                     {comment.author?.name}
                   </p>
-                  <p className="whitespace-pre-wrap text-foreground/90 text-sm leading-relaxed">
+                  <p className="text-foreground/90 text-sm leading-relaxed whitespace-pre-wrap">
                     {comment.content}
                   </p>
                 </div>

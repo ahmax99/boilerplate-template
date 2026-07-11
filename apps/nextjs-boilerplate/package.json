@@ -53,12 +53,18 @@
     "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3"
   },
-  "ignoreScripts": ["sharp", "unrs-resolver"],
-  "trustedDependencies": ["sharp", "unrs-resolver"],
   "overrides": {
+    "@hono/node-server": "^1.19.13",
     "fast-uri": "^3.1.2",
     "hono": "^4.12.18",
-    "@hono/node-server": "^1.19.13",
     "path-to-regexp": "^8.0.1"
-  }
+  },
+  "ignoreScripts": [
+    "sharp",
+    "unrs-resolver"
+  ],
+  "trustedDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ]
 }

@@ -1,9 +1,9 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
 import { createMongoAbility, type RawRuleOf } from '@casl/ability'
 import { AbilityProvider as CaslAbilityProvider } from '@casl/react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
 import { toast } from 'sonner'
 
 import type { AppAbility } from '@/lib/casl'

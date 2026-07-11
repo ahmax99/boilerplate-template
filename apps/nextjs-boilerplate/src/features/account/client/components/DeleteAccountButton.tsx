@@ -1,8 +1,8 @@
 'use client'
 
-import { AuthActionButton } from '@/features/auth/client/components/AuthActionButton'
-
 import { useAccountActions } from '../hooks/useAccountActions'
+
+import { AuthActionButton } from '@/features/auth/client/components/AuthActionButton'
 
 export const DeleteAccountButton = () => {
   const { handleDeleteAccount } = useAccountActions()

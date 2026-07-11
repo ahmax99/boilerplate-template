@@ -22,10 +22,10 @@ export default async function PostsListPage() {
   return (
     <div className="container py-12">
       <div className="pb-12 text-center">
-        <h1 className="font-extrabold text-4xl tracking-tight sm:text-5xl">
+        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
           Our Blog
         </h1>
-        <p className="mx-auto max-w-2xl pt-4 text-muted-foreground text-xl">
+        <p className="text-muted-foreground mx-auto max-w-2xl pt-4 text-xl">
           Insights, thoughts, and trends from our team.
         </p>
       </div>

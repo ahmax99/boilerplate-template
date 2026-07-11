@@ -3,6 +3,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
+import {
+  CommentFormModel,
+  type CreateCommentSchema
+} from '../../schemas/commentForm.schema'
+import { useCommentActions } from '../hooks/useCommentActions'
+
 import { Button, Textarea } from '@/components/atoms'
 import { LoadingSwap } from '@/components/molecules'
 import {
@@ -12,12 +18,6 @@ import {
   FieldLabel,
   FieldTitle
 } from '@/components/organisms/Field'
-
-import {
-  CommentFormModel,
-  type CreateCommentSchema
-} from '../../schemas/commentForm.schema'
-import { useCommentActions } from '../hooks/useCommentActions'
 
 export interface CommentFieldConfig {
   name: 'content'

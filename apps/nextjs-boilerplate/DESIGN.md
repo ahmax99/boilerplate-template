@@ -2,96 +2,96 @@
 name: Boilerplate Baseline
 description: A strict monochrome, token-driven baseline system designed to accept a derived app's brand without redesign.
 colors:
-  primary: "#000000"
-  primary-foreground: "#ffffff"
-  background: "#fcfcfc"
-  card: "#ffffff"
-  secondary: "#ebebeb"
-  muted: "#f5f5f5"
-  muted-foreground: "#525252"
-  border: "#e4e4e4"
-  input: "#ebebeb"
-  ring: "#000000"
-  destructive: "#e54b4f"
-  destructive-foreground: "#ffffff"
+  primary: '#000000'
+  primary-foreground: '#ffffff'
+  background: '#fcfcfc'
+  card: '#ffffff'
+  secondary: '#ebebeb'
+  muted: '#f5f5f5'
+  muted-foreground: '#525252'
+  border: '#e4e4e4'
+  input: '#ebebeb'
+  ring: '#000000'
+  destructive: '#e54b4f'
+  destructive-foreground: '#ffffff'
 typography:
   display:
-    fontFamily: "Geist Sans, sans-serif"
-    fontSize: "3rem"
+    fontFamily: 'Geist Sans, sans-serif'
+    fontSize: '3rem'
     fontWeight: 600
     lineHeight: 1.1
-    letterSpacing: "-0.01em"
+    letterSpacing: '-0.01em'
   headline:
-    fontFamily: "Geist Sans, sans-serif"
-    fontSize: "1.875rem"
+    fontFamily: 'Geist Sans, sans-serif'
+    fontSize: '1.875rem'
     fontWeight: 600
     lineHeight: 1.25
-    letterSpacing: "0"
+    letterSpacing: '0'
   title:
-    fontFamily: "Geist Sans, sans-serif"
-    fontSize: "1.25rem"
+    fontFamily: 'Geist Sans, sans-serif'
+    fontSize: '1.25rem'
     fontWeight: 500
     lineHeight: 1.375
-    letterSpacing: "0.01em"
+    letterSpacing: '0.01em'
   body:
-    fontFamily: "Geist Sans, sans-serif"
-    fontSize: "1rem"
+    fontFamily: 'Geist Sans, sans-serif'
+    fontSize: '1rem'
     fontWeight: 400
     lineHeight: 1.5
-    letterSpacing: "0.01em"
+    letterSpacing: '0.01em'
   label:
-    fontFamily: "Geist Sans, sans-serif"
-    fontSize: "0.875rem"
+    fontFamily: 'Geist Sans, sans-serif'
+    fontSize: '0.875rem'
     fontWeight: 500
     lineHeight: 1.25
-    letterSpacing: "0.01em"
+    letterSpacing: '0.01em'
   mono:
-    fontFamily: "Geist Mono, monospace"
-    fontSize: "0.875rem"
+    fontFamily: 'Geist Mono, monospace'
+    fontSize: '0.875rem'
     fontWeight: 400
     lineHeight: 1.5
-    letterSpacing: "0"
+    letterSpacing: '0'
 rounded:
-  sm: "4px"
-  md: "6px"
-  lg: "8px"
-  xl: "12px"
+  sm: '4px'
+  md: '6px'
+  lg: '8px'
+  xl: '12px'
 spacing:
-  xs: "2px"
-  sm: "4px"
-  md: "8px"
-  lg: "16px"
-  xl: "32px"
+  xs: '2px'
+  sm: '4px'
+  md: '8px'
+  lg: '16px'
+  xl: '32px'
 components:
   button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.primary-foreground}"
-    typography: "{typography.label}"
-    rounded: "{rounded.md}"
-    padding: "8px 16px"
+    backgroundColor: '{colors.primary}'
+    textColor: '{colors.primary-foreground}'
+    typography: '{typography.label}'
+    rounded: '{rounded.md}'
+    padding: '8px 16px'
   button-secondary:
-    backgroundColor: "{colors.secondary}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label}"
-    rounded: "{rounded.md}"
-    padding: "8px 16px"
+    backgroundColor: '{colors.secondary}'
+    textColor: '{colors.primary}'
+    typography: '{typography.label}'
+    rounded: '{rounded.md}'
+    padding: '8px 16px'
   input:
-    backgroundColor: "{colors.card}"
-    textColor: "{colors.primary}"
-    typography: "{typography.body}"
-    rounded: "{rounded.md}"
-    padding: "8px 12px"
+    backgroundColor: '{colors.card}'
+    textColor: '{colors.primary}'
+    typography: '{typography.body}'
+    rounded: '{rounded.md}'
+    padding: '8px 12px'
   card:
-    backgroundColor: "{colors.card}"
-    textColor: "{colors.primary}"
-    rounded: "{rounded.xl}"
-    padding: "24px"
+    backgroundColor: '{colors.card}'
+    textColor: '{colors.primary}'
+    rounded: '{rounded.xl}'
+    padding: '24px'
   badge:
-    backgroundColor: "{colors.muted}"
-    textColor: "{colors.muted-foreground}"
-    typography: "{typography.label}"
-    rounded: "{rounded.sm}"
-    padding: "2px 8px"
+    backgroundColor: '{colors.muted}'
+    textColor: '{colors.muted-foreground}'
+    typography: '{typography.label}'
+    rounded: '{rounded.sm}'
+    padding: '2px 8px'
 ---
 
 # Design System: Boilerplate Baseline
@@ -113,6 +113,7 @@ grids — and the cream/beige "warm neutral" default. Neutral here is a decision
 not an absence.
 
 **Key Characteristics:**
+
 - Strict monochrome; color appears only when it carries meaning
 - Hierarchy from type weight, size, and whitespace — never from decoration
 - Hairline borders (#e4e4e4) and whisper-quiet shadows define structure
@@ -126,11 +127,13 @@ A two-pole monochrome ramp with one semantic red; the palette is deliberately
 brandless so the primary slot can be recolored per app.
 
 ### Primary
+
 - **Ink** (#000000): the primary action color and text color. Buttons, focus
   rings, and headings all share it — authority through uniformity. In dark
   mode the poles flip (white ink on black).
 
 ### Neutral
+
 - **Paper** (#fcfcfc): the app canvas. Not pure white, so cards can sit on it.
 - **Card White** (#ffffff): elevated surfaces — cards, popovers, inputs.
 - **Whisper Gray** (#f5f5f5): muted fills — skeletons, table stripes, badges.
@@ -140,9 +143,11 @@ brandless so the primary slot can be recolored per app.
   placeholders. Passes 4.5:1 on all neutral surfaces; do not lighten it.
 
 ### Tertiary
+
 - **Signal Red** (#e54b4f): destructive actions and validation errors only.
 
 ### Named Rules
+
 **The Monochrome Rule.** Chromatic color is forbidden except: Signal Red for
 destruction/errors, chart tokens for data visualization, and focus states.
 If a screen needs emphasis, reach for weight and space, not hue.
@@ -162,6 +167,7 @@ quietly confident. Contrast comes from weight (400/500/600) and size, with a
 slightly open body tracking (+0.01em) that keeps small text legible.
 
 ### Hierarchy
+
 - **Display** (600, 3rem, 1.1): page heroes and marketing headlines only.
 - **Headline** (600, 1.875rem, 1.25): page titles.
 - **Title** (500, 1.25rem, 1.375): card titles and section headings.
@@ -170,6 +176,7 @@ slightly open body tracking (+0.01em) that keeps small text legible.
 - **Mono** (400, 0.875rem): code, IDs, and tabular data.
 
 ### Named Rules
+
 **The One Family Rule.** Geist carries everything. Introducing a second
 display face is a per-app branding decision made in `tokens/fonts.css`,
 never inline.
@@ -182,11 +189,13 @@ surfaces (popovers, dialogs, dropdowns) from the page. Cards at rest carry at
 most `shadow-2xs`; nothing on the canvas casts a dramatic shadow.
 
 ### Shadow Vocabulary
+
 - **Resting** (`0px 1px 2px 0px hsl(0 0% 0% / 0.09)`): cards, inputs.
 - **Raised** (`0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 2px 4px -1px hsl(0 0% 0% / 0.18)`): dropdowns, popovers.
 - **Floating** (`0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 8px 10px -1px hsl(0 0% 0% / 0.18)`): dialogs, sheets.
 
 ### Named Rules
+
 **The Drawn-Not-Lifted Rule.** If a border can express the boundary, use the
 border. Shadows are reserved for surfaces that genuinely float above the page.
 
@@ -197,6 +206,7 @@ molecules → organisms); their feel is refined and restrained — flat surfaces
 crisp edges, instant feedback.
 
 ### Buttons
+
 - **Shape:** gently rounded (6px radius), 36px default height.
 - **Primary:** Ink on white text (#000000 / #ffffff), 8px 16px padding, Label type.
 - **Hover / Focus:** ~90% opacity shift on hover; 2px Ink focus ring offset from the element. No transforms.
@@ -204,6 +214,7 @@ crisp edges, instant feedback.
 - **Loading:** compose `Spinner` + `disabled`; no bespoke spinners.
 
 ### Cards / Containers
+
 - **Corner Style:** 12px radius.
 - **Background:** Card White on Paper canvas.
 - **Shadow Strategy:** Resting shadow or border only (see Elevation).
@@ -211,15 +222,18 @@ crisp edges, instant feedback.
 - **Internal Padding:** 24px, via full Card composition (`CardHeader`/`CardContent`/`CardFooter`).
 
 ### Inputs / Fields
+
 - **Style:** Card White fill, 1px Control Gray border, 6px radius, 8px 12px padding.
 - **Focus:** border shifts to Ink plus 2px ring; no glow.
 - **Error / Disabled:** Signal Red border + `aria-invalid`/`data-invalid` per shadcn Field rules; disabled drops to 50% opacity.
 - **Layout:** always `FieldGroup` + `Field` — never raw divs with spacing utilities.
 
 ### Navigation
+
 - **Style:** flat top bar / sidebar on Paper, Hairline separation; active item gets Ink text + Whisper Gray fill; inactive is Slate Text. Mobile collapses to Sheet.
 
 ### Feedback & States
+
 - **Loading:** `Skeleton` blocks mirroring final layout — no custom pulse divs.
 - **Empty:** the `Empty` component with one clear next action.
 - **Toasts:** `sonner`, bottom-right, Label type.
@@ -227,6 +241,7 @@ crisp edges, instant feedback.
 ## 6. Do's and Don'ts
 
 ### Do:
+
 - **Do** express every color, radius, shadow, spacing, and font through the
   token files in `src/styles/tokens/` — that is the only door for visual change.
 - **Do** use shadcn semantic classes (`bg-primary`, `text-muted-foreground`,
@@ -239,6 +254,7 @@ crisp edges, instant feedback.
   for every animation.
 
 ### Don't:
+
 - **Don't** use purple-to-blue gradients, glassmorphism cards, hero-metric
   blocks, or identical icon-heading-text card grids — the SaaS-template
   maximalism this system explicitly rejects.

@@ -1,6 +1,6 @@
-import { cn } from '@/utils/mergeClass'
-
 import { Spinner } from '../atoms/Spinner'
+
+import { cn } from '@/utils/mergeClass'
 
 interface LoadingSwapProps {
   isLoading: boolean

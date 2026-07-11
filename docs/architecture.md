@@ -71,18 +71,18 @@ flowchart TD
     S3[S3<br/>Static Assets]
     Elysia[Elysia Backend<br/>Lambda]
     Cognito[Cognito<br/>Managed Login]
-    
+
     User --> Route53
     Route53 --> CloudFront
-    
+
     CloudFront -->|/_next/*, /static/*| S3
     CloudFront -->|/api/*| Elysia
     CloudFront -->|/* default| NextJS
-    
+
     NextJS -->|Public routes<br/>/, /about| User
     NextJS -->|Protected routes<br/>/blog, /account| Cognito
     NextJS -->|API calls| Elysia
-    
+
     Cognito -->|JWT tokens| NextJS
     NextJS -->|HttpOnly cookie| User
 ```
@@ -92,12 +92,12 @@ flowchart TD
 ```mermaid
 graph TD
     CF[CloudFront Entry Point]
-    
+
     CF -->|1. /_next/*| B1[S3 Static Assets<br/>Cache: VERY AGGRESSIVE<br/>TTL: 1 day - 1 year<br/>Immutable, hash-based]
     CF -->|2. /static/*| B2[S3 Public Files<br/>Cache: AGGRESSIVE<br/>Images, fonts<br/>gzip/brotli enabled]
     CF -->|3. /api/*| B3[Elysia Lambda<br/>Cache: DISABLED<br/>Forward: Auth headers, cookies<br/>JWT validation required]
     CF -->|4. /* default| B4[Next.js SSR/BFF<br/>Cache: LIMITED/DYNAMIC<br/>Auth flow handler<br/>Route protection]
-    
+
     style B1 fill:#e1f5e1
     style B2 fill:#e1f5e1
     style B3 fill:#ffe1e1
@@ -118,7 +118,7 @@ sequenceDiagram
     NextBFF->>Cognito: Authenticate (OIDC)
     Cognito->>NextBFF: Returns JWT
     NextBFF->>Browser: Set HttpOnly cookie (JWT)
-    
+
     Note over Browser,ElysiaAPI: API Request Flow
     Browser->>NextBFF: API request (cookie auto-sent)
     NextBFF->>NextBFF: Extract JWT from cookie
@@ -133,6 +133,7 @@ sequenceDiagram
 **Request Flow Examples:**
 
 ### Public Homepage (/)
+
 1. Browser → Route 53 → CloudFront
 2. CloudFront applies cache behavior for `/`
 3. Forwards to Next.js origin if needed
@@ -140,6 +141,7 @@ sequenceDiagram
 5. CloudFront caches and returns response
 
 ### Protected Route (/blog) - Unauthenticated
+
 1. Browser → Route 53 → CloudFront → Next.js
 2. Next.js checks auth cookie (not found)
 3. Next.js redirects to Cognito authorization endpoint
@@ -153,6 +155,7 @@ sequenceDiagram
 11. Next.js serves protected page
 
 ### Authenticated API Request
+
 1. Browser → Route 53 → CloudFront → Next.js
 2. Next.js reads auth cookie (server-side)
 3. Next.js calls Elysia with JWT
@@ -173,7 +176,7 @@ sequenceDiagram
 
 3. **Path Behavior Order**: CloudFront processes the first matching pattern. Order matters for security - broader patterns placed earlier can bypass stricter rules.
 
-4. **Security**: 
+4. **Security**:
    - WAF at CloudFront edge
    - JWT validation in Elysia backend
    - HttpOnly cookies (never localStorage)
@@ -186,7 +189,7 @@ sequenceDiagram
     participant User
     participant CF as CloudFront + WAF
     participant Lambda as Lambda URL
-    
+
     User->>CF: HTTPS Request
     CF->>CF: Apply WAF rules
     CF->>Lambda: Signed Request (SigV4)
@@ -199,7 +202,7 @@ sequenceDiagram
         Lambda->>CF: Deny (403)
         CF->>User: Access Denied
     end
-    
+
     Note over User,Lambda: Direct Lambda URL access blocked<br/>Only CloudFront can invoke
 ```
 

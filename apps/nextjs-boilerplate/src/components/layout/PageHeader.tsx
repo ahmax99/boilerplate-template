@@ -1,5 +1,8 @@
 import Link from 'next/link'
 
+import { ButtonLink } from '../atoms/ButtonLink'
+import { Logo } from '../molecules/Logo'
+
 import { getUserPermissions } from '@/features/auth/lib/permission'
 import {
   PROTECTED_ROUTES,
@@ -8,9 +11,6 @@ import {
 } from '@/features/auth/lib/routes'
 import { getMe } from '@/features/auth/server/api'
 import { LogoutButton } from '@/features/auth/server/components/LogoutButton'
-
-import { ButtonLink } from '../atoms/ButtonLink'
-import { Logo } from '../molecules/Logo'
 
 async function PageHeader() {
   const user = await getMe().catch(() => null)
@@ -39,7 +39,7 @@ async function PageHeader() {
               {navItems.map((item) =>
                 item.disabled ? (
                   <span
-                    className="cursor-not-allowed text-muted-foreground opacity-50"
+                    className="text-muted-foreground cursor-not-allowed opacity-50"
                     key={item.name}
                   >
                     {item.name}
