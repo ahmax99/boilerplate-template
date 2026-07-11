@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
-import { LinkIcon, User } from 'lucide-react'
+import { TriangleAlert, User } from 'lucide-react'
 
 import { Button } from '@/components/atoms'
 import {
@@ -32,7 +32,7 @@ export const AccountManagement = () => {
   const searchParams = useSearchParams()
 
   const tabParam = searchParams.get('tab')
-  const activeTab = tabParam === 'accounts' ? 'accounts' : 'profile'
+  const activeTab = tabParam === 'danger-zone' ? 'danger-zone' : 'profile'
 
   const handleTabChange = (value: string) =>
     setTabParam(router, searchParams, value)
@@ -48,9 +48,9 @@ export const AccountManagement = () => {
           <User />
           <span className="max-sm:hidden">Profile</span>
         </TabsTrigger>
-        <TabsTrigger value="accounts">
-          <LinkIcon />
-          <span className="max-sm:hidden">Accounts</span>
+        <TabsTrigger value="danger-zone">
+          <TriangleAlert />
+          <span className="max-sm:hidden">Danger Zone</span>
         </TabsTrigger>
       </TabsList>
 
@@ -74,7 +74,7 @@ export const AccountManagement = () => {
 
       <TabsContent
         className="flex flex-col justify-center gap-4"
-        value="accounts"
+        value="danger-zone"
       >
         <h2 className="font-medium text-2xl">Danger Zone</h2>
         <Card className="flex flex-row items-center justify-between border-destructive">
