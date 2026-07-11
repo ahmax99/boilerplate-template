@@ -82,8 +82,13 @@ output "static_assets_bucket_name" {
 }
 
 # -------------------
-# Terraform CI roles
+# GitHub Actions OIDC roles
 # -------------------
+output "github_actions_role_arn" {
+  description = "ARN of the GitHub Actions deploy role (put into GitHub secrets.AWS_ROLE_ARN)"
+  value       = module.github_oidc.role_arn
+}
+
 output "terraform_plan_role_arn" {
   description = "ARN of the read-only OIDC role for terraform plan (put into GitHub vars.TF_PLAN_ROLE_ARN)"
   value       = module.github_oidc.terraform_plan_role_arn

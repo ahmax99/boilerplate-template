@@ -46,6 +46,19 @@ resource "aws_ecr_lifecycle_policy" "this" {
         action = {
           type = "expire"
         }
+      },
+      {
+        rulePriority = 2
+        description  = "Keep only the most recent ${var.lifecycle_policy.max_image_count} tagged images"
+        selection = {
+          tagStatus      = "tagged"
+          tagPatternList = ["*"]
+          countType      = "imageCountMoreThan"
+          countNumber    = var.lifecycle_policy.max_image_count
+        }
+        action = {
+          type = "expire"
+        }
       }
     ]
   })

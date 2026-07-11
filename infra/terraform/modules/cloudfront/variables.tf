@@ -18,8 +18,8 @@ variable "static_assets_bucket_domain_name" {
   type        = string
 }
 
-variable "logs_bucket_id" {
-  description = "S3 bucket for CloudFront access logs"
+variable "logs_bucket_domain_name" {
+  description = "Regional domain name of the S3 bucket for CloudFront access logs"
   type        = string
 }
 
