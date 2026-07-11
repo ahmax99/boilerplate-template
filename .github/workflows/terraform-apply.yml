@@ -37,6 +37,7 @@ jobs:
         uses: ./.github/actions/terraform-env
         with:
           environment: dev
+          create-github-oidc-provider: 'true'
           aws-region: ${{ vars.AWS_REGION }}
           root-domain: ${{ vars.TF_VAR_root_domain }}
           contact-to-email: ${{ vars.TF_VAR_contact_to_email }}
@@ -92,6 +93,7 @@ jobs:
         uses: ./.github/actions/terraform-env
         with:
           environment: prod
+          create-github-oidc-provider: 'false'
           aws-region: ${{ vars.AWS_REGION }}
           root-domain: ${{ vars.TF_VAR_root_domain }}
           contact-to-email: ${{ vars.TF_VAR_contact_to_email }}
