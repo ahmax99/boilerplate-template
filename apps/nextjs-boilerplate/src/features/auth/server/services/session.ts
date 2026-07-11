@@ -3,8 +3,8 @@
 import { cookies } from 'next/headers'
 import { getIronSession } from 'iron-session'
 
-import { SESSION_CONFIG } from '../../constants/session'
-import type { SessionData } from '../../schemas/auth.schema'
+import { PKCE_CONFIG, SESSION_CONFIG } from '../../constants/session'
+import type { PKCEData, SessionData } from '../../schemas/auth.schema'
 
 export const getSession = async () => {
   const cookieStore = await cookies()
@@ -25,9 +25,35 @@ export const getSessionData = async () => {
   const session = await getSession()
 
   return {
-    userId: session.userId,
-    email: session.email,
-    refreshToken: session.refreshToken,
+    refreshToken: session.refreshToken
+  }
+}
+
+export const destroySession = async () => {
+  const session = await getSession()
+
+  session.destroy()
+}
+
+export const getPKCESession = async () => {
+  const cookieStore = await cookies()
+  const session = await getIronSession<PKCEData>(cookieStore, PKCE_CONFIG)
+
+  return session
+}
+
+export const setPKCEData = async (data: PKCEData) => {
+  const session = await getPKCESession()
+
+  Object.assign(session, data)
+
+  await session.save()
+}
+
+export const getPKCEData = async () => {
+  const session = await getPKCESession()
+
+  return {
     codeVerifier: session.codeVerifier,
     state: session.state,
     nonce: session.nonce,
@@ -35,8 +61,8 @@ export const getSessionData = async () => {
   }
 }
 
-export const destroySession = async () => {
-  const session = await getSession()
+export const destroyPKCESession = async () => {
+  const session = await getPKCESession()
 
   session.destroy()
 }

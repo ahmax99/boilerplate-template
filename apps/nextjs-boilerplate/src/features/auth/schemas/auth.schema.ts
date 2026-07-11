@@ -2,9 +2,9 @@ import { z } from 'zod'
 
 const AuthModel = {
   session: z.object({
-    userId: z.string().optional(),
-    email: z.string().optional(),
-    refreshToken: z.string().optional(),
+    refreshToken: z.string().optional()
+  }),
+  pkce: z.object({
     codeVerifier: z.string().optional(),
     state: z.string().optional(),
     nonce: z.string().optional(),
@@ -18,4 +18,5 @@ const AuthModel = {
 }
 
 export type SessionData = z.infer<typeof AuthModel.session>
+export type PKCEData = z.infer<typeof AuthModel.pkce>
 export type CallbackParams = z.infer<typeof AuthModel.callbackParams>

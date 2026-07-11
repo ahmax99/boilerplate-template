@@ -7,34 +7,35 @@ import { logger } from '@/config/logger'
 
 import { getOIDCClient } from '../../lib/cognitoClient'
 import { PUBLIC_ROUTES } from '../../lib/routes'
-import type { CallbackParams, SessionData } from '../../schemas/auth.schema'
-import {
-  clearPKCEData,
-  generateNonce,
-  generatePKCE,
-  generateState
-} from '../../utils/pkce'
+import type { CallbackParams, PKCEData } from '../../schemas/auth.schema'
+import { generateNonce, generatePKCE, generateState } from '../../utils/pkce'
 import { safeRelativePath } from '../../utils/redirect'
 import { createUser } from '../api'
 import { assignDefaultRoleGroup } from './role'
-import { destroySession, getSessionData, setSessionData } from './session'
+import {
+  destroyPKCESession,
+  destroySession,
+  getPKCEData,
+  setPKCEData,
+  setSessionData
+} from './session'
 
 const log = logger.child({ module: 'auth' })
 
 const SESSION_CHECKS = [
   {
-    check: (session: SessionData, state: CallbackParams['state']) =>
-      session.state !== state,
+    check: (pkce: PKCEData, state: CallbackParams['state']) =>
+      pkce.state !== state,
     message: 'OAuth state mismatch',
     error: 'invalid_state'
   },
   {
-    check: (session: SessionData) => !session.codeVerifier,
+    check: (pkce: PKCEData) => !pkce.codeVerifier,
     message: 'OAuth code verifier missing from session',
     error: 'missing_verifier'
   },
   {
-    check: (session: SessionData) => !session.nonce,
+    check: (pkce: PKCEData) => !pkce.nonce,
     message: 'OAuth nonce missing from session',
     error: 'missing_nonce'
   }
@@ -54,7 +55,7 @@ export const handleLogin = async (callbackUrl?: string) => {
   const state = generateState()
   const nonce = generateNonce()
 
-  await setSessionData({
+  await setPKCEData({
     codeVerifier,
     state,
     nonce,
@@ -96,11 +97,8 @@ const validateCallbackParams = (params: CallbackParams) => {
   return null
 }
 
-const validateSession = (
-  session: SessionData,
-  state: CallbackParams['state']
-) => {
-  const failed = SESSION_CHECKS.find(({ check }) => check(session, state))
+const validateSession = (pkce: PKCEData, state: CallbackParams['state']) => {
+  const failed = SESSION_CHECKS.find(({ check }) => check(pkce, state))
   if (failed) {
     log.warn(failed.message)
     return `/auth/login?error=${failed.error}`
@@ -115,18 +113,15 @@ export const handleCallback = async (
   const paramError = validateCallbackParams(params)
   if (paramError) return { redirectUrl: paramError }
 
-  const [session, config] = await Promise.all([
-    getSessionData(),
-    getOIDCClient()
-  ])
+  const [pkce, config] = await Promise.all([getPKCEData(), getOIDCClient()])
 
-  const sessionError = validateSession(session, params.state)
+  const sessionError = validateSession(pkce, params.state)
   if (sessionError) return { redirectUrl: sessionError }
 
   const tokens = await authorizationCodeGrant(config, currentUrl, {
-    pkceCodeVerifier: session.codeVerifier,
+    pkceCodeVerifier: pkce.codeVerifier,
     expectedState: params.state,
-    expectedNonce: session.nonce
+    expectedNonce: pkce.nonce
   })
 
   const tokenData = getValidTokenData(tokens)
@@ -138,14 +133,9 @@ export const handleCallback = async (
   const { claims, idToken } = tokenData
   const email = claims.email as string
 
-  // save user session data first, then clear PKCE data — must be sequential
-  // to avoid a race condition between the two session writes.
-  await setSessionData({
-    userId: claims.sub,
-    email,
-    refreshToken: tokens.refresh_token
-  })
-  await clearPKCEData()
+  // establish the real session before dropping the transient PKCE cookie
+  await setSessionData({ refreshToken: tokens.refresh_token })
+  await destroyPKCESession()
 
   await Promise.all([
     // idempotent - returns existing user if already created
@@ -159,15 +149,13 @@ export const handleCallback = async (
 
   log.info({ userId: claims.sub }, 'User authenticated successfully')
 
-  return { redirectUrl: session.callbackUrl ?? PUBLIC_ROUTES.HOME }
+  return { redirectUrl: pkce.callbackUrl ?? PUBLIC_ROUTES.HOME }
 }
 
 export const handleLogout = async () => {
-  const session = await getSessionData()
+  await Promise.all([destroySession(), destroyPKCESession()])
 
-  await destroySession()
-
-  log.info({ userId: session.userId }, 'User logged out')
+  log.info('User logged out')
 
   const logoutUrl = new URL(
     `https://${env.COGNITO_DOMAIN}.auth.${env.AWS_REGION}.amazoncognito.com/logout`

@@ -13,6 +13,7 @@ const isProtectedPath = (pathname: string) =>
 
 export const proxy = (request: NextRequest) => {
   const { pathname } = request.nextUrl
+  // in-flight PKCE state lives in the separate auth_pkce cookie, so presence here always means a real session. Don't merge the two cookies back together.
   const isAuthenticated = !!request.cookies.get('auth_session')?.value
 
   if (!isAuthenticated) {

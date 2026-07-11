@@ -14,10 +14,7 @@ export const getTokens = async () => {
   const [session, config] = await Promise.all([getSession(), getOIDCClient()])
 
   if (!session.refreshToken) {
-    log.warn(
-      { userId: session.userId },
-      'Token refresh failed: no refresh token'
-    )
+    log.warn('Token refresh failed: no refresh token')
     throw new AppError('UNAUTHORIZED')
   }
 
