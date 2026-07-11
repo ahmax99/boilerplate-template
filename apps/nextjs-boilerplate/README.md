@@ -20,11 +20,13 @@ FROM_EMAIL="noreply@yourdomain.com"
 CONTACT_TO_EMAIL="contact@yourdomain.com"
 
 # Application
-NEXT_PUBLIC_BASE_URL="http://localhost:3000"
+BASE_URL="http://localhost:3000"
 
 # Monitoring
-NEXT_PUBLIC_SENTRY_DSN="your-sentry-dsn"
+SENTRY_DSN="your-sentry-dsn"
 ```
+
+> **Build once, deploy many.** These are plain runtime environment variables, not `NEXT_PUBLIC_*` — they're read from `process.env` when the container starts, never baked into the JS bundle at build time. The same built Docker image can be promoted from dev to prod unchanged; only the container's runtime env differs between environments.
 
 ## Development
 

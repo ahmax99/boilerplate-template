@@ -7,11 +7,12 @@ import { PROTECTED_ROUTES } from '@/features/auth/lib/routes'
 import { getMe } from '@/features/auth/server/api'
 import { generatePageMetadata } from '@/features/metadata/utils/generatePageMetadata'
 
-export const metadata = generatePageMetadata({
-  title: 'Edit Profile',
-  description: 'Update your profile information',
-  urlPath: 'account/edit'
-})
+export const generateMetadata = () =>
+  generatePageMetadata({
+    title: 'Edit Profile',
+    description: 'Update your profile information',
+    urlPath: 'account/edit'
+  })
 
 export default async function EditAccountPage() {
   const user = await getMe()
