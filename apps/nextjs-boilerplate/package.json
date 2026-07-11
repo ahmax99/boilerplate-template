@@ -10,13 +10,13 @@
     "doctor": "bunx react-doctor@latest"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.1083.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.1085.0",
     "@base-ui/react": "^1.6.0",
     "@casl/ability": "^7.0.1",
     "@casl/react": "^7.0.1",
     "@hookform/resolvers": "^5.4.0",
     "@react-email/components": "^1.0.12",
-    "@sentry/nextjs": "10.64.0",
+    "@sentry/nextjs": "10.65.0",
     "@shared/config": "workspace:*",
     "@t3-oss/env-core": "^0.13.11",
     "aws4fetch": "^1.0.20",
