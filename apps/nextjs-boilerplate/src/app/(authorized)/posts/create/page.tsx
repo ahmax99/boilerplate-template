@@ -11,11 +11,12 @@ import {
   PostForm
 } from '@/features/post/client/components/PostForm'
 
-export const metadata = generatePageMetadata({
-  title: 'Create Post',
-  description: 'Share your thoughts with the big world',
-  urlPath: 'posts/create'
-})
+export const generateMetadata = () =>
+  generatePageMetadata({
+    title: 'Create Post',
+    description: 'Share your thoughts with the big world',
+    urlPath: 'posts/create'
+  })
 
 export default async function CreatePostPage() {
   const user = await getMe()

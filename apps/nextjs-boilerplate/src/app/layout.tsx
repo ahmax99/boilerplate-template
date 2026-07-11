@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import '../styles/globals.css'
 import { Toaster } from 'sonner'
 
+import { DynamicMarker } from '@/components/layout'
 import { cn } from '@/utils/mergeClass'
 
 const geistSans = Geist({
@@ -14,7 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ['latin']
 })
 
-export { metadata } from '@/features/metadata/constants'
+export { generateMetadata } from '@/features/metadata/constants'
 
 export default function RootLayout({
   children
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={cn(geistSans.variable, geistMono.variable)}>
         {children}
         <Toaster position="bottom-right" richColors />
+        <DynamicMarker />
       </body>
     </html>
   )

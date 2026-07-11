@@ -5,11 +5,12 @@ import { PUBLIC_ROUTES } from '@/features/auth/lib/routes'
 import { getMe } from '@/features/auth/server/api'
 import { generatePageMetadata } from '@/features/metadata/utils/generatePageMetadata'
 
-export const metadata = generatePageMetadata({
-  title: 'Account',
-  description: 'Manage your account settings',
-  urlPath: 'account'
-})
+export const generateMetadata = () =>
+  generatePageMetadata({
+    title: 'Account',
+    description: 'Manage your account settings',
+    urlPath: 'account'
+  })
 
 export default async function AccountPage() {
   const user = await getMe()

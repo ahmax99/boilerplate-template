@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { metadata } from '../constants'
+import { generateMetadata as generateBaseMetadata } from '../constants'
 
 interface GeneratePageMetadataProps {
   title?: string
@@ -8,29 +8,31 @@ interface GeneratePageMetadataProps {
   urlPath?: string
 }
 
-export const generatePageMetadata = ({
+export const generatePageMetadata = async ({
   title,
   description,
   urlPath
-}: GeneratePageMetadataProps): Metadata => {
-  const pageTitle = title ? `${title} | ${metadata.title}` : metadata.title
-  const pageDescription = description ?? metadata.description ?? undefined
+}: GeneratePageMetadataProps): Promise<Metadata> => {
+  const base = await generateBaseMetadata()
+
+  const pageTitle = title ? `${title} | ${base.title}` : base.title
+  const pageDescription = description ?? base.description ?? undefined
   const pageUrl = urlPath
-    ? `${metadata.metadataBase?.toString()}${urlPath}`
-    : metadata.metadataBase?.toString()
+    ? `${base.metadataBase?.toString()}${urlPath}`
+    : base.metadataBase?.toString()
 
   return {
-    ...metadata,
+    ...base,
     title: String(pageTitle),
     description: pageDescription,
     openGraph: {
-      ...metadata.openGraph,
+      ...base.openGraph,
       title: String(pageTitle),
       description: pageDescription,
       url: pageUrl
     },
     twitter: {
-      ...metadata.twitter,
+      ...base.twitter,
       title: String(pageTitle),
       description: pageDescription
     }

@@ -5,11 +5,12 @@ import {
 } from '@/features/mailing/client/components/ContactForm'
 import { generatePageMetadata } from '@/features/metadata/utils/generatePageMetadata'
 
-export const metadata = generatePageMetadata({
-  title: 'Contact',
-  description: 'Get in touch with us',
-  urlPath: 'contact'
-})
+export const generateMetadata = () =>
+  generatePageMetadata({
+    title: 'Contact',
+    description: 'Get in touch with us',
+    urlPath: 'contact'
+  })
 
 export default function ContactPage() {
   const contactFormConfig = {

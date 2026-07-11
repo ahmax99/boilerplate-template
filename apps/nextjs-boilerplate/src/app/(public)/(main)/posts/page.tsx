@@ -5,11 +5,12 @@ import { fetchPostImage } from '@/features/post/client/api'
 import { fetchAllPosts } from '@/features/post/server/api'
 import { PostsList } from '@/features/post/server/components/PostsList'
 
-export const metadata = generatePageMetadata({
-  title: 'Posts',
-  description: 'Insights, thoughts, and trends from our team',
-  urlPath: 'posts'
-})
+export const generateMetadata = () =>
+  generatePageMetadata({
+    title: 'Posts',
+    description: 'Insights, thoughts, and trends from our team',
+    urlPath: 'posts'
+  })
 
 export default async function PostsListPage() {
   await connection()

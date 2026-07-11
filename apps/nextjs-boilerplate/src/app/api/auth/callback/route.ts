@@ -13,10 +13,10 @@ export const GET = withRequestLogging(async (request: NextRequest) => {
   // Behind CloudFront + Lambda Function URL, request.url reflects the Lambda hostname (CloudFront strips the viewer Host for OAC SigV4 signing).
   const publicUrl = new URL(
     `${request.nextUrl.pathname}${request.nextUrl.search}`,
-    env.NEXT_PUBLIC_BASE_URL
+    env.BASE_URL
   )
 
   const { redirectUrl } = await handleCallback(publicUrl, params)
 
-  return NextResponse.redirect(new URL(redirectUrl, env.NEXT_PUBLIC_BASE_URL))
+  return NextResponse.redirect(new URL(redirectUrl, env.BASE_URL))
 })
