@@ -92,3 +92,7 @@ docs/specs/**
 !/.claude/backlog-state/.gitkeep
 .agent-state.json
 .qa-report.md
+
+# backlog-runner per-issue worktrees (native tool or superpowers fallback)
+/.worktrees/
+/.claude/worktrees/

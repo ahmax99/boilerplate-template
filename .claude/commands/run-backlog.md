@@ -33,10 +33,11 @@ still queued vs. paused on a human gate, per `SKILL.md`'s discovery query.
 ## Notes
 
 - This command only orchestrates `/spec`, `/plan`, `/implement`, and `/qa`
-  plus `gh`/`git checkout` calls in the main repo (no separate worktree — see
-  `SKILL.md` step 0 for the working-tree-clean guard) — it never merges a PR
-  itself (see `HUMAN-GATES.md` gate G3) and never edits application source
-  code that a human hasn't already approved past the plan gate.
+  plus `gh` calls and per-issue git worktree isolation, delegated to the
+  `superpowers:using-git-worktrees` skill (see `SKILL.md` step 0) — it never
+  merges a PR itself (see `HUMAN-GATES.md` gate G3) and never edits
+  application source code that a human hasn't already approved past the plan
+  gate.
 - Before the first live run, run
   `.claude/skills/backlog-runner/scripts/bootstrap_labels.sh` once (see
   `SKILL.md` → "How to run").

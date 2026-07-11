@@ -23,25 +23,28 @@ sweep over a queue, not a run-to-completion job.
 ## State file
 
 ```
-.claude/backlog-state/issue-<n>/.agent-state.json   (one per issue, in the main repo)
+.claude/backlog-state/issue-<n>/.agent-state.json   (one per issue, in that issue's worktree)
 ```
 
 There is no single state file for the whole loop — durable queue state lives
 on the GitHub issue as labels/comments; this ephemeral per-issue file is
-created when the issue's branch is first checked out and removed once the
-branch is deleted after merge. There is no separate per-issue worktree — the
-loop works directly in the main repo's working directory, one issue's branch
-at a time, guarded by the working-tree-clean check in `SKILL.md` step 0. See
-`SKILL.md` and the design spec's State model for the full two-tier rationale.
+created when the issue's worktree is first created and removed once the
+worktree is removed after merge. Each issue's phase work happens in its own
+isolated git worktree (delegated to the `superpowers:using-git-worktrees`
+skill, see `SKILL.md` step 0), so uncommitted state in one issue's worktree
+cannot block or leak into another's. See `SKILL.md` for the full two-tier
+rationale, and commit `7d99155` (#73) for the original design (the design
+plan itself lives under the gitignored `.claude/plans/**`, so it isn't a
+committed, team-visible artifact — commit history is).
 
 ---
 
 ## Trigger: manual only
 
 This loop has **no cron, webhook, or scheduled trigger** — that was
-explicitly rejected in the design spec in favor of a human-paced,
-human-gated sweep. Generic cron/CLI and scheduler sections are intentionally
-omitted; N/A for this loop.
+explicitly rejected in the original design (commit `7d99155`, #73) in favor
+of a human-paced, human-gated sweep. Generic cron/CLI and scheduler sections
+are intentionally omitted; N/A for this loop.
 
 ### Claude Code
 
