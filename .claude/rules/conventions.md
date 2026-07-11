@@ -4,7 +4,7 @@ description: Code conventions, patterns, and style requirements
 
 # Conventions
 
-The concrete "how to write code here" rules. `architecture.md` covers *where things live*; `principles.md` covers *why*. Biome owns pure style (single quotes, no semicolons, 2-space, 80 cols, no trailing commas) — these are the conventions Biome can't enforce.
+The concrete "how to write code here" rules. `architecture.md` covers _where things live_; `principles.md` covers _why_. `oxfmt` owns pure style (single quotes, no semicolons, 2-space, 80 cols, no trailing commas) — these are the conventions it can't enforce.
 
 - The backend uses ESM with explicit `.js` import extensions (`import { x } from './foo.js'`) even though sources are `.ts` — match this in `apps/backend-boilerplate`.
 - Prefer the neverthrow `Result` pattern in backend services over throwing across layers; only throw `AppError` inside the `catchAsyncError`-wrapped body.
@@ -46,7 +46,7 @@ Always use named exports, never default exports — except where Next.js require
 
 Cache Components is enabled (`cacheComponents: true` in `next.config.ts`). It replaces the old route-segment config for controlling rendering.
 
-- **Never use `export const dynamic = 'force-dynamic'`** (nor the sibling segment configs `revalidate`, `fetchCache`, `dynamicParams` used for the same purpose). Under Cache Components these are the wrong tool — dynamic-ness is driven by *accessing request data*, not by a segment flag.
+- **Never use `export const dynamic = 'force-dynamic'`** (nor the sibling segment configs `revalidate`, `fetchCache`, `dynamicParams` used for the same purpose). Under Cache Components these are the wrong tool — dynamic-ness is driven by _accessing request data_, not by a segment flag.
 - To opt a Server Component into dynamic rendering, access request data at the top of the component **before** any non-deterministic call: `await connection()`, `cookies()`, `headers()`, or `await params` / `searchParams`. This access must precede any `Date.now()`, `Math.random()`, or uncached `fetch()` in that render, or the production build fails to prerender (`used Date.now() before accessing … Request data`). See `app/(public)/(main)/posts/page.tsx` calling `await connection()` before `fetchAllPosts()`.
 - Wrap genuinely cacheable work in `'use cache'` rather than forcing the whole route dynamic.
 

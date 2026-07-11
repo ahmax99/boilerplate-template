@@ -5,16 +5,19 @@ Modern full-stack monorepo boilerplate built with Turborepo, Bun, and TypeScript
 ## Tech Stack
 
 ### Runtime & Build Tools
+
 - **[Bun](https://bun.sh/)** - Fast all-in-one JavaScript runtime and package manager
 - **[Turborepo](https://turbo.build/repo)** - High-performance build system for monorepos
 - **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript
 
 ### Backend
+
 - **[Elysia](https://elysiajs.com/)** - Fast and ergonomic web framework for Bun
 - **[Prisma](https://www.prisma.io/)** - Type-safe ORM with Neon adapter
 - **[Zod](https://zod.dev/)** - TypeScript-first schema validation
 
 ### Frontend
+
 - **[Next.js](https://nextjs.org/)** - React framework with App Router
 - **[React](https://react.dev/)** - UI library with Server Components
 - **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
@@ -23,17 +26,20 @@ Modern full-stack monorepo boilerplate built with Turborepo, Bun, and TypeScript
 - **[Zustand](https://zustand-demo.pmnd.rs/)** - State management
 
 ### Database & Caching
+
 - **[Neon](https://neon.tech/)** - Serverless PostgreSQL
 
 ### Authorization & Storage
+
 - **[CASL](https://casl.js.org/)** - Isomorphic authorization library
 - **[AWS S3](https://aws.amazon.com/s3/)** - Object storage for file uploads
 
 ### Code Quality
-- **[Biome](https://biomejs.dev/)** - Fast linter and formatter
-- **[Lefthook](https://lefthook.dev/)** - Git hooks (pre-commit runs Biome on staged files + `terraform fmt`)
+
+- **[oxc](https://oxc.rs/)** (oxlint + oxfmt) - Fast linter and formatter
+- **[Lefthook](https://lefthook.dev/)** - Git hooks (pre-commit runs oxfmt/oxlint on staged files + `terraform fmt`)
 - **[fallow](https://docs.fallow.tools/)** - Static analysis for unused code, duplication, complexity, and architecture drift
-- **[sonarqube](https://docs.sonarsource.com)** -  Continuous inspection platform used to automate code reviews and detect bugs, security vulnerabilities, and code smell
+- **[sonarqube](https://docs.sonarsource.com)** - Continuous inspection platform used to automate code reviews and detect bugs, security vulnerabilities, and code smell
 
 ## Prerequisites
 
@@ -65,9 +71,11 @@ After this, the graph rebuilds automatically after every commit via a Lefthook p
 ### Apps (`apps/`)
 
 #### `backend-boilerplate`
+
 RESTful API built with Elysia and Bun runtime.
 
 **Features:**
+
 - Post and comment management
 - S3 presigned URL generation for image uploads
 - CASL-based authorization
@@ -77,9 +85,11 @@ RESTful API built with Elysia and Bun runtime.
 **Tech:** Elysia, Prisma, CASL, AWS SDK
 
 #### `nextjs-boilerplate`
+
 Modern full-stack Next.js application with authentication and file uploads.
 
 **Features:**
+
 - OIDC authentication with Cognito
 - Role-based authorization with CASL
 - S3 file uploads with presigned URLs
@@ -91,23 +101,28 @@ Modern full-stack Next.js application with authentication and file uploads.
 ### Shared Packages (`shared/`)
 
 #### `@shared/config`
+
 Shared configuration package containing Zod schemas, type definitions, and error constants.
 
 **Exports:**
+
 - Post and Comment validation schemas
 - Email validation utilities
 - Standardized error definitions (NOT_FOUND, UNAUTHORIZED, etc.)
 
 #### `@shared/neon`
+
 Prisma client configured for Neon serverless PostgreSQL.
 
 **Features:**
+
 - Neon serverless adapter with connection pooling
 - WebSocket support for real-time capabilities
 - Global singleton pattern
 - Database migration and seeding scripts
 
 #### `@shared/typescript-config`
+
 Shared TypeScript configurations used across the monorepo.
 
 ## Getting Started
@@ -130,6 +145,7 @@ Then clone your new repo and continue with the steps below.
 ### Installation
 
 Install dependencies:
+
 ```bash
 bun install
 ```
@@ -137,11 +153,13 @@ bun install
 ### Development
 
 Start all apps and packages in development mode:
+
 ```bash
 bun run dev
 ```
 
 Start a specific app:
+
 ```bash
 turbo dev --filter=backend-boilerplate
 ```
@@ -149,18 +167,20 @@ turbo dev --filter=backend-boilerplate
 ### Build
 
 Build all apps and packages:
+
 ```bash
 bun run build
 ```
 
 Build a specific package:
+
 ```bash
 turbo build --filter=@shared/neon
 ```
 
 ### Other scripts
 
-Type checking, Biome formatting/linting, package-version syncing and update checks are all defined as scripts — see the root and per-package `package.json` for the full, authoritative list (e.g. `check-types`, `check-format`, `format`, `check-mismatches`, `sync-packages`).
+Type checking, oxc formatting/linting, package-version syncing and update checks are all defined as scripts — see the root and per-package `package.json` for the full, authoritative list (e.g. `check-types`, `check-format`, `format`, `check-mismatches`, `sync-packages`).
 
 ## Environment Setup
 

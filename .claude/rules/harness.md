@@ -10,7 +10,7 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 
 ## Workflow Commands (use in order for a feature)
 
-- `/spec <description>` — Spec agent: captures the *what & why* (problem, requirements, acceptance criteria, non-goals) of a feature and writes it to `docs/specs/<YYYY-MM-DD-slug>.md`. The upstream artifact. Runs on **Opus**.
+- `/spec <description>` — Spec agent: captures the _what & why_ (problem, requirements, acceptance criteria, non-goals) of a feature and writes it to `docs/specs/<YYYY-MM-DD-slug>.md`. The upstream artifact. Runs on **Opus**.
 - `/plan <task | path/to/spec.md>` — Planner agent: expands a task or a spec into a detailed implementation plan with ordered steps and acceptance criteria. Writes to `.claude/plans/<YYYY-MM-DD-slug>.md` and records it in the `.claude/plans/.current` pointer file. Use `/plan list` to view all plans and `/plan switch <prefix>` to repoint `.current`. Runs on **Opus**.
 - `/implement [context]` — Generator agent: implements the current plan step by step, self-checking `bun run check-types` + `bun run check-format` after each step (plus the Terraform gates from `.claude/rules/infra.md` for steps that touch `infra/terraform/**`). Runs on **Sonnet**.
 - `/qa [scope]` — QA orchestrator: runs the deterministic gates, then spawns three reviewers in parallel (security, correctness, acceptance-criteria — plus infra when the diff touches `infra/terraform/**`) and synthesizes a scored verdict against the plan's acceptance criteria. Runs on **Sonnet**, as do all of its spawned reviewer subagents.
@@ -22,7 +22,7 @@ Multi-agent harness inspired by the generator/evaluator pattern. Slash commands 
 ## Quality Commands
 
 - `/review [files]` — Code-review orchestrator: spawns the security and correctness reviewers (no plan needed). Works on the current branch vs `origin/main`.
-- `/pre-commit` — Quick quality gate: Biome (lint + format) + types + a security eyeball before committing.
+- `/pre-commit` — Quick quality gate: oxc (lint + format) + types + a security eyeball before committing.
 - `/design-review` — Design-quality review of UI changes: impeccable critique + audit driven through Playwright, reported as Blockers/High/Medium/Nitpicks. Complements `/qa` (which covers code correctness) for any UI-touching branch.
 - `/db-check` — Database migration safety: reviews Prisma schema changes for data loss, performance, compatibility, and authz/soft-delete risks.
 - `/doctor` — React health triage via the `react-doctor` skill (`.claude/skills/react-doctor/`): scans React code for security, performance, correctness, a11y, and architecture issues (0–100 score) and runs the canonical scan → triage → fix → validate loop. The quick form — `bunx react-doctor@latest --verbose --scope changed` — is also a per-step gate in `/implement` and a Phase 1 gate in `/qa` + `/review` + `/pre-commit` for React-touching diffs. CI mirrors it in `react-doctor.yml` (new errors fail the PR).
@@ -39,7 +39,7 @@ So `/qa` produces five scores from three reviewers (plus Infrastructure and/or C
 
 ## Hooks (automatic)
 
-- Edited/written files are auto-formatted with **Biome** (`auto-format.sh`, PostToolUse).
+- Edited/written files are auto-formatted with **oxfmt/oxlint** (`auto-format.sh`, PostToolUse).
 - `.env` files and other secret-bearing files are protected from reads/edits (`protect-env.sh`); secret literals are blocked from being written.
 - Destructive and secret-exfiltrating shell commands are blocked (`protect-destructive.sh`, `protect-bash.sh`).
 - On session start, branch + active plan + recent commits are surfaced (`session-start.sh`).
@@ -51,17 +51,17 @@ So `/qa` produces five scores from three reviewers (plus Infrastructure and/or C
 - Plans and specs use acceptance criteria — "works correctly" is not testable; "returns 403 when a non-author calls PUT /posts/:id" is.
 - File-based inter-agent communication — specs live in `docs/specs/`, plans in `.claude/plans/` (active one named in `.current`), read by the other commands.
 - Evaluators are calibrated for skepticism — leniency bias is counteracted with explicit grading anchors.
-- Engineering principles live in `.claude/rules/principles.md` (clean code + *A Philosophy of Software Design*); tech-stack docs win on conflict.
+- Engineering principles live in `.claude/rules/principles.md` (clean code + _A Philosophy of Software Design_); tech-stack docs win on conflict.
 
 ## Project commands vs plugin skills
 
 The `.claude/commands/` files are **project-specific orchestrators** — they encode this codebase's conventions (Elysia plugin/controller/service triad, neverthrow `ResultAsync`, Zod at the boundary in `@shared/config`, CASL, the BFF boundary) and delegate to subagents in `.claude/agents/`. Use them when working on this repo.
 
-The enabled plugins (`.claude/settings.json`) are **generic workflows** independent of this codebase. They handle the meta-work *around* implementation and slot into the same pipeline. Rule of thumb: plugins decide *what to build and in what order*; project commands build it *correctly in this codebase*.
+The enabled plugins (`.claude/settings.json`) are **generic workflows** independent of this codebase. They handle the meta-work _around_ implementation and slot into the same pipeline. Rule of thumb: plugins decide _what to build and in what order_; project commands build it _correctly in this codebase_.
 
 Where each plugin fits the spec → plan → implement → review → ship flow:
 
-- **`superpowers:brainstorming`** — shape a fuzzy idea into an agreed design *before* `/spec` captures it. One question at a time, 2–3 approaches with trade-offs.
+- **`superpowers:brainstorming`** — shape a fuzzy idea into an agreed design _before_ `/spec` captures it. One question at a time, 2–3 approaches with trade-offs.
 - **`superpowers:writing-plans`** — the generic small-verifiable-steps discipline the project `planner` builds on; runs behind `/plan`.
 - **`feature-dev`** (command + `code-explorer` / `code-architect` agents) — trace how an existing feature works and produce an architecture blueprint before planning a change. Feeds a sharper `/spec`/`/plan`.
 - **`impeccable`** — design fluency during `/implement` and review: `/impeccable init` writes per-app `PRODUCT.md`/`DESIGN.md`, `craft`/`shape` build UI, `critique`/`audit`/`polish` review it (45 deterministic anti-pattern rules). Replaces the `frontend-design` plugin (now disabled — impeccable is its superset). The project `app-design` skill (`.claude/skills/app-design/`) wires impeccable + the `shadcn` skill + this repo's component conventions together and sets precedence between them.
@@ -73,7 +73,7 @@ Where each plugin fits the spec → plan → implement → review → ship flow:
 - **`react-doctor`** (project skill, `.claude/skills/react-doctor/`) — deterministic React scanner complementing the reviewer subagents: they judge against this repo's conventions; it catches framework-level React mistakes (hooks misuse, derived state, a11y, bundle size) with exact rules. Regression-check after React changes; `/doctor` for a full triage pass.
 - **`feature-dev:code-reviewer`**, **`superpowers:requesting-code-review`** / **`receiving-code-review`** — general review passes that complement the project's `/qa` + `/review` reviewers.
 - **`superpowers:finishing-a-development-branch`** — structured merge / PR / cleanup once QA is green.
-- **`context7`** (MCP) — fetch *current* docs for any library (Elysia, Next.js, Prisma, CASL, Zod, Tailwind) instead of relying on the training cutoff. Use anytime; especially before applying an unfamiliar API.
+- **`context7`** (MCP) — fetch _current_ docs for any library (Elysia, Next.js, Prisma, CASL, Zod, Tailwind) instead of relying on the training cutoff. Use anytime; especially before applying an unfamiliar API.
 - **`claude-md-management`** (`/revise-claude-md`, `claude-md-improver`) — keep `CLAUDE.md` and the rule files accurate as conventions evolve.
 - **`terraform-skill`** (antonbabenko) — generic Terraform/OpenTofu best practice: module design, native `terraform test`, state ops, CI/CD and scan patterns. Triggers automatically on Terraform/HCL work. Repo-specific conventions and the local gates live in `.claude/rules/infra.md`, which wins on conflict; the `infra-reviewer` subagent covers review.
 - **`terraform`** (MCP, `.mcp.json`) — HashiCorp's terraform-mcp-server (Docker): authoritative Terraform Registry lookups — provider resource/data-source schemas, module inputs, versions. Use it before writing HCL against an unfamiliar resource, the way `context7` is used for app libraries.

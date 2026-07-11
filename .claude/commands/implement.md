@@ -40,12 +40,12 @@ Remaining `$ARGUMENTS` tokens (after stripping `--plan=...`) are passed through 
 After implementing each step, self-check:
 
 1. Does it type-check? Run `bun run check-types` (Turbo runs `tsc --noEmit` across packages; deps build first).
-2. Does it pass Biome? Run `bun run check-format` (lint + format check). `noExplicitAny` is an **error** here.
+2. Does it pass the linter/formatter? Run `bun run check-format` (lint + format check). `typescript/no-explicit-any` is an **error** here.
 3. Is all external input validated with a `@shared/config` Zod schema at the controller boundary?
 4. Are services returning `ResultAsync` (not throwing), and are multi-step writes wrapped in `prisma.$transaction([...])`?
 5. If the Prisma schema changed, run `/db-check` before applying the migration.
 6. If the step touched React code (`apps/nextjs-boilerplate`), run `bunx react-doctor@latest --verbose --scope changed` and fix any new **errors** before moving on (warnings are advisory). CI enforces the same gate on the PR, so regressions caught here are regressions the reviewer never sees.
-7. If the step touched `infra/terraform/**`, run the Terraform gates from `.claude/rules/infra.md` (`terraform fmt -check`, `tflint`, `terraform validate`) and fix failures before moving on — they mirror what `terraform-plan.yml` will reject on the PR. Steps 1–2 (`check-types` / `check-format`) don't cover HCL, so these are the *only* local gates for infra steps.
+7. If the step touched `infra/terraform/**`, run the Terraform gates from `.claude/rules/infra.md` (`terraform fmt -check`, `tflint`, `terraform validate`) and fix failures before moving on — they mirror what `terraform-plan.yml` will reject on the PR. Steps 1–2 (`check-types` / `check-format`) don't cover HCL, so these are the _only_ local gates for infra steps.
 8. Run the step's **Verify:** command from the plan (if the step has one) and read its output. Only check off the step's acceptance criteria after the verification passes — evidence before assertions. If a criterion has no runnable check (UI behaviour, for example), verify it with `playwright` (MCP) or state explicitly that it's unverified rather than silently checking it off.
 
 There is **no test runner** configured in this repo. Don't write or run tests unless the plan explicitly adds one. If a quality gate fails, fix it before moving on — do not accumulate technical debt across steps.

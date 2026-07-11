@@ -49,12 +49,12 @@ Same as `security-reviewer`: `DIFF_BASE`, optional `SCOPE`, optional `PLAN_PATH`
 
 ## Code-quality checklist
 
-- No `any` types — `noExplicitAny` is a Biome **error** in this repo. Flag any `any` that would not pass Biome.
+- No `any` types — `typescript/no-explicit-any` is an oxlint **error** in this repo. Flag any `any` that would not pass oxlint.
 - Deep modules: a simple interface that hides real complexity is better than a thin pass-through. Flag shallow wrappers and leaky abstractions (see `principles.md`).
 - Interfaces, generics, discriminated unions, and `readonly` / `as const` used where they remove a class of bugs.
 - Comments explain WHY, not WHAT.
 - No code duplication; shared backend logic belongs in `src/utils/`, shared types/schemas in `@shared/config`.
-- Conforms to Biome config (single quotes, no semicolons, 2-space, 80 cols, no trailing commas) — but assume `bun run check-format` covers pure style; only flag style if it signals a deeper problem.
+- Conforms to the oxfmt config (single quotes, no semicolons, 2-space, 80 cols, no trailing commas) — but assume `bun run check-format` covers pure style; only flag style if it signals a deeper problem.
 
 ## Scoring
 
@@ -92,6 +92,6 @@ If no issues, write `No correctness/architecture/code-quality issues found.` aft
 - A list query missing CASL `accessibleBy(...)` or a mutation missing `ability.can(...)` is **High** Correctness (it's also a security finding — let security-reviewer own the auth angle).
 - Business/data logic in a controller is **Medium** Architecture.
 - A missing `.js` import extension in the backend is **Medium** Architecture (it breaks ESM resolution at runtime).
-- An `any` with no justification is **Medium** Code quality (it fails Biome).
+- An `any` with no justification is **Medium** Code quality (it fails oxlint).
 - A missing `readonly` is **Low** Code quality.
 - A stub or TODO in production code is **High** Correctness, not a Low note.
