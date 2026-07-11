@@ -55,6 +55,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
   }
 
   lifecycle {
+    # AWS auto-applies SSE-S3 as the bucket default and mutates this rule out-of-band, causing perpetual drift.
     ignore_changes = [rule]
   }
 }

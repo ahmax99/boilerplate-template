@@ -44,7 +44,7 @@ module "cloudfront" {
   backend_function_url  = module.backend.function_url
 
   static_assets_bucket_domain_name = module.s3_static_assets.bucket_regional_domain_name
-  logs_bucket_id                   = module.s3_logs.bucket_id
+  logs_bucket_domain_name          = module.s3_logs.bucket_regional_domain_name
   web_acl_id                       = module.waf.web_acl_arn
 
   domain_name                    = local.domain_name
@@ -131,12 +131,12 @@ module "cognito" {
   app_client_name  = "${local.name_prefix}-web-app-client"
 
   callback_urls = [
-    "https://${local.domain_name}/api/auth/callback",
-    "http://localhost:3000/api/auth/callback",
+    "${local.frontend_url}/api/auth/callback",
+    "${local.dev_localhost_url}/api/auth/callback",
   ]
   logout_urls = [
-    "https://${local.domain_name}",
-    "http://localhost:3000",
+    local.frontend_url,
+    local.dev_localhost_url,
   ]
 
   password_policy = {
@@ -203,7 +203,7 @@ module "backend" {
     COGNITO_CLIENT_ID        = module.cognito.client_id
     COGNITO_USERPOOL_ID      = module.cognito.user_pool_id
     DATABASE_URL_SECRET_NAME = module.database_secret.secret_name
-    FRONTEND_URL             = "https://${local.domain_name}"
+    FRONTEND_URL             = local.frontend_url
     NODE_ENV                 = "production"
     S3_BUCKET_NAME           = local.s3_uploads_bucket_name
     SENTRY_DSN               = var.sentry_dsn
@@ -211,7 +211,7 @@ module "backend" {
 
   enable_function_url    = true
   function_url_auth_type = "AWS_IAM"
-  cors_allow_origins     = ["https://${local.domain_name}"]
+  cors_allow_origins     = [local.frontend_url]
   cors_allow_methods     = ["*"]
   cors_allow_headers     = ["Content-Type", "Authorization", "Accept", "X-Id-Token"]
   cors_max_age           = 86400
@@ -262,7 +262,7 @@ module "frontend" {
 
   enable_function_url    = true
   function_url_auth_type = "AWS_IAM"
-  cors_allow_origins     = ["https://${local.domain_name}"]
+  cors_allow_origins     = [local.frontend_url]
   cors_allow_methods     = ["*"]
   cors_allow_headers     = ["Content-Type", "Authorization", "Accept", "X-Id-Token"]
   cors_max_age           = 86400
@@ -346,7 +346,7 @@ module "s3_uploads" {
   block_public_access  = true
   enable_acl           = false
   enable_cors          = true
-  cors_allowed_origins = ["https://${local.domain_name}", "http://localhost:3000"]
+  cors_allowed_origins = [local.frontend_url, local.dev_localhost_url]
   cors_allowed_methods = ["GET", "PUT", "POST", "DELETE", "HEAD"]
   cors_allowed_headers = ["*"]
   cors_max_age_seconds = 3600
@@ -547,11 +547,11 @@ module "github_oidc" {
 
   s3_static_assets_bucket_id  = module.s3_static_assets.bucket_id
   s3_static_assets_bucket_arn = module.s3_static_assets.bucket_arn
-  cloudfront_distribution_arn = module.cloudfront.distribution_arn
+  cloudfront_distribution_arn = local.cloudfront_distribution_arn
 
   enable_terraform_roles = true
   environment            = var.environment
-  create_oidc_provider   = var.environment == "dev"
+  create_oidc_provider   = var.create_github_oidc_provider
   github_org             = var.github_org
   state_bucket_arn       = "arn:aws:s3:::${var.project_name}-terraform-state"
 

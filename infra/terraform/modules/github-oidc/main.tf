@@ -290,7 +290,7 @@ resource "aws_iam_policy" "terraform_plan_state" {
         Sid      = "TerraformStateSecretRead"
         Effect   = "Allow"
         Action   = ["secretsmanager:GetSecretValue"]
-        Resource = "arn:aws:secretsmanager:*:*:secret:${var.project_name}-${var.environment}/*"
+        Resource = "arn:aws:secretsmanager:*:*:secret:${local.resource_prefix}/*"
       }
     ]
   })
@@ -375,9 +375,9 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Effect = "Allow"
         Action = ["iam:*"]
         Resource = [
-          "arn:aws:iam::*:role/${var.project_name}-${var.environment}-*",
-          "arn:aws:iam::*:policy/${var.project_name}-${var.environment}-*",
-          "arn:aws:iam::*:instance-profile/${var.project_name}-${var.environment}-*",
+          "arn:aws:iam::*:role/${local.resource_prefix}-*",
+          "arn:aws:iam::*:policy/${local.resource_prefix}-*",
+          "arn:aws:iam::*:instance-profile/${local.resource_prefix}-*",
           "arn:aws:iam::*:oidc-provider/token.actions.githubusercontent.com"
         ]
       },
@@ -386,10 +386,10 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Effect = "Allow"
         Action = ["lambda:*"]
         Resource = [
-          "arn:aws:lambda:*:*:function:${var.project_name}-${var.environment}-*",
-          "arn:aws:lambda:*:*:function:${var.project_name}-${var.environment}-*:*",
-          "arn:aws:lambda:*:*:layer:${var.project_name}-${var.environment}-*",
-          "arn:aws:lambda:*:*:layer:${var.project_name}-${var.environment}-*:*"
+          "arn:aws:lambda:*:*:function:${local.resource_prefix}-*",
+          "arn:aws:lambda:*:*:function:${local.resource_prefix}-*:*",
+          "arn:aws:lambda:*:*:layer:${local.resource_prefix}-*",
+          "arn:aws:lambda:*:*:layer:${local.resource_prefix}-*:*"
         ]
       },
       {
@@ -397,15 +397,15 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Effect = "Allow"
         Action = ["lambda:*"]
         Resource = [
-          "arn:aws:lambda:us-east-1:*:function:${var.project_name}-${var.environment}-*",
-          "arn:aws:lambda:us-east-1:*:function:${var.project_name}-${var.environment}-*:*"
+          "arn:aws:lambda:us-east-1:*:function:${local.resource_prefix}-*",
+          "arn:aws:lambda:us-east-1:*:function:${local.resource_prefix}-*:*"
         ]
       },
       {
         Sid      = "ECRManagement"
         Effect   = "Allow"
         Action   = ["ecr:*"]
-        Resource = ["arn:aws:ecr:*:*:repository/${var.project_name}-${var.environment}-*"]
+        Resource = ["arn:aws:ecr:*:*:repository/${local.resource_prefix}-*"]
       },
       {
         Sid      = "ECRAuthToken"
@@ -457,8 +457,8 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
           "s3:DeleteObjectVersion"
         ]
         Resource = [
-          "arn:aws:s3:::${var.project_name}-${var.environment}-*",
-          "arn:aws:s3:::${var.project_name}-${var.environment}-*/*"
+          "arn:aws:s3:::${local.resource_prefix}-*",
+          "arn:aws:s3:::${local.resource_prefix}-*/*"
         ]
       },
       {
@@ -495,7 +495,7 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         Sid      = "SecretsManagerManagement"
         Effect   = "Allow"
         Action   = ["secretsmanager:*"]
-        Resource = "arn:aws:secretsmanager:*:*:secret:${var.project_name}-${var.environment}*"
+        Resource = "arn:aws:secretsmanager:*:*:secret:${local.resource_prefix}*"
       },
       {
         Sid      = "CodeDeployManagement"
