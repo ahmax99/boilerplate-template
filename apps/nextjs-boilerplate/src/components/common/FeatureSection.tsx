@@ -13,7 +13,7 @@ const NEXT_STEPS = [
   {
     title: 'Create a post',
     description:
-      'Sign in and try the full write path — form validation, image upload, and the BFF boundary.',
+      'Post creation is Admin-only — sign in as an admin to try the full write path: form validation, image upload, and the BFF boundary.',
     href: PROTECTED_ROUTES.POST_CREATE,
     label: 'Create post'
   }
