@@ -65,7 +65,7 @@ export const handleLogin = async (callbackUrl?: string) => {
   const config = await getOIDCClient()
 
   const parameters = {
-    redirect_uri: `${env.NEXT_PUBLIC_BASE_URL}/api/auth/callback`,
+    redirect_uri: `${env.BASE_URL}/api/auth/callback`,
     scope: 'openid email profile',
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
@@ -162,7 +162,7 @@ export const handleLogout = async () => {
   )
 
   logoutUrl.searchParams.set('client_id', env.COGNITO_CLIENT_ID)
-  logoutUrl.searchParams.set('logout_uri', env.NEXT_PUBLIC_BASE_URL)
+  logoutUrl.searchParams.set('logout_uri', env.BASE_URL)
 
   return { logoutUrl: logoutUrl.toString() }
 }

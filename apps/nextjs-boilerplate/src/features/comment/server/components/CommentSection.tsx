@@ -60,7 +60,7 @@ export const CommentSection = async ({
                   alt={comment.author?.name}
                   src={
                     comment.author?.imagePath
-                      ? `${env.NEXT_PUBLIC_BASE_URL}/api/v1/images/${comment.author.imagePath}`
+                      ? `${env.BASE_URL}/api/v1/images/${comment.author.imagePath}`
                       : `https://avatar.vercel.sh/${comment.authorId}`
                   }
                 />

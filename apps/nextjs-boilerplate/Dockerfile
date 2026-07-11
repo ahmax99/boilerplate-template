@@ -49,10 +49,6 @@ RUN bunx --bun turbo prune nextjs-boilerplate --docker
 # -------------------
 FROM build-base AS builder
 
-# Accept build arguments for Next.js public environment variables
-ARG NEXT_PUBLIC_BASE_URL
-ARG NEXT_PUBLIC_SENTRY_DSN
-
 # Copy pruned lockfile and package.json files
 COPY --from=prepare /app/out/json/ .
 # Install dependencies from pruned workspace
