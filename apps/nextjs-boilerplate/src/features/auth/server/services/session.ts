@@ -25,8 +25,6 @@ export const getSessionData = async () => {
   const session = await getSession()
 
   return {
-    userId: session.userId,
-    email: session.email,
     refreshToken: session.refreshToken
   }
 }

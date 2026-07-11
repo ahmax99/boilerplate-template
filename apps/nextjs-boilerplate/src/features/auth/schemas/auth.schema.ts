@@ -1,9 +1,9 @@
 import { z } from 'zod'
 
 const AuthModel = {
+  // Persist only the refresh token; identity (sub/email) comes from the minted
+  // ID token's claims or getMe(), so it is never stored client-side.
   session: z.object({
-    userId: z.string().optional(),
-    email: z.string().optional(),
     refreshToken: z.string().optional()
   }),
   pkce: z.object({

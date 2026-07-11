@@ -16,7 +16,6 @@ import {
   destroyPKCESession,
   destroySession,
   getPKCEData,
-  getSessionData,
   setPKCEData,
   setSessionData
 } from './session'
@@ -135,11 +134,7 @@ export const handleCallback = async (
   const email = claims.email as string
 
   // establish the real session before dropping the transient PKCE cookie
-  await setSessionData({
-    userId: claims.sub,
-    email,
-    refreshToken: tokens.refresh_token
-  })
+  await setSessionData({ refreshToken: tokens.refresh_token })
   await destroyPKCESession()
 
   await Promise.all([
@@ -158,11 +153,9 @@ export const handleCallback = async (
 }
 
 export const handleLogout = async () => {
-  const session = await getSessionData()
-
   await Promise.all([destroySession(), destroyPKCESession()])
 
-  log.info({ userId: session.userId }, 'User logged out')
+  log.info('User logged out')
 
   const logoutUrl = new URL(
     `https://${env.COGNITO_DOMAIN}.auth.${env.AWS_REGION}.amazoncognito.com/logout`
