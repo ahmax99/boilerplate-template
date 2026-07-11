@@ -42,7 +42,12 @@ Your invocation prompt will include:
 
 - Reusable infra lives in `modules/<name>/` with the four standard files; no per-environment directory trees — environments are `backends/*.hcl` + `vars/*.tfvars`.
 - Providers pinned in `versions.tf`; variables have `type` + `description`; new variables appear in **both** `vars/dev.tfvars` and `vars/prod.tfvars` (or have a safe default).
-- Resources carry the project's standard tags; naming follows the existing `<project>-<env>-<thing>` pattern in the touched area.
+- Resources carry the project's standard tags; naming follows the existing `<project>-<env>-<thing>` pattern in the touched area — a new resource name that doesn't derive from `local.name_prefix` is a finding.
+- A new `depends_on` that duplicates a dependency already inferrable from an attribute reference in the same block — flag it; a `depends_on` on a genuinely hidden dependency (nothing in HCL references it) is fine.
+- A literal region, account ID, environment name, or domain string where `var.*` / `local.name_prefix` / a `data` source should be used instead.
+- A `data` source that re-reads a resource this same root module already manages — flag it. Treat `data` sources for genuinely external resources (the unmanaged Route53 zone, `aws_caller_identity`, `aws_region`, `archive_file`, a conditionally pre-existing OIDC provider) as legitimate, not findings.
+- A new `lifecycle` block (`ignore_changes` / `create_before_destroy` / `prevent_destroy`) with no justifying comment or self-evident reason.
+- A module's `outputs.tf` exporting an attribute no caller in root `main.tf` consumes, or a `variables.tf` exposing an input the module never reads.
 
 ## Scoring
 
@@ -86,3 +91,4 @@ If no issues anywhere, write `No infrastructure issues found.` after the Score l
 - A secret literal in `.tf`/`.tfvars` is **Critical**, even in dev.
 - Style-level HCL nits that tflint already catches are **Low** — don't pad the report with them; the deterministic gate owns those.
 - If you find yourself thinking "the plan comment will catch this" — the plan shows *what* changes, not *whether it's wise*. Judging wisdom is your job.
+- The Conventions design-level checks (`depends_on`, hardcoded values, `data` sources, `lifecycle`, module interfaces/outputs, naming) are typically **Medium** — escalate only when they cause real coupling or blast-radius risk. A legitimate external `data` source or a justified `depends_on`/`lifecycle` is **not** a finding at all; don't flag the repo's existing valid usages just because a rule now exists.
