@@ -1,0 +1,14 @@
+# hadolint config — https://github.com/hadolint/hadolint#configure
+# Wired into CI (.github/workflows/security.yml) and the Lefthook pre-commit
+# hook (runs only if hadolint is installed locally; CI enforces regardless).
+
+ignored:
+  # DL3041: "Specify version with `dnf install -y <package>-<version>`." Both
+  # Dockerfiles install `unzip`/`nodejs` via dnf on top of the AWS Lambda
+  # base image (public.ecr.aws/lambda/nodejs), which tracks Amazon Linux
+  # 2023's rolling package set. Pinning an exact dnf package version would
+  # break the build the next time AWS republishes the base image with a
+  # newer Amazon Linux minor release that no longer carries that exact
+  # version — same reasoning as the AWS-0031/AWS-0132 suppressions in
+  # infra/terraform/.trivyignore.
+  - DL3041
