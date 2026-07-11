@@ -37,7 +37,8 @@ Modern full-stack monorepo boilerplate built with Turborepo, Bun, and TypeScript
 ### Code Quality
 
 - **[oxc](https://oxc.rs/)** (oxlint + oxfmt) - Fast linter and formatter
-- **[Lefthook](https://lefthook.dev/)** - Git hooks (pre-commit runs oxfmt/oxlint on staged files + `terraform fmt`)
+- **[hadolint](https://github.com/hadolint/hadolint)** - Dockerfile linter (best-practice + security rules), local-only via the pre-commit hook (no CI gate)
+- **[Lefthook](https://lefthook.dev/)** - Git hooks (pre-commit runs oxfmt/oxlint + hadolint on staged files + `terraform fmt`)
 - **[fallow](https://docs.fallow.tools/)** - Static analysis for unused code, duplication, complexity, and architecture drift
 - **[sonarqube](https://docs.sonarsource.com)** - Continuous inspection platform used to automate code reviews and detect bugs, security vulnerabilities, and code smell
 
