@@ -82,7 +82,10 @@ or resumed):
   sibling directory outside the repo; that was the exact problem, issue #82,
   that motivated moving away from worktrees the first time) so the skill
   doesn't pause for interactive consent, since this loop runs unattended
-  between human gates.
+  between human gates. **Always pass a deterministic, issue-derived name**
+  (e.g. `EnterWorktree(name: "issue-<n>")`) when creating — never let the
+  tool generate a random one — so the re-entry lookup below is guaranteed to
+  find it later.
 - **Branch naming is tool-assigned, not `agent/issue-<n>`.** When the skill
   uses a native tool (e.g. `EnterWorktree(name: "issue-<n>")`), the resulting
   branch name is whatever that tool derives (confirmed empirically: the
@@ -195,12 +198,17 @@ On every phase advance, update together:
 
 On a run where an issue is in `agent:pr-open`, check `gh pr view --json
 state`:
-- **MERGED** — remove the issue's worktree (`ExitWorktree(action: "remove")`
-  if the native tool is available, otherwise `git worktree remove` followed
-  by `git branch -d <branch>`, using the branch name recorded in
-  `.agent-state.json` — never assume `agent/issue-<n>`), which also disposes
-  the worktree's ephemeral `.claude/backlog-state/issue-<n>/` state. The
-  issue closes automatically via GitHub's "closes #n" linking.
+- **MERGED** — remove the issue's worktree with `git worktree remove <path>`
+  followed by `git branch -d <branch>` (path/branch read from
+  `.agent-state.json` — never assume `agent/issue-<n>`). This is the default
+  method: the native `ExitWorktree(action: "remove")` tool only operates on a
+  worktree created by `EnterWorktree` **in the current session**, and
+  merge-cleanup almost always happens in a later, separate `/run-backlog`
+  invocation than the one that created the worktree — so `ExitWorktree` is
+  only usable in the rare case where the same session both opens the PR and
+  is still active when it merges. Removing the worktree also disposes the
+  ephemeral `.claude/backlog-state/issue-<n>/` state. The issue closes
+  automatically via GitHub's "closes #n" linking.
 - **CLOSED** (not merged) — leave `agent:pr-open` as-is and leave the
   worktree in place; take no further action. A human runs the worktree
   removal (same as the MERGED step) if and when they decide to abandon the
