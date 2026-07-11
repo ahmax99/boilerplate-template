@@ -2,13 +2,13 @@
 
 Run a quick quality gate on staged/changed files before committing.
 
-> Note: a Lefthook pre-commit hook already runs `biome check --write` on staged files (and `terraform fmt` on staged HCL). This command is the broader, pre-push-quality gate (types + a security eyeball) that the git hook doesn't cover.
+> Note: a Lefthook pre-commit hook already runs `oxfmt`/`oxlint --fix` on staged files (and `terraform fmt` on staged HCL). This command is the broader, pre-push-quality gate (types + a security eyeball) that the git hook doesn't cover.
 
 ## Process
 
 Run these checks in parallel (one message, parallel Bash calls):
 
-1. **Format + lint**: `bun run check-format` (Biome — lint + format check, no writes). If it reports fixable issues, `bun run format` writes them.
+1. **Format + lint**: `bun run check-format` (oxlint + oxfmt — lint + format check, no writes). If it reports fixable issues, `bun run format` writes them.
 2. **Type check**: `bun run check-types` (Turbo runs `tsc --noEmit` across packages).
 
 Then review changed files (`git diff --cached --name-only` for staged, or `git diff --name-only` for unstaged):
@@ -21,7 +21,7 @@ Then review changed files (`git diff --cached --name-only` for staged, or `git d
    - No hardcoded secrets, API keys, or tokens
    - No `.env` files staged (`.env.example` is fine)
    - No stray `console.log` in production code (the backend logger / intentional logging utilities are fine)
-   - No `any` types without a justification comment (`noExplicitAny` is a Biome error and will fail the format gate anyway)
+   - No `any` types without a justification comment (`typescript/no-explicit-any` is an oxlint error and will fail the format gate anyway)
    - No `// TODO` / `// FIXME` without a reference
    - No obvious dead code or copy-pasted blocks introduced by the change (the deeper version of this is **fallow** + SonarQube — see below)
 

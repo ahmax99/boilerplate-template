@@ -1,5 +1,5 @@
-import { connection } from 'next/server'
 import type { Metadata } from 'next'
+import { connection } from 'next/server'
 
 import { env } from '@/config/env'
 

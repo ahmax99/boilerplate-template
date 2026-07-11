@@ -14,20 +14,20 @@ skill tells you which layer owns what, so guidance never conflicts:
    win over everything below.
 2. **impeccable plugin** (`/impeccable <command>`) — design quality: aesthetics,
    typography, color, motion, hierarchy, anti-patterns, critique/audit.
-   It is the source of truth for *how the result looks and feels*.
+   It is the source of truth for _how the result looks and feels_.
 3. **shadcn skill** (`.claude/skills/shadcn`) — component correctness: which
    component to use, composition rules, semantic tokens, forms, icons. It is
-   the source of truth for *how components are written*.
+   the source of truth for _how components are written_.
 
 **Precedence when they disagree:** repo conventions > impeccable > shadcn.
-These layers mostly govern different axes — impeccable owns how it *looks*,
-shadcn owns how components are *written* — so genuine conflicts are rare. When
+These layers mostly govern different axes — impeccable owns how it _looks_,
+shadcn owns how components are _written_ — so genuine conflicts are rare. When
 they do collide on aesthetics, impeccable leads: if impeccable's design
 language calls for a different treatment than shadcn's default styling, follow
 impeccable. But precedence over shadcn is not a licence to hand-roll: impeccable
 never contests composition, so "use the real `Alert` and compose it, don't build
 a bespoke styled div" still holds — apply impeccable's aesthetic (type scale,
-palette restraint, anti-patterns) *on* the correctly-composed component.
+palette restraint, anti-patterns) _on_ the correctly-composed component.
 
 ## Scenario 1: starting the design of a new app
 
@@ -47,7 +47,7 @@ When an app derived from this boilerplate needs its design language defined:
    defines, express it as shadcn semantic CSS variables in the app's global
    CSS (`@theme` block — Tailwind v4). Components keep using `bg-primary`,
    `text-muted-foreground`, etc. Raw hex in a component is always wrong; a
-   reference design changes the *theme*, not the markup.
+   reference design changes the _theme_, not the markup.
 
 ## Scenario 2: building UI
 

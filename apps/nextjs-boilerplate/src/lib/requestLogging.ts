@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+
 import type { Logger } from 'pino'
 
 import { logger } from '@/config/logger'

@@ -27,7 +27,7 @@ For provider/module facts (resource arguments, module inputs, latest versions), 
 
 ## Design conventions
 
-Practices this repo holds new/changed HCL to, beyond what tflint/trivy catch mechanically. These apply to *new* additions in a diff — they are not a mandate to refactor the module's existing, already-legitimate `depends_on`/`lifecycle`/`data` usages.
+Practices this repo holds new/changed HCL to, beyond what tflint/trivy catch mechanically. These apply to _new_ additions in a diff — they are not a mandate to refactor the module's existing, already-legitimate `depends_on`/`lifecycle`/`data` usages.
 
 - **Implicit dependencies over `depends_on`.** Order operations by referencing another resource's or module's attribute (`module.lambda.function_arn`) so Terraform infers the dependency from the graph. Add `depends_on` only for a dependency Terraform genuinely can't infer from any attribute reference (e.g. an IAM policy that must exist before a resource relies on it at runtime without referencing it in HCL). A new `depends_on` that duplicates an already-inferrable reference is the smell to flag, not the existing ones in `modules/s3`, `modules/lambda`, `modules/cognito`.
 - **No module-level `depends_on`; modules communicate via inputs/outputs.** Wire `module.X.output` into `module.Y`'s input in the root `main.tf` rather than reaching across modules with a `data` source or a module-level `depends_on`.

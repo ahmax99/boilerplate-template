@@ -12,12 +12,12 @@ The following actions require explicit human approval before the loop
 proceeds. The loop halts at each gate and waits for a clear "go" — it never
 self-approves.
 
-| # | Gate | Trigger condition | Who approves | Clearance signal |
-|---|------|-------------------|--------------|-------------------|
-| G1 | Pre-implement (first live run) | Plan posted as a comment on the issue | Loop owner | Add the `agent:approved` label |
-| G0 | Pre-plan | Spec posted as a comment on the issue | Loop owner | Add the `agent:approved` label |
-| G2 | Anomaly | Any of the four anomaly conditions below | Loop owner | Manual: remove `agent:blocked` after fixing/deciding, then re-queue |
-| G3 | Merge | PR opened by the loop | Designated reviewer | Merge or close the PR yourself — the loop never merges |
+| #   | Gate                           | Trigger condition                        | Who approves        | Clearance signal                                                    |
+| --- | ------------------------------ | ---------------------------------------- | ------------------- | ------------------------------------------------------------------- |
+| G1  | Pre-implement (first live run) | Plan posted as a comment on the issue    | Loop owner          | Add the `agent:approved` label                                      |
+| G0  | Pre-plan                       | Spec posted as a comment on the issue    | Loop owner          | Add the `agent:approved` label                                      |
+| G2  | Anomaly                        | Any of the four anomaly conditions below | Loop owner          | Manual: remove `agent:blocked` after fixing/deciding, then re-queue |
+| G3  | Merge                          | PR opened by the loop                    | Designated reviewer | Merge or close the PR yourself — the loop never merges              |
 
 G0 and G1 both clear on the same signal (`agent:approved`), but at different
 points in the pipeline: G0 gates `/plan` running at all (nothing has been
@@ -61,7 +61,7 @@ in-progress phase label, and posts a comment naming which condition tripped:
   issue back up.
 - **G3** — a human merges or closes the PR directly on GitHub. The loop takes
   no merge action ever; see the SKILL's PR outcome housekeeping for what it
-  does *after* a human has already merged or closed.
+  does _after_ a human has already merged or closed.
 
 Never self-approve. The loop must not treat its own `/qa` output, or any of
 its own generated content, as a gate clearance — only an explicit
@@ -73,11 +73,11 @@ human-applied label or a human merge/close action clears a gate.
 
 These limits are **hard stops**, not suggestions.
 
-| Dimension | Limit | Action on breach |
-|-----------|-------|-------------------|
-| Issues advanced per `/run-backlog` invocation | 3 | Stop the invocation; issues in `*-pending-approval` or `agent:blocked` don't count against this cap |
-| QA-retry cycles per issue | 3 | 4th consecutive gate failure → `agent:blocked` (anomaly gate G2), not a 4th retry |
-| Wall-clock / cost cap | **None — deliberate** | N/A |
+| Dimension                                     | Limit                 | Action on breach                                                                                    |
+| --------------------------------------------- | --------------------- | --------------------------------------------------------------------------------------------------- |
+| Issues advanced per `/run-backlog` invocation | 3                     | Stop the invocation; issues in `*-pending-approval` or `agent:blocked` don't count against this cap |
+| QA-retry cycles per issue                     | 3                     | 4th consecutive gate failure → `agent:blocked` (anomaly gate G2), not a 4th retry                   |
+| Wall-clock / cost cap                         | **None — deliberate** | N/A                                                                                                 |
 
 The absence of a wall-clock or cost cap is an intentional design choice, not
 an unset blank: throughput is already bounded by the 3-issues-per-run cap and

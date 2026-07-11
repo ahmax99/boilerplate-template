@@ -1,4 +1,5 @@
 import { useRouter } from 'next/navigation'
+
 import type { CommentIdParams } from '@shared/config'
 
 import { useErrorHandler } from '@/features/error/client/hooks/useErrorHandler'

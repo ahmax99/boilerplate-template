@@ -11,6 +11,7 @@ import type { CallbackParams, PKCEData } from '../../schemas/auth.schema'
 import { generateNonce, generatePKCE, generateState } from '../../utils/pkce'
 import { safeRelativePath } from '../../utils/redirect'
 import { createUser } from '../api'
+
 import { assignDefaultRoleGroup } from './role'
 import {
   destroyPKCESession,

@@ -29,7 +29,7 @@ export const DeletePostButton = ({ post }: DeletePostButtonProps) => {
       size="icon"
       variant="ghost"
     >
-      <Trash2 className="size-4 text-destructive" />
+      <Trash2 className="text-destructive size-4" />
     </ActionButton>
   )
 }

@@ -27,7 +27,7 @@ export const WelcomeEmail = ({
       <Body className="bg-[#fcfcfc] font-sans">
         <Container className="mx-auto max-w-xl px-4 py-8">
           <Section className="rounded-lg bg-white p-8 shadow-sm">
-            <Text className="mb-4 font-bold text-2xl text-black">
+            <Text className="mb-4 text-2xl font-bold text-black">
               Welcome to Nextjs Boilerplate!
             </Text>
             <Text className="mb-4 text-base text-black">Hi {userName},</Text>
@@ -44,28 +44,28 @@ export const WelcomeEmail = ({
                 Verify Email Address
               </Button>
             </Section>
-            <Text className="mb-2 text-[#525252] text-sm">
+            <Text className="mb-2 text-sm text-[#525252]">
               Or copy and paste this link into your browser:
             </Text>
             <Link
-              className="break-all text-blue-600 text-sm"
+              className="text-sm break-all text-blue-600"
               href={verificationUrl}
             >
               {verificationUrl}
             </Link>
-            <Section className="mt-8 border-[#e4e4e4] border-t pt-8">
-              <Text className="mb-2 text-[#525252] text-sm">
+            <Section className="mt-8 border-t border-[#e4e4e4] pt-8">
+              <Text className="mb-2 text-sm text-[#525252]">
                 If you didn&apos;t create an account with us, you can safely
                 ignore this email.
               </Text>
-              <Text className="text-[#525252] text-sm">
+              <Text className="text-sm text-[#525252]">
                 This verification link will expire in 24 hours for security
                 reasons.
               </Text>
             </Section>
           </Section>
           <Section className="mt-4 text-center">
-            <Text className="text-[#525252] text-xs">
+            <Text className="text-xs text-[#525252]">
               This is an automated message, please do not reply to this email.
             </Text>
           </Section>

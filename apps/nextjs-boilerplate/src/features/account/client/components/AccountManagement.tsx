@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+
 import { TriangleAlert, User } from 'lucide-react'
 
 import { Button } from '@/components/atoms'
@@ -58,10 +59,10 @@ export const AccountManagement = () => {
         className="flex flex-col justify-center gap-4"
         value="profile"
       >
-        <h2 className="font-medium text-2xl">Settings</h2>
+        <h2 className="text-2xl font-medium">Settings</h2>
         <Card className="flex flex-row items-center justify-between">
           <CardContent>
-            <h3 className="font-medium text-lg">Update Profile</h3>
+            <h3 className="text-lg font-medium">Update Profile</h3>
             <p>You can update your account name.</p>
           </CardContent>
           <CardContent>
@@ -76,10 +77,10 @@ export const AccountManagement = () => {
         className="flex flex-col justify-center gap-4"
         value="danger-zone"
       >
-        <h2 className="font-medium text-2xl">Danger Zone</h2>
-        <Card className="flex flex-row items-center justify-between border-destructive">
+        <h2 className="text-2xl font-medium">Danger Zone</h2>
+        <Card className="border-destructive flex flex-row items-center justify-between">
           <CardContent>
-            <h3 className="font-medium text-lg">Delete this account</h3>
+            <h3 className="text-lg font-medium">Delete this account</h3>
             <p>
               Once you delete this account, there is no going back. Please be
               certain.

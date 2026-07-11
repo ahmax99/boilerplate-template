@@ -1,4 +1,5 @@
 import { useRouter } from 'next/navigation'
+
 import type { CreatePostBody, Post } from '@shared/config'
 
 import { PUBLIC_ROUTES } from '@/features/auth/lib/routes'

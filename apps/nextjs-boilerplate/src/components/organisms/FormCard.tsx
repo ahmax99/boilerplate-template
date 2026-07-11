@@ -26,7 +26,7 @@ export const FormCard = ({
   children
 }: Readonly<FormCardProps>) => (
   <Card className="w-full sm:max-w-96">
-    <CardHeader className="font-bold text-2xl">
+    <CardHeader className="text-2xl font-bold">
       <CardTitle>{title}</CardTitle>
       <CardDescription>{description}</CardDescription>
     </CardHeader>

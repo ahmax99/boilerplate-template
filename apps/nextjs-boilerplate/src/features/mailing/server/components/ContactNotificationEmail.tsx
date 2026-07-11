@@ -24,7 +24,7 @@ export const ContactNotificationEmail = ({
       <Body className="bg-[#fcfcfc] font-sans">
         <Container className="mx-auto max-w-xl px-4 py-8">
           <Section className="rounded-lg bg-white p-8 shadow-sm">
-            <Text className="mb-4 font-bold text-2xl text-black">
+            <Text className="mb-4 text-2xl font-bold text-black">
               New Contact Form Submission
             </Text>
             <Text className="mb-2 text-base text-black">
@@ -38,7 +38,7 @@ export const ContactNotificationEmail = ({
             </Section>
           </Section>
           <Section className="mt-4 text-center">
-            <Text className="text-[#525252] text-xs">
+            <Text className="text-xs text-[#525252]">
               This message was sent via the contact form on Nextjs Boilerplate.
             </Text>
           </Section>

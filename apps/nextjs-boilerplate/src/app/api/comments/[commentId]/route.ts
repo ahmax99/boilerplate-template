@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+
 import type { CommentIdParams } from '@shared/config'
 
 import { deleteComment } from '@/features/comment/server/api'

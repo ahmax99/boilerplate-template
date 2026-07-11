@@ -1,4 +1,5 @@
 import { useRouter } from 'next/navigation'
+
 import { toast } from 'sonner'
 
 import { PROTECTED_ROUTES } from '@/features/auth/lib/routes'

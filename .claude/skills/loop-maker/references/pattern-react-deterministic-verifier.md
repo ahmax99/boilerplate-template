@@ -75,7 +75,7 @@ is the simplest choice. The state file records at minimum:
 - `iteration_count`: how many iterations have completed.
 - `status`: `running` | `paused` | `done` | `error`.
 
-Update the state file *after* the verifier passes, not before. A state file
+Update the state file _after_ the verifier passes, not before. A state file
 that records a step as complete before verification means a crash between act
 and verify leaves the loop believing it succeeded.
 

@@ -39,7 +39,7 @@ async function PageHeader() {
               {navItems.map((item) =>
                 item.disabled ? (
                   <span
-                    className="cursor-not-allowed text-muted-foreground opacity-50"
+                    className="text-muted-foreground cursor-not-allowed opacity-50"
                     key={item.name}
                   >
                     {item.name}

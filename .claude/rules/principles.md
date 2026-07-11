@@ -4,9 +4,9 @@ description: Engineering principles — clean code + A Philosophy of Software De
 
 # Engineering Principles
 
-These are the non-negotiable design principles for this repo, drawn from *clean code* and John Ousterhout's *A Philosophy of Software Design*. They guide every implementation and every review.
+These are the non-negotiable design principles for this repo, drawn from _clean code_ and John Ousterhout's _A Philosophy of Software Design_. They guide every implementation and every review.
 
-> **Precedence rule:** if an official tech-stack doc (Elysia, Next.js, Prisma, Zod, CASL, Biome) recommends something that conflicts with a principle here, **follow the tech-stack doc** and note the deviation. These principles lose to framework idioms, not the other way around. They also lose to `.claude/rules/architecture.md` and `conventions.md`, which describe what this codebase actually does.
+> **Precedence rule:** if an official tech-stack doc (Elysia, Next.js, Prisma, Zod, CASL, oxlint/oxfmt) recommends something that conflicts with a principle here, **follow the tech-stack doc** and note the deviation. These principles lose to framework idioms, not the other way around. They also lose to `.claude/rules/architecture.md` and `conventions.md`, which describe what this codebase actually does.
 
 ## Complexity is the enemy
 
@@ -14,7 +14,7 @@ The goal is not "fewer lines" — it's lower complexity: less for the next reade
 
 - **Zero-tolerance for unnecessary complexity.** If a change makes the system harder to understand for no functional gain, it's wrong.
 - **Complexity is incremental.** It accrues one "this is fine" at a time. Push back on small messes before they compound.
-- Prefer the design that makes the *common* case obvious, even if it makes a rare case slightly more verbose.
+- Prefer the design that makes the _common_ case obvious, even if it makes a rare case slightly more verbose.
 
 ## Deep modules
 
@@ -22,7 +22,7 @@ A module's value is its functionality divided by its interface. Maximize the fir
 
 - **Deep > shallow.** A simple interface that hides real work (this repo's `*.service.ts` returning a `ResultAsync`, the `catchAsyncError` wrapper, `serverAuthApiClient`) beats a thin pass-through that just forwards calls. Flag shallow wrappers that add an interface without hiding anything.
 - **Information hiding.** Each module hides a design decision behind its interface. Leaking that decision to callers (so they must know the internals to use it) is a red flag.
-- **General-purpose beats special-purpose.** A slightly more general interface usually ends up simpler *and* more reusable than one tailored to today's single caller.
+- **General-purpose beats special-purpose.** A slightly more general interface usually ends up simpler _and_ more reusable than one tailored to today's single caller.
 
 ## Define errors out of existence
 
@@ -34,7 +34,7 @@ A module's value is its functionality divided by its interface. Maximize the fir
 
 - **Comments explain WHY, not WHAT.** The code already says what it does. Comments capture intent, invariants, and the non-obvious (why this order, why this guard, why not the simpler approach).
 - **Keep comments short — one line, ideally.** If the WHY needs multiple lines or a paragraph to explain, that's a sign the design is too complex, not that the comment needs more room.
-- Write the interface comment that lets a caller use a function *without reading its body*. If you can't, the abstraction is leaking.
+- Write the interface comment that lets a caller use a function _without reading its body_. If you can't, the abstraction is leaking.
 - Names are the cheapest documentation: precise, consistent, no abbreviations that need a decoder.
 
 ## Work that pays down complexity
@@ -48,5 +48,5 @@ A module's value is its functionality divided by its interface. Maximize the fir
 - New backend resource → full triad (`*.plugin.ts` + `*.controller.ts` + `*.service.ts`), logic in the service, controller thin.
 - New external input → one Zod schema in `@shared/config`, validated at the boundary.
 - New shared type → `@shared/config`, so both apps stay in sync.
-- `any` is banned (Biome `noExplicitAny` error) — reach for generics, unions, or `unknown` + narrowing.
+- `any` is banned (oxlint `typescript/no-explicit-any` error) — reach for generics, unions, or `unknown` + narrowing.
 - Frontend stays behind the BFF boundary.

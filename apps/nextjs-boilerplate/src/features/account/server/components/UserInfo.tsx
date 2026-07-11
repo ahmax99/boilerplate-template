@@ -25,7 +25,7 @@ export async function UserInfo({ user }: Readonly<UserInfoProps>) {
       </div>
       <div className="flex-1">
         <div className="flex items-start justify-between gap-1">
-          <h1 className="font-bold text-3xl">{user.name}</h1>
+          <h1 className="text-3xl font-bold">{user.name}</h1>
         </div>
         <p className="text-muted-foreground">{user.email}</p>
       </div>

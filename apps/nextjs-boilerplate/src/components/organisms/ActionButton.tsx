@@ -1,6 +1,7 @@
 'use client'
 
 import { useTransition } from 'react'
+
 import type { Button as ButtonPrimitive } from '@base-ui/react/button'
 import type { VariantProps } from 'class-variance-authority'
 import { toast } from 'sonner'
@@ -21,7 +22,8 @@ import {
 import { LoadingSwap } from '../molecules/LoadingSwap'
 
 interface ActionButtonProps
-  extends Omit<ButtonPrimitive.Props, 'children'>,
+  extends
+    Omit<ButtonPrimitive.Props, 'children'>,
     VariantProps<typeof buttonVariants> {
   action: () => Promise<{ error: boolean; message?: string }>
   requireAreYouSure?: boolean

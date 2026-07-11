@@ -19,7 +19,7 @@ jobs:
     if: github.actor != 'dependabot[bot]' && !startsWith(github.head_ref, 'release-please--branches--')
     permissions:
       contents: read
-    
+
     steps:
       - uses: actions/checkout@v7
         with:

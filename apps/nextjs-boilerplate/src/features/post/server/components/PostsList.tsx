@@ -1,4 +1,5 @@
 import Image from 'next/image'
+
 import type { Post } from '@shared/config'
 import { Newspaper } from 'lucide-react'
 
@@ -14,8 +15,8 @@ export const PostsList = async ({ posts, imageUrls }: PostsListProps) => {
   if (!posts || posts.length === 0)
     return (
       <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
-        <Newspaper className="size-10 text-muted-foreground" />
-        <h2 className="font-semibold text-xl">No posts yet</h2>
+        <Newspaper className="text-muted-foreground size-10" />
+        <h2 className="text-xl font-semibold">No posts yet</h2>
         <p className="text-muted-foreground">
           Check back soon for new articles.
         </p>
@@ -39,10 +40,10 @@ export const PostsList = async ({ posts, imageUrls }: PostsListProps) => {
           </div>
 
           <CardContent>
-            <h1 className="font-bold text-2xl hover:text-primary">
+            <h1 className="hover:text-primary text-2xl font-bold">
               {post.title}
             </h1>
-            <p className="line-clamp-3 text-muted-foreground">{post.content}</p>
+            <p className="text-muted-foreground line-clamp-3">{post.content}</p>
           </CardContent>
           <CardFooter>
             <ButtonLink className="w-full" href={`/posts/${post.id}`}>

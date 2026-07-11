@@ -1,4 +1,5 @@
 import Image from 'next/image'
+
 import type { Comment, Post } from '@shared/config'
 
 import { Separator } from '@/components/atoms'
@@ -32,7 +33,7 @@ export const PostDetail = async ({
 
     <div className="flex flex-col space-y-4">
       <div className="flex items-start justify-between gap-4">
-        <h1 className="font-bold text-4xl text-foreground tracking-tight">
+        <h1 className="text-foreground text-4xl font-bold tracking-tight">
           {post.title}
         </h1>
 
@@ -48,7 +49,7 @@ export const PostDetail = async ({
 
     <Separator className="my-8" />
 
-    <p className="whitespace-pre-wrap text-foreground/90 text-lg leading-relaxed">
+    <p className="text-foreground/90 text-lg leading-relaxed whitespace-pre-wrap">
       {post.content}
     </p>
 

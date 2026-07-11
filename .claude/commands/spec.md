@@ -4,7 +4,7 @@ model: opus
 
 # Spec
 
-`/spec <feature description>` turns a rough feature idea into a structured **specification** — the *what* and *why*, before any *how*. The spec is the upstream artifact in this repo's spec-driven flow:
+`/spec <feature description>` turns a rough feature idea into a structured **specification** — the _what_ and _why_, before any _how_. The spec is the upstream artifact in this repo's spec-driven flow:
 
 ```
 /spec <idea>   →  docs/specs/<YYYY-MM-DD-slug>.md   (what & why, acceptance criteria)
@@ -84,7 +84,7 @@ Use this template:
 - <Unresolved decisions, migration risk, breaking changes>
 ```
 
-Keep it focused on *what* and *why*. The *how* (file paths, method signatures, ordered steps) belongs in `/plan`, not here.
+Keep it focused on _what_ and _why_. The _how_ (file paths, method signatures, ordered steps) belongs in `/plan`, not here.
 
 ### 4. Report back
 

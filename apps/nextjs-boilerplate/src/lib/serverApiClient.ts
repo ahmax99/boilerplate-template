@@ -1,5 +1,4 @@
 import 'server-only'
-
 import ky from 'ky'
 
 import { env } from '@/config/env'

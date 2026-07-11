@@ -5,6 +5,7 @@ This directory contains the Terraform configuration to create the **S3 bucket** 
 ## Purpose
 
 Creates the following resources:
+
 - **S3 Bucket**: Stores Terraform state files for dev/prod environments with native S3 locking
 
 ## Prerequisites
@@ -28,11 +29,13 @@ These steps create the irreducible seed the CI pipeline needs to authenticate. A
 pipeline manages everything (open a PR → plan comment → merge applies dev → `v*` tag applies prod).
 
 **S1 — Create the state bucket** (skip if already done):
+
 ```bash
 cd infra/terraform/bootstrap && terraform init && terraform apply -auto-approve && cd ../..
 ```
 
 **S2 — Seed dev** (creates the account-global OIDC provider + dev apply role):
+
 ```bash
 cd infra/terraform
 terraform init -backend-config=backends/dev.hcl
@@ -47,6 +50,7 @@ terraform output terraform_plan_role_arn     # → repo-level TF_PLAN_ROLE_ARN
 ```
 
 **S3 — Seed prod** (provider already exists; creates the prod apply role only):
+
 ```bash
 terraform init -reconfigure -backend-config=backends/prod.hcl
 terraform apply \
@@ -68,6 +72,7 @@ Open a PR → plan comment appears → merge applies dev → push a `v*` tag and
 ## Security Features
 
 ✅ **S3 Bucket**:
+
 - Versioning enabled (recover from accidental deletions)
 - Server-side encryption (AES256)
 - Public access blocked
@@ -79,6 +84,7 @@ Open a PR → plan comment appears → merge applies dev → push a `v*` tag and
 ⚠️ **DO NOT destroy these resources while environments are using them!**
 
 To destroy (only if you're completely done with all environments):
+
 ```bash
 terraform destroy
 ```

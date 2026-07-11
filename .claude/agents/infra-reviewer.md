@@ -53,12 +53,12 @@ Your invocation prompt will include:
 
 Return one score 1–5 for the **Infrastructure** dimension:
 
-| Score | Meaning                                                                                          |
-| ----- | ------------------------------------------------------------------------------------------------ |
-| 5     | No issues; change is safe, scoped, and conventional                                              |
-| 4     | Minor issues only (missing description, unpinned minor version); safe to merge                   |
-| 3     | Acceptable but should be fixed (missing tags, tfvars drift between envs, undocumented ignore)    |
-| 2     | Significant issues (over-broad IAM, unflagged forced replacement of a stateful resource)         |
+| Score | Meaning                                                                                                 |
+| ----- | ------------------------------------------------------------------------------------------------------- |
+| 5     | No issues; change is safe, scoped, and conventional                                                     |
+| 4     | Minor issues only (missing description, unpinned minor version); safe to merge                          |
+| 3     | Acceptable but should be fixed (missing tags, tfvars drift between envs, undocumented ignore)           |
+| 2     | Significant issues (over-broad IAM, unflagged forced replacement of a stateful resource)                |
 | 1     | Critical issues (secret committed, public exposure of private data, destroy of a data-bearing resource) |
 
 ## Output
@@ -90,5 +90,5 @@ If no issues anywhere, write `No infrastructure issues found.` after the Score l
 - A change that forces replacement of a stateful resource without the PR saying so is **High** — silent data loss risk.
 - A secret literal in `.tf`/`.tfvars` is **Critical**, even in dev.
 - Style-level HCL nits that tflint already catches are **Low** — don't pad the report with them; the deterministic gate owns those.
-- If you find yourself thinking "the plan comment will catch this" — the plan shows *what* changes, not *whether it's wise*. Judging wisdom is your job.
+- If you find yourself thinking "the plan comment will catch this" — the plan shows _what_ changes, not _whether it's wise_. Judging wisdom is your job.
 - The Conventions design-level checks (`depends_on`, hardcoded values, `data` sources, `lifecycle`, module interfaces/outputs, naming) are typically **Medium** — escalate only when they cause real coupling or blast-radius risk. A legitimate external `data` source or a justified `depends_on`/`lifecycle` is **not** a finding at all; don't flag the repo's existing valid usages just because a rule now exists.

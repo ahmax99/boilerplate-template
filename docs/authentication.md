@@ -32,10 +32,10 @@ flowchart LR
     logout["/api/auth/logout"] -->|destroys both| browser
 ```
 
-| Cookie | Holds | Written by | Lifetime | Meaning of presence |
-| --- | --- | --- | --- | --- |
-| `auth_pkce` | `codeVerifier`, `state`, `nonce`, `callbackUrl` | `handleLogin` (login initiated) | ~10 min | A login handshake is in progress |
-| `auth_session` | `refreshToken` **only** | `handleCallback` (login completed) | 30 days | A completed, authenticated session |
+| Cookie         | Holds                                           | Written by                         | Lifetime | Meaning of presence                |
+| -------------- | ----------------------------------------------- | ---------------------------------- | -------- | ---------------------------------- |
+| `auth_pkce`    | `codeVerifier`, `state`, `nonce`, `callbackUrl` | `handleLogin` (login initiated)    | ~10 min  | A login handshake is in progress   |
+| `auth_session` | `refreshToken` **only**                         | `handleCallback` (login completed) | 30 days  | A completed, authenticated session |
 
 `auth_session` stores nothing but the refresh token. Identity (`sub`, `email`)
 is **not** persisted — it is read from a freshly-minted ID token's claims or
@@ -190,25 +190,25 @@ Both apps mirror the same CASL model:
 
 ## Key files
 
-| Concern | File |
-| --- | --- |
-| Session/PKCE schemas | `features/auth/schemas/auth.schema.ts` |
-| Cookie & iron-session config | `features/auth/constants/{cookie,session}.ts` |
-| Session cookie accessors | `features/auth/server/services/session.ts` |
-| Login / callback / logout logic | `features/auth/server/services/auth.ts` |
-| Refresh-token → ID-token exchange | `features/auth/server/services/token.ts` |
-| PKCE generators | `features/auth/utils/pkce.ts` |
-| Route handlers | `app/api/auth/{login,callback,logout}/route.ts` |
-| BFF → backend clients | `lib/serverApiClient.ts` |
-| Edge route guard | `proxy.ts` |
-| Backend JWT verification | `apps/backend-boilerplate/src/modules/auth/auth.plugin.ts` |
-| CASL permissions | `modules/auth/permission.ts` (both apps) |
+| Concern                           | File                                                       |
+| --------------------------------- | ---------------------------------------------------------- |
+| Session/PKCE schemas              | `features/auth/schemas/auth.schema.ts`                     |
+| Cookie & iron-session config      | `features/auth/constants/{cookie,session}.ts`              |
+| Session cookie accessors          | `features/auth/server/services/session.ts`                 |
+| Login / callback / logout logic   | `features/auth/server/services/auth.ts`                    |
+| Refresh-token → ID-token exchange | `features/auth/server/services/token.ts`                   |
+| PKCE generators                   | `features/auth/utils/pkce.ts`                              |
+| Route handlers                    | `app/api/auth/{login,callback,logout}/route.ts`            |
+| BFF → backend clients             | `lib/serverApiClient.ts`                                   |
+| Edge route guard                  | `proxy.ts`                                                 |
+| Backend JWT verification          | `apps/backend-boilerplate/src/modules/auth/auth.plugin.ts` |
+| CASL permissions                  | `modules/auth/permission.ts` (both apps)                   |
 
 ## Design notes
 
 - **Two cookies, not one.** An earlier version stored PKCE state and the session
   in a single `auth_session` cookie. Because `proxy.ts` checks only presence,
-  merely *starting* a login (which wrote the cookie) looked authenticated —
+  merely _starting_ a login (which wrote the cookie) looked authenticated —
   soft-locking the login page and letting half-authenticated visitors past the
   edge guard. Splitting PKCE into its own short-lived `auth_pkce` cookie fixes
   this and keeps the edge check presence-only. **Do not merge them back.**

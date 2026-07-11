@@ -7,7 +7,7 @@ description: Code review checklist and quality gates to enforce during reviews
 The full, calibrated review checklists live with the reviewer subagents that enforce them — each dimension has exactly one owner:
 
 - `.claude/agents/security-reviewer.md` — auth (`auth: true`), CASL enforcement, Zod-at-the-boundary, the BFF rule, injection, secrets, S3 scoping.
-- `.claude/agents/correctness-reviewer.md` — the neverthrow `Result` flow, layer boundaries (logic in services, thin controllers), Prisma queries/transactions/pagination, type safety (`any` is a Biome error), atomic-design and feature-folder placement, code style rules.
+- `.claude/agents/correctness-reviewer.md` — the neverthrow `Result` flow, layer boundaries (logic in services, thin controllers), Prisma queries/transactions/pagination, type safety (`any` is an oxlint error), atomic-design and feature-folder placement, code style rules.
 - `.claude/agents/infra-reviewer.md` — Terraform: IAM least-privilege, state safety, destructive-change risk, `.claude/rules/infra.md` conventions.
 - `.claude/agents/cicd-reviewer.md` — GitHub Actions / CI-CD: least-privilege `GITHUB_TOKEN`, action pinning, expression injection, fork-safety, OIDC, deploy-pipeline invariants, DORA impact. Also dispatchable standalone as a DevOps engineer (audit/improve/author workflows).
 - `.claude/agents/acceptance-criteria-reviewer.md` — plan-vs-diff verification (`/qa` only).

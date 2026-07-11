@@ -17,6 +17,7 @@ Workspaces are `apps/*` and `shared/*`. Cross-package deps use `workspace:*`.
 Elysia app composed from plugins. Entry is `src/index.ts`: load secrets → mount logger/helmet/cors → `.use(routes)`.
 
 **Module layout** under `src/modules/<name>/`:
+
 - `*.plugin.ts` — an Elysia plugin that `.decorate()`s the service(s) onto the context.
 - `*.controller.ts` — defines routes, `.use()`s its plugin + `authPlugin` + `errorHandler` + `openapi`. Validates with Zod schemas from `@shared/config` (e.g. `PostModel.createPostBody`). Wraps every service call in `handleApiError(...)`.
 - `*.service.ts` — pure data logic. Returns `ResultAsync<T, AppError>` (neverthrow), never throws to the caller.
@@ -24,11 +25,13 @@ Elysia app composed from plugins. Entry is `src/index.ts`: load secrets → moun
 Routes are aggregated in `src/routes/index.ts` under prefix `/api/v1`; OpenAPI/Swagger is served there.
 
 **Error handling:**
+
 - Services wrap promises in `catchAsyncError(promise)` (`src/error/utils/catchError.ts`), which returns a `ResultAsync` and maps any thrown value to an `AppError` via `mapToAppError` (also captures to Sentry).
 - Inside service logic, signal failures by `throw new AppError('NOT_FOUND' | 'FORBIDDEN' | ..., msg)`. Error codes are defined in `@shared/config` (`errorDefinition`).
 - Controllers call `handleApiError(resultAsync)`, which awaits the Result and re-throws `result.error`; the mounted `errorHandler` plugin converts it to the HTTP response.
 
 **Auth & authorization:**
+
 - `authPlugin` (`src/modules/auth/auth.plugin.ts`) exposes an `auth: true` route macro. It reads a Bearer token, **falling back to the `X-Id-Token` header** (SSR/Lambda calls put the SigV4 signature in `Authorization`). It verifies the Cognito JWT (`jose`) and resolves `user: AuthUser` (`cognitoSub`, `email`, `role` from `cognito:groups`).
 - Authorization is **CASL + Prisma**. `getUserPermissions(user?, userId?)` (`src/modules/auth/permission.ts`) builds an `AppAbility`. Services receive the ability and enforce it two ways: `accessibleBy(ability).ofType('Post')` in `where` clauses for list queries, and `ability.can('update', subject('Post', post))` for single-resource checks. Unauthenticated callers get read-only public permissions.
 
@@ -39,15 +42,18 @@ Secrets: in production, `loadSecrets()` pulls `DATABASE_URL` from AWS Secrets Ma
 Next.js App Router. The app is a **BFF**: browser code never calls the Elysia backend directly — it calls Next.js route handlers / server components, which forward to Elysia server-side with the auth token attached.
 
 **Routing groups** under `src/app/`:
+
 - `(authorized)/` — pages requiring a session. `(public)/` — open pages and the auth flow.
 - `api/` — route handlers. These are thin: they call a feature's `server/api` function and `NextResponse.json` the result.
 
 **Feature modules** under `src/features/<name>/` are split by execution context:
+
 - `server/api/` — calls the Elysia backend via the shared `ky` clients in `src/lib/serverApiClient.ts`. Use `serverApiClient` for unauthenticated GETs and `serverAuthApiClient` for authenticated calls (it injects the Cognito ID token as `X-Id-Token` and, in production, SigV4-signs the request to the Lambda Function URL — order matters; see comments in that file).
 - `client/` — `'use client'` components, hooks, and client-side API callers.
 - `schemas/` — Zod; `lib/`, `utils/`, `constants/`, `providers/`.
 
 **Component system** (`src/components/`): Atomic-design layers for cross-feature shared UI:
+
 - `atoms/` — primitives (Button, Input, Label, Skeleton, Spinner…); CVA for variants; root element marked `data-slot="<name>"`.
 - `molecules/` — composites of atoms (Card, Avatar, AlertDialog, Tabs…); may expose named subcomponents (e.g. `Card` + `CardHeader` + `CardContent` from one file).
 - `organisms/` — complex interactive components combining molecules (Field, ActionButton); may own local state and handlers.
@@ -56,7 +62,7 @@ Next.js App Router. The app is a **BFF**: browser code never calls the Elysia ba
 
 Atoms never import from molecules or organisms. Molecules import atoms only. Feature-specific UI belongs in `features/<name>/client/components/` or `features/<name>/server/components/`, not in `src/components/`.
 
-**Auth flow** (`src/features/auth/`): OIDC with Cognito using `openid-client` + PKCE. State lives in **two** `iron-session` HttpOnly cookies — transient PKCE state in `auth_pkce`, and the completed session (holding only the refresh token) in `auth_session`. `src/proxy.ts` is the Next.js middleware that gates `PROTECTED_ROUTES` (redirects to login if `auth_session` is absent) — it only checks cookie *presence*, not validity; real verification happens in the backend. Read [`docs/authentication.md`](../../docs/authentication.md) — the implementation-level flow (mermaid diagrams for login/callback/authenticated-call/logout, the two-cookie model, CASL) — before changing anything in `features/auth/`, the BFF clients, or `proxy.ts`.
+**Auth flow** (`src/features/auth/`): OIDC with Cognito using `openid-client` + PKCE. State lives in **two** `iron-session` HttpOnly cookies — transient PKCE state in `auth_pkce`, and the completed session (holding only the refresh token) in `auth_session`. `src/proxy.ts` is the Next.js middleware that gates `PROTECTED_ROUTES` (redirects to login if `auth_session` is absent) — it only checks cookie _presence_, not validity; real verification happens in the backend. Read [`docs/authentication.md`](../../docs/authentication.md) — the implementation-level flow (mermaid diagrams for login/callback/authenticated-call/logout, the two-cookie model, CASL) — before changing anything in `features/auth/`, the BFF clients, or `proxy.ts`.
 
 Authorization mirrors the backend with CASL (`@casl/react`, `src/lib/casl.ts`, `PermissionProvider`).
 

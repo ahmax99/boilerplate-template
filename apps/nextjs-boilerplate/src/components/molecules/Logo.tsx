@@ -1,7 +1,7 @@
 function Logo() {
   return (
     <div className="flex items-center">
-      <div className="font-bold text-2xl tracking-tight">
+      <div className="text-2xl font-bold tracking-tight">
         <div>LOGO</div>
       </div>
     </div>

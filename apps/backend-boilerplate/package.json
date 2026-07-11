@@ -1,9 +1,9 @@
 {
   "name": "backend-boilerplate",
   "version": "1.0.0",
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "type": "module",
   "scripts": {
     "build": "bun build src/index.ts --outdir dist --target node --format esm --env disable",
     "check-types": "tsc --noEmit",

@@ -47,28 +47,33 @@ formulated before building a more capable loop around it.
 ## What Ralph gets wrong
 
 ### No memory between runs
+
 Every invocation starts from scratch. Ralph re-reads the spec and starts over.
 If the task involves many items or requires progress tracking, Ralph will re-
 process everything on every run. For anything beyond a single-item task, this
 is prohibitively expensive.
 
 ### No structured state
+
 Without a state file, Ralph cannot track which items are done, cannot resume
 after a crash, and cannot report progress. He just tries again from the top.
 
 ### No connectors
+
 Ralph has no defined read or write connectors. He can only act within whatever
 context is handed to him. If the task requires reading from a database or
 writing to an API, those integrations must be built into the agent's prompt
 or skill directly, which makes them harder to test and replace.
 
 ### The verifier is implicit
+
 Ralph's "check" is often just `if output_looks_right`. In production loops,
 that check must be a deterministic program with a binary exit code. Ralph
 makes it easy to skip that step and use the agent's self-assessment instead
 — which, as the backbone explains, is the first failure mode.
 
 ### No budget by default
+
 Ralph's while-loop runs until the spec is satisfied or the process is killed.
 It has no iteration cap, no cost ceiling, and no wall-clock limit. Every Ralph
 implementation needs a budget wrapped around it before it is safe to run

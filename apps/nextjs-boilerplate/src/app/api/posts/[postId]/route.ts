@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+
 import type { PostIdParams } from '@shared/config'
 
 import { deletePostServer, fetchPost } from '@/features/post/server/api'
