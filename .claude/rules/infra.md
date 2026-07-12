@@ -24,6 +24,7 @@ For provider/module facts (resource arguments, module inputs, latest versions), 
 
 - Pin versions: providers in each module's `versions.tf`, Terraform version matches CI (`~> 1.14`).
 - Every `variable` has `type` and `description`; add `validation` blocks where a bad value would only surface at apply time.
+- **No `default` on `variable` blocks.** Every value must be supplied explicitly via `vars/*.tfvars` / `TF_VAR_*`, including an explicit empty string for an environment that doesn't use it. A default lets an unset value silently fall through instead of showing up in the plan/tfvars as a deliberate choice.
 - No secret values in `vars/*.tfvars` (they're committed). Secrets live in AWS Secrets Manager and are referenced by ARN/name; the apps load them at runtime.
 - Stateful or hard-to-recreate resources (Cognito user pool, S3 buckets with data, Route53 zone) deserve `lifecycle { prevent_destroy = true }` or an explicit comment on why not.
 - Trivy findings are suppressed only in `infra/terraform/.trivyignore`, one ID per line **with a justification comment** (see AVD-AWS-0132 there for the pattern).

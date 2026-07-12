@@ -1,10 +1,21 @@
 # -------------------
 # Route 53
 # -------------------
+resource "aws_route53_zone" "delegated" {
+  count = var.environment == "prod" ? 0 : 1
+
+  name = local.domain_name
+  tags = merge(local.common_tags, { Name = "${local.name_prefix}-dns-zone" })
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 module "route53" {
   source = "./modules/route53"
 
-  zone_id                             = data.aws_route53_zone.main.zone_id
+  zone_id                             = local.dns_zone_id
   domain_name                         = local.domain_name
   cloudfront_distribution_domain_name = module.cloudfront.distribution_domain_name
   cloudfront_hosted_zone_id           = module.cloudfront.hosted_zone_id
@@ -22,7 +33,7 @@ module "acm" {
 
   domain_name               = local.domain_name
   subject_alternative_names = []
-  zone_id                   = data.aws_route53_zone.main.zone_id
+  zone_id                   = local.dns_zone_id
 
   tags = merge(
     local.common_tags,
@@ -424,6 +435,8 @@ module "ecr_backend" {
     max_image_age   = 30
   }
 
+  cross_account_pull_principal_arns = local.promotion_pull_principal_arns
+
   tags = merge(
     local.common_tags,
     {
@@ -439,9 +452,6 @@ module "ecr_frontend" {
   environment     = var.environment
   repository_name = "${local.name_prefix}-frontend"
 
-  # Content tags (git SHA, v* releases) are immutable so a deployed image can't
-  # be swapped; `latest` is excluded because the deploy pipeline re-pushes it as
-  # the bootstrap sentinel and the Lambda baseline image (see main.tf image_uri).
   image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
   image_tag_mutability_exclusion_filters = [
     { filter = "latest*", filter_type = "WILDCARD" }
@@ -453,6 +463,8 @@ module "ecr_frontend" {
     max_image_age   = 30
   }
 
+  cross_account_pull_principal_arns = local.promotion_pull_principal_arns
+
   tags = merge(
     local.common_tags,
     {
@@ -462,7 +474,7 @@ module "ecr_frontend" {
 }
 
 # -------------------
-# Monitoring — CloudWatch alarms that gate CodeDeploy canary rollback (prod only)
+# Monitoring — CloudWatch alarms that gate CodeDeploy canary rollback
 # -------------------
 module "monitoring" {
   source = "./modules/monitoring"
@@ -548,11 +560,6 @@ module "github_oidc" {
   role_name    = "${local.name_prefix}-github-actions-role"
   project_name = var.project_name
 
-  # Every caller of this role (build/deploy jobs in deploy.yml) declares its own
-  # `environment: dev`/`environment: prod` — scoping trust to that environment
-  # claim (mirroring the terraform_apply/terraform_plan roles below) means the
-  # IAM trust policy itself enforces the same gate GitHub's environment
-  # protection rule does, rather than relying on workflow authors alone.
   github_repositories = [
     "repo:${var.github_org}/${var.project_name}:environment:${var.environment}"
   ]
@@ -574,10 +581,7 @@ module "github_oidc" {
     module.ecr_frontend.repository_arn
   ]
 
-  source_ecr_repository_arns = var.environment == "prod" ? [
-    "arn:aws:ecr:${var.aws_region}:${local.account_id}:repository/${local.source_repo_prefix}-backend",
-    "arn:aws:ecr:${var.aws_region}:${local.account_id}:repository/${local.source_repo_prefix}-frontend"
-  ] : []
+  source_ecr_repository_arns = local.source_ecr_repository_arns
 
   s3_static_assets_bucket_id  = module.s3_static_assets.bucket_id
   s3_static_assets_bucket_arn = module.s3_static_assets.bucket_arn
@@ -585,9 +589,8 @@ module "github_oidc" {
 
   enable_terraform_roles = true
   environment            = var.environment
-  create_oidc_provider   = local.env.create_oidc_provider
   github_org             = var.github_org
-  state_bucket_arn       = "arn:aws:s3:::${var.project_name}-terraform-state"
+  state_bucket_arn       = "arn:aws:s3:::${local.name_prefix}-terraform-state"
 
   tags = merge(
     local.common_tags,

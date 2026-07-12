@@ -26,6 +26,12 @@ inputs:
   frontend-sentry-dsn:
     description: 'TF_VAR_frontend_sentry_dsn (secret)'
     required: true
+  source-ecr-account-id:
+    description: 'TF_VAR_source_ecr_account_id — dev account ID prod pulls source images from (non-secret; empty on dev)'
+    required: true
+  promotion-grantee-account-id:
+    description: 'TF_VAR_promotion_grantee_account_id — prod account ID granted pull access on dev ECR (non-secret; empty on prod)'
+    required: true
 
 runs:
   using: 'composite'
@@ -47,6 +53,8 @@ runs:
         TF_VAR_session_secret: ${{ inputs.session-secret }}
         TF_VAR_backend_sentry_dsn: ${{ inputs.backend-sentry-dsn }}
         TF_VAR_frontend_sentry_dsn: ${{ inputs.frontend-sentry-dsn }}
+        TF_VAR_source_ecr_account_id: ${{ inputs.source-ecr-account-id }}
+        TF_VAR_promotion_grantee_account_id: ${{ inputs.promotion-grantee-account-id }}
       run: |
         {
           echo "TF_VAR_project_name=$TF_VAR_project_name"
@@ -63,4 +71,6 @@ runs:
           echo "TF_VAR_session_secret=$TF_VAR_session_secret"
           echo "TF_VAR_backend_sentry_dsn=$TF_VAR_backend_sentry_dsn"
           echo "TF_VAR_frontend_sentry_dsn=$TF_VAR_frontend_sentry_dsn"
+          echo "TF_VAR_source_ecr_account_id=$TF_VAR_source_ecr_account_id"
+          echo "TF_VAR_promotion_grantee_account_id=$TF_VAR_promotion_grantee_account_id"
         } >> "$GITHUB_ENV"

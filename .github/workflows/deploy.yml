@@ -230,10 +230,6 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
   # ── Ordering gate ──────────────────────────────────────────────────────────
-  # Terraform-first: block prod app deploy until terraform-apply.yml's prod apply
-  # for this same ref has concluded successfully. The timeout is generous (not
-  # the usual 30-45min budget) because this job blocks on a separate, unbounded
-  # human reviewer approval on terraform-apply.yml's prod job, not just CI work.
   wait-for-prod-infra:
     name: Wait for prod Terraform apply
     needs: detect
@@ -286,6 +282,7 @@ jobs:
           source-image-uri: ${{ needs.build-backend.outputs.image-uri }}
           target-image-uri: ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
           aws-region: ${{ env.AWS_REGION }}
+          source-account-id: ${{ vars.SOURCE_ECR_ACCOUNT_ID }}
 
       - name: Deploy backend Lambda
         uses: ./.github/actions/deploy-lambda
@@ -330,6 +327,7 @@ jobs:
           source-image-uri: ${{ needs.build-frontend.outputs.image-uri }}
           target-image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
           aws-region: ${{ env.AWS_REGION }}
+          source-account-id: ${{ vars.SOURCE_ECR_ACCOUNT_ID }}
 
       - name: Deploy frontend Lambda
         uses: ./.github/actions/deploy-lambda

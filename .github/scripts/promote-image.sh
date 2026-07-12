@@ -21,5 +21,7 @@ if aws ecr describe-images \
   echo "Tag $TARGET_TAG already present in $REPOSITORY_NAME — skipping promotion."
 else
   echo "Promoting $SOURCE_IMAGE_URI -> $TARGET_IMAGE_URI"
-  docker buildx imagetools create --tag "$TARGET_IMAGE_URI" "$SOURCE_IMAGE_URI"
+  docker pull "$SOURCE_IMAGE_URI"
+  docker tag "$SOURCE_IMAGE_URI" "$TARGET_IMAGE_URI"
+  docker push "$TARGET_IMAGE_URI"
 fi

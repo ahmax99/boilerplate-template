@@ -23,3 +23,7 @@ google_client_secret = ""
 
 # Session
 session_secret = "" # Generate with: openssl rand -base64 32
+
+# Cross-account (multi-account dev/prod separation)
+source_ecr_account_id        = "" # e.g. "000000000000"
+promotion_grantee_account_id = "" # e.g. "000000000000"

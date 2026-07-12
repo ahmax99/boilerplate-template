@@ -151,8 +151,6 @@ resource "aws_iam_policy" "lambda_deployment" {
 # GitHub OIDC Provider
 # -------------------
 resource "aws_iam_openid_connect_provider" "github" {
-  count = var.create_oidc_provider ? 1 : 0
-
   url = "https://token.actions.githubusercontent.com"
 
   client_id_list = [
@@ -174,7 +172,6 @@ resource "aws_iam_role_policy_attachment" "lambda_deployment" {
 
 # -------------------
 # S3 Bucket Policy — static assets
-# Consolidated here to avoid a circular dependency between the cloudfront module and the github-oidc module
 # -------------------
 resource "aws_s3_bucket_policy" "static_assets" {
   bucket = var.s3_static_assets_bucket_id
@@ -232,8 +229,7 @@ resource "aws_s3_bucket_policy" "static_assets" {
 }
 
 # -------------------
-# Terraform Plan Role (read-only, used by PR plan workflow)
-# Trust: pull_request sub, plus the environment:<env> sub since the plan job
+# Terraform Plan Role
 # -------------------
 resource "aws_iam_role" "terraform_plan" {
   count = var.enable_terraform_roles ? 1 : 0
@@ -286,7 +282,7 @@ resource "aws_iam_policy" "terraform_plan_state" {
         ]
         Resource = [
           var.state_bucket_arn,
-          "${var.state_bucket_arn}/${var.environment}/*"
+          "${var.state_bucket_arn}/*"
         ]
       },
       {
@@ -297,7 +293,7 @@ resource "aws_iam_policy" "terraform_plan_state" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "${var.state_bucket_arn}/${var.environment}/*.tflock"
+        Resource = "${var.state_bucket_arn}/*.tflock"
       },
       {
         Sid      = "TerraformStateSecretRead"
@@ -324,8 +320,7 @@ resource "aws_iam_role_policy_attachment" "terraform_plan_state" {
 }
 
 # -------------------
-# Terraform Apply Role (read-write, gated behind terraform-apply GitHub Environment)
-# Trust: environment:terraform-apply OIDC sub claim only
+# Terraform Apply Role
 # -------------------
 resource "aws_iam_role" "terraform_apply" {
   count = var.enable_terraform_roles ? 1 : 0
@@ -380,7 +375,7 @@ resource "aws_iam_policy" "terraform_apply_permissions" {
         ]
         Resource = [
           var.state_bucket_arn,
-          "${var.state_bucket_arn}/${var.environment}/*"
+          "${var.state_bucket_arn}/*"
         ]
       },
       {

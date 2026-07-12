@@ -65,16 +65,11 @@ variable "github_org" {
 }
 
 variable "state_bucket_arn" {
-  description = "ARN of the S3 Terraform state bucket — required when enable_terraform_roles = true"
+  description = "ARN of this environment's dedicated S3 Terraform state bucket — required when enable_terraform_roles = true"
   type        = string
 }
 
 variable "environment" {
   description = "Environment name — used in the apply role's OIDC :environment sub-claim and per-env resource scoping"
   type        = string
-}
-
-variable "create_oidc_provider" {
-  description = "Create the account-global GitHub OIDC provider. true for the first env applied (dev); false for other envs, which resolve the existing provider via a data source."
-  type        = bool
 }
