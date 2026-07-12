@@ -15,6 +15,13 @@ resource "aws_route53_zone" "delegated" {
 module "route53" {
   source = "./modules/route53"
 
+  # Safe unconditionally: aws.dns only assumes a role when dns_account_role_arn
+  # is set (prod); with it empty (dev), aws.dns degrades to ambient/same-account
+  # credentials, matching dev's in-account delegated zone.
+  providers = {
+    aws = aws.dns
+  }
+
   zone_id                             = local.dns_zone_id
   domain_name                         = local.domain_name
   cloudfront_distribution_domain_name = module.cloudfront.distribution_domain_name
@@ -28,7 +35,8 @@ module "acm" {
   source = "./modules/acm"
 
   providers = {
-    aws = aws.us_east_1
+    aws     = aws.us_east_1
+    aws.dns = aws.dns
   }
 
   domain_name               = local.domain_name

@@ -4,6 +4,9 @@ project_name = "boilerplate-template"
 environment  = "dev"             # dev | prod
 root_domain  = "ahmax99.online"
 
+# Cross-account DNS (root zone hosted in a dedicated domain account)
+dns_account_role_arn = "" # e.g. "arn:aws:iam::000000000000:role/boilerplate-template-dns-cross-account-role"; empty when the zone lives in this same account
+
 # GitHub OIDC variables
 github_org = "ahmax99"
 

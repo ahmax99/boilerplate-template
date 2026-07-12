@@ -18,6 +18,16 @@ variable "root_domain" {
   type        = string
 }
 
+variable "dns_account_role_arn" {
+  description = "IAM role ARN to assume in the AWS account hosting the root Route 53 zone for cross-account DNS writes; empty string when the zone lives in this same account"
+  type        = string
+
+  validation {
+    condition     = can(regex("^$|^arn:aws:iam::[0-9]{12}:role/.+$", var.dns_account_role_arn))
+    error_message = "dns_account_role_arn must be a valid IAM role ARN or empty."
+  }
+}
+
 variable "github_org" {
   description = "GitHub organization name"
   type        = string
