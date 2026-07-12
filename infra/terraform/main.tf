@@ -207,7 +207,7 @@ module "backend" {
     FRONTEND_URL             = local.frontend_url
     NODE_ENV                 = "production"
     S3_BUCKET_NAME           = local.s3_uploads_bucket_name
-    SENTRY_DSN               = var.sentry_dsn
+    SENTRY_DSN               = var.backend_sentry_dsn
   }
 
   enable_function_url    = true
@@ -259,6 +259,7 @@ module "frontend" {
     FROM_EMAIL           = var.from_email
     NODE_ENV             = "production"
     RESEND_API_KEY       = var.resend_api_key
+    SENTRY_DSN           = var.frontend_sentry_dsn
     SESSION_SECRET       = var.session_secret
   }
 

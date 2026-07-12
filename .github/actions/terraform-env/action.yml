@@ -20,8 +20,11 @@ inputs:
   session-secret:
     description: 'TF_VAR_session_secret (secret)'
     required: true
-  sentry-dsn:
-    description: 'TF_VAR_sentry_dsn (secret)'
+  backend-sentry-dsn:
+    description: 'TF_VAR_backend_sentry_dsn (secret)'
+    required: true
+  frontend-sentry-dsn:
+    description: 'TF_VAR_frontend_sentry_dsn (secret)'
     required: true
 
 runs:
@@ -42,7 +45,8 @@ runs:
         TF_VAR_google_client_secret: ${{ inputs.google-client-secret }}
         TF_VAR_resend_api_key: ${{ inputs.resend-api-key }}
         TF_VAR_session_secret: ${{ inputs.session-secret }}
-        TF_VAR_sentry_dsn: ${{ inputs.sentry-dsn }}
+        TF_VAR_backend_sentry_dsn: ${{ inputs.backend-sentry-dsn }}
+        TF_VAR_frontend_sentry_dsn: ${{ inputs.frontend-sentry-dsn }}
       run: |
         {
           echo "TF_VAR_project_name=$TF_VAR_project_name"
@@ -57,5 +61,6 @@ runs:
           echo "TF_VAR_google_client_secret=$TF_VAR_google_client_secret"
           echo "TF_VAR_resend_api_key=$TF_VAR_resend_api_key"
           echo "TF_VAR_session_secret=$TF_VAR_session_secret"
-          echo "TF_VAR_sentry_dsn=$TF_VAR_sentry_dsn"
+          echo "TF_VAR_backend_sentry_dsn=$TF_VAR_backend_sentry_dsn"
+          echo "TF_VAR_frontend_sentry_dsn=$TF_VAR_frontend_sentry_dsn"
         } >> "$GITHUB_ENV"
