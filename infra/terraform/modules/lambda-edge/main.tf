@@ -89,7 +89,7 @@ resource "aws_lambda_permission" "cloudfront_invoke_signer" {
 
 # Grants the edge role permission to invoke the Function URL it signs requests for
 resource "aws_iam_role_policy" "signer_invoke_frontend" {
-  name = "invoke-frontend-function-url"
+  name = "${var.name_prefix}-invoke-frontend-function-url"
   role = aws_iam_role.lambda_edge.name
 
   policy = jsonencode({
@@ -97,9 +97,6 @@ resource "aws_iam_role_policy" "signer_invoke_frontend" {
     Statement = [
       {
         Effect = "Allow"
-        # AWS_IAM function URLs created after Oct 2025 require BOTH lambda:InvokeFunctionUrl
-        # and lambda:InvokeFunction; granting only the former is denied at the URL with a
-        # 403 AccessDeniedException. Mirrors the frontend→backend grant in lambda-permissions.
         Action = [
           "lambda:InvokeFunctionUrl",
           "lambda:InvokeFunction"
