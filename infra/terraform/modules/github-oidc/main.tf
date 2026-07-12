@@ -103,6 +103,19 @@ resource "aws_iam_policy" "lambda_deployment" {
           Resource = var.ecr_repository_arns
         }
       ],
+      # Pull-only access to the source/build ECR repos for registry-side promotion (prod only; empty elsewhere)
+      length(var.source_ecr_repository_arns) > 0 ? [
+        {
+          Sid    = "AllowECRImagePullFromSource"
+          Effect = "Allow"
+          Action = [
+            "ecr:BatchCheckLayerAvailability",
+            "ecr:GetDownloadUrlForLayer",
+            "ecr:BatchGetImage"
+          ]
+          Resource = var.source_ecr_repository_arns
+        }
+      ] : [],
       # S3 static assets permissions
       [
         {

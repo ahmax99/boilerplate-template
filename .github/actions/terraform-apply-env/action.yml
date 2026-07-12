@@ -11,18 +11,6 @@ inputs:
   aws-region:
     description: 'AWS region'
     required: true
-  next-public-base-url:
-    description: 'NEXT_PUBLIC_BASE_URL for the frontend Docker build (bootstrap path only)'
-    required: false
-    default: ''
-  next-public-backend-url:
-    description: 'NEXT_PUBLIC_BACKEND_URL for the frontend Docker build (bootstrap path only)'
-    required: false
-    default: ''
-  next-public-sentry-dsn:
-    description: 'NEXT_PUBLIC_SENTRY_DSN for the frontend Docker build (bootstrap path only)'
-    required: false
-    default: ''
 
 runs:
   using: 'composite'
@@ -48,9 +36,6 @@ runs:
       uses: ./.github/actions/terraform-bootstrap
       with:
         aws-region: ${{ inputs.aws-region }}
-        next-public-base-url: ${{ inputs.next-public-base-url }}
-        next-public-backend-url: ${{ inputs.next-public-backend-url }}
-        next-public-sentry-dsn: ${{ inputs.next-public-sentry-dsn }}
 
     # ── STEADY-STATE PATH ─────────────────────────────────────────────────────
     - name: Steady-state — Plan

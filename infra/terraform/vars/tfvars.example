@@ -5,8 +5,7 @@ environment  = "dev"             # dev | prod
 root_domain  = "ahmax99.online"
 
 # GitHub OIDC variables
-github_org                   = "ahmax99"
-create_github_oidc_provider  = true # true for the first env applied (dev); false for the others
+github_org = "ahmax99"
 
 # Backend Environment Variables
 database_url = "postgresql://user:password@host/database"

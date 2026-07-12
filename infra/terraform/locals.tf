@@ -7,6 +7,10 @@ locals {
 
   name_prefix = "${var.project_name}-${var.environment}"
 
+  account_id = data.aws_caller_identity.current.account_id
+
+  source_repo_prefix = "${var.project_name}-dev"
+
   domain_name = var.environment == "prod" ? "${var.project_name}.${var.root_domain}" : "${var.environment}.${var.project_name}.${var.root_domain}"
 
   # App origins
@@ -20,4 +24,26 @@ locals {
 
   # CloudFront distribution ARN
   cloudfront_distribution_arn = module.cloudfront.distribution_arn
+
+  # Per-environment hardening config
+  env_config = {
+    dev = {
+      log_retention_days                = 7
+      reserved_concurrent_executions    = -1
+      provisioned_concurrent_executions = 0
+      deployment_config_name            = "CodeDeployDefault.LambdaAllAtOnce"
+      enable_alarms                     = false
+      create_oidc_provider              = true
+    }
+    prod = {
+      log_retention_days                = 30
+      reserved_concurrent_executions    = 10
+      provisioned_concurrent_executions = 2
+      deployment_config_name            = "CodeDeployDefault.LambdaCanary10Percent5Minutes"
+      enable_alarms                     = true
+      create_oidc_provider              = false
+    }
+  }
+
+  env = local.env_config[var.environment]
 }

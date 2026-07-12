@@ -1,0 +1,40 @@
+name: 'Promote ECR Image'
+description: 'Registry-side copy (docker buildx imagetools create) of a built image into another ECR repo, skipping if the target tag already exists (immutable tags)'
+
+inputs:
+  repository-name:
+    description: 'Target ECR repository name (not the full URL) — used for the pre-existence check'
+    required: true
+  source-image-uri:
+    description: 'Source image URI to promote from (e.g. the dev repo build)'
+    required: true
+  target-image-uri:
+    description: 'Target image URI to promote into, same tag (e.g. the prod repo)'
+    required: true
+  aws-region:
+    description: 'AWS region'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+
+    - name: Promote image (registry-side copy)
+      shell: bash
+      env:
+        REPOSITORY_NAME: ${{ inputs.repository-name }}
+        SOURCE_IMAGE_URI: ${{ inputs.source-image-uri }}
+        TARGET_IMAGE_URI: ${{ inputs.target-image-uri }}
+        AWS_REGION: ${{ inputs.aws-region }}
+      run: |
+        chmod +x .github/scripts/promote-image.sh
+        .github/scripts/promote-image.sh \
+          "$REPOSITORY_NAME" \
+          "$SOURCE_IMAGE_URI" \
+          "$TARGET_IMAGE_URI" \
+          "$AWS_REGION"

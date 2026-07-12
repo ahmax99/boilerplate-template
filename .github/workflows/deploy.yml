@@ -147,9 +147,6 @@ jobs:
             ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            NEXT_PUBLIC_BASE_URL=${{ vars.NEXT_PUBLIC_BASE_URL }}
-            NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
 
       - name: Set image URI output
         id: set-uri
@@ -232,10 +229,35 @@ jobs:
           cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
           aws-region: ${{ env.AWS_REGION }}
 
+  # ── Ordering gate ──────────────────────────────────────────────────────────
+  # Terraform-first: block prod app deploy until terraform-apply.yml's prod apply
+  # for this same ref has concluded successfully. The timeout is generous (not
+  # the usual 30-45min budget) because this job blocks on a separate, unbounded
+  # human reviewer approval on terraform-apply.yml's prod job, not just CI work.
+  wait-for-prod-infra:
+    name: Wait for prod Terraform apply
+    needs: detect
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Wait for terraform-apply.yml prod apply on this ref
+        uses: ./.github/actions/wait-for-workflow-run
+        with:
+          workflow-file: terraform-apply.yml
+          ref-name: ${{ github.ref_name }}
+
   # ── Prod deploy jobs ───────────────────────────────────────────────────────
   deploy-prod-backend:
     name: Deploy Backend → Prod
-    needs: [detect, build-backend, deploy-dev-backend]
+    needs: [detect, build-backend, deploy-dev-backend, wait-for-prod-infra]
     if: >-
       needs.detect.outputs.backend == 'true' &&
       github.event_name == 'push' && github.ref_type == 'tag'
@@ -257,11 +279,19 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Prod
 
+      - name: Promote image to prod ECR repo
+        uses: ./.github/actions/promote-image
+        with:
+          repository-name: ${{ github.event.repository.name }}-prod-backend
+          source-image-uri: ${{ needs.build-backend.outputs.image-uri }}
+          target-image-uri: ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
+          aws-region: ${{ env.AWS_REGION }}
+
       - name: Deploy backend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
           function-name: ${{ github.event.repository.name }}-prod-backend
-          image-uri: ${{ needs.build-backend.outputs.image-uri }}
+          image-uri: ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
           alias-name: prod
           codedeploy-app: ${{ github.event.repository.name }}-prod-backend
           codedeploy-group: ${{ github.event.repository.name }}-prod-backend-dg
@@ -271,7 +301,7 @@ jobs:
 
   deploy-prod-frontend:
     name: Deploy Frontend → Prod
-    needs: [detect, build-frontend, deploy-dev-frontend]
+    needs: [detect, build-frontend, deploy-dev-frontend, wait-for-prod-infra]
     if: >-
       needs.detect.outputs.frontend == 'true' &&
       github.event_name == 'push' && github.ref_type == 'tag'
@@ -293,11 +323,19 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Prod
 
+      - name: Promote image to prod ECR repo
+        uses: ./.github/actions/promote-image
+        with:
+          repository-name: ${{ github.event.repository.name }}-prod-frontend
+          source-image-uri: ${{ needs.build-frontend.outputs.image-uri }}
+          target-image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
+          aws-region: ${{ env.AWS_REGION }}
+
       - name: Deploy frontend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
           function-name: ${{ github.event.repository.name }}-prod-frontend
-          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
+          image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
           alias-name: prod
           codedeploy-app: ${{ github.event.repository.name }}-prod-frontend
           codedeploy-group: ${{ github.event.repository.name }}-prod-frontend-dg
@@ -308,7 +346,7 @@ jobs:
       - name: Deploy static assets and invalidate CloudFront
         uses: ./.github/actions/deploy-static-assets
         with:
-          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
+          image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
           static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
           cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
           aws-region: ${{ env.AWS_REGION }}

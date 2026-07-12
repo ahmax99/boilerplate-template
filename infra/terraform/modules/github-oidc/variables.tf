@@ -28,6 +28,12 @@ variable "ecr_repository_arns" {
   type        = list(string)
 }
 
+variable "source_ecr_repository_arns" {
+  description = "Source/build ECR repository ARNs this role may pull from during registry-side image promotion (empty for envs that don't promote from another env's repo)"
+  type        = list(string)
+  default     = []
+}
+
 variable "s3_static_assets_bucket_id" {
   description = "S3 bucket ID (name) for static assets"
   type        = string

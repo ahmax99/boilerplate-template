@@ -5,9 +5,6 @@ inputs:
   environment:
     description: 'Target environment (dev, prod) — sets TF_VAR_environment'
     required: true
-  create-github-oidc-provider:
-    description: 'TF_VAR_create_github_oidc_provider — true for exactly one environment (dev), false for the others'
-    required: true
   database-url:
     description: 'TF_VAR_database_url (secret)'
     required: true
@@ -38,7 +35,6 @@ runs:
         TF_VAR_aws_region: ${{ inputs.aws-region }}
         TF_VAR_root_domain: ${{ inputs.root-domain }}
         TF_VAR_github_org: ${{ github.repository_owner }}
-        TF_VAR_create_github_oidc_provider: ${{ inputs.create-github-oidc-provider }}
         TF_VAR_contact_to_email: ${{ inputs.contact-to-email }}
         TF_VAR_from_email: ${{ inputs.from-email }}
         TF_VAR_database_url: ${{ inputs.database-url }}
@@ -54,7 +50,6 @@ runs:
           echo "TF_VAR_aws_region=$TF_VAR_aws_region"
           echo "TF_VAR_root_domain=$TF_VAR_root_domain"
           echo "TF_VAR_github_org=$TF_VAR_github_org"
-          echo "TF_VAR_create_github_oidc_provider=$TF_VAR_create_github_oidc_provider"
           echo "TF_VAR_contact_to_email=$TF_VAR_contact_to_email"
           echo "TF_VAR_from_email=$TF_VAR_from_email"
           echo "TF_VAR_database_url=$TF_VAR_database_url"
