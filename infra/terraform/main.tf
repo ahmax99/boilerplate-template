@@ -569,8 +569,8 @@ module "github_oidc" {
   ]
 
   source_ecr_repository_arns = var.environment == "prod" ? [
-    "arn:aws:ecr:${var.aws_region}:${local.account_id}:repository/${var.project_name}-dev-backend",
-    "arn:aws:ecr:${var.aws_region}:${local.account_id}:repository/${var.project_name}-dev-frontend"
+    "arn:aws:ecr:${var.aws_region}:${local.account_id}:repository/${local.source_repo_prefix}-backend",
+    "arn:aws:ecr:${var.aws_region}:${local.account_id}:repository/${local.source_repo_prefix}-frontend"
   ] : []
 
   s3_static_assets_bucket_id  = module.s3_static_assets.bucket_id

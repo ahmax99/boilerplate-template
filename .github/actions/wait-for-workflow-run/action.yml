@@ -1,12 +1,12 @@
 name: 'Wait for Workflow Run'
-description: 'Polls for a workflow run on a given commit and blocks until it concludes, failing if it did not succeed'
+description: 'Polls for a push-triggered workflow run on a given ref and blocks until it concludes, failing if it did not succeed'
 
 inputs:
   workflow-file:
     description: 'Workflow filename to wait for (e.g. terraform-apply.yml)'
     required: true
-  commit-sha:
-    description: 'Commit SHA the target run must match'
+  ref-name:
+    description: 'Tag or branch name the target run must have been triggered from (e.g. github.ref_name) — matched against a push event specifically, so an unrelated run on the same commit (e.g. an earlier branch-push run) cannot be mistaken for it'
     required: true
   repo:
     description: 'owner/repo to query'
@@ -30,7 +30,7 @@ runs:
         GH_TOKEN: ${{ github.token }}
         REPO: ${{ inputs.repo }}
         WORKFLOW_FILE: ${{ inputs.workflow-file }}
-        COMMIT_SHA: ${{ inputs.commit-sha }}
+        REF_NAME: ${{ inputs.ref-name }}
         MAX_ATTEMPTS: ${{ inputs.max-attempts }}
         POLL_INTERVAL_SECONDS: ${{ inputs.poll-interval-seconds }}
       run: |

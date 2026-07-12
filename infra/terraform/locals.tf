@@ -9,6 +9,9 @@ locals {
 
   account_id = data.aws_caller_identity.current.account_id
 
+  # Prod always promotes its images from dev's ECR repos (registry-side copy, same account, no cross-state read) — see main.tf's github_oidc module.
+  source_repo_prefix = "${var.project_name}-dev"
+
   domain_name = var.environment == "prod" ? "${var.project_name}.${var.root_domain}" : "${var.environment}.${var.project_name}.${var.root_domain}"
 
   # App origins

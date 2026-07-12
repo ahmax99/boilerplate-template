@@ -242,11 +242,14 @@ jobs:
       contents: read
 
     steps:
-      - name: Wait for terraform-apply.yml prod apply on this commit
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Wait for terraform-apply.yml prod apply on this ref
         uses: ./.github/actions/wait-for-workflow-run
         with:
           workflow-file: terraform-apply.yml
-          commit-sha: ${{ github.sha }}
+          ref-name: ${{ github.ref_name }}
 
   # ── Prod deploy jobs ───────────────────────────────────────────────────────
   deploy-prod-backend:
