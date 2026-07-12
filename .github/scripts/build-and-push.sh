@@ -20,9 +20,6 @@ echo "==> Building frontend image..."
 docker build --platform linux/amd64 \
   -t "${ECR_FRONTEND_URL}:latest" \
   -f apps/nextjs-boilerplate/Dockerfile \
-  --build-arg NEXT_PUBLIC_BASE_URL="${NEXT_PUBLIC_BASE_URL:-}" \
-  --build-arg NEXT_PUBLIC_BACKEND_URL="${NEXT_PUBLIC_BACKEND_URL:-}" \
-  --build-arg NEXT_PUBLIC_SENTRY_DSN="${NEXT_PUBLIC_SENTRY_DSN:-}" \
   .
 
 echo "==> Pushing frontend image..."

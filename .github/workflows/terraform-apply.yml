@@ -8,7 +8,12 @@ on:
       - 'infra/terraform/**'
     tags:
       - 'v*'
-  workflow_dispatch: # dev only — prod requires a v* tag push
+  workflow_dispatch:
+    inputs:
+      apply_prod:
+        description: 'Also apply prod (first bring-up only — steady state stays v*-tag-only). Still gated by the prod environment reviewer.'
+        type: boolean
+        default: false
 
 permissions:
   id-token: write
@@ -68,14 +73,13 @@ jobs:
           environment: dev
           project-name: ${{ github.event.repository.name }}
           aws-region: ${{ env.AWS_REGION }}
-          next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
-          next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
-          next-public-sentry-dsn: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
 
   apply-prod:
     name: Terraform Apply → Prod
     needs: apply-dev
-    if: github.event_name == 'push' && github.ref_type == 'tag'
+    if: >-
+      (github.event_name == 'push' && github.ref_type == 'tag') ||
+      (github.event_name == 'workflow_dispatch' && inputs.apply_prod == true)
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment: prod # required-reviewer gate (already configured for deploy.yml)
@@ -122,6 +126,3 @@ jobs:
           environment: prod
           project-name: ${{ github.event.repository.name }}
           aws-region: ${{ env.AWS_REGION }}
-          next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
-          next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
-          next-public-sentry-dsn: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}

@@ -7,6 +7,8 @@ locals {
 
   name_prefix = "${var.project_name}-${var.environment}"
 
+  account_id = data.aws_caller_identity.current.account_id
+
   domain_name = var.environment == "prod" ? "${var.project_name}.${var.root_domain}" : "${var.environment}.${var.project_name}.${var.root_domain}"
 
   # App origins

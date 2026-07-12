@@ -557,9 +557,9 @@ module "github_oidc" {
   ]
 
   codedeploy_arns = [
-    "arn:aws:codedeploy:${var.aws_region}:${data.aws_caller_identity.current.account_id}:application:${module.codedeploy_backend.app_name}",
+    "arn:aws:codedeploy:${var.aws_region}:${local.account_id}:application:${module.codedeploy_backend.app_name}",
     module.codedeploy_backend.deployment_group_arn,
-    "arn:aws:codedeploy:${var.aws_region}:${data.aws_caller_identity.current.account_id}:application:${module.codedeploy_frontend.app_name}",
+    "arn:aws:codedeploy:${var.aws_region}:${local.account_id}:application:${module.codedeploy_frontend.app_name}",
     module.codedeploy_frontend.deployment_group_arn
   ]
 
@@ -567,6 +567,11 @@ module "github_oidc" {
     module.ecr_backend.repository_arn,
     module.ecr_frontend.repository_arn
   ]
+
+  source_ecr_repository_arns = var.environment == "prod" ? [
+    "arn:aws:ecr:${var.aws_region}:${local.account_id}:repository/${var.project_name}-dev-backend",
+    "arn:aws:ecr:${var.aws_region}:${local.account_id}:repository/${var.project_name}-dev-frontend"
+  ] : []
 
   s3_static_assets_bucket_id  = module.s3_static_assets.bucket_id
   s3_static_assets_bucket_arn = module.s3_static_assets.bucket_arn
