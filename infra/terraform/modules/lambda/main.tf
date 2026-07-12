@@ -178,3 +178,14 @@ resource "aws_lambda_alias" "this" {
     ignore_changes = [function_version]
   }
 }
+
+# -------------------
+# Provisioned Concurrency (alias-qualified)
+# -------------------
+resource "aws_lambda_provisioned_concurrency_config" "this" {
+  count = var.create_alias && var.provisioned_concurrent_executions > 0 ? 1 : 0
+
+  function_name                     = aws_lambda_function.this.function_name
+  qualifier                         = aws_lambda_alias.this[0].name
+  provisioned_concurrent_executions = var.provisioned_concurrent_executions
+}

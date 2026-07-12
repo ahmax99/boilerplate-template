@@ -185,10 +185,11 @@ module "backend" {
   image_uri          = "${module.ecr_backend.repository_url}:latest"
   ecr_repository_arn = module.ecr_backend.repository_arn
 
-  memory_size                    = 512
-  timeout                        = 30
-  log_retention_days             = 7
-  reserved_concurrent_executions = -1
+  memory_size                       = 512
+  timeout                           = 30
+  log_retention_days                = local.env.log_retention_days
+  reserved_concurrent_executions    = local.env.reserved_concurrent_executions
+  provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
 
   s3_bucket_name        = local.s3_uploads_bucket_name
   cognito_user_pool_arn = module.cognito.user_pool_arn
@@ -234,10 +235,11 @@ module "frontend" {
   image_uri          = "${module.ecr_frontend.repository_url}:latest"
   ecr_repository_arn = module.ecr_frontend.repository_arn
 
-  memory_size                    = 512
-  timeout                        = 30
-  log_retention_days             = 7
-  reserved_concurrent_executions = -1
+  memory_size                       = 512
+  timeout                           = 30
+  log_retention_days                = local.env.log_retention_days
+  reserved_concurrent_executions    = local.env.reserved_concurrent_executions
+  provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
 
   s3_bucket_name        = null
   cognito_user_pool_arn = module.cognito.user_pool_arn
@@ -459,6 +461,27 @@ module "ecr_frontend" {
 }
 
 # -------------------
+# Monitoring — CloudWatch alarms that gate CodeDeploy canary rollback (prod only)
+# -------------------
+module "monitoring" {
+  source = "./modules/monitoring"
+  count  = local.env.enable_alarms ? 1 : 0
+
+  name_prefix            = local.name_prefix
+  backend_function_name  = module.backend.function_name
+  backend_alias_name     = module.backend.alias_name
+  frontend_function_name = module.frontend.function_name
+  frontend_alias_name    = module.frontend.alias_name
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${local.name_prefix}-monitoring"
+    }
+  )
+}
+
+# -------------------
 # CodeDeploy
 # -------------------
 module "codedeploy_backend" {
@@ -469,7 +492,7 @@ module "codedeploy_backend" {
   lambda_function_arn   = module.backend.function_arn
 
   create_custom_deployment_config = false
-  deployment_config_name          = "CodeDeployDefault.LambdaAllAtOnce"
+  deployment_config_name          = local.env.deployment_config_name
   traffic_routing_type            = "AllAtOnce"
   linear_interval                 = 1
   linear_percentage               = 10
@@ -478,7 +501,7 @@ module "codedeploy_backend" {
 
   enable_auto_rollback = true
   auto_rollback_events = ["DEPLOYMENT_FAILURE", "DEPLOYMENT_STOP_ON_ALARM"]
-  alarm_names          = []
+  alarm_names          = local.env.enable_alarms ? module.monitoring[0].backend_alarm_names : []
 
   tags = merge(
     local.common_tags,
@@ -496,7 +519,7 @@ module "codedeploy_frontend" {
   lambda_function_arn   = module.frontend.function_arn
 
   create_custom_deployment_config = false
-  deployment_config_name          = "CodeDeployDefault.LambdaAllAtOnce"
+  deployment_config_name          = local.env.deployment_config_name
   traffic_routing_type            = "AllAtOnce"
   linear_interval                 = 1
   linear_percentage               = 10
@@ -505,7 +528,7 @@ module "codedeploy_frontend" {
 
   enable_auto_rollback = true
   auto_rollback_events = ["DEPLOYMENT_FAILURE", "DEPLOYMENT_STOP_ON_ALARM"]
-  alarm_names          = []
+  alarm_names          = local.env.enable_alarms ? module.monitoring[0].frontend_alarm_names : []
 
   tags = merge(
     local.common_tags,
@@ -551,7 +574,7 @@ module "github_oidc" {
 
   enable_terraform_roles = true
   environment            = var.environment
-  create_oidc_provider   = var.create_github_oidc_provider
+  create_oidc_provider   = local.env.create_oidc_provider
   github_org             = var.github_org
   state_bucket_arn       = "arn:aws:s3:::${var.project_name}-terraform-state"
 

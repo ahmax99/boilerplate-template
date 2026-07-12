@@ -147,9 +147,6 @@ jobs:
             ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            NEXT_PUBLIC_BASE_URL=${{ vars.NEXT_PUBLIC_BASE_URL }}
-            NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
 
       - name: Set image URI output
         id: set-uri

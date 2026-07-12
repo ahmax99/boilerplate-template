@@ -23,11 +23,6 @@ variable "github_org" {
   type        = string
 }
 
-variable "create_github_oidc_provider" {
-  description = "Create the account-global GitHub OIDC provider. Set true for exactly one environment (dev) applied first; false for the others, which resolve the existing provider via a data source."
-  type        = bool
-}
-
 variable "database_url" {
   description = "Database connection URL (Neon PostgreSQL)"
   type        = string
