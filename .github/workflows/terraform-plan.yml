@@ -46,6 +46,8 @@ jobs:
           session-secret: ${{ secrets.TF_VAR_session_secret }}
           backend-sentry-dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
           frontend-sentry-dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
+          source-ecr-account-id: ${{ vars.SOURCE_ECR_ACCOUNT_ID }}
+          promotion-grantee-account-id: ${{ vars.PROMOTION_GRANTEE_ACCOUNT_ID }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1

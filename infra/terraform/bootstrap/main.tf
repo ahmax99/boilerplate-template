@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = var.state_bucket_name
+  bucket = local.state_bucket_name
 
   tags = {
-    Name        = var.state_bucket_name
-    Description = "Terraform state storage for all environments with native S3 locking"
+    Name        = local.state_bucket_name
+    Description = "Terraform state storage for the ${var.environment} environment with native S3 locking"
   }
 }
 

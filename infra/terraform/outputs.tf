@@ -82,6 +82,14 @@ output "static_assets_bucket_name" {
 }
 
 # -------------------
+# Route 53
+# -------------------
+output "dev_zone_name_servers" {
+  description = "Name servers of dev's delegated hosted zone — create an NS record for this in the parent (root-domain) zone in the prod account"
+  value       = var.environment == "prod" ? null : aws_route53_zone.delegated[0].name_servers
+}
+
+# -------------------
 # GitHub Actions OIDC roles
 # -------------------
 output "github_actions_role_arn" {

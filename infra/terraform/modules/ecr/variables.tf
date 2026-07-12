@@ -24,7 +24,7 @@ variable "image_tag_mutability" {
 }
 
 variable "image_tag_mutability_exclusion_filters" {
-  description = "Tag patterns exempt from image_tag_mutability. Only applied when image_tag_mutability is IMMUTABLE_WITH_EXCLUSION or MUTABLE_WITH_EXCLUSION. Each filter_type must be WILDCARD; each filter allows letters, numbers, and ._- plus up to 2 '*' (max 128 chars)."
+  description = "Tag patterns exempt from image_tag_mutability. Only applied when image_tag_mutability is IMMUTABLE_WITH_EXCLUSION or MUTABLE_WITH_EXCLUSION."
   type = list(object({
     filter      = string
     filter_type = string
@@ -52,4 +52,9 @@ variable "lifecycle_policy" {
 variable "tags" {
   description = "Additional tags for the ECR repository"
   type        = map(string)
+}
+
+variable "cross_account_pull_principal_arns" {
+  description = "IAM role/principal ARNs in another account allowed to pull images for cross-account promotion. Empty when no cross-account pull is needed."
+  type        = list(string)
 }

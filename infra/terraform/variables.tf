@@ -74,3 +74,23 @@ variable "session_secret" {
   type        = string
   sensitive   = true
 }
+
+variable "source_ecr_account_id" {
+  description = "Account ID hosting the source/build ECR repos images are promoted FROM (the dev account). Set on prod; empty elsewhere."
+  type        = string
+
+  validation {
+    condition     = can(regex("^([0-9]{12})?$", var.source_ecr_account_id))
+    error_message = "source_ecr_account_id must be a 12-digit AWS account ID or empty."
+  }
+}
+
+variable "promotion_grantee_account_id" {
+  description = "Account ID whose deploy role may pull images from this env's ECR for promotion (the prod account). Set on dev; empty elsewhere."
+  type        = string
+
+  validation {
+    condition     = can(regex("^([0-9]{12})?$", var.promotion_grantee_account_id))
+    error_message = "promotion_grantee_account_id must be a 12-digit AWS account ID or empty."
+  }
+}

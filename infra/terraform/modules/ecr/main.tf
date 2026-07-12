@@ -69,18 +69,34 @@ resource "aws_ecr_repository_policy" "lambda_pull" {
 
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "LambdaECRImageRetrievalPolicy"
-        Effect = "Allow"
-        Principal = {
-          Service = "lambda.amazonaws.com"
+    Statement = concat(
+      [
+        {
+          Sid    = "LambdaECRImageRetrievalPolicy"
+          Effect = "Allow"
+          Principal = {
+            Service = "lambda.amazonaws.com"
+          }
+          Action = [
+            "ecr:BatchGetImage",
+            "ecr:GetDownloadUrlForLayer"
+          ]
         }
-        Action = [
-          "ecr:BatchGetImage",
-          "ecr:GetDownloadUrlForLayer"
-        ]
-      }
-    ]
+      ],
+      length(var.cross_account_pull_principal_arns) > 0 ? [
+        {
+          Sid    = "AllowCrossAccountPromotionPull"
+          Effect = "Allow"
+          Principal = {
+            AWS = var.cross_account_pull_principal_arns
+          }
+          Action = [
+            "ecr:BatchGetImage",
+            "ecr:GetDownloadUrlForLayer",
+            "ecr:BatchCheckLayerAvailability"
+          ]
+        }
+      ] : []
+    )
   })
 }

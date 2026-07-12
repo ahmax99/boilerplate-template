@@ -4,8 +4,17 @@ variable "aws_region" {
   default     = "ap-northeast-1"
 }
 
-variable "state_bucket_name" {
-  description = "Name of the S3 bucket for Terraform state"
+variable "project_name" {
+  description = "Project name — must match the main root module's var.project_name"
   type        = string
-  default     = "boilerplate-template-terraform-state"
+}
+
+variable "environment" {
+  description = "Environment this state bucket belongs to (dev, prod) — each environment gets its own dedicated bucket"
+  type        = string
+
+  validation {
+    condition     = contains(["dev", "prod"], var.environment)
+    error_message = "Environment must be dev or prod"
+  }
 }

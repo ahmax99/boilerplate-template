@@ -1,5 +1,5 @@
-bucket       = "boilerplate-template-terraform-state"
-key          = "prod/terraform.tfstate"
+bucket       = "boilerplate-template-prod-terraform-state"
+key          = "terraform.tfstate"
 region       = "ap-northeast-1"
 encrypt      = true
 use_lockfile = true

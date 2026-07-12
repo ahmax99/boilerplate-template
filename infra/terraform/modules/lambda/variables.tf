@@ -61,7 +61,7 @@ variable "cognito_user_pool_arn" {
 }
 
 variable "cognito_actions" {
-  description = "Cognito Identity Provider admin actions to grant when cognito_user_pool_arn is set (e.g. [\"cognito-idp:AdminAddUserToGroup\"]). Ignored when cognito_user_pool_arn is null; each caller should list only the actions it actually invokes."
+  description = "Cognito Identity Provider admin actions to grant when cognito_user_pool_arn is set. Ignored when cognito_user_pool_arn is null; each caller should list only the actions it actually invokes."
   type        = list(string)
 }
 

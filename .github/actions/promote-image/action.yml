@@ -1,5 +1,5 @@
 name: 'Promote ECR Image'
-description: 'Registry-side copy (docker buildx imagetools create) of a built image into another ECR repo, skipping if the target tag already exists (immutable tags)'
+description: 'Cross-account pull-then-push of a built image into another ECR repo, skipping if the target tag already exists (immutable tags)'
 
 inputs:
   repository-name:
@@ -14,17 +14,24 @@ inputs:
   aws-region:
     description: 'AWS region'
     required: true
+  source-account-id:
+    description: 'AWS account ID hosting the source registry (dev)'
+    required: true
 
 runs:
   using: 'composite'
   steps:
+    - name: Resolve target account ID
+      id: target-account
+      shell: bash
+      run: echo "account-id=$(aws sts get-caller-identity --query Account --output text)" >> "$GITHUB_OUTPUT"
+
     - name: Login to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v2
+      with:
+        registries: '${{ inputs.source-account-id }},${{ steps.target-account.outputs.account-id }}'
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
-
-    - name: Promote image (registry-side copy)
+    - name: Promote image (pull-then-push)
       shell: bash
       env:
         REPOSITORY_NAME: ${{ inputs.repository-name }}
