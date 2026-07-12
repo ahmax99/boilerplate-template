@@ -29,8 +29,14 @@ variable "database_url" {
   sensitive   = true
 }
 
-variable "sentry_dsn" {
-  description = "Sentry DSN for error tracking"
+variable "backend_sentry_dsn" {
+  description = "Sentry DSN for the backend's error tracking"
+  type        = string
+  sensitive   = true
+}
+
+variable "frontend_sentry_dsn" {
+  description = "Sentry DSN for the frontend's error tracking"
   type        = string
   sensitive   = true
 }
