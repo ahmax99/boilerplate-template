@@ -8,7 +8,7 @@ resource "aws_route53_zone" "delegated" {
   tags = merge(local.common_tags, { Name = "${local.name_prefix}-dns-zone" })
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
@@ -208,7 +208,7 @@ module "backend" {
   provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
 
   s3_bucket_name        = local.s3_uploads_bucket_name
-  cognito_user_pool_arn = module.cognito.user_pool_arn
+  cognito_user_pool_arn = [module.cognito.user_pool_arn]
   cognito_actions       = ["cognito-idp:AdminDeleteUser"]
 
   secrets_arns = [
@@ -258,7 +258,7 @@ module "frontend" {
   provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
 
   s3_bucket_name        = null
-  cognito_user_pool_arn = module.cognito.user_pool_arn
+  cognito_user_pool_arn = [module.cognito.user_pool_arn]
   cognito_actions = [
     "cognito-idp:AdminAddUserToGroup",
     "cognito-idp:AdminListGroupsForUser"

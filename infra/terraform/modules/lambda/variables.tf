@@ -55,13 +55,17 @@ variable "secrets_arns" {
 }
 
 variable "cognito_user_pool_arn" {
-  description = "Cognito user pool ARN to grant admin permissions on (e.g. for assigning users to groups). Pass null when the function does not need Cognito admin access."
-  type        = string
-  nullable    = true
+  description = "Cognito user pool ARN to grant admin permissions on (e.g. for assigning users to groups), as a 0-or-1-element list. Pass [] when the function does not need Cognito admin access."
+  type        = list(string)
+
+  validation {
+    condition     = length(var.cognito_user_pool_arn) <= 1
+    error_message = "cognito_user_pool_arn must have at most 1 element"
+  }
 }
 
 variable "cognito_actions" {
-  description = "Cognito Identity Provider admin actions to grant when cognito_user_pool_arn is set. Ignored when cognito_user_pool_arn is null; each caller should list only the actions it actually invokes."
+  description = "Cognito Identity Provider admin actions to grant when cognito_user_pool_arn is non-empty. Ignored otherwise; each caller should list only the actions it actually invokes."
   type        = list(string)
 }
 
