@@ -150,7 +150,7 @@ module "cognito" {
 
   mfa_configuration      = "OPTIONAL"
   advanced_security_mode = "OFF"
-  deletion_protection    = "ACTIVE"
+  deletion_protection    = local.env.cognito_deletion_protection
 
   token_validity = {
     id_token_validity      = 60
@@ -326,7 +326,7 @@ module "s3_logs" {
     {
       id              = "expire-old-logs"
       enabled         = true
-      expiration_days = 90
+      expiration_days = local.env.s3_logs_expiration_days
     }
   ]
 

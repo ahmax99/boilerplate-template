@@ -34,6 +34,8 @@ locals {
       deployment_config_name            = "CodeDeployDefault.LambdaAllAtOnce"
       enable_alarms                     = false
       create_oidc_provider              = true
+      cognito_deletion_protection       = "INACTIVE"
+      s3_logs_expiration_days           = 7
     }
     prod = {
       log_retention_days                = 30
@@ -42,6 +44,8 @@ locals {
       deployment_config_name            = "CodeDeployDefault.LambdaCanary10Percent5Minutes"
       enable_alarms                     = true
       create_oidc_provider              = false
+      cognito_deletion_protection       = "ACTIVE"
+      s3_logs_expiration_days           = 90
     }
   }
 
