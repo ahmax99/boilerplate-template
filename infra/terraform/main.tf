@@ -547,8 +547,13 @@ module "github_oidc" {
   role_name    = "${local.name_prefix}-github-actions-role"
   project_name = var.project_name
 
+  # Every caller of this role (build/deploy jobs in deploy.yml) declares its own
+  # `environment: dev`/`environment: prod` — scoping trust to that environment
+  # claim (mirroring the terraform_apply/terraform_plan roles below) means the
+  # IAM trust policy itself enforces the same gate GitHub's environment
+  # protection rule does, rather than relying on workflow authors alone.
   github_repositories = [
-    "repo:${var.github_org}/${var.project_name}:*"
+    "repo:${var.github_org}/${var.project_name}:environment:${var.environment}"
   ]
 
   lambda_function_arns = [

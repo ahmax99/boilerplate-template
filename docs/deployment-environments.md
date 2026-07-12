@@ -100,10 +100,10 @@ hotfix/* branch → merge to main → manually trigger release-please.yml (workf
 
 ## OIDC Role Scoping
 
-- **Dev** OIDC role: allows any ref from this repository (`repo:org/repo:*`). Used by build jobs and dev deploy jobs. Push-only on the dev ECR repos.
-- **Prod** OIDC role: restricted to the `prod` GitHub environment (`repo:org/repo:environment:prod`). Used only by `deploy-prod-*` jobs. Push on the prod ECR repos, **plus pull-only** on the dev ECR repos (`source_ecr_repository_arns`) so it can registry-copy the built image during promotion — no broader ECR scope than that.
+- **Dev** OIDC role: trust restricted to the `dev` GitHub environment (`repo:org/repo:environment:dev`). Used by build jobs and dev deploy jobs — every one of them already declares `environment: dev`. Push-only on the dev ECR repos.
+- **Prod** OIDC role: trust restricted to the `prod` GitHub environment (`repo:org/repo:environment:prod`). Used only by `deploy-prod-*` jobs. Push on the prod ECR repos, **plus pull-only** on the dev ECR repos (`source_ecr_repository_arns`) so it can registry-copy the built image during promotion — no broader ECR scope than that.
 
-This means a compromised branch push cannot assume the prod role — only jobs running in the GitHub `prod` environment (which requires reviewer approval) can do so.
+Both roles' IAM trust policy enforces the same gate GitHub's environment protection rule does (rather than relying on workflow authors to always declare the right `environment:` key) — a compromised branch push with no `environment:` context cannot assume either role, and only jobs running in the `prod` GitHub environment (which requires reviewer approval) can assume the prod role.
 
 ## Per-Environment Hardening (`local.env_config`)
 

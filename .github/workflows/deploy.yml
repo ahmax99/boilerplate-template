@@ -231,12 +231,15 @@ jobs:
 
   # ── Ordering gate ──────────────────────────────────────────────────────────
   # Terraform-first: block prod app deploy until terraform-apply.yml's prod apply
+  # for this same ref has concluded successfully. The timeout is generous (not
+  # the usual 30-45min budget) because this job blocks on a separate, unbounded
+  # human reviewer approval on terraform-apply.yml's prod job, not just CI work.
   wait-for-prod-infra:
     name: Wait for prod Terraform apply
     needs: detect
     if: github.event_name == 'push' && github.ref_type == 'tag'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 360
     permissions:
       actions: read
       contents: read
