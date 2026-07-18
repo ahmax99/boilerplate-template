@@ -28,11 +28,6 @@ variable "dns_account_role_arn" {
   }
 }
 
-variable "github_org" {
-  description = "GitHub organization name"
-  type        = string
-}
-
 variable "database_url" {
   description = "Database connection URL (Neon PostgreSQL)"
   type        = string
@@ -85,22 +80,12 @@ variable "session_secret" {
   sensitive   = true
 }
 
-variable "source_ecr_account_id" {
-  description = "Account ID hosting the source/build ECR repos images are promoted FROM (the dev account). Set on prod; empty elsewhere."
+variable "central_ecr_account_id" {
+  description = "Account ID of the shared-services account hosting the central ECR repositories (created by the org repo, not this one)"
   type        = string
 
   validation {
-    condition     = can(regex("^([0-9]{12})?$", var.source_ecr_account_id))
-    error_message = "source_ecr_account_id must be a 12-digit AWS account ID or empty."
-  }
-}
-
-variable "promotion_grantee_account_id" {
-  description = "Account ID whose deploy role may pull images from this env's ECR for promotion (the prod account). Set on dev; empty elsewhere."
-  type        = string
-
-  validation {
-    condition     = can(regex("^([0-9]{12})?$", var.promotion_grantee_account_id))
-    error_message = "promotion_grantee_account_id must be a 12-digit AWS account ID or empty."
+    condition     = can(regex("^[0-9]{12}$", var.central_ecr_account_id))
+    error_message = "central_ecr_account_id must be a 12-digit AWS account ID."
   }
 }

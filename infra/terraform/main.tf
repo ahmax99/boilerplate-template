@@ -1,17 +1,6 @@
 # -------------------
 # Route 53
 # -------------------
-resource "aws_route53_zone" "delegated" {
-  count = var.environment == "prod" ? 0 : 1
-
-  name = local.domain_name
-  tags = merge(local.common_tags, { Name = "${local.name_prefix}-dns-zone" })
-
-  lifecycle {
-    prevent_destroy = false
-  }
-}
-
 module "route53" {
   source = "./modules/route53"
 
@@ -198,8 +187,8 @@ module "backend" {
   source = "./modules/lambda"
 
   function_name      = "${local.name_prefix}-backend"
-  image_uri          = "${module.ecr_backend.repository_url}:latest"
-  ecr_repository_arn = module.ecr_backend.repository_arn
+  image_uri          = "${local.ecr_backend_repository_url}:latest"
+  ecr_repository_arn = local.ecr_backend_repository_arn
 
   memory_size                       = 512
   timeout                           = 30
@@ -248,8 +237,8 @@ module "frontend" {
   source = "./modules/lambda"
 
   function_name      = "${local.name_prefix}-frontend"
-  image_uri          = "${module.ecr_frontend.repository_url}:latest"
-  ecr_repository_arn = module.ecr_frontend.repository_arn
+  image_uri          = "${local.ecr_frontend_repository_url}:latest"
+  ecr_repository_arn = local.ecr_frontend_repository_arn
 
   memory_size                       = 512
   timeout                           = 30
@@ -419,64 +408,6 @@ module "s3_static_assets" {
   )
 }
 
-# -------------------
-# ECR
-# -------------------
-module "ecr_backend" {
-  source = "./modules/ecr"
-
-  project_name    = var.project_name
-  environment     = var.environment
-  repository_name = "${local.name_prefix}-backend"
-
-  image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
-  image_tag_mutability_exclusion_filters = [
-    { filter = "latest*", filter_type = "WILDCARD" }
-  ]
-  scan_on_push = true
-
-  lifecycle_policy = {
-    max_image_count = 10
-    max_image_age   = 30
-  }
-
-  cross_account_pull_principal_arns = local.promotion_pull_principal_arns
-
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-backend-ecr"
-    }
-  )
-}
-
-module "ecr_frontend" {
-  source = "./modules/ecr"
-
-  project_name    = var.project_name
-  environment     = var.environment
-  repository_name = "${local.name_prefix}-frontend"
-
-  image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
-  image_tag_mutability_exclusion_filters = [
-    { filter = "latest*", filter_type = "WILDCARD" }
-  ]
-  scan_on_push = true
-
-  lifecycle_policy = {
-    max_image_count = 10
-    max_image_age   = 30
-  }
-
-  cross_account_pull_principal_arns = local.promotion_pull_principal_arns
-
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-frontend-ecr"
-    }
-  )
-}
 
 # -------------------
 # Monitoring — CloudWatch alarms that gate CodeDeploy canary rollback
@@ -556,51 +487,3 @@ module "codedeploy_frontend" {
   )
 }
 
-# -------------------
-# GitHub Actions OIDC
-# -------------------
-module "github_oidc" {
-  source = "./modules/github-oidc"
-
-  role_name    = "${local.name_prefix}-github-actions-role"
-  project_name = var.project_name
-
-  github_repositories = [
-    "repo:${var.github_org}/${var.project_name}:environment:${var.environment}"
-  ]
-
-  lambda_function_arns = [
-    module.backend.function_arn,
-    module.frontend.function_arn
-  ]
-
-  codedeploy_arns = [
-    "arn:aws:codedeploy:${var.aws_region}:${local.account_id}:application:${module.codedeploy_backend.app_name}",
-    module.codedeploy_backend.deployment_group_arn,
-    "arn:aws:codedeploy:${var.aws_region}:${local.account_id}:application:${module.codedeploy_frontend.app_name}",
-    module.codedeploy_frontend.deployment_group_arn
-  ]
-
-  ecr_repository_arns = [
-    module.ecr_backend.repository_arn,
-    module.ecr_frontend.repository_arn
-  ]
-
-  source_ecr_repository_arns = local.source_ecr_repository_arns
-
-  s3_static_assets_bucket_id  = module.s3_static_assets.bucket_id
-  s3_static_assets_bucket_arn = module.s3_static_assets.bucket_arn
-  cloudfront_distribution_arn = local.cloudfront_distribution_arn
-
-  enable_terraform_roles = true
-  environment            = var.environment
-  github_org             = var.github_org
-  state_bucket_arn       = "arn:aws:s3:::${local.name_prefix}-terraform-state"
-
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-github-actions"
-    }
-  )
-}

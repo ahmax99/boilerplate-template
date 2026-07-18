@@ -3,22 +3,6 @@ set -euo pipefail
 
 : "${AWS_REGION:?AWS_REGION is required}"
 
-echo "==> Creating ECR repositories..."
-terraform -chdir=infra/terraform apply \
-  -target=module.ecr_backend \
-  -target=module.ecr_frontend \
-  -auto-approve \
-  -lock-timeout=300s
-
-echo "==> Capturing ECR repository URLs..."
-ECR_BACKEND_URL=$(terraform -chdir=infra/terraform output -raw ecr_backend_repository_url)
-ECR_FRONTEND_URL=$(terraform -chdir=infra/terraform output -raw ecr_frontend_repository_url)
-
-echo "==> Building and pushing Docker images..."
-ECR_BACKEND_URL="$ECR_BACKEND_URL" \
-ECR_FRONTEND_URL="$ECR_FRONTEND_URL" \
-  .github/scripts/build-and-push.sh
-
 echo "==> Running full Terraform apply..."
 terraform -chdir=infra/terraform apply \
   -auto-approve \

@@ -4,11 +4,11 @@ project_name = "boilerplate-template"
 environment  = "dev"             # dev | prod
 root_domain  = "ahmax99.online"
 
-# Cross-account DNS (root zone hosted in a dedicated domain account)
-dns_account_role_arn = "" # e.g. "arn:aws:iam::000000000000:role/boilerplate-template-dns-cross-account-role"; empty when the zone lives in this same account
+# Cross-account DNS (apex zone hosted in the shared-services account)
+dns_account_role_arn = "" # prod: the org repo's dns-apex-manager role ARN; dev: empty (dev.<root> zone lives in the dev account)
 
-# GitHub OIDC variables
-github_org = "ahmax99"
+# Central ECR (shared-services account hosting the org-wide image registry)
+central_ecr_account_id = "" # e.g. "000000000000"
 
 # Backend Environment Variables
 database_url       = "postgresql://user:password@host/database"
@@ -26,7 +26,3 @@ google_client_secret = ""
 
 # Session
 session_secret = "" # Generate with: openssl rand -base64 32
-
-# Cross-account (multi-account dev/prod separation)
-source_ecr_account_id        = "" # e.g. "000000000000"
-promotion_grantee_account_id = "" # e.g. "000000000000"

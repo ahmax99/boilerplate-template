@@ -53,8 +53,7 @@ jobs:
           session-secret: ${{ secrets.TF_VAR_session_secret }}
           backend-sentry-dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
           frontend-sentry-dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
-          source-ecr-account-id: ${{ vars.SOURCE_ECR_ACCOUNT_ID }}
-          promotion-grantee-account-id: ${{ vars.PROMOTION_GRANTEE_ACCOUNT_ID }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
           dns-account-role-arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
 
       - name: Setup Terraform
@@ -77,6 +76,9 @@ jobs:
           environment: dev
           project-name: ${{ github.event.repository.name }}
           aws-region: ${{ env.AWS_REGION }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+          ecr-push-role-arn: ${{ vars.ECR_PUSH_ROLE_ARN }}
+          apply-role-arn: ${{ vars.TF_APPLY_ROLE_ARN }}
 
   apply-prod:
     name: Terraform Apply → Prod
@@ -111,8 +113,7 @@ jobs:
           session-secret: ${{ secrets.TF_VAR_session_secret }}
           backend-sentry-dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
           frontend-sentry-dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
-          source-ecr-account-id: ${{ vars.SOURCE_ECR_ACCOUNT_ID }}
-          promotion-grantee-account-id: ${{ vars.PROMOTION_GRANTEE_ACCOUNT_ID }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
           dns-account-role-arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
 
       - name: Setup Terraform
@@ -134,3 +135,6 @@ jobs:
           environment: prod
           project-name: ${{ github.event.repository.name }}
           aws-region: ${{ env.AWS_REGION }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+          ecr-push-role-arn: ${{ vars.ECR_PUSH_ROLE_ARN }}
+          apply-role-arn: ${{ vars.TF_APPLY_ROLE_ARN }}

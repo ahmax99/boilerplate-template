@@ -13,6 +13,9 @@ if [ ! -f "$PLAN_FILE" ]; then
 fi
 
 PLAN_OUTPUT=$(sed -n '/^Terraform used the selected providers/,/^Releasing state lock/p' "$PLAN_FILE")
+if [ -z "$PLAN_OUTPUT" ]; then
+  PLAN_OUTPUT=$(cat "$PLAN_FILE")
+fi
 
 # GitHub PR comment body limit is ~65 535 chars; truncate with notice if exceeded
 MAX_LEN=60000

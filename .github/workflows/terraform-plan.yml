@@ -46,8 +46,7 @@ jobs:
           session-secret: ${{ secrets.TF_VAR_session_secret }}
           backend-sentry-dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
           frontend-sentry-dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
-          source-ecr-account-id: ${{ vars.SOURCE_ECR_ACCOUNT_ID }}
-          promotion-grantee-account-id: ${{ vars.PROMOTION_GRANTEE_ACCOUNT_ID }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
           dns-account-role-arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
 
       - name: Setup Terraform

@@ -10,13 +10,13 @@ output "aws_region" {
 # ECR
 # -------------------
 output "ecr_backend_repository_url" {
-  description = "ECR repository URL for backend container images"
-  value       = module.ecr_backend.repository_url
+  description = "Central ECR repository URL for backend container images"
+  value       = local.ecr_backend_repository_url
 }
 
 output "ecr_frontend_repository_url" {
-  description = "ECR repository URL for frontend container images"
-  value       = module.ecr_frontend.repository_url
+  description = "Central ECR repository URL for frontend container images"
+  value       = local.ecr_frontend_repository_url
 }
 
 # -------------------
@@ -81,28 +81,3 @@ output "static_assets_bucket_name" {
   value       = module.s3_static_assets.bucket_name
 }
 
-# -------------------
-# Route 53
-# -------------------
-output "dev_zone_name_servers" {
-  description = "Name servers of dev's delegated hosted zone — create an NS record for this in the parent (root-domain) zone in the domain-hosting account"
-  value       = var.environment == "prod" ? null : aws_route53_zone.delegated[0].name_servers
-}
-
-# -------------------
-# GitHub Actions OIDC roles
-# -------------------
-output "github_actions_role_arn" {
-  description = "ARN of the GitHub Actions deploy role (put into GitHub secrets.AWS_ROLE_ARN)"
-  value       = module.github_oidc.role_arn
-}
-
-output "terraform_plan_role_arn" {
-  description = "ARN of the read-only OIDC role for terraform plan (put into GitHub vars.TF_PLAN_ROLE_ARN)"
-  value       = module.github_oidc.terraform_plan_role_arn
-}
-
-output "terraform_apply_role_arn" {
-  description = "ARN of the read-write OIDC role for terraform apply (put into GitHub vars.TF_APPLY_ROLE_ARN)"
-  value       = module.github_oidc.terraform_apply_role_arn
-}
