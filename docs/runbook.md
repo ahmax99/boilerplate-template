@@ -38,8 +38,9 @@ The org repo's `accounts` stack must be applied and providing (check its
 - `ecr_push_role_arn` — the shared-services `gha-ecr-push` role.
 - `dns_apex_manager_role_arn` — the shared-services role prod assumes for
   apex-zone DNS writes.
-- `ecr_repository_urls` — the central repos (their account ID is
-  `CENTRAL_ECR_ACCOUNT_ID` below).
+- `ecr_repository_urls` — the central repos.
+- `shared_services_account_id` — the account hosting the central ECR; becomes
+  `CENTRAL_ECR_ACCOUNT_ID` below.
 - Apex zone NS records set at the registrar (`apex_zone_name_servers` output),
   and the `dev.<root_domain>` zone + NS delegation created in the dev account.
 
@@ -56,10 +57,10 @@ they hold in the org repo before first use:
 - **Lambda service-principal pull.** Cross-account Lambda container images
   require the repo policy to grant `ecr:BatchGetImage` +
   `ecr:GetDownloadUrlForLayer` to the **`lambda.amazonaws.com` service
-  principal** (scoped with an `aws:SourceArn` condition on
-  `arn:aws:lambda:<region>:<dev|prod account id>:function:*`), in addition to
-  the org-wide account-principal pull statement. Without it, function
-  creation/updates in dev/prod fail to pull the image.
+  principal** (scoped org-wide with an `aws:SourceOrgID` condition), in
+  addition to the org-wide account-principal pull statement. Without it,
+  function creation/updates in dev/prod fail to pull the image. Provided by the
+  org repo's `modules/ecr` (`LambdaServicePull` statement).
 
 ### 3. External SaaS accounts (per environment)
 
@@ -92,7 +93,7 @@ Set under **Settings → Secrets and variables → Actions** (repo level) and
 | Name                      | Value                                                              |
 | ------------------------- | ------------------------------------------------------------------ |
 | `AWS_REGION`              | e.g. `ap-northeast-1`                                              |
-| `CENTRAL_ECR_ACCOUNT_ID`  | shared-services account ID (hosts the central ECR)                 |
+| `CENTRAL_ECR_ACCOUNT_ID`  | org output `shared_services_account_id`                            |
 | `ECR_PUSH_ROLE_ARN`       | org repo output `ecr_push_role_arn`                                |
 | `TF_PLAN_ROLE_ARN`        | org repo output `dev_deploy_role_arn` (plans only ever run on dev) |
 | `TF_VAR_root_domain`      | e.g. `ahmax99.online`                                              |
@@ -101,26 +102,33 @@ Set under **Settings → Secrets and variables → Actions** (repo level) and
 
 ### Per-environment values
 
-| Name                          | Kind     | `dev`                                | `prod`                                 |
-| ----------------------------- | -------- | ------------------------------------ | -------------------------------------- |
-| `AWS_ROLE_ARN`                | secret   | org output `dev_deploy_role_arn`     | org output `prod_deploy_role_arn`      |
-| `TF_APPLY_ROLE_ARN`           | variable | same `dev_deploy_role_arn`           | same `prod_deploy_role_arn`            |
-| `DNS_ACCOUNT_ROLE_ARN`        | variable | _(leave unset — zone is in-account)_ | org output `dns_apex_manager_role_arn` |
-| `STATIC_ASSETS_BUCKET`        | variable | Terraform output after first apply   | Terraform output after first apply     |
-| `CLOUDFRONT_DISTRIBUTION_ID`  | variable | Terraform output after first apply   | Terraform output after first apply     |
-| `TF_VAR_database_url`         | secret   | dev Neon connection string           | prod Neon connection string            |
-| `TF_VAR_google_client_id`     | secret   | dev OAuth client                     | separate prod OAuth client             |
-| `TF_VAR_google_client_secret` | secret   | dev OAuth client                     | prod OAuth client                      |
-| `TF_VAR_resend_api_key`       | secret   | Resend key                           | prod Resend key                        |
-| `TF_VAR_session_secret`       | secret   | fresh `openssl rand -base64 32`      | fresh, distinct from dev               |
-| `TF_VAR_backend_sentry_dsn`   | secret   | dev backend Sentry project           | prod backend Sentry project            |
-| `TF_VAR_frontend_sentry_dsn`  | secret   | dev frontend Sentry project          | prod frontend Sentry project           |
+| Name                          | Kind     | `dev`                              | `prod`                                 |
+| ----------------------------- | -------- | ---------------------------------- | -------------------------------------- |
+| `DEPLOY_ROLE_ARN`             | variable | org output `dev_deploy_role_arn`   | org output `prod_deploy_role_arn`      |
+| `DNS_ACCOUNT_ROLE_ARN`        | variable | _(leave empty)_                    | org output `dns_apex_manager_role_arn` |
+| `STATIC_ASSETS_BUCKET`        | variable | Terraform output after first apply | Terraform output after first apply     |
+| `CLOUDFRONT_DISTRIBUTION_ID`  | variable | Terraform output after first apply | Terraform output after first apply     |
+| `TF_VAR_database_url`         | secret   | dev Neon connection string         | prod Neon connection string            |
+| `TF_VAR_google_client_id`     | secret   | dev OAuth client                   | separate prod OAuth client             |
+| `TF_VAR_google_client_secret` | secret   | dev OAuth client                   | prod OAuth client                      |
+| `TF_VAR_resend_api_key`       | secret   | Resend key                         | prod Resend key                        |
+| `TF_VAR_session_secret`       | secret   | fresh `openssl rand -base64 32`    | fresh, distinct from dev               |
+| `TF_VAR_backend_sentry_dsn`   | secret   | dev backend Sentry project         | prod backend Sentry project            |
+| `TF_VAR_frontend_sentry_dsn`  | secret   | dev frontend Sentry project        | prod frontend Sentry project           |
 
-> `AWS_ROLE_ARN` and `TF_APPLY_ROLE_ARN` hold the same value per environment —
-> both are the org-provided `gha-deploy` role. They stay separate names because
-> app deploys read the secret and Terraform jobs read the variable; the org
-> repo may split them into finer-grained roles later without touching workflow
-> code.
+> **`DEPLOY_ROLE_ARN`** is the org-provided `gha-deploy` role for that account —
+> a single per-environment value used by both the app deploy jobs (`deploy.yml`)
+> and the Terraform apply jobs (`terraform-apply.yml`). It's a variable, not a
+> secret (an IAM role ARN isn't sensitive). The read-only plan role
+> (`TF_PLAN_ROLE_ARN`, repo-level) stays separate because plans only ever run
+> against dev.
+
+> **`DNS_ACCOUNT_ROLE_ARN`** follows the DNS ownership split: **empty ⇒ the
+> zone is in this account**, so no cross-account hop is needed. Dev writes into
+> its own `dev.<root_domain>` zone (delegated into the dev account by the org),
+> so it stays empty and the `aws.dns` provider falls back to ambient
+> credentials. Prod writes into the apex zone in shared-services, a different
+> account, so it assumes the `dns-apex-manager` role.
 
 There are **no** per-environment ECR variables: image URLs are derived in the
 workflows and in Terraform from `CENTRAL_ECR_ACCOUNT_ID` + the repo name, so

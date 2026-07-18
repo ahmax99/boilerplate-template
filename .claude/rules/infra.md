@@ -64,4 +64,4 @@ trivy config infra/terraform --ignorefile infra/terraform/.trivyignore --severit
 - **PR touching `infra/terraform/**`** → `terraform-plan.yml`: fmt-check → tflint → validate → `plan` against **dev**, posted as a PR comment. Read that plan output in the PR before approving — it is the review artifact.
 - **Merge to `main`** → `terraform-apply.yml` applies **dev**.
 - **`v*` tag** → applies **prod**, gated by the `prod` GitHub environment (required reviewer).
-- Auth is GitHub OIDC role assumption (`TF_PLAN_ROLE_ARN` / `TF_APPLY_ROLE_ARN`) — no static AWS keys; don't introduce any.
+- Auth is GitHub OIDC role assumption (`TF_PLAN_ROLE_ARN` for plans, `DEPLOY_ROLE_ARN` for applies/deploys) against the org-provided `gha-deploy` roles — no static AWS keys; don't introduce any.

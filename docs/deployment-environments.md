@@ -71,8 +71,8 @@ hotfix/* branch → merge to main → manually trigger release-please.yml (workf
 All GitHub→AWS authentication uses the OIDC providers and roles created by the org repo — this repo's Terraform creates none of its own:
 
 - **`gha-ecr-push`** (shared-services): assumed by the build jobs from any ref; push/pull scoped to the shared-services registry only. Read into the workflows as repo-level `vars.ECR_PUSH_ROLE_ARN`.
-- **`gha-deploy`** (dev): assumed by dev deploy jobs and dev Terraform plan/apply (`secrets.AWS_ROLE_ARN` / `vars.TF_APPLY_ROLE_ARN` / `vars.TF_PLAN_ROLE_ARN` in the `dev` scope). Trust allows any ref of this repo.
-- **`gha-deploy`** (prod): assumed by prod deploy jobs and prod Terraform apply. Its trust policy requires the `environment:prod` OIDC subject claim, so only jobs running in the `prod` GitHub environment — which requires reviewer approval — can assume it; a compromised branch push with no `environment:` context cannot.
+- **`gha-deploy`** (dev): assumed by dev deploy jobs and dev Terraform apply (`vars.DEPLOY_ROLE_ARN` in the `dev` scope), and by the read-only plan job (`vars.TF_PLAN_ROLE_ARN`, repo-level). Trust allows any ref of this repo.
+- **`gha-deploy`** (prod): assumed by prod deploy jobs and prod Terraform apply (`vars.DEPLOY_ROLE_ARN` in the `prod` scope). Its trust policy requires the `environment:prod` OIDC subject claim, so only jobs running in the `prod` GitHub environment — which requires reviewer approval — can assume it; a compromised branch push with no `environment:` context cannot.
 
 The org repo pins the **numeric** GitHub org/repo IDs in the trust policies (immutable subject claims), so renamed or recreated repos don't inherit access.
 
