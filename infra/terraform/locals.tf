@@ -7,24 +7,18 @@ locals {
 
   name_prefix = "${var.project_name}-${var.environment}"
 
-  account_id = data.aws_caller_identity.current.account_id
+  # Central ECR (shared-services account, repos created by the org repo — env-agnostic names)
+  ecr_registry                = "${var.central_ecr_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com"
+  ecr_backend_repository_url  = "${local.ecr_registry}/${var.project_name}-backend"
+  ecr_frontend_repository_url = "${local.ecr_registry}/${var.project_name}-frontend"
+  ecr_backend_repository_arn  = "arn:aws:ecr:${var.aws_region}:${var.central_ecr_account_id}:repository/${var.project_name}-backend"
+  ecr_frontend_repository_arn = "arn:aws:ecr:${var.aws_region}:${var.central_ecr_account_id}:repository/${var.project_name}-frontend"
 
-  source_repo_prefix = "${var.project_name}-dev"
+  # Prod lives directly under the apex; dev under the org-delegated dev.<root> zone
+  domain_name = var.environment == "prod" ? "${var.project_name}.${var.root_domain}" : "${var.project_name}.${var.environment}.${var.root_domain}"
 
-  # Cross-account ECR ARNs
-  source_ecr_repository_arns = var.source_ecr_account_id != "" ? [
-    "arn:aws:ecr:${var.aws_region}:${var.source_ecr_account_id}:repository/${local.source_repo_prefix}-backend",
-    "arn:aws:ecr:${var.aws_region}:${var.source_ecr_account_id}:repository/${local.source_repo_prefix}-frontend"
-  ] : []
-
-  promotion_pull_principal_arns = var.promotion_grantee_account_id != "" ? [
-    "arn:aws:iam::${var.promotion_grantee_account_id}:role/${var.project_name}-prod-github-actions-role"
-  ] : []
-
-  domain_name = var.environment == "prod" ? "${var.project_name}.${var.root_domain}" : "${var.environment}.${var.project_name}.${var.root_domain}"
-
-  # Prod resolves the root zone directly; dev writes into its own delegated zone
-  dns_zone_id = var.environment == "prod" ? data.aws_route53_zone.main[0].zone_id : aws_route53_zone.delegated[0].zone_id
+  # Prod resolves the apex zone cross-account (aws.dns); dev's env zone lives in the dev account itself
+  dns_zone_id = var.environment == "prod" ? data.aws_route53_zone.main[0].zone_id : data.aws_route53_zone.env[0].zone_id
 
   # App origins
   frontend_url      = "https://${local.domain_name}"
@@ -37,6 +31,10 @@ locals {
 
   # CloudFront distribution ARN
   cloudfront_distribution_arn = module.cloudfront.distribution_arn
+
+  # OIDC subject the app-deploy role trusts
+  github_repo_ref       = "repo:${var.github_org}@${var.github_org_id}/${var.project_name}@${var.github_repo_id}"
+  github_deploy_subject = var.environment == "prod" ? "${local.github_repo_ref}:environment:prod" : "${local.github_repo_ref}:*"
 
   # Per-environment hardening config
   env_config = {

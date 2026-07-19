@@ -51,9 +51,8 @@ resource "aws_iam_role_policy" "s3_access" {
 }
 
 resource "aws_iam_role_policy" "cognito_admin" {
-  count = var.cognito_user_pool_arn != null ? 1 : 0
-  name  = "${var.function_name}-cognito-policy"
-  role  = aws_iam_role.lambda.id
+  name = "${var.function_name}-cognito-policy"
+  role = aws_iam_role.lambda.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -129,6 +128,7 @@ resource "aws_lambda_function" "this" {
 
   package_type = "Image"
   image_uri    = var.image_uri
+  publish      = true
 
   memory_size = var.memory_size
   timeout     = var.timeout
@@ -172,7 +172,7 @@ resource "aws_lambda_alias" "this" {
 
   name             = var.alias_name
   function_name    = aws_lambda_function.this.function_name
-  function_version = "1" # Initial version - CodeDeploy will manage updates
+  function_version = aws_lambda_function.this.version # Initial version - CodeDeploy will manage updates
 
   lifecycle {
     ignore_changes = [function_version]

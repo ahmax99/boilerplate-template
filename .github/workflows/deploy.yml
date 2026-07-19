@@ -21,8 +21,12 @@ on:
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
+  ECR_REGISTRY: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
   # Semver tag for releases; SHA for day-to-day branch pushes and manual dispatch
   IMAGE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || github.sha }}
+
+permissions:
+  contents: read
 
 concurrency:
   group: deploy-${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}
@@ -53,14 +57,13 @@ jobs:
           before-sha: ${{ github.event.before }}
           head-sha: ${{ github.sha }}
 
-  # ── Build jobs ────────────────────────────────────────────────────────────
+  # ── Build jobs — push once into the central (shared-services) registry ─────
   build-backend:
     name: Build Backend Image
     needs: detect
     if: needs.detect.outputs.backend == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    environment: dev
     permissions:
       id-token: write
       contents: read
@@ -74,7 +77,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.ECR_PUSH_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Build
 
@@ -93,8 +96,8 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
-            ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:latest
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-backend:${{ env.IMAGE_TAG }}
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-backend:latest
           build-args: |
             DATABASE_URL=postgresql://placeholder:placeholder@placeholder:5432/placeholder?schema=public
           cache-from: type=gha
@@ -102,7 +105,7 @@ jobs:
 
       - name: Set image URI output
         id: set-uri
-        run: echo "image-uri=${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
+        run: echo "image-uri=${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-backend:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
 
   build-frontend:
     name: Build Frontend Image
@@ -110,7 +113,6 @@ jobs:
     if: needs.detect.outputs.frontend == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    environment: dev
     permissions:
       id-token: write
       contents: read
@@ -124,7 +126,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.ECR_PUSH_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Build
 
@@ -143,14 +145,14 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
-            ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:latest
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-frontend:${{ env.IMAGE_TAG }}
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-frontend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Set image URI output
         id: set-uri
-        run: echo "image-uri=${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
+        run: echo "image-uri=${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-frontend:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
 
   # ── Dev deploy jobs ────────────────────────────────────────────────────────
   deploy-dev-backend:
@@ -171,7 +173,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.APP_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Dev
 
@@ -205,7 +207,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.APP_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Dev
 
@@ -271,24 +273,15 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.APP_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Prod
-
-      - name: Promote image to prod ECR repo
-        uses: ./.github/actions/promote-image
-        with:
-          repository-name: ${{ github.event.repository.name }}-prod-backend
-          source-image-uri: ${{ needs.build-backend.outputs.image-uri }}
-          target-image-uri: ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
-          aws-region: ${{ env.AWS_REGION }}
-          source-account-id: ${{ vars.SOURCE_ECR_ACCOUNT_ID }}
 
       - name: Deploy backend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
           function-name: ${{ github.event.repository.name }}-prod-backend
-          image-uri: ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
+          image-uri: ${{ needs.build-backend.outputs.image-uri }}
           alias-name: prod
           codedeploy-app: ${{ github.event.repository.name }}-prod-backend
           codedeploy-group: ${{ github.event.repository.name }}-prod-backend-dg
@@ -316,24 +309,15 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.APP_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Prod
-
-      - name: Promote image to prod ECR repo
-        uses: ./.github/actions/promote-image
-        with:
-          repository-name: ${{ github.event.repository.name }}-prod-frontend
-          source-image-uri: ${{ needs.build-frontend.outputs.image-uri }}
-          target-image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
-          aws-region: ${{ env.AWS_REGION }}
-          source-account-id: ${{ vars.SOURCE_ECR_ACCOUNT_ID }}
 
       - name: Deploy frontend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
           function-name: ${{ github.event.repository.name }}-prod-frontend
-          image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
+          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
           alias-name: prod
           codedeploy-app: ${{ github.event.repository.name }}-prod-frontend
           codedeploy-group: ${{ github.event.repository.name }}-prod-frontend-dg
@@ -344,7 +328,7 @@ jobs:
       - name: Deploy static assets and invalidate CloudFront
         uses: ./.github/actions/deploy-static-assets
         with:
-          image-uri: ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
+          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
           static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
           cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
           aws-region: ${{ env.AWS_REGION }}

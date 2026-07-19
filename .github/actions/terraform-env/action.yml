@@ -26,11 +26,20 @@ inputs:
   frontend-sentry-dsn:
     description: 'TF_VAR_frontend_sentry_dsn (secret)'
     required: true
-  source-ecr-account-id:
-    description: 'TF_VAR_source_ecr_account_id — dev account ID prod pulls source images from (non-secret; empty on dev)'
+  central-ecr-account-id:
+    description: 'TF_VAR_central_ecr_account_id — shared-services account ID hosting the central ECR registry (non-secret; same value for every environment)'
     required: true
-  promotion-grantee-account-id:
-    description: 'TF_VAR_promotion_grantee_account_id — prod account ID granted pull access on dev ECR (non-secret; empty on prod)'
+  dns-account-role-arn:
+    description: 'TF_VAR_dns_account_role_arn — role to assume in the shared-services account for cross-account apex-zone writes (non-secret; empty on dev, whose env zone lives in-account)'
+    required: true
+  github-org:
+    description: 'TF_VAR_github_org — repository owner, for the app-deploy role OIDC trust (supply github.repository_owner)'
+    required: true
+  github-org-id:
+    description: 'TF_VAR_github_org_id — numeric owner ID for the immutable OIDC subject (supply github.repository_owner_id)'
+    required: true
+  github-repo-id:
+    description: 'TF_VAR_github_repo_id — numeric repository ID for the immutable OIDC subject (supply github.repository_id)'
     required: true
 
 runs:
@@ -43,7 +52,6 @@ runs:
         TF_VAR_environment: ${{ inputs.environment }}
         TF_VAR_aws_region: ${{ inputs.aws-region }}
         TF_VAR_root_domain: ${{ inputs.root-domain }}
-        TF_VAR_github_org: ${{ github.repository_owner }}
         TF_VAR_contact_to_email: ${{ inputs.contact-to-email }}
         TF_VAR_from_email: ${{ inputs.from-email }}
         TF_VAR_database_url: ${{ inputs.database-url }}
@@ -53,15 +61,17 @@ runs:
         TF_VAR_session_secret: ${{ inputs.session-secret }}
         TF_VAR_backend_sentry_dsn: ${{ inputs.backend-sentry-dsn }}
         TF_VAR_frontend_sentry_dsn: ${{ inputs.frontend-sentry-dsn }}
-        TF_VAR_source_ecr_account_id: ${{ inputs.source-ecr-account-id }}
-        TF_VAR_promotion_grantee_account_id: ${{ inputs.promotion-grantee-account-id }}
+        TF_VAR_central_ecr_account_id: ${{ inputs.central-ecr-account-id }}
+        TF_VAR_dns_account_role_arn: ${{ inputs.dns-account-role-arn }}
+        TF_VAR_github_org: ${{ inputs.github-org }}
+        TF_VAR_github_org_id: ${{ inputs.github-org-id }}
+        TF_VAR_github_repo_id: ${{ inputs.github-repo-id }}
       run: |
         {
           echo "TF_VAR_project_name=$TF_VAR_project_name"
           echo "TF_VAR_environment=$TF_VAR_environment"
           echo "TF_VAR_aws_region=$TF_VAR_aws_region"
           echo "TF_VAR_root_domain=$TF_VAR_root_domain"
-          echo "TF_VAR_github_org=$TF_VAR_github_org"
           echo "TF_VAR_contact_to_email=$TF_VAR_contact_to_email"
           echo "TF_VAR_from_email=$TF_VAR_from_email"
           echo "TF_VAR_database_url=$TF_VAR_database_url"
@@ -71,6 +81,9 @@ runs:
           echo "TF_VAR_session_secret=$TF_VAR_session_secret"
           echo "TF_VAR_backend_sentry_dsn=$TF_VAR_backend_sentry_dsn"
           echo "TF_VAR_frontend_sentry_dsn=$TF_VAR_frontend_sentry_dsn"
-          echo "TF_VAR_source_ecr_account_id=$TF_VAR_source_ecr_account_id"
-          echo "TF_VAR_promotion_grantee_account_id=$TF_VAR_promotion_grantee_account_id"
+          echo "TF_VAR_central_ecr_account_id=$TF_VAR_central_ecr_account_id"
+          echo "TF_VAR_dns_account_role_arn=$TF_VAR_dns_account_role_arn"
+          echo "TF_VAR_github_org=$TF_VAR_github_org"
+          echo "TF_VAR_github_org_id=$TF_VAR_github_org_id"
+          echo "TF_VAR_github_repo_id=$TF_VAR_github_repo_id"
         } >> "$GITHUB_ENV"

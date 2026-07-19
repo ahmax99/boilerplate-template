@@ -3,6 +3,3 @@
 
 # AWS-0132 (HIGH): "Bucket does not encrypt data with a customer managed key." The S3 module (modules/s3) deliberately uses SSE-S3 (AES256). This is an intentional default for the boilerplate: buckets are still encrypted at rest, and SSE-KMS is not supported for the S3 server-access-log destination bucket
 AWS-0132
-
-# AWS-0031 (HIGH): "ECR image tags shouldn't be mutable." The ECR repos use IMMUTABLE_WITH_EXCLUSION so content tags (git SHA / v* releases, i.e. what actually gets pinned into the running Lambda) are immutable, while only `latest*` stays mutable — the deploy pipeline re-pushes `latest` as its bootstrap sentinel (terraform-ecr-check) and Lambda baseline image_uri. Trivy's adapter only maps the bare "IMMUTABLE" value to immutable, so it still flags the exclusion variant; suppressed here since the exposure is limited to the intentionally-floating `latest` tag.
-AWS-0031

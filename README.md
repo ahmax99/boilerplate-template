@@ -192,6 +192,17 @@ Each package requiring environment variables includes an `.env.example` file:
 
 Copy `.env.example` to `.env` in each package and fill in your credentials.
 
+## Deployment
+
+The app deploys to AWS (Lambda containers behind CloudFront) across two member
+accounts (`dev`, `prod`) plus a shared-services account hosting the central
+ECR registry and DNS apex zone. To bring up an environment from scratch —
+prerequisites, GitHub variables/secrets, state-bucket bootstrap, and the first
+applies — follow [**docs/runbook.md**](docs/runbook.md). The reference for how
+the environments and pipelines work is
+[docs/deployment-environments.md](docs/deployment-environments.md), with the
+underlying AWS architecture in [docs/architecture.md](docs/architecture.md).
+
 ## AI-Driven Development
 
 This template ships with a [Claude Code](https://claude.com/claude-code) harness

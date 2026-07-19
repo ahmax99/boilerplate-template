@@ -18,9 +18,14 @@ variable "root_domain" {
   type        = string
 }
 
-variable "github_org" {
-  description = "GitHub organization name"
+variable "dns_account_role_arn" {
+  description = "IAM role ARN to assume in the AWS account hosting the root Route 53 zone for cross-account DNS writes; empty string when the zone lives in this same account"
   type        = string
+
+  validation {
+    condition     = can(regex("^$|^arn:aws:iam::[0-9]{12}:role/.+$", var.dns_account_role_arn))
+    error_message = "dns_account_role_arn must be a valid IAM role ARN or empty."
+  }
 }
 
 variable "database_url" {
@@ -75,22 +80,37 @@ variable "session_secret" {
   sensitive   = true
 }
 
-variable "source_ecr_account_id" {
-  description = "Account ID hosting the source/build ECR repos images are promoted FROM (the dev account). Set on prod; empty elsewhere."
+variable "central_ecr_account_id" {
+  description = "Account ID of the shared-services account hosting the central ECR repositories (created by the org repo, not this one)"
   type        = string
 
   validation {
-    condition     = can(regex("^([0-9]{12})?$", var.source_ecr_account_id))
-    error_message = "source_ecr_account_id must be a 12-digit AWS account ID or empty."
+    condition     = can(regex("^[0-9]{12}$", var.central_ecr_account_id))
+    error_message = "central_ecr_account_id must be a 12-digit AWS account ID."
   }
 }
 
-variable "promotion_grantee_account_id" {
-  description = "Account ID whose deploy role may pull images from this env's ECR for promotion (the prod account). Set on dev; empty elsewhere."
+variable "github_org" {
+  description = "GitHub owner of this repository, for the app-deploy role's OIDC trust subject (CI supplies github.repository_owner)"
+  type        = string
+}
+
+variable "github_org_id" {
+  description = "Numeric GitHub owner ID embedded in the immutable OIDC subject claim (CI supplies github.repository_owner_id)"
   type        = string
 
   validation {
-    condition     = can(regex("^([0-9]{12})?$", var.promotion_grantee_account_id))
-    error_message = "promotion_grantee_account_id must be a 12-digit AWS account ID or empty."
+    condition     = can(regex("^[0-9]+$", var.github_org_id))
+    error_message = "github_org_id must be numeric."
+  }
+}
+
+variable "github_repo_id" {
+  description = "Numeric GitHub repository ID embedded in the immutable OIDC subject claim (CI supplies github.repository_id)"
+  type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]+$", var.github_repo_id))
+    error_message = "github_repo_id must be numeric."
   }
 }
