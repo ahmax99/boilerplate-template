@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/ahmax99/boilerplate-template/compare/v1.1.0...v1.1.1) (2026-07-19)
+
+
+### Bug Fixes
+
+* update release automation to use GitHub App authentication and document changes ([#130](https://github.com/ahmax99/boilerplate-template/issues/130)) ([1450460](https://github.com/ahmax99/boilerplate-template/commit/1450460e67186f4966063f54e89919f409312eda))
+* update release-please job permissions to allow write access for contents ([#132](https://github.com/ahmax99/boilerplate-template/issues/132)) ([8816b34](https://github.com/ahmax99/boilerplate-template/commit/8816b347814a08bd8e548096048f09a292265325))
+
 ## [1.1.0](https://github.com/ahmax99/boilerplate-template/compare/v1.0.0...v1.1.0) (2026-07-19)
 
 
