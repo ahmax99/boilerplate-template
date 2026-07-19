@@ -66,6 +66,37 @@ hotfix/* branch → merge to main → manually trigger release-please.yml (workf
   → tag triggers the release pipeline above
 ```
 
+## Release automation
+
+`release-please.yml` and `auto-merge.yml` create commits, PR merges, and tags
+on `main` — all of which are the exact events that trigger `terraform-apply.yml`
+and `deploy.yml`. GitHub Actions has a deliberate anti-recursion rule for this:
+_"events triggered by the `GITHUB_TOKEN` will not create a new workflow run,
+even when the repository contains a workflow configured to run when `push`
+events occur"_ (GitHub Actions docs). Two places in this pipeline hit that rule,
+and each needed a different fix:
+
+- **Merging the release PR.** `auto-merge.yml` used to auto-merge
+  `release-please`'s PR on approval using `GITHUB_TOKEN`. That merge is a push
+  to `main`, so it never re-triggered `release-please.yml` itself — the tag
+  was never cut. Fix: that job was removed. A human now merges the release PR
+  by hand (after approving it) — a merge from a real account is a normal push
+  event, so `release-please.yml` runs immediately afterward.
+- **Creating the release tag.** `release-please.yml` still needs to create the
+  `v*` tag (and the GitHub Release) itself, and doing that with `GITHUB_TOKEN`
+  hits the same rule — the tag push wouldn't trigger `terraform-apply.yml` or
+  `deploy.yml`. Fix: it authenticates as a **GitHub App** installation instead
+  (minted per-run via `actions/create-github-app-token`, short-lived and
+  scoped to just this repo's `contents`/`pull-requests` permissions) —
+  preferred over a long-lived PAT for the same reason this repo avoids static
+  AWS keys elsewhere (see `.claude/rules/infra.md`). See
+  [`runbook.md`'s prerequisite 5](runbook.md#5-release-automation-github-app-repo-level-one-time)
+  for how to create and install that App.
+
+Net effect: a release PR still needs a human to click merge, but from there
+the tag, the prod Terraform apply, and the prod app deploy all cascade
+automatically, same as before these fixes.
+
 ## OIDC Roles
 
 GitHub→AWS authentication uses the OIDC **providers** the org repo creates in each member account. The account-level roles (below) are org-owned; the one app-specific role, `gha-app-deploy`, is created by **this repo's own Terraform** against that provider. Each role is scoped to the least privilege its step needs:
