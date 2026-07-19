@@ -14,12 +14,17 @@ inputs:
   aws-region:
     description: 'AWS region'
     required: true
+  central-ecr-account-id:
+    description: 'Account ID of the shared-services account hosting the central ECR registry'
+    required: true
 
 runs:
   using: 'composite'
   steps:
     - name: Login to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v2
+      with:
+        registries: ${{ inputs.central-ecr-account-id }}
 
     - name: Deploy static assets
       shell: bash
