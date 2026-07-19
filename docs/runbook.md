@@ -33,8 +33,14 @@ The org repo's `accounts` stack must be applied and providing (check its
 
 - The three member accounts, with this repo registered in `app_repositories`
   and its ECR repos in `ecr_repositories`.
-- `dev_deploy_role_arn` / `prod_deploy_role_arn` — the per-account
-  `gha-deploy` OIDC roles.
+- `dev_deploy_role_arn` / `prod_deploy_role_arn` — the per-account admin
+  `gha-deploy` OIDC roles, used by **Terraform apply** only.
+- `plan_role_arn` — the dev read-only `gha-plan` role, used by PR
+  **Terraform plan** (ReadOnlyAccess; can't apply or write state).
+- The GitHub **OIDC provider** in each member account (created by the accounts
+  stack). This repo's Terraform creates its own scoped `gha-app-deploy` role
+  against it — see `APP_DEPLOY_ROLE_ARN` below — so no app-deploy role ARN comes
+  from the org repo.
 - `ecr_push_role_arn` — the shared-services `gha-ecr-push` role.
 - `dns_apex_manager_role_arn` — the shared-services role prod assumes for
   apex-zone DNS writes.
@@ -61,6 +67,15 @@ they hold in the org repo before first use:
   addition to the org-wide account-principal pull statement. Without it,
   function creation/updates in dev/prod fail to pull the image. Provided by the
   org repo's `modules/ecr` (`LambdaServicePull` statement).
+- **Cross-account read for the apply role.** Before the steady-state/bootstrap
+  decision, `terraform-apply.yml`'s "Check ECR image state" step calls
+  `ecr:BatchGetImage` against the central registry **under the `gha-deploy`
+  apply role** (it runs before any role re-assumption). The org-wide pull
+  statement on the repo policy covers the resource side; the apply role's own
+  identity policy must also allow `ecr:BatchGetImage` on those repos (the admin
+  `gha-deploy` role does). If that read is ever denied the check now **fails
+  loudly** rather than silently treating the images as absent and forcing an
+  unnecessary bootstrap — see `.github/scripts/terraform-ecr-check.sh`.
 
 ### 3. External SaaS accounts (per environment)
 
@@ -95,7 +110,7 @@ Set under **Settings → Secrets and variables → Actions** (repo level) and
 | `AWS_REGION`              | e.g. `ap-northeast-1`                                              |
 | `CENTRAL_ECR_ACCOUNT_ID`  | org output `shared_services_account_id`                            |
 | `ECR_PUSH_ROLE_ARN`       | org repo output `ecr_push_role_arn`                                |
-| `TF_PLAN_ROLE_ARN`        | org repo output `dev_deploy_role_arn` (plans only ever run on dev) |
+| `TF_PLAN_ROLE_ARN`        | org repo output `plan_role_arn` (read-only; plans only run on dev) |
 | `TF_VAR_root_domain`      | e.g. `ahmax99.online`                                              |
 | `TF_VAR_contact_to_email` | contact-form recipient                                             |
 | `TF_VAR_from_email`       | sender address (on the root domain)                                |
@@ -104,7 +119,8 @@ Set under **Settings → Secrets and variables → Actions** (repo level) and
 
 | Name                          | Kind     | `dev`                              | `prod`                                 |
 | ----------------------------- | -------- | ---------------------------------- | -------------------------------------- |
-| `DEPLOY_ROLE_ARN`             | variable | org output `dev_deploy_role_arn`   | org output `prod_deploy_role_arn`      |
+| `TF_APPLY_ROLE_ARN`           | variable | org output `dev_deploy_role_arn`   | org output `prod_deploy_role_arn`      |
+| `APP_DEPLOY_ROLE_ARN`         | variable | Terraform output after first apply | Terraform output after first apply     |
 | `DNS_ACCOUNT_ROLE_ARN`        | variable | _(leave empty)_                    | org output `dns_apex_manager_role_arn` |
 | `STATIC_ASSETS_BUCKET`        | variable | Terraform output after first apply | Terraform output after first apply     |
 | `CLOUDFRONT_DISTRIBUTION_ID`  | variable | Terraform output after first apply | Terraform output after first apply     |
@@ -116,12 +132,29 @@ Set under **Settings → Secrets and variables → Actions** (repo level) and
 | `TF_VAR_backend_sentry_dsn`   | secret   | dev backend Sentry project         | prod backend Sentry project            |
 | `TF_VAR_frontend_sentry_dsn`  | secret   | dev frontend Sentry project        | prod frontend Sentry project           |
 
-> **`DEPLOY_ROLE_ARN`** is the org-provided `gha-deploy` role for that account —
-> a single per-environment value used by both the app deploy jobs (`deploy.yml`)
-> and the Terraform apply jobs (`terraform-apply.yml`). It's a variable, not a
-> secret (an IAM role ARN isn't sensitive). The read-only plan role
-> (`TF_PLAN_ROLE_ARN`, repo-level) stays separate because plans only ever run
-> against dev.
+> **Three roles, three privilege tiers** (all variables — an IAM role ARN isn't
+> a secret). Each pipeline step assumes the least-privileged role that still
+> lets it do its job:
+>
+> - **`TF_PLAN_ROLE_ARN`** (repo-level, read-only `gha-plan`) — PR `terraform
+plan`. `ReadOnlyAccess` plus a scoped `secretsmanager:GetSecretValue` on the
+>   dev project secrets (plan must read them to refresh the secret-version
+>   resources — `ReadOnlyAccess` alone omits that action). No write/apply, so a
+>   tampered PR can't mutate state or resources; plans run `-lock=false` since
+>   the role can't write the S3 lock. Repo-level because plans only run on dev.
+> - **`TF_APPLY_ROLE_ARN`** (per-env, admin `gha-deploy`) — `terraform apply`.
+>   Broad by necessity: Terraform manages the whole account's app infra.
+> - **`APP_DEPLOY_ROLE_ARN`** (per-env, scoped `gha-app-deploy`) — the
+>   `deploy.yml` app deploy jobs. This role is created by **this repo's own
+>   Terraform** (`modules/github-deploy-role`, consuming the org-created OIDC
+>   provider), so it's a captured Terraform output, not an org output. Its
+>   policy grants only the Lambda/CodeDeploy/S3/CloudFront/ECR-pull actions
+>   those jobs perform, scoped to this environment's **exact** resource ARNs — a
+>   compromised app-deploy step can't touch anything else in the account.
+>
+> The role's OIDC trust needs this repo's GitHub org/repo IDs
+> (`TF_VAR_github_org` / `_org_id` / `_repo_id`); CI supplies them automatically
+> from the Actions context, so there's nothing to configure by hand.
 
 > **`DNS_ACCOUNT_ROLE_ARN`** follows the DNS ownership split: **empty ⇒ the
 > zone is in this account**, so no cross-account hop is needed. Dev writes into
@@ -151,7 +184,8 @@ terraform apply -var="project_name=boilerplate-template" -var="environment=dev" 
 
 **D3 — Configure GitHub**: create the `dev` environment (no protection
 rules), then set the repo-level variables and dev's per-environment values per
-the tables above. Skip the two Terraform-output rows for now.
+the tables above. Skip the three Terraform-output rows for now
+(`STATIC_ASSETS_BUCKET`, `CLOUDFRONT_DISTRIBUTION_ID`, `APP_DEPLOY_ROLE_ARN`).
 
 **D4 — First dev apply**: run `terraform-apply.yml` via **workflow_dispatch**
 (leave `apply_prod` unchecked). The org `gha-deploy` role already exists, so
@@ -164,7 +198,9 @@ manual delegation step.
 
 **D5 — Capture Terraform outputs** from the apply's job summary into the `dev`
 environment: `vars.STATIC_ASSETS_BUCKET` (`static_assets_bucket_name`),
-`vars.CLOUDFRONT_DISTRIBUTION_ID` (`cloudfront_distribution_id`).
+`vars.CLOUDFRONT_DISTRIBUTION_ID` (`cloudfront_distribution_id`),
+`vars.APP_DEPLOY_ROLE_ARN` (`app_deploy_role_arn`). D4 ran under the admin
+apply role, so the app-deploy role exists after it — capture it before D7.
 
 **D6 — Register the Google OAuth redirect URI**
 (`https://<cognito_domain>/oauth2/idpresponse`, from the `cognito_domain`
@@ -200,7 +236,8 @@ records and ACM validation are written cross-account through the
 only applies + publishes Lambda versions.
 
 **P4 — Capture Terraform outputs** into the `prod` environment:
-`vars.STATIC_ASSETS_BUCKET`, `vars.CLOUDFRONT_DISTRIBUTION_ID`.
+`vars.STATIC_ASSETS_BUCKET`, `vars.CLOUDFRONT_DISTRIBUTION_ID`,
+`vars.APP_DEPLOY_ROLE_ARN` (`app_deploy_role_arn`).
 
 **P5 — Register the prod Google OAuth redirect URI** (prod `cognito_domain`).
 

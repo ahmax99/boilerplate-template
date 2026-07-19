@@ -81,3 +81,11 @@ output "static_assets_bucket_name" {
   value       = module.s3_static_assets.bucket_name
 }
 
+# -------------------
+# App deploy role
+# -------------------
+output "app_deploy_role_arn" {
+  description = "Least-privilege role the app deploy jobs assume (set as APP_DEPLOY_ROLE_ARN)"
+  value       = module.app_deploy_role.role_arn
+}
+

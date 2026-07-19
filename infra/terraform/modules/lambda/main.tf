@@ -51,7 +51,7 @@ resource "aws_iam_role_policy" "s3_access" {
 }
 
 resource "aws_iam_role_policy" "cognito_admin" {
-  count = length(var.cognito_user_pool_arn) > 0 ? 1 : 0
+  count = var.cognito_user_pool_arn != null ? 1 : 0
   name  = "${var.function_name}-cognito-policy"
   role  = aws_iam_role.lambda.id
 
@@ -62,7 +62,7 @@ resource "aws_iam_role_policy" "cognito_admin" {
         Sid      = "AllowCognitoUserPoolAdmin"
         Effect   = "Allow"
         Action   = var.cognito_actions
-        Resource = var.cognito_user_pool_arn[0]
+        Resource = var.cognito_user_pool_arn
       }
     ]
   })

@@ -32,6 +32,10 @@ locals {
   # CloudFront distribution ARN
   cloudfront_distribution_arn = module.cloudfront.distribution_arn
 
+  # OIDC subject the app-deploy role trusts
+  github_repo_ref       = "repo:${var.github_org}@${var.github_org_id}/${var.project_name}@${var.github_repo_id}"
+  github_deploy_subject = var.environment == "prod" ? "${local.github_repo_ref}:environment:prod" : "${local.github_repo_ref}:*"
+
   # Per-environment hardening config
   env_config = {
     dev = {

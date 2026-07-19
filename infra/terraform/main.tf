@@ -197,7 +197,7 @@ module "backend" {
   provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
 
   s3_bucket_name        = local.s3_uploads_bucket_name
-  cognito_user_pool_arn = [module.cognito.user_pool_arn]
+  cognito_user_pool_arn = module.cognito.user_pool_arn
   cognito_actions       = ["cognito-idp:AdminDeleteUser"]
 
   secrets_arns = [
@@ -247,7 +247,7 @@ module "frontend" {
   provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
 
   s3_bucket_name        = null
-  cognito_user_pool_arn = [module.cognito.user_pool_arn]
+  cognito_user_pool_arn = module.cognito.user_pool_arn
   cognito_actions = [
     "cognito-idp:AdminAddUserToGroup",
     "cognito-idp:AdminListGroupsForUser"
@@ -426,6 +426,30 @@ module "monitoring" {
     local.common_tags,
     {
       Name = "${local.name_prefix}-monitoring"
+    }
+  )
+}
+
+# -------------------
+# GitHub app-deploy role
+# -------------------
+module "app_deploy_role" {
+  source = "./modules/github-deploy-role"
+
+  role_name      = "${local.name_prefix}-app-deploy"
+  github_subject = local.github_deploy_subject
+
+  lambda_function_arns             = [module.backend.function_arn, module.frontend.function_arn]
+  codedeploy_application_arns      = [module.codedeploy_backend.application_arn, module.codedeploy_frontend.application_arn]
+  codedeploy_deployment_group_arns = [module.codedeploy_backend.deployment_group_arn, module.codedeploy_frontend.deployment_group_arn]
+  static_assets_bucket_arn         = module.s3_static_assets.bucket_arn
+  cloudfront_distribution_arn      = local.cloudfront_distribution_arn
+  ecr_pull_repository_arns         = [local.ecr_frontend_repository_arn]
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${local.name_prefix}-app-deploy"
     }
   )
 }

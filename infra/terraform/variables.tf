@@ -89,3 +89,28 @@ variable "central_ecr_account_id" {
     error_message = "central_ecr_account_id must be a 12-digit AWS account ID."
   }
 }
+
+variable "github_org" {
+  description = "GitHub owner of this repository, for the app-deploy role's OIDC trust subject (CI supplies github.repository_owner)"
+  type        = string
+}
+
+variable "github_org_id" {
+  description = "Numeric GitHub owner ID embedded in the immutable OIDC subject claim (CI supplies github.repository_owner_id)"
+  type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]+$", var.github_org_id))
+    error_message = "github_org_id must be numeric."
+  }
+}
+
+variable "github_repo_id" {
+  description = "Numeric GitHub repository ID embedded in the immutable OIDC subject claim (CI supplies github.repository_id)"
+  type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]+$", var.github_repo_id))
+    error_message = "github_repo_id must be numeric."
+  }
+}

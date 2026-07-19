@@ -10,14 +10,31 @@ BACKEND_REPO="$PROJECT_NAME-backend"
 FRONTEND_REPO="$PROJECT_NAME-frontend"
 
 has_latest() {
-  local repo="$1"
-  aws ecr batch-get-image \
+  local repo="$1" out err rc=0
+  err="$(mktemp)"
+  out="$(aws ecr batch-get-image \
     --registry-id "$CENTRAL_ECR_ACCOUNT_ID" \
     --repository-name "$repo" \
     --image-ids imageTag=latest \
     --region "$AWS_REGION" \
     --query 'images[0].imageId.imageTag' \
-    --output text 2>/dev/null | grep -q '^latest$'
+    --output text 2>"$err")" || rc=$?
+
+  if [ "$rc" -eq 0 ]; then
+    rm -f "$err"
+    [ "$out" = "latest" ] # empty repo → "None" → absent
+    return
+  fi
+
+  if grep -q 'ImageNotFoundException\|RepositoryNotFoundException' "$err"; then
+    rm -f "$err"
+    return 1
+  fi
+
+  echo "ERROR: cannot read central ECR repo '$repo' (not an image-absent condition):" >&2
+  cat "$err" >&2
+  rm -f "$err"
+  exit 1
 }
 
 images="present"

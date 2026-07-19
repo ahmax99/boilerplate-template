@@ -66,15 +66,16 @@ hotfix/* branch → merge to main → manually trigger release-please.yml (workf
   → tag triggers the release pipeline above
 ```
 
-## OIDC Roles (org-provided)
+## OIDC Roles
 
-All GitHub→AWS authentication uses the OIDC providers and roles created by the org repo — this repo's Terraform creates none of its own:
+GitHub→AWS authentication uses the OIDC **providers** the org repo creates in each member account. The account-level roles (below) are org-owned; the one app-specific role, `gha-app-deploy`, is created by **this repo's own Terraform** against that provider. Each role is scoped to the least privilege its step needs:
 
-- **`gha-ecr-push`** (shared-services): assumed by the build jobs from any ref; push/pull scoped to the shared-services registry only. Read into the workflows as repo-level `vars.ECR_PUSH_ROLE_ARN`.
-- **`gha-deploy`** (dev): assumed by dev deploy jobs and dev Terraform apply (`vars.DEPLOY_ROLE_ARN` in the `dev` scope), and by the read-only plan job (`vars.TF_PLAN_ROLE_ARN`, repo-level). Trust allows any ref of this repo.
-- **`gha-deploy`** (prod): assumed by prod deploy jobs and prod Terraform apply (`vars.DEPLOY_ROLE_ARN` in the `prod` scope). Its trust policy requires the `environment:prod` OIDC subject claim, so only jobs running in the `prod` GitHub environment — which requires reviewer approval — can assume it; a compromised branch push with no `environment:` context cannot.
+- **`gha-ecr-push`** (shared-services, _org-owned_): assumed by the build jobs from any ref; push/pull scoped to the shared-services registry only. Read into the workflows as repo-level `vars.ECR_PUSH_ROLE_ARN`.
+- **`gha-plan`** (dev, read-only, _org-owned_): assumed by the PR `terraform plan` job (`vars.TF_PLAN_ROLE_ARN`, repo-level — plans only run against dev). `ReadOnlyAccess` plus a scoped `secretsmanager:GetSecretValue` on the dev project secrets (plan refreshes the secret-version resources, which `ReadOnlyAccess` alone can't read) — no write/apply, so a tampered PR can't mutate state or resources; the plan runs `-lock=false` because the role can't write the S3-native lock.
+- **`gha-deploy`** (dev / prod, admin, _org-owned_): assumed by `terraform-apply.yml` (`vars.TF_APPLY_ROLE_ARN` per env). Broad by necessity — Terraform manages the whole account's app infra. The prod role's trust requires the `environment:prod` OIDC subject claim, so only the reviewer-gated `prod` environment can assume it.
+- **`gha-app-deploy`** (dev / prod, scoped, _created by this repo_): assumed by `deploy.yml`'s app deploy jobs (`vars.APP_DEPLOY_ROLE_ARN` per env). This repo's `modules/github-deploy-role` creates it against the org-provided OIDC provider (discovered via a `data` lookup) and scopes its inline policy to the **exact ARNs** of the Lambda functions, CodeDeploy apps, static-assets bucket, CloudFront distribution, and ECR repos this Terraform manages — tighter than a name wildcard, and owned next to the resources it grants. The prod role's trust requires the `environment:prod` claim.
 
-The org repo pins the **numeric** GitHub org/repo IDs in the trust policies (immutable subject claims), so renamed or recreated repos don't inherit access.
+Trust policies pin the **numeric** GitHub org/repo IDs (immutable subject claims), so renamed or recreated repos don't inherit access — the org roles from the org repo's variables, and `gha-app-deploy` from `TF_VAR_github_org*`/`_repo_id`, which CI supplies from the Actions context.
 
 ## Per-Environment Hardening (`local.env_config`)
 

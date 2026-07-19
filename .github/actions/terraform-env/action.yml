@@ -32,6 +32,15 @@ inputs:
   dns-account-role-arn:
     description: 'TF_VAR_dns_account_role_arn — role to assume in the shared-services account for cross-account apex-zone writes (non-secret; empty on dev, whose env zone lives in-account)'
     required: true
+  github-org:
+    description: 'TF_VAR_github_org — repository owner, for the app-deploy role OIDC trust (supply github.repository_owner)'
+    required: true
+  github-org-id:
+    description: 'TF_VAR_github_org_id — numeric owner ID for the immutable OIDC subject (supply github.repository_owner_id)'
+    required: true
+  github-repo-id:
+    description: 'TF_VAR_github_repo_id — numeric repository ID for the immutable OIDC subject (supply github.repository_id)'
+    required: true
 
 runs:
   using: 'composite'
@@ -54,6 +63,9 @@ runs:
         TF_VAR_frontend_sentry_dsn: ${{ inputs.frontend-sentry-dsn }}
         TF_VAR_central_ecr_account_id: ${{ inputs.central-ecr-account-id }}
         TF_VAR_dns_account_role_arn: ${{ inputs.dns-account-role-arn }}
+        TF_VAR_github_org: ${{ inputs.github-org }}
+        TF_VAR_github_org_id: ${{ inputs.github-org-id }}
+        TF_VAR_github_repo_id: ${{ inputs.github-repo-id }}
       run: |
         {
           echo "TF_VAR_project_name=$TF_VAR_project_name"
@@ -71,4 +83,7 @@ runs:
           echo "TF_VAR_frontend_sentry_dsn=$TF_VAR_frontend_sentry_dsn"
           echo "TF_VAR_central_ecr_account_id=$TF_VAR_central_ecr_account_id"
           echo "TF_VAR_dns_account_role_arn=$TF_VAR_dns_account_role_arn"
+          echo "TF_VAR_github_org=$TF_VAR_github_org"
+          echo "TF_VAR_github_org_id=$TF_VAR_github_org_id"
+          echo "TF_VAR_github_repo_id=$TF_VAR_github_repo_id"
         } >> "$GITHUB_ENV"

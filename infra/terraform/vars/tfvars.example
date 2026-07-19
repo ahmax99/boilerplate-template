@@ -10,6 +10,11 @@ dns_account_role_arn = "" # prod: the org repo's dns-apex-manager role ARN; dev:
 # Central ECR (shared-services account hosting the org-wide image registry)
 central_ecr_account_id = "" # e.g. "000000000000"
 
+# GitHub identity for the app-deploy role's OIDC trust.
+github_org     = "ahmax99"     # github.repository_owner
+github_org_id  = ""            # github.repository_owner_id (numeric) — gh api users/<org> --jq .id
+github_repo_id = ""            # github.repository_id (numeric) — gh api repos/<org>/<repo> --jq .id
+
 # Backend Environment Variables
 database_url       = "postgresql://user:password@host/database"
 backend_sentry_dsn = "https://your-backend-sentry-dsn"
