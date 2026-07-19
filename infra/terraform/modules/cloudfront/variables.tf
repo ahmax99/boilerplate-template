@@ -18,6 +18,11 @@ variable "static_assets_bucket_domain_name" {
   type        = string
 }
 
+variable "static_assets_bucket_id" {
+  description = "ID (name) of the static-assets S3 bucket, to attach the OAC read policy that lets this distribution pull objects"
+  type        = string
+}
+
 variable "logs_bucket_domain_name" {
   description = "Regional domain name of the S3 bucket for CloudFront access logs"
   type        = string
