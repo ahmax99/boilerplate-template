@@ -4,7 +4,11 @@
 module "route53" {
   source = "./modules/route53"
 
-  zone_id                             = data.aws_route53_zone.main.zone_id
+  providers = {
+    aws = aws.dns
+  }
+
+  zone_id                             = local.dns_zone_id
   domain_name                         = local.domain_name
   cloudfront_distribution_domain_name = module.cloudfront.distribution_domain_name
   cloudfront_hosted_zone_id           = module.cloudfront.hosted_zone_id
@@ -17,12 +21,13 @@ module "acm" {
   source = "./modules/acm"
 
   providers = {
-    aws = aws.us_east_1
+    aws     = aws.us_east_1
+    aws.dns = aws.dns
   }
 
   domain_name               = local.domain_name
   subject_alternative_names = []
-  zone_id                   = data.aws_route53_zone.main.zone_id
+  zone_id                   = local.dns_zone_id
 
   tags = merge(
     local.common_tags,
@@ -150,7 +155,7 @@ module "cognito" {
 
   mfa_configuration      = "OPTIONAL"
   advanced_security_mode = "OFF"
-  deletion_protection    = "ACTIVE"
+  deletion_protection    = local.env.cognito_deletion_protection
 
   token_validity = {
     id_token_validity      = 60
@@ -182,13 +187,14 @@ module "backend" {
   source = "./modules/lambda"
 
   function_name      = "${local.name_prefix}-backend"
-  image_uri          = "${module.ecr_backend.repository_url}:latest"
-  ecr_repository_arn = module.ecr_backend.repository_arn
+  image_uri          = "${local.ecr_backend_repository_url}:latest"
+  ecr_repository_arn = local.ecr_backend_repository_arn
 
-  memory_size                    = 512
-  timeout                        = 30
-  log_retention_days             = 7
-  reserved_concurrent_executions = -1
+  memory_size                       = 512
+  timeout                           = 30
+  log_retention_days                = local.env.log_retention_days
+  reserved_concurrent_executions    = local.env.reserved_concurrent_executions
+  provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
 
   s3_bucket_name        = local.s3_uploads_bucket_name
   cognito_user_pool_arn = module.cognito.user_pool_arn
@@ -206,7 +212,7 @@ module "backend" {
     FRONTEND_URL             = local.frontend_url
     NODE_ENV                 = "production"
     S3_BUCKET_NAME           = local.s3_uploads_bucket_name
-    SENTRY_DSN               = var.sentry_dsn
+    SENTRY_DSN               = var.backend_sentry_dsn
   }
 
   enable_function_url    = true
@@ -231,13 +237,14 @@ module "frontend" {
   source = "./modules/lambda"
 
   function_name      = "${local.name_prefix}-frontend"
-  image_uri          = "${module.ecr_frontend.repository_url}:latest"
-  ecr_repository_arn = module.ecr_frontend.repository_arn
+  image_uri          = "${local.ecr_frontend_repository_url}:latest"
+  ecr_repository_arn = local.ecr_frontend_repository_arn
 
-  memory_size                    = 512
-  timeout                        = 30
-  log_retention_days             = 7
-  reserved_concurrent_executions = -1
+  memory_size                       = 512
+  timeout                           = 30
+  log_retention_days                = local.env.log_retention_days
+  reserved_concurrent_executions    = local.env.reserved_concurrent_executions
+  provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
 
   s3_bucket_name        = null
   cognito_user_pool_arn = module.cognito.user_pool_arn
@@ -257,6 +264,7 @@ module "frontend" {
     FROM_EMAIL           = var.from_email
     NODE_ENV             = "production"
     RESEND_API_KEY       = var.resend_api_key
+    SENTRY_DSN           = var.frontend_sentry_dsn
     SESSION_SECRET       = var.session_secret
   }
 
@@ -323,7 +331,7 @@ module "s3_logs" {
     {
       id              = "expire-old-logs"
       enabled         = true
-      expiration_days = 90
+      expiration_days = local.env.s3_logs_expiration_days
     }
   ]
 
@@ -400,60 +408,48 @@ module "s3_static_assets" {
   )
 }
 
+
 # -------------------
-# ECR
+# Monitoring — CloudWatch alarms that gate CodeDeploy canary rollback
 # -------------------
-module "ecr_backend" {
-  source = "./modules/ecr"
+module "monitoring" {
+  source = "./modules/monitoring"
+  count  = local.env.enable_alarms ? 1 : 0
 
-  project_name    = var.project_name
-  environment     = var.environment
-  repository_name = "${local.name_prefix}-backend"
-
-  image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
-  image_tag_mutability_exclusion_filters = [
-    { filter = "latest*", filter_type = "WILDCARD" }
-  ]
-  scan_on_push = true
-
-  lifecycle_policy = {
-    max_image_count = 10
-    max_image_age   = 30
-  }
+  name_prefix            = local.name_prefix
+  backend_function_name  = module.backend.function_name
+  backend_alias_name     = module.backend.alias_name
+  frontend_function_name = module.frontend.function_name
+  frontend_alias_name    = module.frontend.alias_name
 
   tags = merge(
     local.common_tags,
     {
-      Name = "${local.name_prefix}-backend-ecr"
+      Name = "${local.name_prefix}-monitoring"
     }
   )
 }
 
-module "ecr_frontend" {
-  source = "./modules/ecr"
+# -------------------
+# GitHub app-deploy role
+# -------------------
+module "app_deploy_role" {
+  source = "./modules/github-deploy-role"
 
-  project_name    = var.project_name
-  environment     = var.environment
-  repository_name = "${local.name_prefix}-frontend"
+  role_name      = "${local.name_prefix}-app-deploy"
+  github_subject = local.github_deploy_subject
 
-  # Content tags (git SHA, v* releases) are immutable so a deployed image can't
-  # be swapped; `latest` is excluded because the deploy pipeline re-pushes it as
-  # the bootstrap sentinel and the Lambda baseline image (see main.tf image_uri).
-  image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
-  image_tag_mutability_exclusion_filters = [
-    { filter = "latest*", filter_type = "WILDCARD" }
-  ]
-  scan_on_push = true
-
-  lifecycle_policy = {
-    max_image_count = 10
-    max_image_age   = 30
-  }
+  lambda_function_arns             = [module.backend.function_arn, module.frontend.function_arn]
+  codedeploy_application_arns      = [module.codedeploy_backend.application_arn, module.codedeploy_frontend.application_arn]
+  codedeploy_deployment_group_arns = [module.codedeploy_backend.deployment_group_arn, module.codedeploy_frontend.deployment_group_arn]
+  static_assets_bucket_arn         = module.s3_static_assets.bucket_arn
+  cloudfront_distribution_arn      = local.cloudfront_distribution_arn
+  ecr_pull_repository_arns         = [local.ecr_frontend_repository_arn]
 
   tags = merge(
     local.common_tags,
     {
-      Name = "${local.name_prefix}-frontend-ecr"
+      Name = "${local.name_prefix}-app-deploy"
     }
   )
 }
@@ -469,7 +465,7 @@ module "codedeploy_backend" {
   lambda_function_arn   = module.backend.function_arn
 
   create_custom_deployment_config = false
-  deployment_config_name          = "CodeDeployDefault.LambdaAllAtOnce"
+  deployment_config_name          = local.env.deployment_config_name
   traffic_routing_type            = "AllAtOnce"
   linear_interval                 = 1
   linear_percentage               = 10
@@ -478,7 +474,7 @@ module "codedeploy_backend" {
 
   enable_auto_rollback = true
   auto_rollback_events = ["DEPLOYMENT_FAILURE", "DEPLOYMENT_STOP_ON_ALARM"]
-  alarm_names          = []
+  alarm_names          = local.env.enable_alarms ? module.monitoring[0].backend_alarm_names : []
 
   tags = merge(
     local.common_tags,
@@ -496,7 +492,7 @@ module "codedeploy_frontend" {
   lambda_function_arn   = module.frontend.function_arn
 
   create_custom_deployment_config = false
-  deployment_config_name          = "CodeDeployDefault.LambdaAllAtOnce"
+  deployment_config_name          = local.env.deployment_config_name
   traffic_routing_type            = "AllAtOnce"
   linear_interval                 = 1
   linear_percentage               = 10
@@ -505,7 +501,7 @@ module "codedeploy_frontend" {
 
   enable_auto_rollback = true
   auto_rollback_events = ["DEPLOYMENT_FAILURE", "DEPLOYMENT_STOP_ON_ALARM"]
-  alarm_names          = []
+  alarm_names          = local.env.enable_alarms ? module.monitoring[0].frontend_alarm_names : []
 
   tags = merge(
     local.common_tags,
@@ -515,50 +511,3 @@ module "codedeploy_frontend" {
   )
 }
 
-# -------------------
-# GitHub Actions OIDC
-# -------------------
-module "github_oidc" {
-  source = "./modules/github-oidc"
-
-  role_name    = "${local.name_prefix}-github-actions-role"
-  project_name = var.project_name
-
-  github_repositories = [
-    "repo:${var.github_org}/${var.project_name}:*"
-  ]
-
-  lambda_function_arns = [
-    module.backend.function_arn,
-    module.frontend.function_arn
-  ]
-
-  codedeploy_arns = [
-    "arn:aws:codedeploy:${var.aws_region}:${data.aws_caller_identity.current.account_id}:application:${module.codedeploy_backend.app_name}",
-    module.codedeploy_backend.deployment_group_arn,
-    "arn:aws:codedeploy:${var.aws_region}:${data.aws_caller_identity.current.account_id}:application:${module.codedeploy_frontend.app_name}",
-    module.codedeploy_frontend.deployment_group_arn
-  ]
-
-  ecr_repository_arns = [
-    module.ecr_backend.repository_arn,
-    module.ecr_frontend.repository_arn
-  ]
-
-  s3_static_assets_bucket_id  = module.s3_static_assets.bucket_id
-  s3_static_assets_bucket_arn = module.s3_static_assets.bucket_arn
-  cloudfront_distribution_arn = local.cloudfront_distribution_arn
-
-  enable_terraform_roles = true
-  environment            = var.environment
-  create_oidc_provider   = var.create_github_oidc_provider
-  github_org             = var.github_org
-  state_bucket_arn       = "arn:aws:s3:::${var.project_name}-terraform-state"
-
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-github-actions"
-    }
-  )
-}

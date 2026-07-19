@@ -18,14 +18,14 @@ variable "root_domain" {
   type        = string
 }
 
-variable "github_org" {
-  description = "GitHub organization name"
+variable "dns_account_role_arn" {
+  description = "IAM role ARN to assume in the AWS account hosting the root Route 53 zone for cross-account DNS writes; empty string when the zone lives in this same account"
   type        = string
-}
 
-variable "create_github_oidc_provider" {
-  description = "Create the account-global GitHub OIDC provider. Set true for exactly one environment (dev) applied first; false for the others, which resolve the existing provider via a data source."
-  type        = bool
+  validation {
+    condition     = can(regex("^$|^arn:aws:iam::[0-9]{12}:role/.+$", var.dns_account_role_arn))
+    error_message = "dns_account_role_arn must be a valid IAM role ARN or empty."
+  }
 }
 
 variable "database_url" {
@@ -34,8 +34,14 @@ variable "database_url" {
   sensitive   = true
 }
 
-variable "sentry_dsn" {
-  description = "Sentry DSN for error tracking"
+variable "backend_sentry_dsn" {
+  description = "Sentry DSN for the backend's error tracking"
+  type        = string
+  sensitive   = true
+}
+
+variable "frontend_sentry_dsn" {
+  description = "Sentry DSN for the frontend's error tracking"
   type        = string
   sensitive   = true
 }
@@ -72,4 +78,39 @@ variable "session_secret" {
   description = "Session secret for signing cookies (generated with: openssl rand -base64 32)"
   type        = string
   sensitive   = true
+}
+
+variable "central_ecr_account_id" {
+  description = "Account ID of the shared-services account hosting the central ECR repositories (created by the org repo, not this one)"
+  type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]{12}$", var.central_ecr_account_id))
+    error_message = "central_ecr_account_id must be a 12-digit AWS account ID."
+  }
+}
+
+variable "github_org" {
+  description = "GitHub owner of this repository, for the app-deploy role's OIDC trust subject (CI supplies github.repository_owner)"
+  type        = string
+}
+
+variable "github_org_id" {
+  description = "Numeric GitHub owner ID embedded in the immutable OIDC subject claim (CI supplies github.repository_owner_id)"
+  type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]+$", var.github_org_id))
+    error_message = "github_org_id must be numeric."
+  }
+}
+
+variable "github_repo_id" {
+  description = "Numeric GitHub repository ID embedded in the immutable OIDC subject claim (CI supplies github.repository_id)"
+  type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]+$", var.github_repo_id))
+    error_message = "github_repo_id must be numeric."
+  }
 }

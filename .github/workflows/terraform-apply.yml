@@ -8,7 +8,12 @@ on:
       - 'infra/terraform/**'
     tags:
       - 'v*'
-  workflow_dispatch: # dev only — prod requires a v* tag push
+  workflow_dispatch:
+    inputs:
+      apply_prod:
+        description: 'Also apply prod (first bring-up only — steady state stays v*-tag-only). Still gated by the prod environment reviewer.'
+        type: boolean
+        default: false
 
 permissions:
   id-token: write
@@ -22,7 +27,7 @@ jobs:
   apply-dev:
     name: Terraform Apply → Dev
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     environment: dev
 
     env:
@@ -37,7 +42,6 @@ jobs:
         uses: ./.github/actions/terraform-env
         with:
           environment: dev
-          create-github-oidc-provider: 'true'
           aws-region: ${{ vars.AWS_REGION }}
           root-domain: ${{ vars.TF_VAR_root_domain }}
           contact-to-email: ${{ vars.TF_VAR_contact_to_email }}
@@ -47,7 +51,13 @@ jobs:
           google-client-secret: ${{ secrets.TF_VAR_google_client_secret }}
           resend-api-key: ${{ secrets.TF_VAR_resend_api_key }}
           session-secret: ${{ secrets.TF_VAR_session_secret }}
-          sentry-dsn: ${{ secrets.TF_VAR_sentry_dsn }}
+          backend-sentry-dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
+          frontend-sentry-dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+          dns-account-role-arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
+          github-org: ${{ github.repository_owner }}
+          github-org-id: ${{ github.repository_owner_id }}
+          github-repo-id: ${{ github.repository_id }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
@@ -69,16 +79,18 @@ jobs:
           environment: dev
           project-name: ${{ github.event.repository.name }}
           aws-region: ${{ env.AWS_REGION }}
-          next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
-          next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
-          next-public-sentry-dsn: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+          ecr-push-role-arn: ${{ vars.ECR_PUSH_ROLE_ARN }}
+          apply-role-arn: ${{ vars.TF_APPLY_ROLE_ARN }}
 
   apply-prod:
     name: Terraform Apply → Prod
     needs: apply-dev
-    if: github.event_name == 'push' && github.ref_type == 'tag'
+    if: >-
+      (github.event_name == 'push' && github.ref_type == 'tag') ||
+      (github.event_name == 'workflow_dispatch' && inputs.apply_prod == true)
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     environment: prod # required-reviewer gate (already configured for deploy.yml)
 
     env:
@@ -93,7 +105,6 @@ jobs:
         uses: ./.github/actions/terraform-env
         with:
           environment: prod
-          create-github-oidc-provider: 'false'
           aws-region: ${{ vars.AWS_REGION }}
           root-domain: ${{ vars.TF_VAR_root_domain }}
           contact-to-email: ${{ vars.TF_VAR_contact_to_email }}
@@ -103,7 +114,13 @@ jobs:
           google-client-secret: ${{ secrets.TF_VAR_google_client_secret }}
           resend-api-key: ${{ secrets.TF_VAR_resend_api_key }}
           session-secret: ${{ secrets.TF_VAR_session_secret }}
-          sentry-dsn: ${{ secrets.TF_VAR_sentry_dsn }}
+          backend-sentry-dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
+          frontend-sentry-dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+          dns-account-role-arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
+          github-org: ${{ github.repository_owner }}
+          github-org-id: ${{ github.repository_owner_id }}
+          github-repo-id: ${{ github.repository_id }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
@@ -124,6 +141,6 @@ jobs:
           environment: prod
           project-name: ${{ github.event.repository.name }}
           aws-region: ${{ env.AWS_REGION }}
-          next-public-base-url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
-          next-public-backend-url: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
-          next-public-sentry-dsn: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+          ecr-push-role-arn: ${{ vars.ECR_PUSH_ROLE_ARN }}
+          apply-role-arn: ${{ vars.TF_APPLY_ROLE_ARN }}

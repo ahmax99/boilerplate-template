@@ -21,8 +21,12 @@ on:
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
+  ECR_REGISTRY: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
   # Semver tag for releases; SHA for day-to-day branch pushes and manual dispatch
   IMAGE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || github.sha }}
+
+permissions:
+  contents: read
 
 concurrency:
   group: deploy-${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}
@@ -53,14 +57,13 @@ jobs:
           before-sha: ${{ github.event.before }}
           head-sha: ${{ github.sha }}
 
-  # ── Build jobs ────────────────────────────────────────────────────────────
+  # ── Build jobs — push once into the central (shared-services) registry ─────
   build-backend:
     name: Build Backend Image
     needs: detect
     if: needs.detect.outputs.backend == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    environment: dev
     permissions:
       id-token: write
       contents: read
@@ -74,7 +77,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.ECR_PUSH_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Build
 
@@ -93,8 +96,8 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
-            ${{ vars.ECR_BACKEND_REPOSITORY_URL }}:latest
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-backend:${{ env.IMAGE_TAG }}
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-backend:latest
           build-args: |
             DATABASE_URL=postgresql://placeholder:placeholder@placeholder:5432/placeholder?schema=public
           cache-from: type=gha
@@ -102,7 +105,7 @@ jobs:
 
       - name: Set image URI output
         id: set-uri
-        run: echo "image-uri=${{ vars.ECR_BACKEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
+        run: echo "image-uri=${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-backend:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
 
   build-frontend:
     name: Build Frontend Image
@@ -110,7 +113,6 @@ jobs:
     if: needs.detect.outputs.frontend == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    environment: dev
     permissions:
       id-token: write
       contents: read
@@ -124,7 +126,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.ECR_PUSH_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Build
 
@@ -143,17 +145,14 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}
-            ${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:latest
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-frontend:${{ env.IMAGE_TAG }}
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-frontend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            NEXT_PUBLIC_BASE_URL=${{ vars.NEXT_PUBLIC_BASE_URL }}
-            NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
 
       - name: Set image URI output
         id: set-uri
-        run: echo "image-uri=${{ vars.ECR_FRONTEND_REPOSITORY_URL }}:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
+        run: echo "image-uri=${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-frontend:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
 
   # ── Dev deploy jobs ────────────────────────────────────────────────────────
   deploy-dev-backend:
@@ -174,7 +173,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.APP_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Dev
 
@@ -208,7 +207,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.APP_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Dev
 
@@ -232,10 +231,31 @@ jobs:
           cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
           aws-region: ${{ env.AWS_REGION }}
 
+  # ── Ordering gate ──────────────────────────────────────────────────────────
+  wait-for-prod-infra:
+    name: Wait for prod Terraform apply
+    needs: detect
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Wait for terraform-apply.yml prod apply on this ref
+        uses: ./.github/actions/wait-for-workflow-run
+        with:
+          workflow-file: terraform-apply.yml
+          ref-name: ${{ github.ref_name }}
+
   # ── Prod deploy jobs ───────────────────────────────────────────────────────
   deploy-prod-backend:
     name: Deploy Backend → Prod
-    needs: [detect, build-backend, deploy-dev-backend]
+    needs: [detect, build-backend, deploy-dev-backend, wait-for-prod-infra]
     if: >-
       needs.detect.outputs.backend == 'true' &&
       github.event_name == 'push' && github.ref_type == 'tag'
@@ -253,7 +273,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.APP_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Prod
 
@@ -271,7 +291,7 @@ jobs:
 
   deploy-prod-frontend:
     name: Deploy Frontend → Prod
-    needs: [detect, build-frontend, deploy-dev-frontend]
+    needs: [detect, build-frontend, deploy-dev-frontend, wait-for-prod-infra]
     if: >-
       needs.detect.outputs.frontend == 'true' &&
       github.event_name == 'push' && github.ref_type == 'tag'
@@ -289,7 +309,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.APP_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Prod
 

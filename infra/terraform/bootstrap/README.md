@@ -1,73 +1,51 @@
 # Terraform Backend Bootstrap
 
-This directory contains the Terraform configuration to create the **S3 bucket** required for storing Terraform state across all environments.
+This directory contains the Terraform configuration to create the **S3 state buckets** — one dedicated bucket per environment (`<project>-dev-terraform-state`, `<project>-prod-terraform-state`), each holding its state at the bucket root (`terraform.tfstate`, no key prefix needed since the bucket itself is the environment boundary).
 
 ## Purpose
 
-Creates the following resources:
+Creates the following resources (once per environment):
 
-- **S3 Bucket**: Stores Terraform state files for dev/prod environments with native S3 locking
+- **S3 Bucket**: Stores that environment's Terraform state with native S3 locking
+
+This is the **only** resource the bring-up creates outside the CI pipeline. Everything else the pipeline needs to authenticate — the GitHub OIDC providers, the per-account `gha-deploy` roles, the shared `gha-ecr-push` role — is provided by the org repo (see [`docs/runbook.md`](../../../docs/runbook.md)), so there is no OIDC/role seeding step here anymore.
 
 ## Prerequisites
 
-1. AWS credentials configured (`aws configure` or environment variables)
+1. CLI credentials via the org's IAM Identity Center (SSO) — set `AWS_PROFILE` to the target account (`ahmax99-dev` / `ahmax99-prod`) and run `aws sso login`. The one-time `~/.aws/config` block and account IDs live in the [org repo's CLI-access section](https://github.com/ahmax99/ahmax99-aws-org#cli-access-identity-center-sso).
 2. Terraform >= 1.14.0 installed
 
 ## Important Notes
 
-⚠️ **Run this ONCE before setting up any environment (dev/prod)**
+⚠️ **Run this ONCE per environment, before setting that environment up (dev before prod)**
 
-⚠️ **This configuration uses LOCAL state** (not remote S3 backend) because it creates the backend resources themselves
+⚠️ **dev and prod are separate AWS accounts.** Switch your SSO profile (`export AWS_PROFILE=ahmax99-dev` vs `ahmax99-prod`) before each environment's commands, and confirm with `aws sts get-caller-identity` — a wrong-profile apply lands in the wrong account.
 
-⚠️ **Keep the `terraform.tfstate` file safe** - it's stored locally in this directory
+⚠️ **This configuration uses LOCAL state** (not remote S3 backend) because it creates the backend resources themselves — use a separate Terraform **workspace** per environment so each environment's bucket is tracked independently and running one environment can never touch another's tracked resource
+
+⚠️ **Keep the `terraform.tfstate.d/` directory safe** - it's stored locally in this directory (one state file per workspace)
 
 ## Setup Instructions
 
-### One-time bootstrap (human, admin AWS credentials — run ONCE, dev before prod)
-
-These steps create the irreducible seed the CI pipeline needs to authenticate. After them, the
-pipeline manages everything (open a PR → plan comment → merge applies dev → `v*` tag applies prod).
-
-**S1 — Create the state bucket** (skip if already done):
+Run the `dev` block under the `ahmax99-dev` profile, the `prod` block under
+`ahmax99-prod` — these are two separate accounts, not two workspaces in one:
 
 ```bash
-cd infra/terraform/bootstrap && terraform init && terraform apply -auto-approve && cd ../..
+export AWS_PROFILE=ahmax99-dev
+aws sso login   # one login covers both accounts (shared SSO session)
+cd infra/terraform/bootstrap
+# --- dev account ---
+terraform init
+terraform workspace new dev
+terraform apply -var="project_name=boilerplate-template" -var="environment=dev" -auto-approve
+# --- switch to prod account ---
+export AWS_PROFILE=ahmax99-prod
+terraform workspace new prod
+terraform apply -var="project_name=boilerplate-template" -var="environment=prod" -auto-approve
+cd ../..
 ```
 
-**S2 — Seed dev** (creates the account-global OIDC provider + dev apply role):
-
-```bash
-cd infra/terraform
-terraform init -backend-config=backends/dev.hcl
-terraform apply \
-  -target=module.github_oidc.aws_iam_openid_connect_provider.github \
-  -target=module.github_oidc.aws_iam_role.terraform_apply \
-  -target=module.github_oidc.aws_iam_policy.terraform_apply_permissions \
-  -target=module.github_oidc.aws_iam_role_policy_attachment.terraform_apply_permissions \
-  -var-file=vars/dev.tfvars -auto-approve
-terraform output terraform_apply_role_arn   # → dev env TF_APPLY_ROLE_ARN
-terraform output terraform_plan_role_arn     # → repo-level TF_PLAN_ROLE_ARN
-```
-
-**S3 — Seed prod** (provider already exists; creates the prod apply role only):
-
-```bash
-terraform init -reconfigure -backend-config=backends/prod.hcl
-terraform apply \
-  -target=module.github_oidc.aws_iam_role.terraform_apply \
-  -target=module.github_oidc.aws_iam_policy.terraform_apply_permissions \
-  -target=module.github_oidc.aws_iam_role_policy_attachment.terraform_apply_permissions \
-  -var-file=vars/prod.tfvars -auto-approve
-terraform output terraform_apply_role_arn   # → prod env TF_APPLY_ROLE_ARN
-```
-
-**S4 — Set GitHub config** per `docs/deployment-environments.md`: repo baseline (dev vars/secrets) +
-`dev` environment (`TF_APPLY_ROLE_ARN`) + `prod` environment (apply role ARN + prod-specific overrides),
-and ensure `prod` has a required reviewer.
-
-### From this point on — no local `terraform apply` needed
-
-Open a PR → plan comment appears → merge applies dev → push a `v*` tag and approve the gate to apply prod.
+Then continue with the environment's GitHub configuration and first apply per [`docs/runbook.md`](../../../docs/runbook.md) — no further local `terraform apply` is needed (open a PR → plan comment → merge applies dev → `v*` tag applies prod).
 
 ## Security Features
 
@@ -81,10 +59,11 @@ Open a PR → plan comment appears → merge applies dev → push a `v*` tag and
 
 ## Cleanup
 
-⚠️ **DO NOT destroy these resources while environments are using them!**
+⚠️ **DO NOT destroy an environment's bucket while that environment is using it!**
 
-To destroy (only if you're completely done with all environments):
+To destroy one environment's bucket (only once you're completely done with that environment):
 
 ```bash
-terraform destroy
+terraform workspace select dev   # or prod
+terraform destroy -var="project_name=boilerplate-template" -var="environment=dev"
 ```

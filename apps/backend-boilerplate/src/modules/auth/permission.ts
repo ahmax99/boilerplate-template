@@ -1,4 +1,5 @@
 import { AbilityBuilder } from '@casl/ability'
+import { COGNITO_GROUPS } from '@shared/config'
 
 import { type AppAbility, createPrismaAbility } from '@/lib/casl-prisma.js'
 import type { AuthUser } from '@/modules/auth/auth.plugin.js'
@@ -13,7 +14,7 @@ export const getUserPermissions = (user?: AuthUser, userId?: string) => {
   if (!user) return build()
 
   // Authenticated users (Users group)
-  if (user.role?.includes('Users') && userId) {
+  if (user.role?.includes(COGNITO_GROUPS.USERS) && userId) {
     can('create', 'Comment')
     can('update', 'Comment', { authorId: userId })
     can('delete', 'Comment', { authorId: userId })
@@ -21,7 +22,7 @@ export const getUserPermissions = (user?: AuthUser, userId?: string) => {
   }
 
   // Admins (Admins group)
-  if (user.role?.includes('Admins')) can('manage', 'all')
+  if (user.role?.includes(COGNITO_GROUPS.ADMINS)) can('manage', 'all')
 
   return build()
 }

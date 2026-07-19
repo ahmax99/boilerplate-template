@@ -1,0 +1,38 @@
+name: 'Wait for Workflow Run'
+description: 'Polls for a push-triggered workflow run on a given ref and blocks until it concludes, failing if it did not succeed'
+
+inputs:
+  workflow-file:
+    description: 'Workflow filename to wait for (e.g. terraform-apply.yml)'
+    required: true
+  ref-name:
+    description: 'Tag or branch name the target run must have been triggered from (e.g. github.ref_name) — matched against a push event specifically, so an unrelated run on the same commit (e.g. an earlier branch-push run) cannot be mistaken for it'
+    required: true
+  repo:
+    description: 'owner/repo to query'
+    required: false
+    default: ${{ github.repository }}
+  max-attempts:
+    description: 'Number of times to poll for the run to appear before failing'
+    required: false
+    default: '60'
+  poll-interval-seconds:
+    description: 'Seconds to wait between polling attempts'
+    required: false
+    default: '15'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Wait for workflow run
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        REPO: ${{ inputs.repo }}
+        WORKFLOW_FILE: ${{ inputs.workflow-file }}
+        REF_NAME: ${{ inputs.ref-name }}
+        MAX_ATTEMPTS: ${{ inputs.max-attempts }}
+        POLL_INTERVAL_SECONDS: ${{ inputs.poll-interval-seconds }}
+      run: |
+        chmod +x .github/scripts/wait-for-workflow-run.sh
+        .github/scripts/wait-for-workflow-run.sh
