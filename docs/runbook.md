@@ -223,7 +223,7 @@ environment: `vars.STATIC_ASSETS_BUCKET` (`static_assets_bucket_name`),
 apply role, so the app-deploy role exists after it — capture it before D7.
 
 **D6 — Register the Google OAuth redirect URI**
-(`https://<cognito_domain>/oauth2/idpresponse`, from the `cognito_domain`
+(`https://<cognito_domain>.auth.ap-northeast-1.amazoncognito.com/oauth2/idpresponse`, from the `cognito_domain`
 output) on the dev OAuth client.
 
 **D7 — Verify**: push to `main` (or re-run `deploy.yml` via dispatch) — builds
@@ -262,7 +262,9 @@ only applies + publishes Lambda versions.
 `vars.STATIC_ASSETS_BUCKET`, `vars.CLOUDFRONT_DISTRIBUTION_ID`,
 `vars.APP_DEPLOY_ROLE_ARN` (`app_deploy_role_arn`).
 
-**P5 — Register the prod Google OAuth redirect URI** (prod `cognito_domain`).
+**P5 — Register the prod Google OAuth redirect URI**
+(`https://<cognito_domain>.auth.ap-northeast-1.amazoncognito.com/oauth2/idpresponse`, from the `cognito_domain`
+output) on the prod OAuth client.
 
 **P6 — Cut the first release**: merge the release PR / push a `v*` tag.
 `deploy.yml` builds once, deploys dev, waits for `terraform-apply.yml`'s prod
