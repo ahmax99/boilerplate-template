@@ -444,7 +444,7 @@ module "app_deploy_role" {
   codedeploy_deployment_group_arns = [module.codedeploy_backend.deployment_group_arn, module.codedeploy_frontend.deployment_group_arn]
   static_assets_bucket_arn         = module.s3_static_assets.bucket_arn
   cloudfront_distribution_arn      = local.cloudfront_distribution_arn
-  ecr_pull_repository_arns         = [local.ecr_frontend_repository_arn]
+  ecr_pull_repository_arns         = [local.ecr_backend_repository_arn, local.ecr_frontend_repository_arn]
 
   tags = merge(
     local.common_tags,
