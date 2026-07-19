@@ -34,7 +34,7 @@ variable "cloudfront_distribution_arn" {
 }
 
 variable "ecr_pull_repository_arns" {
-  description = "Central ECR repository ARNs the deploy jobs pull (frontend image, for static-asset extraction)"
+  description = "Central ECR repository ARNs the deploy role pulls: both the backend and frontend images, plus the frontend image for static-asset extraction"
   type        = list(string)
 }
 
