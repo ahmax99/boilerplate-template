@@ -136,7 +136,7 @@ Set under **Settings → Secrets and variables → Actions** (repo level) and
 | ----------------------------- | -------- | ---------------------------------- | -------------------------------------- |
 | `TF_APPLY_ROLE_ARN`           | variable | org output `dev_deploy_role_arn`   | org output `prod_deploy_role_arn`      |
 | `APP_DEPLOY_ROLE_ARN`         | variable | Terraform output after first apply | Terraform output after first apply     |
-| `DNS_ACCOUNT_ROLE_ARN`        | variable | _(leave empty)_                    | org output `dns_apex_manager_role_arn` |
+| `DNS_ACCOUNT_ROLE_ARN`        | variable | _(leave unset)_                    | org output `dns_apex_manager_role_arn` |
 | `STATIC_ASSETS_BUCKET`        | variable | Terraform output after first apply | Terraform output after first apply     |
 | `CLOUDFRONT_DISTRIBUTION_ID`  | variable | Terraform output after first apply | Terraform output after first apply     |
 | `TF_VAR_database_url`         | secret   | dev Neon connection string         | prod Neon connection string            |
@@ -176,7 +176,10 @@ plan`. `ReadOnlyAccess` plus a scoped `secretsmanager:GetSecretValue` on the
 > its own `dev.<root_domain>` zone (delegated into the dev account by the org),
 > so it stays empty and the `aws.dns` provider falls back to ambient
 > credentials. Prod writes into the apex zone in shared-services, a different
-> account, so it assumes the `dns-apex-manager` role.
+> account, so it assumes the `dns-apex-manager` role. GitHub Actions rejects an
+> empty variable value, so on dev you **leave the variable unset** — an absent
+> `vars.DNS_ACCOUNT_ROLE_ARN` resolves to `""` in the workflow, exactly what dev
+> wants.
 
 There are **no** per-environment ECR variables: image URLs are derived in the
 workflows and in Terraform from `CENTRAL_ECR_ACCOUNT_ID` + the repo name, so
