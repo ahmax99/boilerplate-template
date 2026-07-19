@@ -55,13 +55,12 @@ variable "secrets_arns" {
 }
 
 variable "cognito_user_pool_arn" {
-  description = "Cognito user pool ARN to grant admin permissions on (e.g. for assigning users to groups). Pass null when the function does not need Cognito admin access."
+  description = "Cognito user pool ARN to grant admin permissions on (e.g. for assigning users to groups)."
   type        = string
-  nullable    = true
 }
 
 variable "cognito_actions" {
-  description = "Cognito Identity Provider admin actions to grant when cognito_user_pool_arn is set. Ignored when cognito_user_pool_arn is null; each caller should list only the actions it actually invokes."
+  description = "Cognito Identity Provider admin actions to grant on cognito_user_pool_arn; each caller should list only the actions it actually invokes."
   type        = list(string)
 }
 

@@ -51,9 +51,8 @@ resource "aws_iam_role_policy" "s3_access" {
 }
 
 resource "aws_iam_role_policy" "cognito_admin" {
-  count = var.cognito_user_pool_arn != null ? 1 : 0
-  name  = "${var.function_name}-cognito-policy"
-  role  = aws_iam_role.lambda.id
+  name = "${var.function_name}-cognito-policy"
+  role = aws_iam_role.lambda.id
 
   policy = jsonencode({
     Version = "2012-10-17"
