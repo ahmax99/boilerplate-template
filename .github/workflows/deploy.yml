@@ -230,6 +230,7 @@ jobs:
           static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
           cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
           aws-region: ${{ env.AWS_REGION }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
 
   # ── Ordering gate ──────────────────────────────────────────────────────────
   wait-for-prod-infra:
@@ -332,3 +333,4 @@ jobs:
           static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
           cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
           aws-region: ${{ env.AWS_REGION }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
