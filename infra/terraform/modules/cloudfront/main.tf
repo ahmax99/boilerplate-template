@@ -285,3 +285,25 @@ resource "aws_cloudfront_distribution" "this" {
 
   tags = var.tags
 }
+
+resource "aws_s3_bucket_policy" "static_oac_read" {
+  bucket = var.static_assets_bucket_id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "AllowCloudFrontOACRead"
+        Effect    = "Allow"
+        Principal = { Service = "cloudfront.amazonaws.com" }
+        Action    = "s3:GetObject"
+        Resource  = "arn:aws:s3:::${var.static_assets_bucket_id}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.this.arn
+          }
+        }
+      },
+    ]
+  })
+}

@@ -153,6 +153,16 @@ resource "aws_cognito_user_pool_client" "web_app" {
 }
 
 # -------------------
+# Managed Login branding
+# -------------------
+resource "aws_cognito_managed_login_branding" "web_app" {
+  user_pool_id = aws_cognito_user_pool.this.id
+  client_id    = aws_cognito_user_pool_client.web_app.id
+
+  use_cognito_provided_values = true
+}
+
+# -------------------
 # Cognito User Groups
 # -------------------
 resource "aws_cognito_user_group" "users" {

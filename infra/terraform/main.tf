@@ -49,6 +49,7 @@ module "cloudfront" {
   backend_function_url  = module.backend.function_url
 
   static_assets_bucket_domain_name = module.s3_static_assets.bucket_regional_domain_name
+  static_assets_bucket_id          = module.s3_static_assets.bucket_id
   logs_bucket_domain_name          = module.s3_logs.bucket_regional_domain_name
   web_acl_id                       = module.waf.web_acl_arn
 
@@ -257,6 +258,7 @@ module "frontend" {
 
   environment_variables = {
     BACKEND_INTERNAL_URL = "${trimsuffix(module.backend.function_url, "/")}/api/v1"
+    BASE_URL             = local.frontend_url
     COGNITO_CLIENT_ID    = module.cognito.client_id
     COGNITO_DOMAIN       = module.cognito.user_pool_domain
     COGNITO_USERPOOL_ID  = module.cognito.user_pool_id
