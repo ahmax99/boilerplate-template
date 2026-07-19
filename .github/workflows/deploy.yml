@@ -17,7 +17,7 @@ on:
       - '.github/scripts/**'
     tags:
       - 'v*'
-  workflow_dispatch: # dev only — prod requires a v* tag push
+  workflow_dispatch: # dev-only unless dispatched with a v* tag as the ref — see prod job gates below
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
@@ -236,7 +236,7 @@ jobs:
   wait-for-prod-infra:
     name: Wait for prod Terraform apply
     needs: detect
-    if: github.event_name == 'push' && github.ref_type == 'tag'
+    if: github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
     runs-on: ubuntu-latest
     timeout-minutes: 360
     permissions:
@@ -259,7 +259,7 @@ jobs:
     needs: [detect, build-backend, deploy-dev-backend, wait-for-prod-infra]
     if: >-
       needs.detect.outputs.backend == 'true' &&
-      github.event_name == 'push' && github.ref_type == 'tag'
+      github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: prod
@@ -295,7 +295,7 @@ jobs:
     needs: [detect, build-frontend, deploy-dev-frontend, wait-for-prod-infra]
     if: >-
       needs.detect.outputs.frontend == 'true' &&
-      github.event_name == 'push' && github.ref_type == 'tag'
+      github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: prod
