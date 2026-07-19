@@ -12,14 +12,14 @@ This is the **only** resource the bring-up creates outside the CI pipeline. Ever
 
 ## Prerequisites
 
-1. AWS credentials configured (`aws configure` or environment variables)
+1. CLI credentials via the org's IAM Identity Center (SSO) — set `AWS_PROFILE` to the target account (`ahmax99-dev` / `ahmax99-prod`) and run `aws sso login`. The one-time `~/.aws/config` block and account IDs live in the [org repo's CLI-access section](https://github.com/ahmax99/ahmax99-aws-org#cli-access-identity-center-sso).
 2. Terraform >= 1.14.0 installed
 
 ## Important Notes
 
 ⚠️ **Run this ONCE per environment, before setting that environment up (dev before prod)**
 
-⚠️ **dev and prod are separate AWS accounts.** Switch your local AWS credentials/profile (e.g. `AWS_PROFILE=<project>-dev` vs `AWS_PROFILE=<project>-prod`) before each environment's commands.
+⚠️ **dev and prod are separate AWS accounts.** Switch your SSO profile (`export AWS_PROFILE=ahmax99-dev` vs `ahmax99-prod`) before each environment's commands, and confirm with `aws sts get-caller-identity` — a wrong-profile apply lands in the wrong account.
 
 ⚠️ **This configuration uses LOCAL state** (not remote S3 backend) because it creates the backend resources themselves — use a separate Terraform **workspace** per environment so each environment's bucket is tracked independently and running one environment can never touch another's tracked resource
 
@@ -27,15 +27,19 @@ This is the **only** resource the bring-up creates outside the CI pipeline. Ever
 
 ## Setup Instructions
 
-Run the `dev` block with dev-account credentials, the `prod` block with prod-account credentials — these are two separate accounts, not two workspaces in one:
+Run the `dev` block under the `ahmax99-dev` profile, the `prod` block under
+`ahmax99-prod` — these are two separate accounts, not two workspaces in one:
 
 ```bash
+export AWS_PROFILE=ahmax99-dev
+aws sso login   # one login covers both accounts (shared SSO session)
 cd infra/terraform/bootstrap
-# --- dev-account credentials ---
+# --- dev account ---
 terraform init
 terraform workspace new dev
 terraform apply -var="project_name=boilerplate-template" -var="environment=dev" -auto-approve
-# --- switch to prod-account credentials ---
+# --- switch to prod account ---
+export AWS_PROFILE=ahmax99-prod
 terraform workspace new prod
 terraform apply -var="project_name=boilerplate-template" -var="environment=prod" -auto-approve
 cd ../..

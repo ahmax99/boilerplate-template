@@ -92,11 +92,26 @@ in the steps below:
 
 ### 4. Local tooling (for the one manual step per environment)
 
-Terraform ≥ 1.14 and admin (or SSO) credentials for the target member account
-— used only to create that environment's state bucket. Everything after that
-runs through GitHub Actions. Make the target account explicit
-(`AWS_PROFILE=<project>-dev` / `-prod`); a wrong-profile apply lands in the
-wrong account with no name-prefix safety net.
+Terraform ≥ 1.14 and CLI credentials for the target member account — used only
+to create that environment's state bucket. Everything after that runs through
+GitHub Actions.
+
+Authenticate via the org's IAM Identity Center (SSO), not long-lived keys. The
+org repo's [CLI access (Identity Center SSO)](https://github.com/ahmax99/ahmax99-aws-org#cli-access-identity-center-sso)
+section has the one-time `~/.aws/config` block (the `ahmax99` `sso-session`
+plus the per-account profiles — `ahmax99-dev`, `ahmax99-prod`, `ahmax99-shared`,
+`ahmax99-mgmt`) and the authoritative account IDs. Once configured:
+
+```bash
+export AWS_PROFILE=ahmax99-dev          # the account you're operating on
+aws sso login                           # logs in via that profile's SSO session
+aws sts get-caller-identity             # confirm the right account
+```
+
+Set `AWS_PROFILE` (Terraform and the CLI both read it) before every command
+below; a wrong-profile apply lands in the wrong account with no name-prefix
+safety net. The `AdminAccess` session lasts 8 hours — re-run `aws sso login`
+when it expires.
 
 ## GitHub configuration reference
 
@@ -172,10 +187,12 @@ they cannot drift.
 **D1 — Confirm prerequisites** (org repo applied, section above), and collect
 the org repo outputs.
 
-**D2 — Create the dev state bucket** (local, dev-account admin credentials —
-the only manual Terraform of the bring-up):
+**D2 — Create the dev state bucket** (local, dev-account credentials via the
+`ahmax99-dev` SSO profile — the only manual Terraform of the bring-up):
 
 ```bash
+export AWS_PROFILE=ahmax99-dev
+aws sso login   # if the session has expired
 cd infra/terraform/bootstrap
 terraform init
 terraform workspace new dev
@@ -215,9 +232,12 @@ push to the central registry and deploy to dev. App is live at
 Do this only after dev works — prod deploys re-use the images dev already
 built.
 
-**P1 — Create the prod state bucket** (local, **prod-account** credentials):
+**P1 — Create the prod state bucket** (local, **prod-account** credentials via
+the `ahmax99-prod` SSO profile):
 
 ```bash
+export AWS_PROFILE=ahmax99-prod
+aws sso login   # if the session has expired
 cd infra/terraform/bootstrap
 terraform workspace new prod
 terraform apply -var="project_name=boilerplate-template" -var="environment=prod" -auto-approve
