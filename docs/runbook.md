@@ -235,7 +235,7 @@ the org repo outputs.
 ```bash
 export AWS_PROFILE=ahmax99-dev
 aws sso login   # if the session has expired
-cd infra/terraform/bootstrap
+cd infra/bootstrap
 terraform init
 terraform workspace new dev
 terraform apply -var="project_name=boilerplate-template" -var="environment=dev" -auto-approve
@@ -280,7 +280,7 @@ the `ahmax99-prod` SSO profile):
 ```bash
 export AWS_PROFILE=ahmax99-prod
 aws sso login   # if the session has expired
-cd infra/terraform/bootstrap
+cd infra/bootstrap
 terraform workspace new prod
 terraform apply -var="project_name=boilerplate-template" -var="environment=prod" -auto-approve
 ```
@@ -298,7 +298,7 @@ records and ACM validation are written cross-account through the
 only applies + publishes Lambda versions.
 
 > **New prod accounts start with a Lambda concurrency quota of 10.** Prod's
-> `env_config` (`infra/terraform/locals.tf`) reserves concurrency
+> `env_config` (`infra/locals.tf`) reserves concurrency
 > (`reserved_concurrent_executions = 10`, `provisioned_concurrent_executions =
 2`), but AWS caps brand-new accounts at a total **Concurrent executions**
 > quota of 10 and always keeps a floor of 10 unreserved — so the apply fails
@@ -347,5 +347,5 @@ merge Release PR → v*   → build → deploy dev → [prod reviewer: terraform
 No manual variable wrangling — every value used after bring-up is either a
 stable org/Terraform output already captured, or a secret set once during
 setup. Steady-state Terraform changes flow through PRs: a PR touching
-`infra/terraform/**` gets a dev plan comment; merge applies dev; a `v*` tag
+`infra/**` gets a dev plan comment; merge applies dev; a `v*` tag
 applies prod behind the reviewer gate.

@@ -10,5 +10,5 @@ ignored:
   # break the build the next time AWS republishes the base image with a
   # newer Amazon Linux minor release that no longer carries that exact
   # version — same reasoning as the AWS-0031/AWS-0132 suppressions in
-  # infra/terraform/.trivyignore.
+  # infra/.trivyignore.
   - DL3041

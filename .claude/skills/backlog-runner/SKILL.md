@@ -225,7 +225,7 @@ state`:
 
 ## Anomalies and budget
 
-Any anomaly (scope drift, an `infra/terraform/**` diff, an issue's worktree
+Any anomaly (scope drift, an `infra/**` diff, an issue's worktree
 already carrying unexpected uncommitted changes from an unrelated source, a
 non-deterministic crash, or verifier exit 2) always routes to `agent:blocked`
 — see `HUMAN-GATES.md` for the full trigger list. The

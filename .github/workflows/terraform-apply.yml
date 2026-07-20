@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'infra/terraform/**'
+      - 'infra/**'
     tags:
       - 'v*'
   workflow_dispatch:

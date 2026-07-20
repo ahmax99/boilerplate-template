@@ -89,7 +89,7 @@ The full phase-by-phase mapping — which plugin fits where, and what wins on co
 > _correctly in this codebase_. Infra work rides the same pipeline: specs and plans
 > can include Terraform steps, `/implement` gates them with `terraform fmt`/`tflint`/
 > `terraform validate` (mirroring `terraform-plan.yml`), and `/qa`/`/review` add an
-> `infra-reviewer` pass when the diff touches `infra/terraform/**`.
+> `infra-reviewer` pass when the diff touches `infra/**`.
 
 ## What keeps the agent on the rails
 

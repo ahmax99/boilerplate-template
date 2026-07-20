@@ -28,7 +28,7 @@ runs:
       shell: bash
       env:
         ENVIRONMENT: ${{ inputs.environment }}
-      run: terraform -chdir=infra/terraform init -reconfigure -backend-config="backends/${ENVIRONMENT}.hcl"
+      run: terraform -chdir=infra init -reconfigure -backend-config="backends/${ENVIRONMENT}.hcl"
 
     # ── Idempotency check: central images present? environment provisioned? ──
     - name: Check ECR image state
@@ -56,12 +56,12 @@ runs:
     - name: Steady-state — Plan
       if: steps.ecr-check.outputs.mode == 'steady-state'
       shell: bash
-      run: terraform -chdir=infra/terraform plan -no-color -lock-timeout=300s -out=tfplan.binary
+      run: terraform -chdir=infra plan -no-color -lock-timeout=300s -out=tfplan.binary
 
     - name: Steady-state — Apply
       if: steps.ecr-check.outputs.mode == 'steady-state'
       shell: bash
-      run: terraform -chdir=infra/terraform apply -auto-approve -lock-timeout=300s tfplan.binary
+      run: terraform -chdir=infra apply -auto-approve -lock-timeout=300s tfplan.binary
 
     # ── SUMMARY ───────────────────────────────────────────────────────────────
     - name: Surface outputs to job summary
@@ -77,6 +77,6 @@ runs:
           echo ""
           echo "### Outputs"
           echo '```'
-          terraform -chdir=infra/terraform output 2>/dev/null || echo "(outputs unavailable)"
+          terraform -chdir=infra output 2>/dev/null || echo "(outputs unavailable)"
           echo '```'
         } >> "$GITHUB_STEP_SUMMARY"
