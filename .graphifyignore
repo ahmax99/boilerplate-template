@@ -26,4 +26,4 @@ graphify-out/
 bun.lock
 *.lock
 *.log
-infra/terraform/.terraform/
+infra/.terraform/

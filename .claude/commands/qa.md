@@ -31,12 +31,12 @@ Issue these in a single message with multiple Bash tool calls in parallel:
 - `git diff --name-only origin/main...HEAD`
 - `bunx react-doctor@latest --verbose --scope changed` — React-only scanner; reports just the issues this branch introduced. It reports clean when the diff has no React files, so run it unconditionally in the batch. New **errors** count as a gate FAIL; warnings are advisory (list them, don't block).
 
-**If the diff list contains `infra/terraform/**` files**, run the Terraform gates (local mirror of `terraform-plan.yml`) in a follow-up parallel batch:
+**If the diff list contains `infra/**` files**, run the Terraform gates (local mirror of `terraform-plan.yml`) in a follow-up parallel batch:
 
-- `terraform -chdir=infra/terraform fmt -check -recursive`
-- `tflint --chdir=infra/terraform --recursive --format compact --minimum-failure-severity=error` (run `tflint --chdir=infra/terraform --init` first if it complains about missing plugins)
-- `terraform -chdir=infra/terraform validate` (if init is missing, run `terraform -chdir=infra/terraform init -backend=false` first)
-- `trivy config infra/terraform --ignorefile infra/terraform/.trivyignore --severity CRITICAL,HIGH` — only if `trivy` is installed; otherwise SKIPPED (CI enforces it in `security.yml`)
+- `terraform -chdir=infra fmt -check -recursive`
+- `tflint --chdir=infra --recursive --format compact --minimum-failure-severity=error` (run `tflint --chdir=infra --init` first if it complains about missing plugins)
+- `terraform -chdir=infra validate` (if init is missing, run `terraform -chdir=infra init -backend=false` first)
+- `trivy config infra --ignorefile infra/.trivyignore --severity CRITICAL,HIGH` — only if `trivy` is installed; otherwise SKIPPED (CI enforces it in `security.yml`)
 
 Any Terraform gate failure counts as a Phase 1 FAIL. Skip all four when the diff has no infra files.
 
@@ -67,7 +67,7 @@ In a single message with three parallel Task tool calls, invoke:
 
 3. `subagent_type: "acceptance-criteria-reviewer"` — same prompt shape (PLAN_PATH is mandatory for this one).
 
-4. `subagent_type: "infra-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `infra/terraform/**` files**. Include it in the same parallel batch.
+4. `subagent_type: "infra-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `infra/**` files**. Include it in the same parallel batch.
 
 5. `subagent_type: "cicd-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `.github/**` files**. Include it in the same parallel batch.
 
@@ -97,7 +97,7 @@ Merge the three returned reports into one unified report. **Scores are copied ve
 - Security: X/5  (security-reviewer)
 - Architecture: X/5  (correctness-reviewer)
 - Code quality: X/5  (correctness-reviewer)
-- Infrastructure: X/5  (infra-reviewer — omit when the diff has no infra/terraform/** files)
+- Infrastructure: X/5  (infra-reviewer — omit when the diff has no infra/** files)
 - CI/CD: X/5  (cicd-reviewer — omit when the diff has no .github/** files)
 
 ### Issues (file-ordered, severity inline)

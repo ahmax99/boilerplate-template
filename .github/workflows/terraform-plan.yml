@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'infra/terraform/**'
+      - 'infra/**'
 
 permissions:
   id-token: write
@@ -65,7 +65,7 @@ jobs:
           role-session-name: TerraformPlan
 
       - name: Terraform fmt check
-        run: terraform -chdir=infra/terraform fmt -check -recursive
+        run: terraform -chdir=infra fmt -check -recursive
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@6e1e0642c0289bd619021bf6b34e3c08ed1e005a # v6.3.0
@@ -73,25 +73,25 @@ jobs:
           tflint_version: v0.63.1
 
       - name: Init TFLint
-        run: tflint --chdir=infra/terraform --init
+        run: tflint --chdir=infra --init
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run TFLint
-        run: tflint --chdir=infra/terraform --recursive --format compact --minimum-failure-severity=error
+        run: tflint --chdir=infra --recursive --format compact --minimum-failure-severity=error
 
       - name: Terraform init
-        run: terraform -chdir=infra/terraform init -backend-config=backends/dev.hcl
+        run: terraform -chdir=infra init -backend-config=backends/dev.hcl
 
       - name: Terraform validate
-        run: terraform -chdir=infra/terraform validate
+        run: terraform -chdir=infra validate
 
       - name: Terraform plan
         id: plan
         # Capture exit code separately; 0=no changes, 1=error, 2=changes present
         run: |
           set +e
-          terraform -chdir=infra/terraform plan \
+          terraform -chdir=infra plan \
             -no-color \
             -lock=false \
             2>&1 | tee /tmp/plan-output.txt

@@ -27,7 +27,7 @@ gate or the qa-retry cap.
 
 Print, per issue touched this run: issue number, the phase it moved from →
 to, and the reason if it didn't advance (e.g. "waiting on `agent:approved`",
-"blocked: infra/terraform diff"). Then tell the user how many issues are
+"blocked: infra diff"). Then tell the user how many issues are
 still queued vs. paused on a human gate, per `SKILL.md`'s discovery query.
 
 ## Notes
