@@ -20,14 +20,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: terraform-apply-${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}
+  group: terraform-apply-${{ github.ref_type == 'tag' && 'prod' || 'dev' }}
   cancel-in-progress: false
 
 env:
   TF_IN_AUTOMATION: 'true'
   AWS_REGION: ${{ vars.AWS_REGION }}
   TF_VAR_project_name: ${{ github.event.repository.name }}
-  TF_VAR_maintenance_mode: ${{ vars.MAINTENANCE_MODE || 'false' }}
   TF_VAR_aws_region: ${{ vars.AWS_REGION }}
   TF_VAR_root_domain: ${{ vars.TF_VAR_root_domain }}
   TF_VAR_contact_to_email: ${{ vars.TF_VAR_contact_to_email }}
@@ -54,6 +53,7 @@ jobs:
 
     env:
       TF_VAR_environment: dev
+      TF_VAR_maintenance_mode: ${{ vars.MAINTENANCE_MODE || 'false' }}
 
     steps:
       - name: Checkout
@@ -94,6 +94,7 @@ jobs:
 
     env:
       TF_VAR_environment: prod
+      TF_VAR_maintenance_mode: ${{ vars.MAINTENANCE_MODE || 'false' }}
 
     steps:
       - name: Checkout
