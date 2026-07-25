@@ -281,13 +281,14 @@ jobs:
 
   deploy-dev-frontend:
     name: Deploy Frontend → Dev
-    needs: [detect, build-frontend, apply-dev]
+    needs: [detect, build-frontend, apply-dev, deploy-dev-backend]
     if: |
       !cancelled() &&
       github.ref_type == 'branch' &&
       needs.detect.outputs.frontend == 'true' &&
       needs.build-frontend.result == 'success' &&
-      (needs.apply-dev.result == 'success' || needs.apply-dev.result == 'skipped')
+      (needs.apply-dev.result == 'success' || needs.apply-dev.result == 'skipped') &&
+      (needs.deploy-dev-backend.result == 'success' || needs.deploy-dev-backend.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: dev

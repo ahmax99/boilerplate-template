@@ -25,7 +25,7 @@ The pipeline's guarantees, and the mechanism behind each — change one, check y
 | Terraform lands before the app, per environment                      | `deploy-dev-*` needs `apply-dev`; `deploy-prod-*` needs `apply-prod` — a native `needs:` edge plus an explicit `result == 'success'` check, which also subsumes the old "assert the specific job, not the run" requirement now that both jobs live in the same run |
 | One CodeDeploy deployment at a time per target                       | Job-level `concurrency: deploy-target-<env>-<app>` — keyed on the target, not the ref, so runs in different workflow concurrency groups still serialize                                                                                                            |
 | One `terraform apply` at a time per state file                       | Job-level `concurrency: terraform-state-<env>` on each apply job (a tag run applies dev _and_ prod, so a ref-keyed group can't express this)                                                                                                                       |
-| Prod backend before prod frontend                                    | `deploy-prod-frontend` needs `deploy-prod-backend` — a release may add API surface the new UI calls                                                                                                                                                                |
+| Backend before frontend, per environment                             | `deploy-dev-frontend` needs `deploy-dev-backend`; `deploy-prod-frontend` needs `deploy-prod-backend` — a push/release may add API surface the new UI calls                                                                                                         |
 | Static assets are in S3 before traffic shifts to the new frontend    | The `deploy-static-assets` step runs **before** `deploy-lambda`, and both syncs are additive (no `--delete`, so the live version keeps its own assets)                                                                                                             |
 | A deploy is never interrupted                                        | `cancel-in-progress: false` — cancelling the run wouldn't stop the AWS-side deployment, it would just orphan it and block the next one                                                                                                                             |
 | Prod never deploys on top of a currently-broken dev                  | `verify-dev-healthy` — since dev isn't redeployed by a release, this checks the most recent relevant `deploy.yml` dev-deploy run on `main` actually succeeded (fails open only if no such run exists yet)                                                          |
@@ -57,15 +57,16 @@ The apex zone (`<root_domain>`) lives in shared-services. The org repo delegates
 ```
 push to main (paths match)
   └── detect (affected apps, infra changed?)
-        ├── apply-dev (if infra/** changed) ──────────────┐
-        ├── build-backend (if affected) ──────────────────┤
-        └── build-frontend (if affected) ──────────────────┤
-                                                           ├──→ deploy-dev-backend
-                                                           └──→ deploy-dev-frontend
-                                                                (assets → S3, then Lambda)
+        ├── apply-dev (if infra/** changed)
+        ├── build-backend (if affected)
+        └── build-frontend (if affected)
+
+  apply-dev + build-backend ──→ deploy-dev-backend
+                                      └──→ deploy-dev-frontend (also needs apply-dev + build-frontend)
+                                            (assets → S3, then Lambda)
 ```
 
-Prod is not touched. `IMAGE_TAG` = commit SHA. `apply-dev` runs on this push if `infra/**` changed (skipped otherwise); `deploy-dev-backend`/`deploy-dev-frontend` both `needs: apply-dev` and tolerate it being skipped, so infra lands before the app whenever there's infra to apply, same as the release flow gives prod via `apply-prod`.
+Prod is not touched. `IMAGE_TAG` = commit SHA. `apply-dev` runs on this push if `infra/**` changed (skipped otherwise); `deploy-dev-backend`/`deploy-dev-frontend` both `needs: apply-dev` and tolerate it being skipped, so infra lands before the app whenever there's infra to apply, same as the release flow gives prod via `apply-prod`. `deploy-dev-frontend` also `needs: deploy-dev-backend` (tolerating a skip the same way) — a push may add API surface the new frontend calls, the same reasoning that already ordered prod's backend before its frontend.
 
 ### Release (tag push `v*`)
 
