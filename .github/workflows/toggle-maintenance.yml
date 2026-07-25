@@ -27,7 +27,7 @@ jobs:
   apply:
     name: ${{ inputs.enabled && 'Enable' || 'Disable' }} maintenance → ${{ inputs.environment }}
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     environment: ${{ inputs.environment }}
 
     permissions:
