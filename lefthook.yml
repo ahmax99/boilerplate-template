@@ -17,6 +17,10 @@ pre-commit:
       glob: '**/Dockerfile'
       run: command -v hadolint >/dev/null 2>&1 || { echo 'hadolint not installed locally, skipping Dockerfile lint (see https://github.com/hadolint/hadolint)'; exit 0; }; hadolint --config .hadolint.yaml {staged_files}
 
+    - name: gitleaks
+      glob: '*'
+      run: command -v gitleaks >/dev/null 2>&1 || { echo 'gitleaks not installed locally, skipping secret scan (see https://github.com/gitleaks/gitleaks#installing)'; exit 0; }; gitleaks protect --staged --config .gitleaks.toml --redact
+
 commit-msg:
   commands:
     commitlint:

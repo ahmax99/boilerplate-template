@@ -1,0 +1,14 @@
+title = "gitleaks config for boilerplate-template"
+
+# Layer allowlist exceptions on top of gitleaks' built-in rule set rather than
+# redefining it (https://github.com/gitleaks/gitleaks#configuration).
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known non-secret matches"
+paths = [
+  # Every value here is blank or an inert local-dev placeholder — real secrets
+  # live in AWS Secrets Manager / TF_VAR_* per .claude/rules/infra.md, never in tracked files.
+  '''\.env\.example$'''
+]
