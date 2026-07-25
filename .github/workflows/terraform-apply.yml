@@ -23,11 +23,6 @@ concurrency:
   group: terraform-apply-${{ github.ref_type == 'tag' && 'prod' || 'dev' }}
   cancel-in-progress: false
 
-# Only values identical for both jobs regardless of environment binding.
-# Per-environment secrets/vars (database_url, dns_account_role_arn, etc.) live
-# in each job's own env: below — a workflow-level env: isn't confirmed to
-# resolve an environment-scoped vars./secrets. against each job's bound
-# environment, same reasoning as TF_VAR_maintenance_mode/TF_VAR_environment.
 env:
   TF_IN_AUTOMATION: 'true'
   AWS_REGION: ${{ vars.AWS_REGION }}

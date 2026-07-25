@@ -16,12 +16,15 @@ on:
         type: boolean
         required: true
 
+permissions:
+  contents: read
+
 concurrency:
   group: terraform-apply-${{ inputs.environment }}
   cancel-in-progress: false
 
 jobs:
-  toggle:
+  apply:
     name: ${{ inputs.enabled && 'Enable' || 'Disable' }} maintenance → ${{ inputs.environment }}
     runs-on: ubuntu-latest
     timeout-minutes: 40
@@ -34,8 +37,6 @@ jobs:
     env:
       TF_IN_AUTOMATION: 'true'
       AWS_REGION: ${{ vars.AWS_REGION }}
-      ENVIRONMENT: ${{ inputs.environment }}
-      ENABLED: ${{ inputs.enabled }}
       TF_VAR_project_name: ${{ github.event.repository.name }}
       TF_VAR_environment: ${{ inputs.environment }}
       TF_VAR_maintenance_mode: ${{ inputs.enabled }}
@@ -55,6 +56,9 @@ jobs:
       TF_VAR_github_org: ${{ github.repository_owner }}
       TF_VAR_github_org_id: ${{ github.repository_owner_id }}
       TF_VAR_github_repo_id: ${{ github.repository_id }}
+
+    outputs:
+      distribution_id: ${{ steps.distribution.outputs.id }}
 
     steps:
       - name: Checkout
@@ -85,39 +89,52 @@ jobs:
           ecr-push-role-arn: ${{ vars.ECR_PUSH_ROLE_ARN }}
           apply-role-arn: ${{ vars.TF_APPLY_ROLE_ARN }}
 
+      - name: Get CloudFront distribution ID
+        id: distribution
+        run: echo "id=$(terraform -chdir=infra output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
+
+  verify:
+    name: Verify at the edge → ${{ inputs.environment }}
+    needs: apply
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: ${{ inputs.environment }}
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Configure AWS credentials (apply role)
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ vars.TF_APPLY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          role-session-name: ToggleMaintenanceVerify${{ inputs.environment }}
+
       - name: Verify at the edge
         env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          ENABLED: ${{ inputs.enabled }}
           PROJECT_NAME: ${{ github.event.repository.name }}
           ROOT_DOMAIN: ${{ vars.TF_VAR_root_domain }}
+          DISTRIBUTION_ID: ${{ needs.apply.outputs.distribution_id }}
         run: |
-          set -euo pipefail
-          # Must be the custom domain, not the *.cloudfront.net one: the
-          # viewer-request Lambda@Edge only allows the custom host in Live mode.
-          # Mirrors local.domain_name in infra/locals.tf.
-          if [ "$ENVIRONMENT" = "prod" ]; then
-            domain="${PROJECT_NAME}.${ROOT_DOMAIN}"
-          else
-            domain="${PROJECT_NAME}.${ENVIRONMENT}.${ROOT_DOMAIN}"
-          fi
-          aws cloudfront wait distribution-deployed \
-            --id "$(terraform -chdir=infra output -raw cloudfront_distribution_id)"
-          # "/some/deep/link" only has to 200 in maintenance mode (the S3
-          # catch-all); it isn't a real app route, so Live mode would
-          # legitimately 404 there — only check the two real endpoints then.
-          if [ "$ENABLED" = "true" ]; then
-            paths=("/" "/some/deep/link" "/api/v1/posts")
-          else
-            paths=("/" "/api/v1/posts")
-          fi
-          for path in "${paths[@]}"; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' "https://${domain}${path}")
-            echo "GET ${path} → ${code}"
-            if [ "$code" != "200" ]; then
-              echo "::error::Expected 200 on ${path} (maintenance=${ENABLED}), got ${code}"
-              exit 1
-            fi
-          done
+          chmod +x .github/scripts/toggle-maintenance-verify.sh
+          .github/scripts/toggle-maintenance-verify.sh
 
+  record:
+    name: Record MAINTENANCE_MODE → ${{ inputs.environment }}
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
       - name: Generate a token for the maintenance bot
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -130,6 +147,8 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           GH_REPO: ${{ github.repository }}
+          ENVIRONMENT: ${{ inputs.environment }}
+          ENABLED: ${{ inputs.enabled }}
         run: |
           set -euo pipefail
           gh variable set MAINTENANCE_MODE --env "$ENVIRONMENT" --body "$ENABLED"
