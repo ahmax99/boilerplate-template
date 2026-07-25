@@ -458,6 +458,8 @@ resource "aws_s3_object" "maintenance_index" {
   source       = "${path.module}/assets/maintenance/index.html"
   etag         = filemd5("${path.module}/assets/maintenance/index.html")
   content_type = "text/html"
+
+  tags = local.common_tags
 }
 
 

@@ -23,6 +23,11 @@ concurrency:
   group: terraform-apply-${{ github.ref_type == 'tag' && 'prod' || 'dev' }}
   cancel-in-progress: false
 
+# Only values identical for both jobs regardless of environment binding.
+# Per-environment secrets/vars (database_url, dns_account_role_arn, etc.) live
+# in each job's own env: below — a workflow-level env: isn't confirmed to
+# resolve an environment-scoped vars./secrets. against each job's bound
+# environment, same reasoning as TF_VAR_maintenance_mode/TF_VAR_environment.
 env:
   TF_IN_AUTOMATION: 'true'
   AWS_REGION: ${{ vars.AWS_REGION }}
@@ -31,15 +36,7 @@ env:
   TF_VAR_root_domain: ${{ vars.TF_VAR_root_domain }}
   TF_VAR_contact_to_email: ${{ vars.TF_VAR_contact_to_email }}
   TF_VAR_from_email: ${{ vars.TF_VAR_from_email }}
-  TF_VAR_database_url: ${{ secrets.TF_VAR_database_url }}
-  TF_VAR_google_client_id: ${{ secrets.TF_VAR_google_client_id }}
-  TF_VAR_google_client_secret: ${{ secrets.TF_VAR_google_client_secret }}
-  TF_VAR_resend_api_key: ${{ secrets.TF_VAR_resend_api_key }}
-  TF_VAR_session_secret: ${{ secrets.TF_VAR_session_secret }}
-  TF_VAR_backend_sentry_dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
-  TF_VAR_frontend_sentry_dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
   TF_VAR_central_ecr_account_id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
-  TF_VAR_dns_account_role_arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
   TF_VAR_github_org: ${{ github.repository_owner }}
   TF_VAR_github_org_id: ${{ github.repository_owner_id }}
   TF_VAR_github_repo_id: ${{ github.repository_id }}
@@ -54,6 +51,14 @@ jobs:
     env:
       TF_VAR_environment: dev
       TF_VAR_maintenance_mode: ${{ vars.MAINTENANCE_MODE || 'false' }}
+      TF_VAR_database_url: ${{ secrets.TF_VAR_database_url }}
+      TF_VAR_google_client_id: ${{ secrets.TF_VAR_google_client_id }}
+      TF_VAR_google_client_secret: ${{ secrets.TF_VAR_google_client_secret }}
+      TF_VAR_resend_api_key: ${{ secrets.TF_VAR_resend_api_key }}
+      TF_VAR_session_secret: ${{ secrets.TF_VAR_session_secret }}
+      TF_VAR_backend_sentry_dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
+      TF_VAR_frontend_sentry_dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
+      TF_VAR_dns_account_role_arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
 
     steps:
       - name: Checkout
@@ -95,6 +100,14 @@ jobs:
     env:
       TF_VAR_environment: prod
       TF_VAR_maintenance_mode: ${{ vars.MAINTENANCE_MODE || 'false' }}
+      TF_VAR_database_url: ${{ secrets.TF_VAR_database_url }}
+      TF_VAR_google_client_id: ${{ secrets.TF_VAR_google_client_id }}
+      TF_VAR_google_client_secret: ${{ secrets.TF_VAR_google_client_secret }}
+      TF_VAR_resend_api_key: ${{ secrets.TF_VAR_resend_api_key }}
+      TF_VAR_session_secret: ${{ secrets.TF_VAR_session_secret }}
+      TF_VAR_backend_sentry_dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
+      TF_VAR_frontend_sentry_dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
+      TF_VAR_dns_account_role_arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
 
     steps:
       - name: Checkout
