@@ -12,7 +12,7 @@ For provider/module facts (resource arguments, module inputs, latest versions), 
 - **Per-environment values: `vars/*.tfvars` vs `locals.env_config`.** These are two different mechanisms for two different kinds of value, and CI only wires up the first:
   - `variable` + `vars/<env>.tfvars` (local-only) / `TF_VAR_*` (CI — see below) is for values that are **externally supplied per environment**: secrets, external resource identifiers (Neon DB URL, Google OAuth client, Resend key, Sentry DSN), operator-facing contact info. These can't be derived from `var.environment` alone — a human has to provide them.
   - `infra/locals.tf`'s `env_config` map, keyed on `var.environment`, is for **internal, code-owned policy** that legitimately differs dev vs prod but needs no operator input — log retention, concurrency limits, deployment strategy, alarm toggles (see `local.env` / `local.env_config`). Put a new per-environment value here, not in a new `variable`, unless it's the externally-supplied kind above.
-  - **CI never passes `-var-file`** — `terraform-plan.yml` / `terraform-apply.yml` call `terraform plan`/`apply` with no `-var-file` flag at all; every CI-supplied variable comes from a `TF_VAR_*` line in that workflow's (or job's) own `env:` block, which only covers the externally-supplied list. Adding a new `variable` for an internal policy value means also adding a `TF_VAR_*` line to every calling workflow and both GitHub environments' UI — real added surface for a value that didn't need to be operator-configurable.
+  - **CI never passes `-var-file`** — `terraform-plan.yml` / `deploy.yml`'s `apply-dev`/`apply-prod` jobs call `terraform plan`/`apply` with no `-var-file` flag at all; every CI-supplied variable comes from a `TF_VAR_*` line in that workflow's (or job's) own `env:` block, which only covers the externally-supplied list. Adding a new `variable` for an internal policy value means also adding a `TF_VAR_*` line to every calling workflow and both GitHub environments' UI — real added surface for a value that didn't need to be operator-configurable.
 - `infra/bootstrap/` — separate root module that creates the state bucket. It has its own state; don't entangle it with the main root.
 
 ## State
@@ -62,6 +62,6 @@ trivy config infra --ignorefile infra/.trivyignore --severity CRITICAL,HIGH   # 
 ## Pipeline (what a merge actually does)
 
 - **PR touching `infra/**`** → `terraform-plan.yml`: fmt-check → tflint → validate → `plan` against **dev**, posted as a PR comment. Read that plan output in the PR before approving — it is the review artifact.
-- **Merge to `main`** → `terraform-apply.yml` applies **dev**.
-- **`v*` tag** → applies **prod**, gated by the `prod` GitHub environment (required reviewer).
+- **Merge to `main`** → `deploy.yml`'s `apply-dev` job applies **dev** (gated on `infra/**` having changed; ordinary same-workflow `needs:` — not a separate workflow — is what makes the app deploy jobs wait for it).
+- **`v*` tag** → `deploy.yml`'s `apply-prod` job applies **prod**, gated by the `prod` GitHub environment (required reviewer).
 - Auth is GitHub OIDC role assumption against org-provided roles — no static AWS keys; don't introduce any. Three privilege tiers: `TF_PLAN_ROLE_ARN` (read-only `gha-plan`, PR plans; runs `-lock=false`), `TF_APPLY_ROLE_ARN` (admin `gha-deploy`, `terraform apply`), `APP_DEPLOY_ROLE_ARN` (scoped `gha-app-deploy`, `deploy.yml` app deploys).

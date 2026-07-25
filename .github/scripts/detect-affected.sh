@@ -18,6 +18,28 @@ base_usable() {
   [[ -n "${BEFORE_SHA:-}" && ! "$BEFORE_SHA" =~ ^0+$ ]] && git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null
 }
 
+SCOPE="${SCOPE:-}"
+[[ -z "$SCOPE" ]] && SCOPE='infra-and-apps' # push events carry no scope input
+case "$SCOPE" in
+  infra-and-apps | infra-only | apps-only) ;;
+  *)
+    echo "❌ Unknown SCOPE '$SCOPE'" >&2
+    exit 1
+    ;;
+esac
+
+if [[ "${EVENT_NAME:-}" == 'workflow_dispatch' ]]; then
+  echo "🚀 workflow_dispatch (scope=${SCOPE})"
+  [[ "$SCOPE" == 'apps-only' ]] && echo "infra=false" >> "$GITHUB_OUTPUT" || echo "infra=true" >> "$GITHUB_OUTPUT"
+  if [[ "$SCOPE" == 'infra-only' ]]; then
+    echo "backend=false" >> "$GITHUB_OUTPUT"
+    echo "frontend=false" >> "$GITHUB_OUTPUT"
+  else
+    deploy_both
+  fi
+  exit 0
+fi
+
 if [[ "${EVENT_NAME:-}" != "push" || "${REF_TYPE:-}" == "tag" ]]; then
   echo "🚀 ${EVENT_NAME:-unknown} on ${REF_TYPE:-unknown}: deploying both apps."
   echo "infra=false" >> "$GITHUB_OUTPUT"

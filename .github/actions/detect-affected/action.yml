@@ -8,6 +8,10 @@ inputs:
   ref-type:
     description: 'github.ref_type — a tag push has no usable diff base, so it deploys both apps without running detection'
     required: true
+  scope:
+    description: 'workflow_dispatch scope — infra-and-apps | infra-only | apps-only. Empty on push events (treated as infra-and-apps).'
+    required: false
+    default: ''
   before-sha:
     description: 'github.event.before — the commit the branch pointed at before the push'
     required: false
@@ -24,7 +28,7 @@ outputs:
     description: 'Whether the frontend app should be deployed ("true"/"false")'
     value: ${{ steps.affected.outputs.frontend }}
   infra:
-    description: 'Whether infra/** changed in this push ("true"/"false") — gates whether dev deploys wait for terraform-apply.yml'
+    description: 'Whether infra/** changed in this push ("true"/"false") — gates the apply-dev job'
     value: ${{ steps.affected.outputs.infra }}
 
 runs:

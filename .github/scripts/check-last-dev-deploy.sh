@@ -10,14 +10,14 @@ check_job() {
   local job_name="$1"
   local runs
   runs=$(gh run list --repo "$REPO" --workflow=deploy.yml --branch main --event push \
-    --status completed --limit 15 --json databaseId --jq '.[].databaseId')
+    --status completed --limit 20 --json databaseId --jq '.[].databaseId')
 
   for run_id in $runs; do
     local conclusion
     conclusion=$(JOB_NAME="$job_name" gh run view "$run_id" --repo "$REPO" --json jobs \
       --jq '.jobs[] | select(.name == env.JOB_NAME) | .conclusion' | head -1)
 
-    if [[ -n "$conclusion" && "$conclusion" != "skipped" ]]; then
+    if [[ -n "$conclusion" && "$conclusion" != "skipped" && "$conclusion" != "cancelled" ]]; then
       if [[ "$conclusion" == "success" ]]; then
         echo "✅ Most recent '${job_name}' run (id ${run_id}) succeeded."
         return 0
@@ -27,7 +27,7 @@ check_job() {
     fi
   done
 
-  echo "⚠️  No completed '${job_name}' run found in the last 15 deploy.yml runs on main; nothing to verify against, proceeding."
+  echo "⚠️  No completed '${job_name}' run found in the last 20 deploy.yml runs on main; nothing to verify against, proceeding."
   return 0
 }
 
