@@ -1,11 +1,3 @@
-# module.waf gained `count` in this diff; without this, Terraform would treat
-# module.waf.* as destroyed and module.waf[0].* as newly created on the very
-# next apply, destroying the live WAF ACL even with maintenance_mode = false.
-moved {
-  from = module.waf
-  to   = module.waf[0]
-}
-
 # -------------------
 # Route 53
 # -------------------
