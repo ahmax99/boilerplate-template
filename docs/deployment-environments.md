@@ -121,6 +121,14 @@ environment out of maintenance mode). `apply` and `verify` both run under
 `environment: <target>`, so toggling prod needs the same two reviewer
 approvals `deploy.yml`'s two prod-gated jobs already require.
 
+One wrinkle the `apply` job handles for you: Terraform schedules the web ACL's
+destroy _before_ the CloudFront update that detaches it (`module.waf`'s count
+drops to 0, and the cross-module output edge inverts the ordering), so
+`DeleteWebACL` would always fail with `WAFAssociatedItemException`.
+`.github/scripts/terraform-apply-retry.sh` therefore inspects the plan and, when
+it sees the ACL being deleted, clears the distribution's `WebACLId` via the AWS
+CLI and waits for that to deploy before applying.
+
 Turning maintenance mode back off is the same workflow with `enabled: false`.
 
 ## OIDC Roles
