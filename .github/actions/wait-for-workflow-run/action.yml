@@ -6,7 +6,10 @@ inputs:
     description: 'Workflow filename to wait for (e.g. terraform-apply.yml)'
     required: true
   ref-name:
-    description: 'Tag or branch name the target run must have been triggered from (e.g. github.ref_name) — matched against a push event specifically, so an unrelated run on the same commit (e.g. an earlier branch-push run) cannot be mistaken for it'
+    description: 'Tag or branch name the target run was triggered from (e.g. github.ref_name) — used only for log messages; head-sha is what actually identifies the run'
+    required: true
+  head-sha:
+    description: 'Commit SHA the target run must have been triggered from (e.g. github.sha) — a branch name like "main" is reused across pushes, so matching by commit is what disambiguates the correct run'
     required: true
   repo:
     description: 'owner/repo to query'
@@ -31,6 +34,7 @@ runs:
         REPO: ${{ inputs.repo }}
         WORKFLOW_FILE: ${{ inputs.workflow-file }}
         REF_NAME: ${{ inputs.ref-name }}
+        HEAD_SHA: ${{ inputs.head-sha }}
         MAX_ATTEMPTS: ${{ inputs.max-attempts }}
         POLL_INTERVAL_SECONDS: ${{ inputs.poll-interval-seconds }}
       run: |

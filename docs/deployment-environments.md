@@ -97,6 +97,29 @@ Net effect: a release PR still needs a human to click merge, but from there
 the tag, the prod Terraform apply, and the prod app deploy all cascade
 automatically, same as before these fixes.
 
+## Maintenance mode
+
+`toggle-maintenance.yml` (`workflow_dispatch`, pick `environment` + `enabled`) is
+a manual cost switch for an environment that won't be used for a while: it
+routes CloudFront to a static "down for maintenance" page instead of the
+Lambda origins, **deletes** the WAF web ACL (AWS bills a web ACL for existing,
+not for being attached, so detaching alone doesn't save anything), and zeroes
+provisioned concurrency. All driven by one Terraform variable,
+`maintenance_mode` (`TF_VAR_maintenance_mode`), so there's no separate
+maintenance-mode infrastructure to keep in sync.
+
+Three jobs, in order: **apply** (`terraform apply` with `maintenance_mode` set
+from the workflow's `enabled` input) → **verify** (checks the edge is actually
+serving the expected mode before anything else proceeds) → **record**
+(persists the result as the `MAINTENANCE_MODE` environment variable, via the
+same Automation GitHub App used for release automation, so the _next_ regular
+`terraform-apply.yml` run reads it back and doesn't accidentally revert the
+environment out of maintenance mode). `apply` and `verify` both run under
+`environment: <target>`, so toggling prod needs the same two reviewer
+approvals `deploy.yml`'s two prod-gated jobs already require.
+
+Turning maintenance mode back off is the same workflow with `enabled: false`.
+
 ## OIDC Roles
 
 GitHub→AWS authentication uses the OIDC **providers** the org repo creates in each member account. The account-level roles (below) are org-owned; the one app-specific role, `gha-app-deploy`, is created by **this repo's own Terraform** against that provider. Each role is scoped to the least privilege its step needs:

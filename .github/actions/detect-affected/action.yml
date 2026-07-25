@@ -20,6 +20,9 @@ outputs:
   frontend:
     description: 'Whether the frontend app should be deployed ("true"/"false")'
     value: ${{ steps.affected.outputs.frontend }}
+  infra:
+    description: 'Whether infra/** changed in this push ("true"/"false") — gates whether dev deploys wait for terraform-apply.yml'
+    value: ${{ steps.affected.outputs.infra }}
 
 runs:
   using: 'composite'
