@@ -19,16 +19,15 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: terraform-apply-${{ inputs.environment }}
-  cancel-in-progress: false
-
 jobs:
   apply:
     name: ${{ inputs.enabled && 'Enable' || 'Disable' }} maintenance → ${{ inputs.environment }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     environment: ${{ inputs.environment }}
+    concurrency:
+      group: terraform-state-${{ inputs.environment }}
+      cancel-in-progress: false
 
     permissions:
       id-token: write
@@ -56,9 +55,6 @@ jobs:
       TF_VAR_github_org: ${{ github.repository_owner }}
       TF_VAR_github_org_id: ${{ github.repository_owner_id }}
       TF_VAR_github_repo_id: ${{ github.repository_id }}
-
-    outputs:
-      distribution_id: ${{ steps.distribution.outputs.id }}
 
     steps:
       - name: Checkout
@@ -93,44 +89,20 @@ jobs:
         id: distribution
         run: echo "id=$(terraform -chdir=infra output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
 
-  verify:
-    name: Verify at the edge → ${{ inputs.environment }}
-    needs: apply
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    environment: ${{ inputs.environment }}
-
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          ref: main
-
-      - name: Configure AWS credentials (apply role)
-        uses: aws-actions/configure-aws-credentials@v6
-        with:
-          role-to-assume: ${{ vars.TF_APPLY_ROLE_ARN }}
-          aws-region: ${{ vars.AWS_REGION }}
-          role-session-name: ToggleMaintenanceVerify${{ inputs.environment }}
-
       - name: Verify at the edge
         env:
           ENVIRONMENT: ${{ inputs.environment }}
           ENABLED: ${{ inputs.enabled }}
           PROJECT_NAME: ${{ github.event.repository.name }}
           ROOT_DOMAIN: ${{ vars.TF_VAR_root_domain }}
-          DISTRIBUTION_ID: ${{ needs.apply.outputs.distribution_id }}
+          DISTRIBUTION_ID: ${{ steps.distribution.outputs.id }}
         run: |
           chmod +x .github/scripts/toggle-maintenance-verify.sh
           .github/scripts/toggle-maintenance-verify.sh
 
   record:
     name: Record MAINTENANCE_MODE → ${{ inputs.environment }}
-    needs: verify
+    needs: apply
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
