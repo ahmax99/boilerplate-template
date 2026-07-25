@@ -18,8 +18,7 @@ while true; do
     exit 1
   fi
 
-  sleep_seconds=$((attempt * 20))
-  echo "WAF/CloudFront disassociation hasn't propagated yet — retrying in ${sleep_seconds}s (attempt ${attempt}/${MAX_ATTEMPTS})"
-  sleep "$sleep_seconds"
+  echo "WAF ACL destroy raced ahead of CloudFront's disassociation — forcing the CloudFront update through on its own before retrying (attempt ${attempt}/${MAX_ATTEMPTS})"
+  terraform -chdir=infra apply -auto-approve -lock-timeout=300s -target=module.cloudfront
   attempt=$((attempt + 1))
 done

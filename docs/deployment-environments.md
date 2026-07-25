@@ -36,11 +36,11 @@ The apex zone (`<root_domain>`) lives in shared-services. The org repo delegates
 ```
 push to main (paths match)
   └── detect (affected apps, infra changed?)
-        ├── build-backend (if affected) ─────────────┐
-        ├── build-frontend (if affected) ────────────┤
-        └── wait-for-dev-infra (if infra/** changed) ─┤
-                                                        ├──→ deploy-dev-backend
-                                                        └──→ deploy-dev-frontend
+        ├── build-backend (if affected) ─────────────────┐
+        ├── build-frontend (if affected) ────────────────┤
+        └── wait-for-dev-infra (if infra/** changed) ────┤
+                                                         ├──→ deploy-dev-backend
+                                                         └──→ deploy-dev-frontend
 ```
 
 Prod is not touched. `IMAGE_TAG` = commit SHA. Terraform: `terraform-apply.yml`'s `apply-dev` job also runs on this push if `infra/**` changed — when it does, `wait-for-dev-infra` blocks both dev deploy jobs until that apply finishes (skipped otherwise), the same Terraform-before-app ordering the release flow already gives prod via `wait-for-prod-infra`.
@@ -52,11 +52,11 @@ release-please merges Release PR → creates tag v1.2.3
   ├── terraform-apply.yml: apply-dev ──→ [prod reviewer gate] ──→ apply-prod
   └── deploy.yml:
         detect (both apps, fail-safe)
-          ├── build-backend ──→ deploy-dev-backend ─┐
-          └── build-frontend ─→ deploy-dev-frontend ─┤
-                                                       ├──→ wait-for-prod-infra (blocks until apply-prod above succeeds)
-                                                       │       ├── [prod reviewer gate] ──→ deploy-prod-backend
-                                                       │       └── [prod reviewer gate] ──→ deploy-prod-frontend
+          ├── build-backend ──→ deploy-dev-backend ────┐
+          └── build-frontend ─→ deploy-dev-frontend ───┤
+                                                       └──→ wait-for-prod-infra (blocks until apply-prod above succeeds)
+                                                               ├── [prod reviewer gate] ──→ deploy-prod-backend
+                                                               └── [prod reviewer gate] ──→ deploy-prod-frontend
 ```
 
 Both environments deploy the **same central-registry image URI** — built once, no per-environment copy. `IMAGE_TAG` = `v1.2.3`. `terraform-apply.yml` and `deploy.yml` both trigger off the same tag; `deploy.yml`'s prod jobs wait for `terraform-apply.yml`'s prod apply on that tag to conclude before starting, so infra always lands before the app.

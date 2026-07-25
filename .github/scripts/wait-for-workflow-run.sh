@@ -13,8 +13,6 @@ echo "Waiting for a push-triggered ${WORKFLOW_FILE} run on ${REF_NAME}@${HEAD_SH
 
 RUN_ID=""
 for _ in $(seq 1 "$MAX_ATTEMPTS"); do
-  # Matched by commit, not branch: a branch name like "main" is reused across
-  # every push, so matching by branch alone can pick up an unrelated run.
   RUN_ID=$(gh run list --repo "$REPO" --workflow="$WORKFLOW_FILE" --event push --commit "$HEAD_SHA" \
     --json databaseId --jq '.[0].databaseId // empty')
   [ -n "$RUN_ID" ] && break
