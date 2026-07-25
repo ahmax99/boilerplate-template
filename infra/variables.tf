@@ -13,6 +13,11 @@ variable "environment" {
   type        = string
 }
 
+variable "maintenance_mode" {
+  description = "Serve the static maintenance page instead of the app. The live state is the MAINTENANCE_MODE GitHub environment variable, flipped by .github/workflows/toggle-maintenance.yml"
+  type        = bool
+}
+
 variable "root_domain" {
   description = "Root domain (Route 53 hosted zone name) the app's domain is derived from"
   type        = string

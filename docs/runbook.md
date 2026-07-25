@@ -113,21 +113,23 @@ below; a wrong-profile apply lands in the wrong account with no name-prefix
 safety net. The `AdminAccess` session lasts 8 hours — re-run `aws sso login`
 when it expires.
 
-### 5. Release automation GitHub App (repo-level, one-time)
+### 5. Automation GitHub App (repo-level, one-time)
 
 `release-please.yml` (`.github/workflows/release-please.yml`) must authenticate
 as a **GitHub App**, not the default `GITHUB_TOKEN` — see
 [`deployment-environments.md`'s "Release automation"](deployment-environments.md#release-automation)
-for why. Create it once:
+for why. `toggle-maintenance.yml` reuses the same App to write the
+`MAINTENANCE_MODE` environment variable, which `GITHUB_TOKEN` also can't do.
+Create it once:
 
 1. **Register the App**: your GitHub avatar → **Settings** → **Developer
    settings** → **GitHub Apps** → **New GitHub App**.
-   - **GitHub App name**: anything unique, e.g. `<project>-release-bot`.
+   - **GitHub App name**: anything unique, e.g. `<project>-automation`.
    - **Homepage URL**: this repo's URL (not otherwise used).
    - **Webhook**: uncheck **Active** — this App only mints tokens for Actions,
      it doesn't need to receive events.
    - **Repository permissions**: `Contents: Read and write`,
-     `Pull requests: Read and write`. Leave everything else at `No access`.
+     `Pull requests: Read and write`, `Environments: Read and write`. Leave everything else at `No access`.
    - **Where can this GitHub App be installed?**: **Only on this account**.
    - Click **Create GitHub App**.
 2. **Note the Client ID** shown at the top of the App's settings page (used
@@ -139,10 +141,10 @@ for why. Create it once:
 4. **Install the App on this repo**: same settings page → **Install App** →
    install on your account → **Only select repositories** → choose this repo
    → **Install**.
-5. **Add repo-level GitHub config** (table below): `RELEASE_PLEASE_CLIENT_ID`
+5. **Add repo-level GitHub config** (table below): `AUTOMATION_APP_CLIENT_ID`
    as a **variable** (not sensitive — a Client ID is just an identifier, same
    reasoning as the role ARNs elsewhere in this doc), and
-   `RELEASE_PLEASE_APP_PRIVATE_KEY` as a **secret** holding the full `.pem`
+   `AUTOMATION_APP_PRIVATE_KEY` as a **secret** holding the full `.pem`
    file contents.
 
 ## GitHub configuration reference
@@ -161,13 +163,13 @@ Set under **Settings → Secrets and variables → Actions** (repo level) and
 | `TF_VAR_root_domain`       | e.g. `ahmax99.online`                                              |
 | `TF_VAR_contact_to_email`  | contact-form recipient                                             |
 | `TF_VAR_from_email`        | sender address (on the root domain)                                |
-| `RELEASE_PLEASE_CLIENT_ID` | Client ID from step 5 above                                        |
+| `AUTOMATION_APP_CLIENT_ID` | Client ID from step 5 above                                        |
 
 ### Repo-level secrets
 
-| Name                             | Value                                              |
-| -------------------------------- | -------------------------------------------------- |
-| `RELEASE_PLEASE_APP_PRIVATE_KEY` | Full contents of the `.pem` file from step 5 above |
+| Name                         | Value                                              |
+| ---------------------------- | -------------------------------------------------- |
+| `AUTOMATION_APP_PRIVATE_KEY` | Full contents of the `.pem` file from step 5 above |
 
 ### Per-environment values
 

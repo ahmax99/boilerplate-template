@@ -28,6 +28,7 @@ locals {
   s3_uploads_bucket_name       = "${local.name_prefix}-uploads"
   s3_logs_bucket_name          = "${local.name_prefix}-logs"
   s3_static_assets_bucket_name = "${local.name_prefix}-static-assets"
+  s3_maintenance_bucket_name   = "${local.name_prefix}-maintenance"
 
   # CloudFront distribution ARN
   cloudfront_distribution_arn = module.cloudfront.distribution_arn
@@ -35,6 +36,9 @@ locals {
   # OIDC subject the app-deploy role trusts
   github_repo_ref       = "repo:${var.github_org}@${var.github_org_id}/${var.project_name}@${var.github_repo_id}"
   github_deploy_subject = var.environment == "prod" ? "${local.github_repo_ref}:environment:prod" : "${local.github_repo_ref}:*"
+
+  # Maintenance switch
+  provisioned_concurrent_executions = var.maintenance_mode ? 0 : local.env.provisioned_concurrent_executions
 
   # Per-environment hardening config
   env_config = {

@@ -28,13 +28,19 @@
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
     "lefthook": "^2.1.10",
-    "oxfmt": "^0.59.0",
-    "oxlint": "^1.73.0",
-    "turbo": "^2.10.4",
+    "oxfmt": "^0.60.0",
+    "oxlint": "^1.75.0",
+    "turbo": "^2.10.6",
     "typescript": "^6.0.3"
   },
   "overrides": {
-    "picomatch": "^2.3.2"
+    "brace-expansion": "^5.0.8",
+    "fast-uri": "^3.1.4",
+    "find-my-way": "^9.7.0",
+    "js-yaml": "^4.3.0",
+    "picomatch": "^2.3.2",
+    "postcss": "^8.5.23",
+    "sharp": "^0.35.3"
   },
   "engines": {
     "node": ">=24"
