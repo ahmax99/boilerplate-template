@@ -18,10 +18,37 @@ base_usable() {
   [[ -n "${BEFORE_SHA:-}" && ! "$BEFORE_SHA" =~ ^0+$ ]] && git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null
 }
 
+SCOPE="${SCOPE:-}"
+[[ -z "$SCOPE" ]] && SCOPE='infra-and-apps' # push events carry no scope input
+case "$SCOPE" in
+  infra-and-apps | infra-only | apps-only) ;;
+  *)
+    echo "❌ Unknown SCOPE '$SCOPE'" >&2
+    exit 1
+    ;;
+esac
+
+if [[ "${EVENT_NAME:-}" == 'workflow_dispatch' ]]; then
+  echo "🚀 workflow_dispatch (scope=${SCOPE})"
+  [[ "$SCOPE" == 'apps-only' ]] && echo "infra=false" >> "$GITHUB_OUTPUT" || echo "infra=true" >> "$GITHUB_OUTPUT"
+  if [[ "$SCOPE" == 'infra-only' ]]; then
+    echo "backend=false" >> "$GITHUB_OUTPUT"
+    echo "frontend=false" >> "$GITHUB_OUTPUT"
+  else
+    deploy_both
+  fi
+  exit 0
+fi
+
+if [[ "${EVENT_NAME:-}" != "push" || "${REF_TYPE:-}" == "tag" ]]; then
+  echo "🚀 ${EVENT_NAME:-unknown} on ${REF_TYPE:-unknown}: deploying both apps."
+  echo "infra=false" >> "$GITHUB_OUTPUT"
+  deploy_both
+  exit 0
+fi
+
 infra_changed() {
-  if [[ "${EVENT_NAME:-}" != "push" ]]; then
-    echo "false" # dispatch — nothing waits on this
-  elif ! base_usable; then
+  if ! base_usable; then
     echo "true" # fail safe, same reasoning as deploy_both below
   elif git diff --name-only "$BEFORE_SHA" "$HEAD_SHA" -- infra/ | grep -q .; then
     echo "true"
@@ -31,14 +58,7 @@ infra_changed() {
 }
 echo "infra=$(infra_changed)" >> "$GITHUB_OUTPUT"
 
-# Manual dispatch => deploy the whole environment, skip affected-detection.
-if [[ "${EVENT_NAME:-}" != "push" ]]; then
-  echo "🚀 Manual dispatch: deploying both apps."
-  deploy_both
-  exit 0
-fi
-
-# Fail safe: no usable base (first push, force-push, or all-zero SHA) => deploy both.
+# Fail safe: no usable base (first push or force-push) => deploy both.
 if ! base_usable; then
   echo "⚠️  Base commit '${BEFORE_SHA:-}' unavailable; deploying both apps (fail-safe)."
   deploy_both

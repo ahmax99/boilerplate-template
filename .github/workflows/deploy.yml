@@ -8,29 +8,52 @@ on:
       - 'apps/backend-boilerplate/**'
       - 'apps/nextjs-boilerplate/**'
       - 'shared/**'
+      - 'infra/**'
       - 'package.json'
       - 'bun.lock'
       - '.github/workflows/deploy.yml'
-      - '.github/actions/detect-affected/**'
-      - '.github/actions/deploy-lambda/**'
-      - '.github/actions/deploy-static-assets/**'
+      - '.github/actions/**'
       - '.github/scripts/**'
     tags:
       - 'v*'
-  workflow_dispatch: # dev-only unless dispatched with a v* tag as the ref — see prod job gates below
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: 'What to run. infra-only = Terraform apply only (bring-up, before the app-deploy vars exist). apps-only = build + deploy only (re-deploy a shipped release).'
+        type: choice
+        options:
+          - infra-and-apps
+          - infra-only
+          - apps-only
+        default: infra-and-apps
+        required: true
+      apply_prod:
+        description: 'Also apply prod Terraform (first bring-up only — steady state stays v*-tag-only). Ignored when scope is apps-only. Still gated by the prod environment reviewer.'
+        type: boolean
+        default: false
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   ECR_REGISTRY: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
   # Semver tag for releases; SHA for day-to-day branch pushes and manual dispatch
   IMAGE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || github.sha }}
+  TF_IN_AUTOMATION: 'true'
+  TF_VAR_project_name: ${{ github.event.repository.name }}
+  TF_VAR_aws_region: ${{ vars.AWS_REGION }}
+  TF_VAR_root_domain: ${{ vars.TF_VAR_root_domain }}
+  TF_VAR_contact_to_email: ${{ vars.TF_VAR_contact_to_email }}
+  TF_VAR_from_email: ${{ vars.TF_VAR_from_email }}
+  TF_VAR_central_ecr_account_id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+  TF_VAR_github_org: ${{ github.repository_owner }}
+  TF_VAR_github_org_id: ${{ github.repository_owner_id }}
+  TF_VAR_github_repo_id: ${{ github.repository_id }}
 
 permissions:
   contents: read
 
 concurrency:
   group: deploy-${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}
-  cancel-in-progress: ${{ github.ref_type != 'tag' }}
+  cancel-in-progress: false
 
 jobs:
   detect:
@@ -55,8 +78,66 @@ jobs:
         uses: ./.github/actions/detect-affected
         with:
           event-name: ${{ github.event_name }}
+          ref-type: ${{ github.ref_type }}
+          scope: ${{ inputs.scope }}
           before-sha: ${{ github.event.before }}
           head-sha: ${{ github.sha }}
+
+  # ── Ordering gate (dev) — Terraform apply, before any dev app deploy ────────
+  apply-dev:
+    name: Terraform Apply → Dev
+    needs: detect
+    if: |
+      needs.detect.outputs.infra == 'true' &&
+      (github.event_name == 'workflow_dispatch' || github.ref_type == 'branch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: dev
+    permissions:
+      id-token: write
+      contents: read
+    concurrency:
+      group: terraform-state-dev
+      cancel-in-progress: false
+
+    env:
+      TF_VAR_environment: dev
+      TF_VAR_maintenance_mode: ${{ vars.MAINTENANCE_MODE || 'false' }}
+      TF_VAR_database_url: ${{ secrets.TF_VAR_database_url }}
+      TF_VAR_google_client_id: ${{ secrets.TF_VAR_google_client_id }}
+      TF_VAR_google_client_secret: ${{ secrets.TF_VAR_google_client_secret }}
+      TF_VAR_resend_api_key: ${{ secrets.TF_VAR_resend_api_key }}
+      TF_VAR_session_secret: ${{ secrets.TF_VAR_session_secret }}
+      TF_VAR_backend_sentry_dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
+      TF_VAR_frontend_sentry_dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
+      TF_VAR_dns_account_role_arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+        with:
+          terraform_version: '~> 1.14'
+          terraform_wrapper: false
+
+      - name: Configure AWS credentials (apply role)
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ vars.TF_APPLY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: TerraformApplyDev
+
+      - name: Apply (dev)
+        uses: ./.github/actions/terraform-apply-env
+        with:
+          environment: dev
+          project-name: ${{ github.event.repository.name }}
+          aws-region: ${{ env.AWS_REGION }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+          ecr-push-role-arn: ${{ vars.ECR_PUSH_ROLE_ARN }}
+          apply-role-arn: ${{ vars.TF_APPLY_ROLE_ARN }}
 
   # ── Build jobs — push once into the central (shared-services) registry ─────
   build-backend:
@@ -155,43 +236,25 @@ jobs:
         id: set-uri
         run: echo "image-uri=${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}-frontend:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
 
-  # ── Ordering gate (dev) ────────────────────────────────────────────────────
-  wait-for-dev-infra:
-    name: Wait for dev Terraform apply
-    needs: detect
-    if: github.event_name == 'push' && github.ref_type == 'branch' && needs.detect.outputs.infra == 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 80
-    permissions:
-      actions: read
-      contents: read
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Wait for terraform-apply.yml dev apply on this commit
-        uses: ./.github/actions/wait-for-workflow-run
-        with:
-          workflow-file: terraform-apply.yml
-          ref-name: ${{ github.ref_name }}
-          head-sha: ${{ github.sha }}
-
   # ── Dev deploy jobs ────────────────────────────────────────────────────────
   deploy-dev-backend:
     name: Deploy Backend → Dev
-    needs: [detect, build-backend, wait-for-dev-infra]
+    needs: [detect, build-backend, apply-dev]
     if: |
       !cancelled() &&
+      github.ref_type == 'branch' &&
       needs.detect.outputs.backend == 'true' &&
       needs.build-backend.result == 'success' &&
-      (needs.wait-for-dev-infra.result == 'success' || needs.wait-for-dev-infra.result == 'skipped')
+      (needs.apply-dev.result == 'success' || needs.apply-dev.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: dev
     permissions:
       id-token: write
       contents: read
+    concurrency:
+      group: deploy-target-dev-backend
+      cancel-in-progress: false
 
     steps:
       - name: Checkout repository
@@ -218,18 +281,23 @@ jobs:
 
   deploy-dev-frontend:
     name: Deploy Frontend → Dev
-    needs: [detect, build-frontend, wait-for-dev-infra]
+    needs: [detect, build-frontend, apply-dev, deploy-dev-backend]
     if: |
       !cancelled() &&
+      github.ref_type == 'branch' &&
       needs.detect.outputs.frontend == 'true' &&
       needs.build-frontend.result == 'success' &&
-      (needs.wait-for-dev-infra.result == 'success' || needs.wait-for-dev-infra.result == 'skipped')
+      (needs.apply-dev.result == 'success' || needs.apply-dev.result == 'skipped') &&
+      (needs.deploy-dev-backend.result == 'success' || needs.deploy-dev-backend.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: dev
     permissions:
       id-token: write
       contents: read
+    concurrency:
+      group: deploy-target-dev-frontend
+      cancel-in-progress: false
 
     steps:
       - name: Checkout repository
@@ -241,6 +309,15 @@ jobs:
           role-to-assume: ${{ vars.APP_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Dev
+
+      - name: Deploy static assets and invalidate CloudFront
+        uses: ./.github/actions/deploy-static-assets
+        with:
+          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
+          static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
+          cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+          aws-region: ${{ env.AWS_REGION }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
 
       - name: Deploy frontend Lambda
         uses: ./.github/actions/deploy-lambda
@@ -254,22 +331,13 @@ jobs:
           git-sha: ${{ github.sha }}
           release-tag: ${{ env.IMAGE_TAG }}
 
-      - name: Deploy static assets and invalidate CloudFront
-        uses: ./.github/actions/deploy-static-assets
-        with:
-          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
-          static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
-          cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
-          aws-region: ${{ env.AWS_REGION }}
-          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
-
-  # ── Ordering gate (prod) ───────────────────────────────────────────────────
-  wait-for-prod-infra:
-    name: Wait for prod Terraform apply
+  # ── Health gate (prod) ──────────────────────────────────────────────────────
+  verify-dev-healthy:
+    name: Verify dev is healthy
     needs: detect
     if: github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 10
     permissions:
       actions: read
       contents: read
@@ -278,26 +346,96 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Wait for terraform-apply.yml prod apply on this ref
-        uses: ./.github/actions/wait-for-workflow-run
+      - name: Verify the most recent relevant dev deploy succeeded
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          REQUIRE_BACKEND: ${{ needs.detect.outputs.backend }}
+          REQUIRE_FRONTEND: ${{ needs.detect.outputs.frontend }}
+        run: |
+          chmod +x .github/scripts/check-last-dev-deploy.sh
+          .github/scripts/check-last-dev-deploy.sh
+
+  # ── Ordering gate (prod) — Terraform apply, before any prod app deploy ──────
+  apply-prod:
+    name: Terraform Apply → Prod
+    needs: apply-dev
+    if: |
+      !cancelled() &&
+      (needs.apply-dev.result == 'success' || needs.apply-dev.result == 'skipped') &&
+      ((github.event_name == 'push' && github.ref_type == 'tag') ||
+       (github.event_name == 'workflow_dispatch' && inputs.scope != 'apps-only' && inputs.apply_prod == true))
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: prod # required-reviewer gate
+    permissions:
+      id-token: write
+      contents: read
+    concurrency:
+      group: terraform-state-prod
+      cancel-in-progress: false
+
+    env:
+      TF_VAR_environment: prod
+      TF_VAR_maintenance_mode: ${{ vars.MAINTENANCE_MODE || 'false' }}
+      TF_VAR_database_url: ${{ secrets.TF_VAR_database_url }}
+      TF_VAR_google_client_id: ${{ secrets.TF_VAR_google_client_id }}
+      TF_VAR_google_client_secret: ${{ secrets.TF_VAR_google_client_secret }}
+      TF_VAR_resend_api_key: ${{ secrets.TF_VAR_resend_api_key }}
+      TF_VAR_session_secret: ${{ secrets.TF_VAR_session_secret }}
+      TF_VAR_backend_sentry_dsn: ${{ secrets.TF_VAR_backend_sentry_dsn }}
+      TF_VAR_frontend_sentry_dsn: ${{ secrets.TF_VAR_frontend_sentry_dsn }}
+      TF_VAR_dns_account_role_arn: ${{ vars.DNS_ACCOUNT_ROLE_ARN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
         with:
-          workflow-file: terraform-apply.yml
-          ref-name: ${{ github.ref_name }}
-          head-sha: ${{ github.sha }}
+          terraform_version: '~> 1.14'
+          terraform_wrapper: false
+
+      - name: Configure AWS credentials (apply role)
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ vars.TF_APPLY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: TerraformApplyProd
+
+      - name: Apply (prod)
+        uses: ./.github/actions/terraform-apply-env
+        with:
+          environment: prod
+          project-name: ${{ github.event.repository.name }}
+          aws-region: ${{ env.AWS_REGION }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+          ecr-push-role-arn: ${{ vars.ECR_PUSH_ROLE_ARN }}
+          apply-role-arn: ${{ vars.TF_APPLY_ROLE_ARN }}
 
   # ── Prod deploy jobs ───────────────────────────────────────────────────────
   deploy-prod-backend:
     name: Deploy Backend → Prod
-    needs: [detect, build-backend, deploy-dev-backend, wait-for-prod-infra]
-    if: >-
+    needs: [detect, build-backend, apply-prod, verify-dev-healthy]
+    if: |
+      !cancelled() &&
+      github.ref_type == 'tag' && startsWith(github.ref_name, 'v') &&
       needs.detect.outputs.backend == 'true' &&
-      github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
+      needs.build-backend.result == 'success' &&
+      needs.verify-dev-healthy.result == 'success' &&
+      (needs.apply-prod.result == 'success' ||
+       (github.event_name == 'workflow_dispatch' && needs.apply-prod.result == 'skipped'))
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: prod
     permissions:
       id-token: write
       contents: read
+    concurrency:
+      group: deploy-target-prod-backend
+      cancel-in-progress: false
 
     steps:
       - name: Checkout repository
@@ -324,16 +462,32 @@ jobs:
 
   deploy-prod-frontend:
     name: Deploy Frontend → Prod
-    needs: [detect, build-frontend, deploy-dev-frontend, wait-for-prod-infra]
-    if: >-
+    needs:
+      [
+        detect,
+        build-frontend,
+        apply-prod,
+        verify-dev-healthy,
+        deploy-prod-backend
+      ]
+    if: |
+      !cancelled() &&
+      github.ref_type == 'tag' && startsWith(github.ref_name, 'v') &&
       needs.detect.outputs.frontend == 'true' &&
-      github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
+      needs.build-frontend.result == 'success' &&
+      needs.verify-dev-healthy.result == 'success' &&
+      (needs.apply-prod.result == 'success' ||
+       (github.event_name == 'workflow_dispatch' && needs.apply-prod.result == 'skipped')) &&
+      (needs.deploy-prod-backend.result == 'success' || needs.deploy-prod-backend.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: prod
     permissions:
       id-token: write
       contents: read
+    concurrency:
+      group: deploy-target-prod-frontend
+      cancel-in-progress: false
 
     steps:
       - name: Checkout repository
@@ -346,6 +500,15 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-Deploy-Prod
 
+      - name: Deploy static assets and invalidate CloudFront
+        uses: ./.github/actions/deploy-static-assets
+        with:
+          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
+          static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
+          cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+          aws-region: ${{ env.AWS_REGION }}
+          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}
+
       - name: Deploy frontend Lambda
         uses: ./.github/actions/deploy-lambda
         with:
@@ -357,12 +520,3 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           git-sha: ${{ github.sha }}
           release-tag: ${{ env.IMAGE_TAG }}
-
-      - name: Deploy static assets and invalidate CloudFront
-        uses: ./.github/actions/deploy-static-assets
-        with:
-          image-uri: ${{ needs.build-frontend.outputs.image-uri }}
-          static-assets-bucket: ${{ vars.STATIC_ASSETS_BUCKET }}
-          cloudfront-distribution-id: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
-          aws-region: ${{ env.AWS_REGION }}
-          central-ecr-account-id: ${{ vars.CENTRAL_ECR_ACCOUNT_ID }}

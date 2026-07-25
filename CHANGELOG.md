@@ -2,18 +2,16 @@
 
 ## [1.2.0](https://github.com/ahmax99/boilerplate-template/compare/v1.1.1...v1.2.0) (2026-07-25)
 
-
 ### Features
 
-* **ci:** wait for dev Terraform apply before deploying, fix WAF/CloudFront ordering race ([#148](https://github.com/ahmax99/boilerplate-template/issues/148)) ([45dfe27](https://github.com/ahmax99/boilerplate-template/commit/45dfe27a2f01893252b1e2a7be35ad98a9a26d14))
-* **infra:** maintenance mode via GitHub env var, WAF teardown, terraform-env removal ([#145](https://github.com/ahmax99/boilerplate-template/issues/145)) ([effbd84](https://github.com/ahmax99/boilerplate-template/commit/effbd84343867c1cee5ee7d9d95ae058cce80f93))
-* **security:** add gitleaks secret scanning ([1d0bc20](https://github.com/ahmax99/boilerplate-template/commit/1d0bc202f217d05e818c1c98073026abf75c191c))
-
+- **ci:** wait for dev Terraform apply before deploying, fix WAF/CloudFront ordering race ([#148](https://github.com/ahmax99/boilerplate-template/issues/148)) ([45dfe27](https://github.com/ahmax99/boilerplate-template/commit/45dfe27a2f01893252b1e2a7be35ad98a9a26d14))
+- **infra:** maintenance mode via GitHub env var, WAF teardown, terraform-env removal ([#145](https://github.com/ahmax99/boilerplate-template/issues/145)) ([effbd84](https://github.com/ahmax99/boilerplate-template/commit/effbd84343867c1cee5ee7d9d95ae058cce80f93))
+- **security:** add gitleaks secret scanning ([1d0bc20](https://github.com/ahmax99/boilerplate-template/commit/1d0bc202f217d05e818c1c98073026abf75c191c))
 
 ### Bug Fixes
 
-* **ci:** detach the WAF ACL from CloudFront before Terraform destroys it ([#149](https://github.com/ahmax99/boilerplate-template/issues/149)) ([e982b5e](https://github.com/ahmax99/boilerplate-template/commit/e982b5e34a5b49e0eef844ec789ba308032ca4ee))
-* **infra:** fix WAF ACL delete ordering race, add apply retry for it ([#147](https://github.com/ahmax99/boilerplate-template/issues/147)) ([863aa3b](https://github.com/ahmax99/boilerplate-template/commit/863aa3b4f24bab3a99f07c1943076905244fed0f))
+- **ci:** detach the WAF ACL from CloudFront before Terraform destroys it ([#149](https://github.com/ahmax99/boilerplate-template/issues/149)) ([e982b5e](https://github.com/ahmax99/boilerplate-template/commit/e982b5e34a5b49e0eef844ec789ba308032ca4ee))
+- **infra:** fix WAF ACL delete ordering race, add apply retry for it ([#147](https://github.com/ahmax99/boilerplate-template/issues/147)) ([863aa3b](https://github.com/ahmax99/boilerplate-template/commit/863aa3b4f24bab3a99f07c1943076905244fed0f))
 
 ## [1.1.1](https://github.com/ahmax99/boilerplate-template/compare/v1.1.0...v1.1.1) (2026-07-19)
 

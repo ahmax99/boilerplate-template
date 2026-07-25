@@ -68,8 +68,9 @@ they hold in the org repo before first use:
   function creation/updates in dev/prod fail to pull the image. Provided by the
   org repo's `modules/ecr` (`LambdaServicePull` statement).
 - **Cross-account read for the apply role.** Before the steady-state/bootstrap
-  decision, `terraform-apply.yml`'s "Check ECR image state" step calls
-  `ecr:BatchGetImage` against the central registry **under the `gha-deploy`
+  decision, `deploy.yml`'s `apply-dev`/`apply-prod` jobs' "Check ECR image
+  state" step calls `ecr:BatchGetImage` against the central registry **under
+  the `gha-deploy`
   apply role** (it runs before any role re-assumption). The org-wide pull
   statement on the repo policy covers the resource side; the apply role's own
   identity policy must also allow `ecr:BatchGetImage` on those repos (the admin
@@ -248,8 +249,12 @@ rules), then set the repo-level variables and dev's per-environment values per
 the tables above. Skip the three Terraform-output rows for now
 (`STATIC_ASSETS_BUCKET`, `CLOUDFRONT_DISTRIBUTION_ID`, `APP_DEPLOY_ROLE_ARN`).
 
-**D4 — First dev apply**: run `terraform-apply.yml` via **workflow_dispatch**
-(leave `apply_prod` unchecked). The org `gha-deploy` role already exists, so
+**D4 — First dev apply**: run `Deploy` (`deploy.yml`) via **workflow_dispatch**
+with `scope: infra-only` (leave `apply_prod` unchecked — it's ignored for this
+scope anyway). `scope: infra-only` matters here specifically: `STATIC_ASSETS_BUCKET`,
+`CLOUDFRONT_DISTRIBUTION_ID`, and `APP_DEPLOY_ROLE_ARN` don't exist yet, so letting
+the app-build/deploy jobs run in this first dispatch would just fail them — this
+scope runs only `detect` + `apply-dev`. The org `gha-deploy` role already exists, so
 no elevated-credential exception is needed. The apply detects the fresh
 environment (bootstrap mode): it seeds the central ECR `:latest` images via
 the `gha-ecr-push` role if they're missing, applies the full root module, and
@@ -257,8 +262,8 @@ publishes the initial Lambda versions. Dev's DNS records and ACM validation
 are written into the org-created `dev.<root_domain>` zone in-account — no
 manual delegation step.
 
-**D5 — Capture Terraform outputs** from the apply's job summary into the `dev`
-environment: `vars.STATIC_ASSETS_BUCKET` (`static_assets_bucket_name`),
+**D5 — Capture Terraform outputs** from D4's `apply-dev` job summary into the
+`dev` environment: `vars.STATIC_ASSETS_BUCKET` (`static_assets_bucket_name`),
 `vars.CLOUDFRONT_DISTRIBUTION_ID` (`cloudfront_distribution_id`),
 `vars.APP_DEPLOY_ROLE_ARN` (`app_deploy_role_arn`). D4 ran under the admin
 apply role, so the app-deploy role exists after it — capture it before D7.
@@ -267,9 +272,9 @@ apply role, so the app-deploy role exists after it — capture it before D7.
 (`https://<cognito_domain>.auth.ap-northeast-1.amazoncognito.com/oauth2/idpresponse`, from the `cognito_domain`
 output) on the dev OAuth client.
 
-**D7 — Verify**: push to `main` (or re-run `deploy.yml` via dispatch) — builds
-push to the central registry and deploy to dev. App is live at
-`https://<project>.dev.<root_domain>`.
+**D7 — Verify**: push to `main` (or dispatch `Deploy` with `scope: apps-only`,
+now that D5's app-deploy vars exist) — builds push to the central registry and
+deploy to dev. App is live at `https://<project>.dev.<root_domain>`.
 
 ## Prod environment setup
 
@@ -293,11 +298,11 @@ deploys run unattended). Set prod's per-environment values per the table —
 including `vars.DNS_ACCOUNT_ROLE_ARN` (the `dns-apex-manager` role), which dev
 doesn't set.
 
-**P3 — First prod apply**: run `terraform-apply.yml` via **workflow_dispatch**
-with `apply_prod: true`, and approve the reviewer gate. Prod's apex DNS
-records and ACM validation are written cross-account through the
-`dns-apex-manager` role; images already exist centrally, so bootstrap mode
-only applies + publishes Lambda versions.
+**P3 — First prod apply**: run `Deploy` (`deploy.yml`) via **workflow_dispatch**
+with `scope: infra-only` and `apply_prod: true`, and approve the reviewer
+gate. Prod's apex DNS records and ACM validation are written cross-account
+through the `dns-apex-manager` role; images already exist centrally, so
+bootstrap mode only applies + publishes Lambda versions.
 
 > **New prod accounts start with a Lambda concurrency quota of 10.** Prod's
 > `env_config` (`infra/locals.tf`) reserves concurrency
@@ -335,15 +340,18 @@ minimum value of [10]`. Request an increase in the **prod account**, region
 output) on the prod OAuth client.
 
 **P6 — Cut the first release**: merge the release PR / push a `v*` tag.
-`deploy.yml` builds once, deploys dev, waits for `terraform-apply.yml`'s prod
-apply on the same tag, then (behind a second reviewer approval) deploys the
-same image URI to prod. App is live at `https://<project>.<root_domain>`.
+`deploy.yml` builds once, then (behind the reviewer gate) applies prod
+Terraform via `apply-prod`, then (behind the reviewer gate again) deploys
+that image URI to prod — backend first, then frontend, all in the same
+workflow run. Dev is untouched by the release; it already runs the tagged
+commit from the branch push that carried it. App is live at
+`https://<project>.<root_domain>`.
 
 ## Steady state (after bring-up)
 
 ```
 push to main            → build → deploy dev
-merge Release PR → v*   → build → deploy dev → [prod reviewer: terraform-apply] → [prod reviewer: deploy] → prod live
+merge Release PR → v*   → build → [prod reviewer: apply-prod] → [prod reviewer: deploy backend → frontend] → prod live
 ```
 
 No manual variable wrangling — every value used after bring-up is either a
