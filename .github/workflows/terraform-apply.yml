@@ -19,10 +19,6 @@ permissions:
   id-token: write
   contents: read
 
-concurrency:
-  group: terraform-apply-${{ github.ref_type == 'tag' && 'prod' || 'dev' }}
-  cancel-in-progress: false
-
 env:
   TF_IN_AUTOMATION: 'true'
   AWS_REGION: ${{ vars.AWS_REGION }}
@@ -39,9 +35,13 @@ env:
 jobs:
   apply-dev:
     name: Terraform Apply → Dev
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref_type == 'branch')
     runs-on: ubuntu-latest
     timeout-minutes: 60
     environment: dev
+    concurrency:
+      group: terraform-state-dev
+      cancel-in-progress: false
 
     env:
       TF_VAR_environment: dev
@@ -85,12 +85,17 @@ jobs:
   apply-prod:
     name: Terraform Apply → Prod
     needs: apply-dev
-    if: >-
-      (github.event_name == 'push' && github.ref_type == 'tag') ||
-      (github.event_name == 'workflow_dispatch' && inputs.apply_prod == true)
+    if: |
+      !cancelled() &&
+      (needs.apply-dev.result == 'success' || needs.apply-dev.result == 'skipped') &&
+      ((github.event_name == 'push' && github.ref_type == 'tag') ||
+       (github.event_name == 'workflow_dispatch' && inputs.apply_prod == true))
     runs-on: ubuntu-latest
     timeout-minutes: 60
     environment: prod # required-reviewer gate
+    concurrency:
+      group: terraform-state-prod
+      cancel-in-progress: false
 
     env:
       TF_VAR_environment: prod

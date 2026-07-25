@@ -5,8 +5,11 @@ inputs:
   workflow-file:
     description: 'Workflow filename to wait for (e.g. terraform-apply.yml)'
     required: true
+  require-job:
+    description: 'Display name of the job inside that run which must have concluded "success" (e.g. "Terraform Apply → Prod") — a run can conclude success with the job this gate depends on skipped'
+    required: true
   ref-name:
-    description: 'Tag or branch name the target run was triggered from (e.g. github.ref_name) — used only for log messages; head-sha is what actually identifies the run'
+    description: 'Tag or branch name the target run was triggered from (e.g. github.ref_name) — disambiguates a tag run from a branch run on the same commit, which is exactly what a release tag produces'
     required: true
   head-sha:
     description: 'Commit SHA the target run must have been triggered from (e.g. github.sha) — a branch name like "main" is reused across pushes, so matching by commit is what disambiguates the correct run'
@@ -33,6 +36,7 @@ runs:
         GH_TOKEN: ${{ github.token }}
         REPO: ${{ inputs.repo }}
         WORKFLOW_FILE: ${{ inputs.workflow-file }}
+        REQUIRE_JOB: ${{ inputs.require-job }}
         REF_NAME: ${{ inputs.ref-name }}
         HEAD_SHA: ${{ inputs.head-sha }}
         MAX_ATTEMPTS: ${{ inputs.max-attempts }}

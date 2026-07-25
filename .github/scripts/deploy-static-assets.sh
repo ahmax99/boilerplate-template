@@ -27,14 +27,12 @@ docker cp "$CONTAINER_NAME":/app/apps/nextjs-boilerplate/public public
 echo "⬆️  Uploading /_next/static/* (immutable hashed assets)..."
 aws s3 sync .next/static/ "s3://${STATIC_ASSETS_BUCKET}/_next/static/" \
   --cache-control "public, max-age=31536000, immutable" \
-  --region "$AWS_REGION" \
-  --delete
+  --region "$AWS_REGION"
 
 echo "⬆️  Uploading /static/* (public assets)..."
 aws s3 sync public/ "s3://${STATIC_ASSETS_BUCKET}/static/" \
   --cache-control "public, max-age=604800" \
-  --region "$AWS_REGION" \
-  --delete
+  --region "$AWS_REGION"
 
 echo "🔄 Invalidating CloudFront cache..."
 INVALIDATION_ID=$(aws cloudfront create-invalidation \

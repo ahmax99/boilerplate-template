@@ -335,15 +335,17 @@ minimum value of [10]`. Request an increase in the **prod account**, region
 output) on the prod OAuth client.
 
 **P6 — Cut the first release**: merge the release PR / push a `v*` tag.
-`deploy.yml` builds once, deploys dev, waits for `terraform-apply.yml`'s prod
-apply on the same tag, then (behind a second reviewer approval) deploys the
-same image URI to prod. App is live at `https://<project>.<root_domain>`.
+`deploy.yml` builds once, waits for `terraform-apply.yml`'s prod apply on the
+same tag, then (behind a second reviewer approval) deploys that image URI to
+prod — backend first, then frontend. Dev is untouched by the release; it already
+runs the tagged commit from the branch push that carried it. App is live at
+`https://<project>.<root_domain>`.
 
 ## Steady state (after bring-up)
 
 ```
 push to main            → build → deploy dev
-merge Release PR → v*   → build → deploy dev → [prod reviewer: terraform-apply] → [prod reviewer: deploy] → prod live
+merge Release PR → v*   → build → [prod reviewer: terraform-apply] → [prod reviewer: deploy backend → frontend] → prod live
 ```
 
 No manual variable wrangling — every value used after bring-up is either a
