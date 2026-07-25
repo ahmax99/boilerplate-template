@@ -12,10 +12,6 @@
       "command": "bunx",
       "args": ["-y", "next-devtools-mcp@latest"]
     },
-    "playwright": {
-      "command": "bunx",
-      "args": ["@playwright/mcp@latest"]
-    },
     "terraform": {
       "command": "docker",
       "args": ["run", "-i", "--rm", "hashicorp/terraform-mcp-server"]

@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-# Entering maintenance mode drops module.waf's count 1->0. Terraform schedules
-# that destroy *before* the CloudFront update that clears web_acl_id — the
-# cross-module output edge inverts the ordering — so DeleteWebACL always fails
-# with WAFAssociatedItemException. Neither -target nor create_before_destroy
-# can reorder it, so the association is cleared out of band first.
 set -euo pipefail
 
 MAX_ATTEMPTS=3
