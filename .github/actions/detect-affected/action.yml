@@ -51,6 +51,7 @@ runs:
       env:
         EVENT_NAME: ${{ inputs.event-name }}
         REF_TYPE: ${{ inputs.ref-type }}
+        SCOPE: ${{ inputs.scope }}
         BEFORE_SHA: ${{ inputs.before-sha }}
         HEAD_SHA: ${{ inputs.head-sha }}
       run: |
