@@ -182,6 +182,10 @@ resource "aws_wafv2_web_acl" "this" {
     sampled_requests_enabled   = true
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   tags = var.tags
 }
 

@@ -53,15 +53,12 @@ runs:
         apply-role-arn: ${{ inputs.apply-role-arn }}
 
     # ── STEADY-STATE PATH ─────────────────────────────────────────────────────
-    - name: Steady-state — Plan
+    - name: Steady-state — Plan + Apply
       if: steps.ecr-check.outputs.mode == 'steady-state'
       shell: bash
-      run: terraform -chdir=infra plan -no-color -lock-timeout=300s -out=tfplan.binary
-
-    - name: Steady-state — Apply
-      if: steps.ecr-check.outputs.mode == 'steady-state'
-      shell: bash
-      run: terraform -chdir=infra apply -auto-approve -lock-timeout=300s tfplan.binary
+      run: |
+        chmod +x .github/scripts/terraform-apply-retry.sh
+        .github/scripts/terraform-apply-retry.sh
 
     # ── SUMMARY ───────────────────────────────────────────────────────────────
     - name: Surface outputs to job summary
