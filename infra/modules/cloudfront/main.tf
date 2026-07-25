@@ -19,6 +19,16 @@ resource "aws_cloudfront_origin_access_control" "static" {
 }
 
 # -----------------------------------------------------------
+# CloudFront Origin Access Control — S3 Maintenance Page
+# -----------------------------------------------------------
+resource "aws_cloudfront_origin_access_control" "maintenance" {
+  name                              = "${var.name_prefix}-maintenance-oac"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
+# -----------------------------------------------------------
 # Cache Policies
 # -----------------------------------------------------------
 
@@ -109,7 +119,7 @@ resource "aws_cloudfront_distribution" "this" {
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "CloudFront distribution"
-  default_root_object = ""
+  default_root_object = var.maintenance_mode ? "index.html" : ""
   price_class         = "PriceClass_200" # NA, EU, Asia
   web_acl_id          = var.web_acl_id
   aliases             = compact([var.domain_name])
@@ -159,12 +169,22 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   # ----------
+  # Origin: S3 maintenance page — always present; only targeted by behaviors
+  # when maintenance_mode is true (Away mode)
+  # ----------
+  origin {
+    origin_id                = "maintenance-s3"
+    domain_name              = var.maintenance_bucket_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.maintenance.id
+  }
+
+  # ----------
   # Behavior 1: /_next/static/* — immutable hashed assets from S3
   # Priority order: more specific paths first
   # ----------
   ordered_cache_behavior {
     path_pattern             = "/_next/static/*"
-    target_origin_id         = "s3-static"
+    target_origin_id         = var.maintenance_mode ? "maintenance-s3" : "s3-static"
     viewer_protocol_policy   = "redirect-to-https"
     allowed_methods          = ["GET", "HEAD"]
     cached_methods           = ["GET", "HEAD"]
@@ -178,7 +198,7 @@ resource "aws_cloudfront_distribution" "this" {
   # ----------
   ordered_cache_behavior {
     path_pattern             = "/static/*"
-    target_origin_id         = "s3-static"
+    target_origin_id         = var.maintenance_mode ? "maintenance-s3" : "s3-static"
     viewer_protocol_policy   = "redirect-to-https"
     allowed_methods          = ["GET", "HEAD"]
     cached_methods           = ["GET", "HEAD"]
@@ -192,7 +212,7 @@ resource "aws_cloudfront_distribution" "this" {
   # ----------
   ordered_cache_behavior {
     path_pattern             = "/api/v1/*"
-    target_origin_id         = "backend-lambda"
+    target_origin_id         = var.maintenance_mode ? "maintenance-s3" : "backend-lambda"
     viewer_protocol_policy   = "https-only"
     allowed_methods          = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods           = ["GET", "HEAD"]
@@ -206,7 +226,7 @@ resource "aws_cloudfront_distribution" "this" {
   # ----------
   ordered_cache_behavior {
     path_pattern             = "/api/images"
-    target_origin_id         = "frontend-lambda"
+    target_origin_id         = var.maintenance_mode ? "maintenance-s3" : "frontend-lambda"
     viewer_protocol_policy   = "redirect-to-https"
     allowed_methods          = ["GET", "HEAD"]
     cached_methods           = ["GET", "HEAD"]
@@ -216,7 +236,7 @@ resource "aws_cloudfront_distribution" "this" {
 
     # frontend-lambda lost OAC signing when the OAC was removed (see origin block above) — this behavior needs the edge signer too, GET-only or not.
     dynamic "lambda_function_association" {
-      for_each = toset(compact([var.lambda_edge_origin_request_arn]))
+      for_each = var.maintenance_mode ? toset([]) : toset(compact([var.lambda_edge_origin_request_arn]))
       content {
         event_type   = "origin-request"
         lambda_arn   = lambda_function_association.value
@@ -229,7 +249,7 @@ resource "aws_cloudfront_distribution" "this" {
   # Default behavior: /* — frontend Lambda (Next.js SSR/BFF)
   # ----------
   default_cache_behavior {
-    target_origin_id         = "frontend-lambda"
+    target_origin_id         = var.maintenance_mode ? "maintenance-s3" : "frontend-lambda"
     viewer_protocol_policy   = "redirect-to-https"
     allowed_methods          = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods           = ["GET", "HEAD"]
@@ -238,7 +258,7 @@ resource "aws_cloudfront_distribution" "this" {
     origin_request_policy_id = aws_cloudfront_origin_request_policy.lambda_all.id
 
     dynamic "lambda_function_association" {
-      for_each = toset(compact([var.lambda_edge_viewer_request_arn]))
+      for_each = var.maintenance_mode ? toset([]) : toset(compact([var.lambda_edge_viewer_request_arn]))
       content {
         event_type   = "viewer-request"
         lambda_arn   = lambda_function_association.value
@@ -249,7 +269,7 @@ resource "aws_cloudfront_distribution" "this" {
     # OAC can't sign an anonymous browser request body — this origin-request
     # signer supplies SigV4 for the frontend Function URL instead.
     dynamic "lambda_function_association" {
-      for_each = toset(compact([var.lambda_edge_origin_request_arn]))
+      for_each = var.maintenance_mode ? toset([]) : toset(compact([var.lambda_edge_origin_request_arn]))
       content {
         event_type   = "origin-request"
         lambda_arn   = lambda_function_association.value
@@ -283,7 +303,39 @@ resource "aws_cloudfront_distribution" "this" {
     }
   }
 
+  dynamic "custom_error_response" {
+    for_each = var.maintenance_mode ? toset([403, 404]) : toset([])
+    content {
+      error_code            = custom_error_response.value
+      response_code         = 200
+      response_page_path    = "/index.html"
+      error_caching_min_ttl = 0
+    }
+  }
+
   tags = var.tags
+}
+
+resource "aws_s3_bucket_policy" "maintenance_oac_read" {
+  bucket = var.maintenance_bucket_id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "AllowCloudFrontOACRead"
+        Effect    = "Allow"
+        Principal = { Service = "cloudfront.amazonaws.com" }
+        Action    = "s3:GetObject"
+        Resource  = "arn:aws:s3:::${var.maintenance_bucket_id}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.this.arn
+          }
+        }
+      },
+    ]
+  })
 }
 
 resource "aws_s3_bucket_policy" "static_oac_read" {

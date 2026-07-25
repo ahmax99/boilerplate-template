@@ -51,7 +51,11 @@ module "cloudfront" {
   static_assets_bucket_domain_name = module.s3_static_assets.bucket_regional_domain_name
   static_assets_bucket_id          = module.s3_static_assets.bucket_id
   logs_bucket_domain_name          = module.s3_logs.bucket_regional_domain_name
-  web_acl_id                       = module.waf.web_acl_arn
+  web_acl_id                       = one(module.waf[*].web_acl_arn)
+
+  maintenance_mode               = var.maintenance_mode
+  maintenance_bucket_domain_name = module.s3_maintenance.bucket_regional_domain_name
+  maintenance_bucket_id          = module.s3_maintenance.bucket_id
 
   domain_name                    = local.domain_name
   acm_certificate_arn            = module.acm.certificate_arn
@@ -97,6 +101,7 @@ module "lambda_edge" {
 # -------------------
 module "waf" {
   source = "./modules/waf"
+  count  = var.maintenance_mode ? 0 : 1
 
   providers = {
     aws = aws.us_east_1
@@ -195,7 +200,7 @@ module "backend" {
   timeout                           = 30
   log_retention_days                = local.env.log_retention_days
   reserved_concurrent_executions    = local.env.reserved_concurrent_executions
-  provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
+  provisioned_concurrent_executions = local.provisioned_concurrent_executions
 
   s3_bucket_name        = local.s3_uploads_bucket_name
   cognito_user_pool_arn = module.cognito.user_pool_arn
@@ -245,7 +250,7 @@ module "frontend" {
   timeout                           = 30
   log_retention_days                = local.env.log_retention_days
   reserved_concurrent_executions    = local.env.reserved_concurrent_executions
-  provisioned_concurrent_executions = local.env.provisioned_concurrent_executions
+  provisioned_concurrent_executions = local.provisioned_concurrent_executions
 
   s3_bucket_name        = null
   cognito_user_pool_arn = module.cognito.user_pool_arn
@@ -408,6 +413,43 @@ module "s3_static_assets" {
       Name = local.s3_static_assets_bucket_name
     }
   )
+}
+
+module "s3_maintenance" {
+  source = "./modules/s3"
+
+  bucket_name = local.s3_maintenance_bucket_name
+
+  enable_versioning     = false
+  enforce_https         = false
+  enable_encryption     = true
+  block_public_access   = true
+  enable_acl            = false
+  enable_cors           = false
+  cors_allowed_origins  = []
+  cors_allowed_methods  = []
+  cors_allowed_headers  = []
+  cors_max_age_seconds  = 0
+  enable_access_logging = false
+  logging_target_bucket = ""
+  logging_target_prefix = ""
+
+  lifecycle_rules = []
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = local.s3_maintenance_bucket_name
+    }
+  )
+}
+
+resource "aws_s3_object" "maintenance_index" {
+  bucket       = module.s3_maintenance.bucket_id
+  key          = "index.html"
+  source       = "${path.module}/assets/maintenance/index.html"
+  etag         = filemd5("${path.module}/assets/maintenance/index.html")
+  content_type = "text/html"
 }
 
 
