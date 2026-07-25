@@ -35,12 +35,15 @@ The apex zone (`<root_domain>`) lives in shared-services. The org repo delegates
 
 ```
 push to main (paths match)
-  └── detect (affected apps)
-        ├── build-backend (if affected) ──→ deploy-dev-backend
-        └── build-frontend (if affected) ─→ deploy-dev-frontend
+  └── detect (affected apps, infra changed?)
+        ├── build-backend (if affected) ─────────────┐
+        ├── build-frontend (if affected) ────────────┤
+        └── wait-for-dev-infra (if infra/** changed) ─┤
+                                                        ├──→ deploy-dev-backend
+                                                        └──→ deploy-dev-frontend
 ```
 
-Prod is not touched. `IMAGE_TAG` = commit SHA. Terraform: `terraform-apply.yml`'s `apply-dev` job also runs on this push if `infra/**` changed.
+Prod is not touched. `IMAGE_TAG` = commit SHA. Terraform: `terraform-apply.yml`'s `apply-dev` job also runs on this push if `infra/**` changed — when it does, `wait-for-dev-infra` blocks both dev deploy jobs until that apply finishes (skipped otherwise), the same Terraform-before-app ordering the release flow already gives prod via `wait-for-prod-infra`.
 
 ### Release (tag push `v*`)
 
