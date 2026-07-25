@@ -140,15 +140,25 @@ provisioned concurrency. All driven by one Terraform variable,
 `maintenance_mode` (`TF_VAR_maintenance_mode`), so there's no separate
 maintenance-mode infrastructure to keep in sync.
 
-Three jobs, in order: **apply** (`terraform apply` with `maintenance_mode` set
-from the workflow's `enabled` input) → **verify** (checks the edge is actually
-serving the expected mode before anything else proceeds) → **record**
-(persists the result as the `MAINTENANCE_MODE` environment variable, via the
-same Automation GitHub App used for release automation, so the _next_ regular
-`apply-dev`/`apply-prod` run in `deploy.yml` reads it back and doesn't
-accidentally revert the environment out of maintenance mode). `apply` and
-`verify` both run under `environment: <target>`, so toggling prod needs the
-same reviewer approval `deploy.yml`'s prod-gated jobs already require.
+Two jobs, in order: **apply** (`terraform apply` with `maintenance_mode` set
+from the workflow's `enabled` input, then a verify step that checks the edge
+is actually serving the expected mode before anything else proceeds) →
+**record** (persists the result as the `MAINTENANCE_MODE` environment
+variable, via the same Automation GitHub App used for release automation, so
+the _next_ regular `apply-dev`/`apply-prod` run in `deploy.yml` reads it back
+and doesn't accidentally revert the environment out of maintenance mode).
+`apply` runs under `environment: <target>`, so toggling prod needs the same
+reviewer approval `deploy.yml`'s prod-gated jobs already require — one
+approval, not two, since the apply-and-verify steps now share a single job
+instead of being split across two environment-gated jobs.
+
+`apply`'s job-level `concurrency` group is `terraform-state-<env>` — the same
+group `deploy.yml`'s `apply-dev`/`apply-prod` jobs use — so a manual toggle
+and a regular pipeline apply serialize on the same state file instead of
+racing. This used to be a real gap: the workflow keyed its own group on its
+own name (`terraform-apply-<env>`) rather than the state file it touches, so a
+toggle could run concurrently with an unrelated `apply-dev`/`apply-prod` and
+corrupt the shared S3 state.
 
 One wrinkle the `apply` job handles for you: Terraform schedules the web ACL's
 destroy _before_ the CloudFront update that detaches it (`module.waf`'s count
