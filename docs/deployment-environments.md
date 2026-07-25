@@ -35,12 +35,15 @@ The apex zone (`<root_domain>`) lives in shared-services. The org repo delegates
 
 ```
 push to main (paths match)
-  └── detect (affected apps)
-        ├── build-backend (if affected) ──→ deploy-dev-backend
-        └── build-frontend (if affected) ─→ deploy-dev-frontend
+  └── detect (affected apps, infra changed?)
+        ├── build-backend (if affected) ─────────────────┐
+        ├── build-frontend (if affected) ────────────────┤
+        └── wait-for-dev-infra (if infra/** changed) ────┤
+                                                         ├──→ deploy-dev-backend
+                                                         └──→ deploy-dev-frontend
 ```
 
-Prod is not touched. `IMAGE_TAG` = commit SHA. Terraform: `terraform-apply.yml`'s `apply-dev` job also runs on this push if `infra/**` changed.
+Prod is not touched. `IMAGE_TAG` = commit SHA. Terraform: `terraform-apply.yml`'s `apply-dev` job also runs on this push if `infra/**` changed — when it does, `wait-for-dev-infra` blocks both dev deploy jobs until that apply finishes (skipped otherwise), the same Terraform-before-app ordering the release flow already gives prod via `wait-for-prod-infra`.
 
 ### Release (tag push `v*`)
 
@@ -49,11 +52,11 @@ release-please merges Release PR → creates tag v1.2.3
   ├── terraform-apply.yml: apply-dev ──→ [prod reviewer gate] ──→ apply-prod
   └── deploy.yml:
         detect (both apps, fail-safe)
-          ├── build-backend ──→ deploy-dev-backend ─┐
-          └── build-frontend ─→ deploy-dev-frontend ─┤
-                                                       ├──→ wait-for-prod-infra (blocks until apply-prod above succeeds)
-                                                       │       ├── [prod reviewer gate] ──→ deploy-prod-backend
-                                                       │       └── [prod reviewer gate] ──→ deploy-prod-frontend
+          ├── build-backend ──→ deploy-dev-backend ────┐
+          └── build-frontend ─→ deploy-dev-frontend ───┤
+                                                       └──→ wait-for-prod-infra (blocks until apply-prod above succeeds)
+                                                               ├── [prod reviewer gate] ──→ deploy-prod-backend
+                                                               └── [prod reviewer gate] ──→ deploy-prod-frontend
 ```
 
 Both environments deploy the **same central-registry image URI** — built once, no per-environment copy. `IMAGE_TAG` = `v1.2.3`. `terraform-apply.yml` and `deploy.yml` both trigger off the same tag; `deploy.yml`'s prod jobs wait for `terraform-apply.yml`'s prod apply on that tag to conclude before starting, so infra always lands before the app.
@@ -96,6 +99,29 @@ and each needed a different fix:
 Net effect: a release PR still needs a human to click merge, but from there
 the tag, the prod Terraform apply, and the prod app deploy all cascade
 automatically, same as before these fixes.
+
+## Maintenance mode
+
+`toggle-maintenance.yml` (`workflow_dispatch`, pick `environment` + `enabled`) is
+a manual cost switch for an environment that won't be used for a while: it
+routes CloudFront to a static "down for maintenance" page instead of the
+Lambda origins, **deletes** the WAF web ACL (AWS bills a web ACL for existing,
+not for being attached, so detaching alone doesn't save anything), and zeroes
+provisioned concurrency. All driven by one Terraform variable,
+`maintenance_mode` (`TF_VAR_maintenance_mode`), so there's no separate
+maintenance-mode infrastructure to keep in sync.
+
+Three jobs, in order: **apply** (`terraform apply` with `maintenance_mode` set
+from the workflow's `enabled` input) → **verify** (checks the edge is actually
+serving the expected mode before anything else proceeds) → **record**
+(persists the result as the `MAINTENANCE_MODE` environment variable, via the
+same Automation GitHub App used for release automation, so the _next_ regular
+`terraform-apply.yml` run reads it back and doesn't accidentally revert the
+environment out of maintenance mode). `apply` and `verify` both run under
+`environment: <target>`, so toggling prod needs the same two reviewer
+approvals `deploy.yml`'s two prod-gated jobs already require.
+
+Turning maintenance mode back off is the same workflow with `enabled: false`.
 
 ## OIDC Roles
 
