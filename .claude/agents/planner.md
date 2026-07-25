@@ -74,7 +74,7 @@ Use this exact template, writing to `.claude/plans/<slug>.md` via the `Write` to
 - [ ] <Testable criterion 1>
 - [ ] <Testable criterion 2>
 
-**Verify:** <the command or check that proves this step works — e.g. `bun run check-types`, a `curl` against the new route with expected status, a Playwright flow for UI, `terraform -chdir=infra/terraform validate` for infra. Prefer something the implementing agent can run and read the result of.>
+**Verify:** <the command or check that proves this step works — e.g. `bun run check-types`, a `curl` against the new route with expected status, a Playwright flow for UI, `terraform -chdir=infra validate` for infra. Prefer something the implementing agent can run and read the result of.>
 
 ### Step 2: <name>
 

@@ -24,9 +24,9 @@
       "Bash(find *)",
       "Bash(sed *)",
       "Bash(bunx react-doctor*)",
-      "Bash(terraform -chdir=infra/terraform fmt*)",
-      "Bash(terraform -chdir=infra/terraform validate)",
-      "Bash(terraform -chdir=infra/terraform init -backend=false*)",
+      "Bash(terraform -chdir=infra fmt*)",
+      "Bash(terraform -chdir=infra validate)",
+      "Bash(terraform -chdir=infra init -backend=false*)",
       "Bash(tflint *)"
     ]
   },

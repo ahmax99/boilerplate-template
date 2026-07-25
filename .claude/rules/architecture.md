@@ -77,5 +77,5 @@ UI is shadcn/ui + Tailwind CSS 4. Import alias is `@/*` → `src/*`.
 
 ## Infra & deploy
 
-- `infra/terraform/` — `bootstrap/`, `environments/`, `modules/`. `docs/` contains the AWS architecture (CloudFront → Next BFF + S3 + Elysia Lambda + Cognito + Neon), CloudFront, Lambda IAM auth, and Terraform pipeline notes — read `docs/architecture.md` before changing deployment topology.
+- `infra/` — `bootstrap/`, `backends/`, `vars/`, `modules/`. `docs/` contains the AWS architecture (CloudFront → Next BFF + S3 + Elysia Lambda + Cognito + Neon), CloudFront, Lambda IAM auth, and Terraform pipeline notes — read `docs/architecture.md` before changing deployment topology.
 - Both apps ship a `Dockerfile` and `vercel.json`; backend deploys as a Lambda container image via CodeDeploy blue/green (see architecture doc).

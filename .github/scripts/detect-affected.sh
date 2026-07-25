@@ -14,6 +14,23 @@ deploy_both() {
   echo "frontend=true" >> "$GITHUB_OUTPUT"
 }
 
+base_usable() {
+  [[ -n "${BEFORE_SHA:-}" && ! "$BEFORE_SHA" =~ ^0+$ ]] && git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null
+}
+
+infra_changed() {
+  if [[ "${EVENT_NAME:-}" != "push" ]]; then
+    echo "false" # dispatch — nothing waits on this
+  elif ! base_usable; then
+    echo "true" # fail safe, same reasoning as deploy_both below
+  elif git diff --name-only "$BEFORE_SHA" "$HEAD_SHA" -- infra/ | grep -q .; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+echo "infra=$(infra_changed)" >> "$GITHUB_OUTPUT"
+
 # Manual dispatch => deploy the whole environment, skip affected-detection.
 if [[ "${EVENT_NAME:-}" != "push" ]]; then
   echo "🚀 Manual dispatch: deploying both apps."
@@ -22,7 +39,7 @@ if [[ "${EVENT_NAME:-}" != "push" ]]; then
 fi
 
 # Fail safe: no usable base (first push, force-push, or all-zero SHA) => deploy both.
-if [[ -z "${BEFORE_SHA:-}" || "$BEFORE_SHA" =~ ^0+$ ]] || ! git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+if ! base_usable; then
   echo "⚠️  Base commit '${BEFORE_SHA:-}' unavailable; deploying both apps (fail-safe)."
   deploy_both
   exit 0

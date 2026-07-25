@@ -113,6 +113,40 @@ below; a wrong-profile apply lands in the wrong account with no name-prefix
 safety net. The `AdminAccess` session lasts 8 hours — re-run `aws sso login`
 when it expires.
 
+### 5. Automation GitHub App (repo-level, one-time)
+
+`release-please.yml` (`.github/workflows/release-please.yml`) must authenticate
+as a **GitHub App**, not the default `GITHUB_TOKEN` — see
+[`deployment-environments.md`'s "Release automation"](deployment-environments.md#release-automation)
+for why. `toggle-maintenance.yml` reuses the same App to write the
+`MAINTENANCE_MODE` environment variable, which `GITHUB_TOKEN` also can't do.
+Create it once:
+
+1. **Register the App**: your GitHub avatar → **Settings** → **Developer
+   settings** → **GitHub Apps** → **New GitHub App**.
+   - **GitHub App name**: anything unique, e.g. `<project>-automation`.
+   - **Homepage URL**: this repo's URL (not otherwise used).
+   - **Webhook**: uncheck **Active** — this App only mints tokens for Actions,
+     it doesn't need to receive events.
+   - **Repository permissions**: `Contents: Read and write`,
+     `Pull requests: Read and write`, `Environments: Read and write`. Leave everything else at `No access`.
+   - **Where can this GitHub App be installed?**: **Only on this account**.
+   - Click **Create GitHub App**.
+2. **Note the Client ID** shown at the top of the App's settings page (used
+   over the older numeric App ID — `actions/create-github-app-token`
+   recommends `client-id`).
+3. **Generate a private key**: still on the App's settings page, under
+   **Private keys**, click **Generate a private key** — downloads a `.pem`
+   file. Store it; GitHub only keeps the public half.
+4. **Install the App on this repo**: same settings page → **Install App** →
+   install on your account → **Only select repositories** → choose this repo
+   → **Install**.
+5. **Add repo-level GitHub config** (table below): `AUTOMATION_APP_CLIENT_ID`
+   as a **variable** (not sensitive — a Client ID is just an identifier, same
+   reasoning as the role ARNs elsewhere in this doc), and
+   `AUTOMATION_APP_PRIVATE_KEY` as a **secret** holding the full `.pem`
+   file contents.
+
 ## GitHub configuration reference
 
 Set under **Settings → Secrets and variables → Actions** (repo level) and
@@ -120,15 +154,22 @@ Set under **Settings → Secrets and variables → Actions** (repo level) and
 
 ### Repo-level variables (shared by both environments)
 
-| Name                      | Value                                                              |
-| ------------------------- | ------------------------------------------------------------------ |
-| `AWS_REGION`              | e.g. `ap-northeast-1`                                              |
-| `CENTRAL_ECR_ACCOUNT_ID`  | org output `shared_services_account_id`                            |
-| `ECR_PUSH_ROLE_ARN`       | org repo output `ecr_push_role_arn`                                |
-| `TF_PLAN_ROLE_ARN`        | org repo output `plan_role_arn` (read-only; plans only run on dev) |
-| `TF_VAR_root_domain`      | e.g. `ahmax99.online`                                              |
-| `TF_VAR_contact_to_email` | contact-form recipient                                             |
-| `TF_VAR_from_email`       | sender address (on the root domain)                                |
+| Name                       | Value                                                              |
+| -------------------------- | ------------------------------------------------------------------ |
+| `AWS_REGION`               | e.g. `ap-northeast-1`                                              |
+| `CENTRAL_ECR_ACCOUNT_ID`   | org output `shared_services_account_id`                            |
+| `ECR_PUSH_ROLE_ARN`        | org repo output `ecr_push_role_arn`                                |
+| `TF_PLAN_ROLE_ARN`         | org repo output `plan_role_arn` (read-only; plans only run on dev) |
+| `TF_VAR_root_domain`       | e.g. `ahmax99.online`                                              |
+| `TF_VAR_contact_to_email`  | contact-form recipient                                             |
+| `TF_VAR_from_email`        | sender address (on the root domain)                                |
+| `AUTOMATION_APP_CLIENT_ID` | Client ID from step 5 above                                        |
+
+### Repo-level secrets
+
+| Name                         | Value                                              |
+| ---------------------------- | -------------------------------------------------- |
+| `AUTOMATION_APP_PRIVATE_KEY` | Full contents of the `.pem` file from step 5 above |
 
 ### Per-environment values
 
@@ -196,7 +237,7 @@ the org repo outputs.
 ```bash
 export AWS_PROFILE=ahmax99-dev
 aws sso login   # if the session has expired
-cd infra/terraform/bootstrap
+cd infra/bootstrap
 terraform init
 terraform workspace new dev
 terraform apply -var="project_name=boilerplate-template" -var="environment=dev" -auto-approve
@@ -241,7 +282,7 @@ the `ahmax99-prod` SSO profile):
 ```bash
 export AWS_PROFILE=ahmax99-prod
 aws sso login   # if the session has expired
-cd infra/terraform/bootstrap
+cd infra/bootstrap
 terraform workspace new prod
 terraform apply -var="project_name=boilerplate-template" -var="environment=prod" -auto-approve
 ```
@@ -257,6 +298,33 @@ with `apply_prod: true`, and approve the reviewer gate. Prod's apex DNS
 records and ACM validation are written cross-account through the
 `dns-apex-manager` role; images already exist centrally, so bootstrap mode
 only applies + publishes Lambda versions.
+
+> **New prod accounts start with a Lambda concurrency quota of 10.** Prod's
+> `env_config` (`infra/locals.tf`) reserves concurrency
+> (`reserved_concurrent_executions = 10`, `provisioned_concurrent_executions =
+2`), but AWS caps brand-new accounts at a total **Concurrent executions**
+> quota of 10 and always keeps a floor of 10 unreserved — so the apply fails
+> with `InvalidParameterValueException: Specified ReservedConcurrentExecutions
+for function decreases account's UnreservedConcurrentExecution below its
+minimum value of [10]`. Request an increase in the **prod account**, region
+> `ap-northeast-1`:
+>
+> ```bash
+> aws service-quotas request-service-quota-increase \
+>   --service-code lambda --quota-code L-B99A9384 \
+>   --desired-value 1000 --region ap-northeast-1
+> ```
+>
+> The request is asynchronous — `PENDING` → often `APPROVED` within minutes, or
+> `CASE_OPENED` if AWS routes it to a support review (common for freshly-created
+> accounts; can take hours to a couple of business days). Track it with
+> `aws service-quotas list-requested-service-quota-change-history-by-quota
+--service-code lambda --quota-code L-B99A9384 --region ap-northeast-1`, and
+> confirm `aws lambda get-account-settings --region ap-northeast-1` reports
+> `AccountLimit.ConcurrentExecutions = 1000` before re-running the apply. To
+> unblock without waiting, temporarily set prod's `reserved_concurrent_executions
+= -1` and `provisioned_concurrent_executions = 0` in `locals.tf` (matches dev;
+> revert once the quota lands).
 
 **P4 — Capture Terraform outputs** into the `prod` environment:
 `vars.STATIC_ASSETS_BUCKET`, `vars.CLOUDFRONT_DISTRIBUTION_ID`,
@@ -281,5 +349,5 @@ merge Release PR → v*   → build → deploy dev → [prod reviewer: terraform
 No manual variable wrangling — every value used after bring-up is either a
 stable org/Terraform output already captured, or a secret set once during
 setup. Steady-state Terraform changes flow through PRs: a PR touching
-`infra/terraform/**` gets a dev plan comment; merge applies dev; a `v*` tag
+`infra/**` gets a dev plan comment; merge applies dev; a `v*` tag
 applies prod behind the reviewer gate.

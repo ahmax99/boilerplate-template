@@ -32,10 +32,10 @@ jobs:
         with:
           filters: |
             terraform:
-              - 'infra/terraform/**'
+              - 'infra/**'
             non_infra:
               - '**'
-              - '!infra/terraform/**'
+              - '!infra/**'
 
   terraform-security-scan:
     name: Terraform Security Scan (Trivy)
@@ -54,8 +54,8 @@ jobs:
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           scan-type: config
-          scan-ref: infra/terraform
-          trivyignores: infra/terraform/.trivyignore
+          scan-ref: infra
+          trivyignores: infra/.trivyignore
           severity: CRITICAL,HIGH
           exit-code: '1'
 

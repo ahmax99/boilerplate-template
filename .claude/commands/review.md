@@ -17,12 +17,12 @@ Issue these in one parallel Bash batch:
 
 (This repo has no test runner; there are no tests to run here.)
 
-**If the diff list contains `infra/terraform/**` files**, run the Terraform gates (local mirror of `terraform-plan.yml`) in a follow-up parallel batch:
+**If the diff list contains `infra/**` files**, run the Terraform gates (local mirror of `terraform-plan.yml`) in a follow-up parallel batch:
 
-- `terraform -chdir=infra/terraform fmt -check -recursive`
-- `tflint --chdir=infra/terraform --recursive --format compact --minimum-failure-severity=error` (run `tflint --chdir=infra/terraform --init` first if it complains about missing plugins)
-- `terraform -chdir=infra/terraform validate` (if init is missing, run `terraform -chdir=infra/terraform init -backend=false` first)
-- `trivy config infra/terraform --ignorefile infra/terraform/.trivyignore --severity CRITICAL,HIGH` — only if `trivy` is installed; otherwise SKIPPED (CI enforces it in `security.yml`)
+- `terraform -chdir=infra fmt -check -recursive`
+- `tflint --chdir=infra --recursive --format compact --minimum-failure-severity=error` (run `tflint --chdir=infra --init` first if it complains about missing plugins)
+- `terraform -chdir=infra validate` (if init is missing, run `terraform -chdir=infra init -backend=false` first)
+- `trivy config infra --ignorefile infra/.trivyignore --severity CRITICAL,HIGH` — only if `trivy` is installed; otherwise SKIPPED (CI enforces it in `security.yml`)
 
 Any Terraform gate failure counts as a Phase 1 FAIL. Skip all four when the diff has no infra files.
 
@@ -51,7 +51,7 @@ Single message, two parallel Task tool calls:
 
 2. `subagent_type: "correctness-reviewer"` — same prompt shape.
 
-3. `subagent_type: "infra-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `infra/terraform/**` files**. Include it in the same parallel batch.
+3. `subagent_type: "infra-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `infra/**` files**. Include it in the same parallel batch.
 
 4. `subagent_type: "cicd-reviewer"` — same prompt shape, **only if the Phase 1 diff list contains `.github/**` files**. Include it in the same parallel batch.
 
@@ -79,7 +79,7 @@ Order issues **by file (in diff order) and within each file by line number**. Se
 - Correctness: X/5  (correctness-reviewer)
 - Architecture: X/5  (correctness-reviewer)
 - Code quality: X/5  (correctness-reviewer)
-- Infrastructure: X/5  (infra-reviewer — omit when the diff has no infra/terraform/** files)
+- Infrastructure: X/5  (infra-reviewer — omit when the diff has no infra/** files)
 - CI/CD: X/5  (cicd-reviewer — omit when the diff has no .github/** files)
 
 ### Issues

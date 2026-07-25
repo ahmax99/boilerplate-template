@@ -8,9 +8,9 @@ pre-commit:
 
     - name: terraform-fmt
       glob:
-        - 'infra/terraform/*.{tf,tfvars}'
-        - 'infra/terraform/**/*.{tf,tfvars}'
-      run: terraform -chdir=infra/terraform fmt -recursive
+        - 'infra/*.{tf,tfvars}'
+        - 'infra/**/*.{tf,tfvars}'
+      run: terraform -chdir=infra fmt -recursive
       stage_fixed: true
 
     - name: hadolint

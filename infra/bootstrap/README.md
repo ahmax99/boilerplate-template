@@ -33,7 +33,7 @@ Run the `dev` block under the `ahmax99-dev` profile, the `prod` block under
 ```bash
 export AWS_PROFILE=ahmax99-dev
 aws sso login   # one login covers both accounts (shared SSO session)
-cd infra/terraform/bootstrap
+cd infra/bootstrap
 # --- dev account ---
 terraform init
 terraform workspace new dev

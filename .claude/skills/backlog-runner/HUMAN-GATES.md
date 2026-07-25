@@ -33,7 +33,7 @@ in-progress phase label, and posts a comment naming which condition tripped:
 
 1. `scripts/verify_qa_gate.sh` still exits 1 after 3 qa-retry cycles (see
    Budget below).
-2. The branch's diff touches `infra/terraform/**` — **always** blocked
+2. The branch's diff touches `infra/**` — **always** blocked
    regardless of the QA gate's result, per `.claude/rules/infra.md`'s
    existing rule against unattended infrastructure state changes.
 3. Scope drift — the branch's `git diff --stat` touches files not named in

@@ -1,6 +1,6 @@
 ---
 name: infra-reviewer
-description: Reviews a git diff of Terraform/HCL changes — IAM least privilege, public exposure, state safety, destructive-change risk, module conventions, version pinning, secrets in tfvars. Returns a single Infrastructure score (1-5) plus per-file issues. Spawned by /qa and /review only when the diff touches infra/terraform/**.
+description: Reviews a git diff of Terraform/HCL changes — IAM least privilege, public exposure, state safety, destructive-change risk, module conventions, version pinning, secrets in tfvars. Returns a single Infrastructure score (1-5) plus per-file issues. Spawned by /qa and /review only when the diff touches infra/**.
 model: sonnet
 tools: Read, Grep, Bash
 ---
@@ -72,13 +72,13 @@ Return exactly this markdown shape:
 
 ### Issues by file
 
-#### infra/terraform/path/to/file.tf
+#### infra/path/to/file.tf
 - **[Critical|High|Medium|Low] title — file.tf:line**
   - What: ...
   - Why it matters: ...
   - Fix: ...
 
-#### infra/terraform/path/to/other.tf
+#### infra/path/to/other.tf
 - ...
 ```
 

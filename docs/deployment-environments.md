@@ -4,14 +4,14 @@ This document covers the two GitHub Actions environments (`dev` and `prod`) — 
 
 ## Overview
 
-| Environment | Trigger                                                                                                                                                                       | Approval                                          | AWS account         |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------- |
-| `dev`       | Push to `main` — apps (`deploy.yml`, paths-filtered) and Terraform (`terraform-apply.yml`, `infra/terraform/**`) + `workflow_dispatch`                                        | None                                              | Dev member account  |
-| `prod`      | `v*` tag pushes — apps and Terraform, same tag. First bring-up only: a reviewer-gated `workflow_dispatch` with `apply_prod: true` on `terraform-apply.yml` (see the runbook). | Required reviewer (**twice** per tag — see below) | Prod member account |
+| Environment | Trigger                                                                                                                                                                                                                                                                                                                 | Approval                                          | AWS account         |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------- |
+| `dev`       | Push to `main` — apps (`deploy.yml`, paths-filtered) and Terraform (`terraform-apply.yml`, `infra/**`) + `workflow_dispatch`                                                                                                                                                                                            | None                                              | Dev member account  |
+| `prod`      | `v*` tag pushes — apps and Terraform, same tag. Also reachable via `workflow_dispatch` run **against that tag ref**: `deploy.yml`'s prod jobs key off `ref_type`/`ref_name` (not `event_name`), and `terraform-apply.yml` additionally accepts `apply_prod: true` from any ref (first bring-up only — see the runbook). | Required reviewer (**twice** per tag — see below) | Prod member account |
 
 **dev and prod are dedicated AWS accounts** (member accounts under a shared AWS Organization, managed by the [org repo](https://github.com/ahmax99/ahmax99-aws-org)) — the account boundary, not just the resource-name prefix, is the isolation mechanism. A third **shared-services** account hosts the two org-wide resources both environments depend on: the Route 53 apex zone and the **central ECR registry**. Account-level plumbing — the GitHub OIDC providers, per-account `gha-deploy` roles, the `gha-ecr-push` role, the `dns-apex-manager` role, DNS zones and delegation, and the ECR repositories themselves — is owned by the org repo, not this one; this repo's Terraform manages only the app infrastructure inside each environment account.
 
-PRs touching `infra/terraform/**` get an automatic `terraform plan` comment (dev) via `terraform-plan.yml`.
+PRs touching `infra/**` get an automatic `terraform plan` comment (dev) via `terraform-plan.yml`.
 
 **Two prod approvals per release.** `terraform-apply.yml`'s prod job and `deploy.yml`'s prod jobs both run under `environment: prod`, and `deploy.yml`'s prod deploy jobs wait for that same-commit `terraform-apply.yml` run to finish (`wait-for-prod-infra` gate) before starting — enforcing Terraform-first ordering on a single `v*` tag. That means a release pauses at the reviewer gate twice: once for the prod Terraform apply, once for the prod app deploy. This is accepted so the release stays a single `v*` tag (no new trigger mechanism).
 
@@ -21,7 +21,7 @@ The frontend and backend images are built **once** per commit/tag and pushed int
 
 Both environments then deploy the **same image URI**: the repos' resource policy grants pull to any principal in the AWS Organization (`aws:PrincipalOrgID`), plus the Lambda service principal for cross-account function image pulls (see the runbook's prerequisites). There is **no image promotion step** — prod deploys the exact URI the build job produced, so digest identity between dev and prod is structural rather than enforced by a copy step.
 
-Image URLs are never configured by hand: workflows derive them from `vars.CENTRAL_ECR_ACCOUNT_ID` + the repo name (`deploy.yml`'s `ECR_REGISTRY` env), and Terraform derives the same URLs from `var.central_ecr_account_id` (`infra/terraform/locals.tf`), so the two can't drift.
+Image URLs are never configured by hand: workflows derive them from `vars.CENTRAL_ECR_ACCOUNT_ID` + the repo name (`deploy.yml`'s `ECR_REGISTRY` env), and Terraform derives the same URLs from `var.central_ecr_account_id` (`infra/locals.tf`), so the two can't drift.
 
 `NEXT_PUBLIC_*` values are **not** part of the build: the frontend Docker image takes no `NEXT_PUBLIC_*` build-arg (see `.claude/rules/architecture.md`'s "build once, deploy many" rule); any config the browser needs at runtime (e.g. the Sentry DSN) is fetched from a runtime `/api/config` route, not baked into the image.
 
@@ -35,12 +35,15 @@ The apex zone (`<root_domain>`) lives in shared-services. The org repo delegates
 
 ```
 push to main (paths match)
-  └── detect (affected apps)
-        ├── build-backend (if affected) ──→ deploy-dev-backend
-        └── build-frontend (if affected) ─→ deploy-dev-frontend
+  └── detect (affected apps, infra changed?)
+        ├── build-backend (if affected) ─────────────────┐
+        ├── build-frontend (if affected) ────────────────┤
+        └── wait-for-dev-infra (if infra/** changed) ────┤
+                                                         ├──→ deploy-dev-backend
+                                                         └──→ deploy-dev-frontend
 ```
 
-Prod is not touched. `IMAGE_TAG` = commit SHA. Terraform: `terraform-apply.yml`'s `apply-dev` job also runs on this push if `infra/terraform/**` changed.
+Prod is not touched. `IMAGE_TAG` = commit SHA. Terraform: `terraform-apply.yml`'s `apply-dev` job also runs on this push if `infra/**` changed — when it does, `wait-for-dev-infra` blocks both dev deploy jobs until that apply finishes (skipped otherwise), the same Terraform-before-app ordering the release flow already gives prod via `wait-for-prod-infra`.
 
 ### Release (tag push `v*`)
 
@@ -49,11 +52,11 @@ release-please merges Release PR → creates tag v1.2.3
   ├── terraform-apply.yml: apply-dev ──→ [prod reviewer gate] ──→ apply-prod
   └── deploy.yml:
         detect (both apps, fail-safe)
-          ├── build-backend ──→ deploy-dev-backend ─┐
-          └── build-frontend ─→ deploy-dev-frontend ─┤
-                                                       ├──→ wait-for-prod-infra (blocks until apply-prod above succeeds)
-                                                       │       ├── [prod reviewer gate] ──→ deploy-prod-backend
-                                                       │       └── [prod reviewer gate] ──→ deploy-prod-frontend
+          ├── build-backend ──→ deploy-dev-backend ────┐
+          └── build-frontend ─→ deploy-dev-frontend ───┤
+                                                       └──→ wait-for-prod-infra (blocks until apply-prod above succeeds)
+                                                               ├── [prod reviewer gate] ──→ deploy-prod-backend
+                                                               └── [prod reviewer gate] ──→ deploy-prod-frontend
 ```
 
 Both environments deploy the **same central-registry image URI** — built once, no per-environment copy. `IMAGE_TAG` = `v1.2.3`. `terraform-apply.yml` and `deploy.yml` both trigger off the same tag; `deploy.yml`'s prod jobs wait for `terraform-apply.yml`'s prod apply on that tag to conclude before starting, so infra always lands before the app.
@@ -65,6 +68,60 @@ hotfix/* branch → merge to main → manually trigger release-please.yml (workf
   → release-please creates patch tag v1.2.x
   → tag triggers the release pipeline above
 ```
+
+## Release automation
+
+`release-please.yml` and `auto-merge.yml` create commits, PR merges, and tags
+on `main` — all of which are the exact events that trigger `terraform-apply.yml`
+and `deploy.yml`. GitHub Actions has a deliberate anti-recursion rule for this:
+_"events triggered by the `GITHUB_TOKEN` will not create a new workflow run,
+even when the repository contains a workflow configured to run when `push`
+events occur"_ (GitHub Actions docs). Two places in this pipeline hit that rule,
+and each needed a different fix:
+
+- **Merging the release PR.** `auto-merge.yml` used to auto-merge
+  `release-please`'s PR on approval using `GITHUB_TOKEN`. That merge is a push
+  to `main`, so it never re-triggered `release-please.yml` itself — the tag
+  was never cut. Fix: that job was removed. A human now merges the release PR
+  by hand (after approving it) — a merge from a real account is a normal push
+  event, so `release-please.yml` runs immediately afterward.
+- **Creating the release tag.** `release-please.yml` still needs to create the
+  `v*` tag (and the GitHub Release) itself, and doing that with `GITHUB_TOKEN`
+  hits the same rule — the tag push wouldn't trigger `terraform-apply.yml` or
+  `deploy.yml`. Fix: it authenticates as a **GitHub App** installation instead
+  (minted per-run via `actions/create-github-app-token`, short-lived and
+  scoped to just this repo's `contents`/`pull-requests` permissions) —
+  preferred over a long-lived PAT for the same reason this repo avoids static
+  AWS keys elsewhere (see `.claude/rules/infra.md`). See
+  [`runbook.md`'s prerequisite 5](runbook.md#5-release-automation-github-app-repo-level-one-time)
+  for how to create and install that App.
+
+Net effect: a release PR still needs a human to click merge, but from there
+the tag, the prod Terraform apply, and the prod app deploy all cascade
+automatically, same as before these fixes.
+
+## Maintenance mode
+
+`toggle-maintenance.yml` (`workflow_dispatch`, pick `environment` + `enabled`) is
+a manual cost switch for an environment that won't be used for a while: it
+routes CloudFront to a static "down for maintenance" page instead of the
+Lambda origins, **deletes** the WAF web ACL (AWS bills a web ACL for existing,
+not for being attached, so detaching alone doesn't save anything), and zeroes
+provisioned concurrency. All driven by one Terraform variable,
+`maintenance_mode` (`TF_VAR_maintenance_mode`), so there's no separate
+maintenance-mode infrastructure to keep in sync.
+
+Three jobs, in order: **apply** (`terraform apply` with `maintenance_mode` set
+from the workflow's `enabled` input) → **verify** (checks the edge is actually
+serving the expected mode before anything else proceeds) → **record**
+(persists the result as the `MAINTENANCE_MODE` environment variable, via the
+same Automation GitHub App used for release automation, so the _next_ regular
+`terraform-apply.yml` run reads it back and doesn't accidentally revert the
+environment out of maintenance mode). `apply` and `verify` both run under
+`environment: <target>`, so toggling prod needs the same two reviewer
+approvals `deploy.yml`'s two prod-gated jobs already require.
+
+Turning maintenance mode back off is the same workflow with `enabled: false`.
 
 ## OIDC Roles
 
@@ -79,7 +136,7 @@ Trust policies pin the **numeric** GitHub org/repo IDs (immutable subject claims
 
 ## Per-Environment Hardening (`local.env_config`)
 
-Prod runs a hardened configuration while dev stays cheap. All the differences live in **one** place — the `env_config` map in `infra/terraform/locals.tf`, keyed on `var.environment`. It resolves purely from `var.environment` (which CI sets via `TF_VAR_environment`), so it works with **no `-var-file`** — CI never passes one at all (`terraform-plan.yml` / `terraform-apply.yml` call `plan`/`apply` with no `-var-file` flag); every CI-supplied variable comes from the whitelist of `TF_VAR_*` exported by `terraform-env`. To tune a per-environment value, edit that map — nothing else.
+Prod runs a hardened configuration while dev stays cheap. All the differences live in **one** place — the `env_config` map in `infra/locals.tf`, keyed on `var.environment`. It resolves purely from `var.environment` (which CI sets via `TF_VAR_environment`), so it works with **no `-var-file`** — CI never passes one at all (`terraform-plan.yml` / `terraform-apply.yml` call `plan`/`apply` with no `-var-file` flag); every CI-supplied variable comes from the whitelist of `TF_VAR_*` exported by `terraform-env`. To tune a per-environment value, edit that map — nothing else.
 
 This is deliberately a `locals` map, not a `variable` sourced from `vars/*.tfvars`. The `vars/*.tfvars` files (and their `TF_VAR_*` CI counterparts) exist for values a human must externally supply per environment — secrets, external resource IDs (Neon DB URL, Google OAuth client, Resend key, Sentry DSN), cross-account identifiers (`central_ecr_account_id`, `dns_account_role_arn`) — things Terraform can't derive on its own. The hardening knobs here (log retention, concurrency, deployment strategy, alarm toggle) are internal policy that Terraform derives entirely from `var.environment`; making them `variable`s would mean also adding them to `terraform-env`, both workflows, and both GitHub environments' UI for no operational benefit. See `.claude/rules/infra.md` for the full rule.
 
