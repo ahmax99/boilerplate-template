@@ -20,17 +20,16 @@ BEGIN
   SELECT string_agg(format('public.%I', tablename), ', ')
     INTO targets
     FROM pg_tables
-   WHERE schemaname = 'public'
-     AND tablename <> '_prisma_migrations';
+   WHERE schemaname = 'public';
 
   IF targets IS NULL THEN
-    RAISE NOTICE 'No application tables in public — nothing to truncate.';
+    RAISE NOTICE 'No tables in public — nothing to drop.';
   ELSE
-    RAISE NOTICE 'Truncating %', targets;
-    EXECUTE format('TRUNCATE TABLE %s CASCADE', targets);
+    RAISE NOTICE 'Dropping %', targets;
+    EXECUTE format('DROP TABLE %s CASCADE', targets);
   END IF;
 END
 $$;
 SQL
 
-echo "Database emptied — branch, endpoint, schema and migration history preserved."
+echo "Database reset — branch and compute endpoint preserved; schema and migration history are gone. The next deploy's migrate-dev/migrate-prod job rebuilds both from prisma/migrations."

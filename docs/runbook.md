@@ -375,11 +375,14 @@ touch: S3 object versions, the Cognito user pool and its users, the Secrets
 Manager name reservation, and Lambda@Edge replicas. Afterwards a fresh
 `terraform apply` succeeds with no manual cleanup.
 
-**The database is emptied, not deleted.** The Neon branch, its compute endpoint,
-the schema and the Prisma migration history all survive — only the rows go, via
-`TRUNCATE` on every table in `public` except `_prisma_migrations`. So
-`TF_VAR_database_url` stays valid and a redeployed app works immediately against
-an empty database, with no migration step to remember. Nothing here touches the
+**The database is reset, not deleted.** The Neon branch and its compute endpoint
+survive — every table in `public`, including `_prisma_migrations`, is dropped, so
+`TF_VAR_database_url` stays valid but the schema itself is gone. This relies on
+`deploy.yml`'s `migrate-dev`/`migrate-prod` jobs (see
+[`deployment-environments.md`](deployment-environments.md#rollback)) running
+`prisma migrate deploy` on the next redeploy to rebuild the schema from
+`prisma/migrations` — there is no manual migration step to remember, same as
+before, just rebuilt from source instead of preserved. Nothing here touches the
 `preview/pr-*` branches `neon-workflow.yml` manages.
 
 ### Read this first
@@ -398,7 +401,7 @@ Two more consequences worth expecting:
   so `deploy.yml`'s deploy jobs fail until someone re-applies Terraform and
   re-captures the output.
 - **A prod teardown prompts the required reviewer up to three times** — once each
-  for `destroy`, `db-truncate`, and `ecr-purge`. Same behaviour `deploy.yml`
+  for `destroy`, `db-reset`, and `ecr-purge`. Same behaviour `deploy.yml`
   already has with `apply-prod` plus its two prod deploy jobs; not a bug.
 
 ### Preconditions

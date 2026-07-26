@@ -143,8 +143,8 @@ jobs:
           fi
           echo "State is empty — every managed resource is destroyed."
 
-  db-truncate:
-    name: Empty the ${{ inputs.environment }} database
+  db-reset:
+    name: Reset the ${{ inputs.environment }} database
     needs: destroy
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -162,12 +162,12 @@ jobs:
       - name: Ensure psql is available
         run: command -v psql >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client; }
 
-      - name: Empty every application table
+      - name: Drop every table
         env:
           DATABASE_URL: ${{ secrets.TF_VAR_database_url }}
         run: |
-          chmod +x .github/scripts/destroy-truncate-database.sh
-          .github/scripts/destroy-truncate-database.sh
+          chmod +x .github/scripts/destroy-reset-database.sh
+          .github/scripts/destroy-reset-database.sh
 
   ecr-purge:
     name: Purge the shared ECR images
