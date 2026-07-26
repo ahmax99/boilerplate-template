@@ -42,6 +42,7 @@ jobs:
     outputs:
       terraform: ${{ steps.filter.outputs.terraform }}
       non_infra: ${{ steps.filter.outputs.non_infra }}
+      dockerfile: ${{ steps.filter.outputs.dockerfile }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -56,6 +57,8 @@ jobs:
             non_infra:
               - '**'
               - '!infra/**'
+            dockerfile:
+              - 'apps/*/Dockerfile'
 
   terraform-security-scan:
     name: Terraform Security Scan (Trivy)
@@ -78,6 +81,31 @@ jobs:
           trivyignores: infra/.trivyignore
           severity: CRITICAL,HIGH
           exit-code: '1'
+
+  hadolint:
+    name: Dockerfile Lint (hadolint)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: changes
+    if: needs.changes.outputs.dockerfile == 'true' && !startsWith(github.head_ref, 'release-please--branches--')
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        dockerfile:
+          - apps/backend-boilerplate/Dockerfile
+          - apps/nextjs-boilerplate/Dockerfile
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Run hadolint
+        uses: hadolint/hadolint-action@2332a7b74a6de0dda2e2221d575162eba76ba5e5 # v3.3.0
+        with:
+          dockerfile: ${{ matrix.dockerfile }}
+          config: .hadolint.yaml
 
   package-audit:
     name: Package Audit
