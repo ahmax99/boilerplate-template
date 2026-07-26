@@ -77,6 +77,12 @@ they hold in the org repo before first use:
   `gha-deploy` role does). If that read is ever denied the check now **fails
   loudly** rather than silently treating the images as absent and forcing an
   unnecessary bootstrap — see `.github/scripts/terraform-ecr-check.sh`.
+- **A `gha-ecr-purge` role for teardown.** `destroy.yml`'s `ecr-purge` job is the
+  only consumer. It is least-privilege and separate from `gha-ecr-push` by
+  design: it lives in shared-services, grants image **delete** on the central
+  repos, and its `subject_claims` accept only environment-scoped OIDC subs
+  (`:environment:dev` / `:environment:prod`), so no PR branch can assume it.
+  Surfaced as the org output `ecr_purge_role_arn` → `ECR_PURGE_ROLE_ARN` below.
 
 ### 3. External SaaS accounts (per environment)
 
@@ -160,6 +166,7 @@ Set under **Settings → Secrets and variables → Actions** (repo level) and
 | `AWS_REGION`               | e.g. `ap-northeast-1`                                              |
 | `CENTRAL_ECR_ACCOUNT_ID`   | org output `shared_services_account_id`                            |
 | `ECR_PUSH_ROLE_ARN`        | org repo output `ecr_push_role_arn`                                |
+| `ECR_PURGE_ROLE_ARN`       | org repo output `ecr_purge_role_arn` (teardown only)               |
 | `TF_PLAN_ROLE_ARN`         | org repo output `plan_role_arn` (read-only; plans only run on dev) |
 | `TF_VAR_root_domain`       | e.g. `ahmax99.online`                                              |
 | `TF_VAR_contact_to_email`  | contact-form recipient                                             |
@@ -359,3 +366,88 @@ stable org/Terraform output already captured, or a secret set once during
 setup. Steady-state Terraform changes flow through PRs: a PR touching
 `infra/**` gets a dev plan comment; merge applies dev; a `v*` tag
 applies prod behind the reviewer gate.
+
+## Teardown
+
+`destroy.yml` (**Actions → Destroy Infrastructure → Run workflow**) destroys one
+environment completely — including the data a plain `terraform destroy` cannot
+touch: S3 object versions, the Cognito user pool and its users, the Secrets
+Manager name reservation, and Lambda@Edge replicas. Afterwards a fresh
+`terraform apply` succeeds with no manual cleanup.
+
+**The database is emptied, not deleted.** The Neon branch, its compute endpoint,
+the schema and the Prisma migration history all survive — only the rows go, via
+`TRUNCATE` on every table in `public` except `_prisma_migrations`. So
+`TF_VAR_database_url` stays valid and a redeployed app works immediately against
+an empty database, with no migration step to remember. Nothing here touches the
+`preview/pr-*` branches `neon-workflow.yml` manages.
+
+### Read this first
+
+> ⚠️ **The ECR purge is cross-environment.** The central repos are
+> `<project>-backend` and `<project>-frontend` with **no environment segment**,
+> so tearing down **dev also deletes prod's images**. Already-running prod
+> Lambdas keep serving (Lambda copied the image into its own store at deploy
+> time), but **prod re-deploys fail** until the next build pushes a fresh image,
+> and new-instance provisioning is no longer guaranteed once Lambda's cache
+> evicts. Accepted trade-off — but know it before you dispatch.
+
+Two more consequences worth expecting:
+
+- **`APP_DEPLOY_ROLE_ARN` dangles.** Teardown destroys `module.app_deploy_role`,
+  so `deploy.yml`'s deploy jobs fail until someone re-applies Terraform and
+  re-captures the output.
+- **A prod teardown prompts the required reviewer up to three times** — once each
+  for `destroy`, `db-truncate`, and `ecr-purge`. Same behaviour `deploy.yml`
+  already has with `apply-prod` plus its two prod deploy jobs; not a bug.
+
+### Preconditions
+
+- The org repo's `gha-ecr-purge` role is applied and `ECR_PURGE_ROLE_ARN` is set
+  as a repo-level variable. Without it `ecr-purge` **fails** while the teardown
+  itself succeeds, leaving images behind — deliberate, so it can't pass
+  unnoticed. Re-dispatch once the variable is set, or purge by hand.
+- The database step needs only the `TF_VAR_database_url` secret each environment
+  already sets for Terraform. Teardown does **not** use the Neon API, so no
+  `NEON_*` variable or key is involved.
+
+### Procedure
+
+1. Dispatch **Destroy Infrastructure**, pick the environment, and type the
+   confirmation exactly:
+   - dev → `destroy dev`
+   - prod → `destroy prod`
+
+   The phrase embeds the environment, so a string copied from a dev run cannot
+   authorize prod. `preflight` rejects a mismatch in seconds — before any
+   credentials are issued and before a prod reviewer is asked to approve.
+
+2. Approve the `prod` environment gate when prompted (prod only).
+3. Expect **30–90 minutes**. Most of it is CloudFront disabling-then-deleting and
+   Lambda@Edge replicas releasing their functions.
+4. The run is green only if the final **Assert the state is empty** step passes;
+   it fails the job if anything survives in state.
+
+### When the retry loop exhausts
+
+`terraform-destroy-retry.sh` gives up after 3 attempts (10 minutes apart) and
+says so with an `::error::`. The environment is **partially emptied, not
+wedged** — destroy writes state as resources go, so simply **re-dispatch** and it
+resumes where it stopped. A Lambda@Edge replica can hold its function for up to
+90 minutes, which is longer than one run's ~20 minutes of waiting covers, so
+expect a re-dispatch (occasionally two) on a teardown that has edge functions.
+Two more things to know while retrying:
+
+- The Cognito pool may sit with default configuration between attempts
+  (`update-user-pool` resets unspecified attributes). Harmless — the next apply
+  restores it if you abandon the teardown.
+- Log delivery can refill the `logs` bucket between the purge and the bucket
+  delete, producing `BucketNotEmpty`. Re-dispatching re-runs the purge first,
+  which is why emptying is a workflow step rather than a one-shot manual action.
+
+### What survives
+
+The Route53 **hosted zone** (org-owned — only the records go), the central ECR
+**repositories** (only the images inside them are purged), `infra/bootstrap/`,
+and the state bucket. The state object is left present and holding an empty
+state, which is exactly what makes the next `terraform apply` clean.

@@ -65,3 +65,11 @@ trivy config infra --ignorefile infra/.trivyignore --severity CRITICAL,HIGH   # 
 - **Merge to `main`** → `deploy.yml`'s `apply-dev` job applies **dev** (gated on `infra/**` having changed; ordinary same-workflow `needs:` — not a separate workflow — is what makes the app deploy jobs wait for it).
 - **`v*` tag** → `deploy.yml`'s `apply-prod` job applies **prod**, gated by the `prod` GitHub environment (required reviewer).
 - Auth is GitHub OIDC role assumption against org-provided roles — no static AWS keys; don't introduce any. Three privilege tiers: `TF_PLAN_ROLE_ARN` (read-only `gha-plan`, PR plans; runs `-lock=false`), `TF_APPLY_ROLE_ARN` (admin `gha-deploy`, `terraform apply`), `APP_DEPLOY_ROLE_ARN` (scoped `gha-app-deploy`, `deploy.yml` app deploys).
+
+## Teardown
+
+- `destroy.yml` is the only path that destroys an environment. It is **dispatch-only** — no `push`, tag, or `schedule` trigger — and gated on a typed `confirm` of `destroy <environment>`; prod additionally passes the `prod` environment's required reviewer. There is no local `terraform destroy` (the State rule above).
+- It shares the `terraform-state-<env>` concurrency group with `deploy.yml`'s `apply-dev`/`apply-prod` and `toggle-maintenance.yml`, so a teardown can never interleave with an apply.
+- **Emptying S3, flipping Cognito `deletion_protection`, and force-deleting the database secret live in the workflow, never in the HCL.** A normal `terraform apply` must stay incapable of deleting data: no `force_destroy`, no relaxed `cognito_deletion_protection`, no shortened `recovery_window_days`. `destroy.yml` is the only thing that may reach past those guards, and the shell doing it lives in `.github/scripts/destroy-*.sh`.
+- `infra/bootstrap/` and the state bucket are out of scope — separate state, separate lifecycle. Teardown leaves the state object present and empty, which is what makes a re-apply clean.
+- Purging the shared ECR images needs the org repo's `gha-ecr-purge` role (`vars.ECR_PURGE_ROLE_ARN`), whose OIDC `subject_claims` accept only environment-scoped subs. Operator procedure — preconditions, the exact confirm strings, the cross-environment ECR consequence — is in `docs/runbook.md`, not here.
