@@ -2,16 +2,14 @@
 
 ## [1.3.0](https://github.com/ahmax99/boilerplate-template/compare/v1.2.0...v1.3.0) (2026-07-26)
 
-
 ### Features
 
-* **infra:** implement teardown workflow for infrastructure destruction ([#156](https://github.com/ahmax99/boilerplate-template/issues/156)) ([6dc600e](https://github.com/ahmax99/boilerplate-template/commit/6dc600ef64b06a95ea2aa8caafef15caa81f467a))
-
+- **infra:** implement teardown workflow for infrastructure destruction ([#156](https://github.com/ahmax99/boilerplate-template/issues/156)) ([6dc600e](https://github.com/ahmax99/boilerplate-template/commit/6dc600ef64b06a95ea2aa8caafef15caa81f467a))
 
 ### Bug Fixes
 
-* **ci:** serialize maintenance toggles with pipeline Terraform applies ([#155](https://github.com/ahmax99/boilerplate-template/issues/155)) ([2f3622c](https://github.com/ahmax99/boilerplate-template/commit/2f3622ca3190cae1561f2bf6bd1f3014866bb430))
-* **deploy:** enhance deployment workflows with improved job dependencies and checks ([#153](https://github.com/ahmax99/boilerplate-template/issues/153)) ([b22db29](https://github.com/ahmax99/boilerplate-template/commit/b22db2940181a7e04fa78c3ff8c9c5e089c3b182))
+- **ci:** serialize maintenance toggles with pipeline Terraform applies ([#155](https://github.com/ahmax99/boilerplate-template/issues/155)) ([2f3622c](https://github.com/ahmax99/boilerplate-template/commit/2f3622ca3190cae1561f2bf6bd1f3014866bb430))
+- **deploy:** enhance deployment workflows with improved job dependencies and checks ([#153](https://github.com/ahmax99/boilerplate-template/issues/153)) ([b22db29](https://github.com/ahmax99/boilerplate-template/commit/b22db2940181a7e04fa78c3ff8c9c5e089c3b182))
 
 ## [1.2.0](https://github.com/ahmax99/boilerplate-template/compare/v1.1.1...v1.2.0) (2026-07-25)
 
