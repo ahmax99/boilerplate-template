@@ -19,18 +19,19 @@ PRs touching `infra/**` get an automatic `terraform plan` comment (dev) via `ter
 
 The pipeline's guarantees, and the mechanism behind each — change one, check you haven't broken another:
 
-| Invariant                                                            | Mechanism                                                                                                                                                                                                                                                          |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| A branch push deploys **dev only**; a `v*` tag deploys **prod only** | `ref_type` guards on the deploy jobs. Path filters don't apply to tag pushes, so a release tag runs whatever it touched — keying on `ref_type` is what stops a same-commit double-deploy                                                                           |
-| Terraform lands before the app, per environment                      | `deploy-dev-*` needs `apply-dev`; `deploy-prod-*` needs `apply-prod` — a native `needs:` edge plus an explicit `result == 'success'` check, which also subsumes the old "assert the specific job, not the run" requirement now that both jobs live in the same run |
-| One CodeDeploy deployment at a time per target                       | Job-level `concurrency: deploy-target-<env>-<app>` — keyed on the target, not the ref, so runs in different workflow concurrency groups still serialize                                                                                                            |
-| One `terraform apply` at a time per state file                       | Job-level `concurrency: terraform-state-<env>` on each apply job (a tag run applies dev _and_ prod, so a ref-keyed group can't express this)                                                                                                                       |
-| Backend before frontend, per environment                             | `deploy-dev-frontend` needs `deploy-dev-backend`; `deploy-prod-frontend` needs `deploy-prod-backend` — a push/release may add API surface the new UI calls                                                                                                         |
-| Static assets are in S3 before traffic shifts to the new frontend    | The `deploy-static-assets` step runs **before** `deploy-lambda`, and both syncs are additive (no `--delete`, so the live version keeps its own assets)                                                                                                             |
-| A deploy is never interrupted                                        | `cancel-in-progress: false` — cancelling the run wouldn't stop the AWS-side deployment, it would just orphan it and block the next one                                                                                                                             |
-| Prod never deploys on top of a currently-broken dev                  | `verify-dev-healthy` — since dev isn't redeployed by a release, this checks the most recent relevant `deploy.yml` dev-deploy run on `main` actually succeeded (fails open only if no such run exists yet)                                                          |
-| Dev's Terraform isn't reapplied by a release tag                     | `apply-dev`'s `if` gates on `detect.outputs.infra` (always `false` for a tag push) and requires `workflow_dispatch` or a branch push; `apply-prod`'s `if` explicitly tolerates a skipped `apply-dev` (`needs.apply-dev.result == 'skipped'`)                       |
-| A dispatch can run just the infra half or just the app half          | `workflow_dispatch`'s `scope` input (`infra-and-apps` / `infra-only` / `apps-only`), folded into `detect`'s outputs so no other job's `if:` needs to know about it                                                                                                 |
+| Invariant                                                            | Mechanism                                                                                                                                                                                                                                                                            |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| A branch push deploys **dev only**; a `v*` tag deploys **prod only** | `ref_type` guards on the deploy jobs. Path filters don't apply to tag pushes, so a release tag runs whatever it touched — keying on `ref_type` is what stops a same-commit double-deploy                                                                                             |
+| Terraform lands before the app, per environment                      | `deploy-dev-*` needs `apply-dev`; `deploy-prod-*` needs `apply-prod` — a native `needs:` edge plus an explicit `result == 'success'` check, which also subsumes the old "assert the specific job, not the run" requirement now that both jobs live in the same run                   |
+| Schema migrates before the app, per environment                      | `deploy-dev-backend` needs `migrate-dev`; `deploy-prod-backend` needs `migrate-prod` — same `needs:` + tolerant `result == 'success' \|\| 'skipped'` pattern as the Terraform-ordering row above, so a pending Prisma migration always lands before the backend code that expects it |
+| One CodeDeploy deployment at a time per target                       | Job-level `concurrency: deploy-target-<env>-<app>` — keyed on the target, not the ref, so runs in different workflow concurrency groups still serialize                                                                                                                              |
+| One `terraform apply` at a time per state file                       | Job-level `concurrency: terraform-state-<env>` on each apply job (a tag run applies dev _and_ prod, so a ref-keyed group can't express this)                                                                                                                                         |
+| Backend before frontend, per environment                             | `deploy-dev-frontend` needs `deploy-dev-backend`; `deploy-prod-frontend` needs `deploy-prod-backend` — a push/release may add API surface the new UI calls                                                                                                                           |
+| Static assets are in S3 before traffic shifts to the new frontend    | The `deploy-static-assets` step runs **before** `deploy-lambda`, and both syncs are additive (no `--delete`, so the live version keeps its own assets)                                                                                                                               |
+| A deploy is never interrupted                                        | `cancel-in-progress: false` — cancelling the run wouldn't stop the AWS-side deployment, it would just orphan it and block the next one                                                                                                                                               |
+| Prod never deploys on top of a currently-broken dev                  | `verify-dev-healthy` — since dev isn't redeployed by a release, this checks the most recent relevant `deploy.yml` dev-deploy run on `main` actually succeeded (fails open only if no such run exists yet)                                                                            |
+| Dev's Terraform isn't reapplied by a release tag                     | `apply-dev`'s `if` gates on `detect.outputs.infra` (always `false` for a tag push) and requires `workflow_dispatch` or a branch push; `apply-prod`'s `if` explicitly tolerates a skipped `apply-dev` (`needs.apply-dev.result == 'skipped'`)                                         |
+| A dispatch can run just the infra half or just the app half          | `workflow_dispatch`'s `scope` input (`infra-and-apps` / `infra-only` / `apps-only`), folded into `detect`'s outputs so no other job's `if:` needs to know about it                                                                                                                   |
 
 `apply-dev`/`apply-prod` and the deploy jobs now live in **one** workflow run (`deploy.yml`), so the ordering above is an ordinary same-run `needs:` edge rather than one workflow polling another's run history.
 
@@ -61,12 +62,13 @@ push to main (paths match)
         ├── build-backend (if affected)
         └── build-frontend (if affected)
 
-  apply-dev + build-backend ──→ deploy-dev-backend
+  apply-dev ──→ migrate-dev (if backend affected — runs `prisma migrate deploy`)
+  apply-dev + build-backend + migrate-dev ──→ deploy-dev-backend
                                       └──→ deploy-dev-frontend (also needs apply-dev + build-frontend)
                                             (assets → S3, then Lambda)
 ```
 
-Prod is not touched. `IMAGE_TAG` = commit SHA. `apply-dev` runs on this push if `infra/**` changed (skipped otherwise); `deploy-dev-backend`/`deploy-dev-frontend` both `needs: apply-dev` and tolerate it being skipped, so infra lands before the app whenever there's infra to apply, same as the release flow gives prod via `apply-prod`. `deploy-dev-frontend` also `needs: deploy-dev-backend` (tolerating a skip the same way) — a push may add API surface the new frontend calls, the same reasoning that already ordered prod's backend before its frontend.
+Prod is not touched. `IMAGE_TAG` = commit SHA. `apply-dev` runs on this push if `infra/**` changed (skipped otherwise); `deploy-dev-backend`/`deploy-dev-frontend` both `needs: apply-dev` and tolerate it being skipped, so infra lands before the app whenever there's infra to apply, same as the release flow gives prod via `apply-prod`. `migrate-dev` runs whenever `detect.outputs.backend` is `true` (which turbo's affected-package graph already sets for a `shared/neon/**`-only change, since `backend-boilerplate` depends on `@shared/neon`), and `deploy-dev-backend` needs it the same tolerant way it needs `apply-dev`. `deploy-dev-frontend` also `needs: deploy-dev-backend` (tolerating a skip the same way) — a push may add API surface the new frontend calls, the same reasoning that already ordered prod's backend before its frontend.
 
 ### Release (tag push `v*`)
 
@@ -78,8 +80,9 @@ release-please merges Release PR → creates tag v1.2.3
           ├── build-frontend ────────┤
           └── verify-dev-healthy ────┤
                                      └──→ [prod reviewer gate] ──→ apply-prod
-                                                                     └──→ [prod reviewer gate] ──→ deploy-prod-backend
-                                                                                                       └──→ deploy-prod-frontend
+                                                                     └──→ migrate-prod (if backend affected)
+                                                                            └──→ [prod reviewer gate] ──→ deploy-prod-backend
+                                                                                                              └──→ deploy-prod-frontend
 ```
 
 **A release moves prod only.** The tagged commit already reached dev from the branch push that carried it, so re-deploying dev here would only add redundant bakes to the release critical path and a second writer on the dev Lambdas/state — both `deploy-dev-*` and `apply-dev` are gated to branch pushes (and, for `apply-dev`, `workflow_dispatch`, which bring-up and ad-hoc dev reapplies still use on any ref). `apply-dev` is skipped on a tag push (`detect.outputs.infra` is always `false` for a tag), and `apply-prod`'s `if` explicitly tolerates that skip.
@@ -198,6 +201,25 @@ This is deliberately a `locals` map, not a `variable` sourced from `vars/*.tfvar
 | `s3_logs_expiration_days`           | `7`                | `90`                             | Access-log objects (CloudFront + S3) in the shared logs bucket self-delete after this many days                               |
 
 **Safe prod deploys.** In prod, CodeDeploy shifts traffic gradually and monitors CloudWatch alarms; if the new version errors, it auto-rolls-back (`DEPLOYMENT_STOP_ON_ALARM`, already in `auto_rollback_events`). The `modules/monitoring` module creates four alarms per release target — `Errors` and `Throttles` on the backend and frontend Lambda **aliases** — and CodeDeploy consumes their names via `alarm_names`. These alarms exist to **gate the deployment**, not to page a human: there is intentionally **no SNS topic**. Human error alerting stays on **Sentry** (app-side). CloudWatch still earns its place because CodeDeploy can only read CloudWatch alarms (not Sentry), and `Throttles` / init-crashes / timeouts never reach the app-level Sentry SDK — `Throttles` especially matters now that prod caps reserved concurrency. If you later want proactive push alerts for those platform-level signals, add an SNS topic (with a **customer-managed** KMS key — CloudWatch cannot publish to a topic encrypted with the AWS-managed `alias/aws/sns` key) and wire it into the alarms' `alarm_actions`.
+
+## Rollback
+
+Automatic rollback exists at exactly one layer — the CodeDeploy blue/green swap — and stops there. Everything before and after it in the pipeline is forward-only.
+
+**What rolls back automatically.** This is the "Safe prod deploys" behavior above: `auto_rollback_configuration` (`infra/modules/codedeploy`) reverts a Lambda alias to its previous version on `DEPLOYMENT_FAILURE`, or — in prod only, since `enable_alarms` is `false` in dev — on `DEPLOYMENT_STOP_ON_ALARM` during the canary window. Dev's `LambdaAllAtOnce` config with no alarms wired in means a bad dev deploy has no automatic net; that's deliberate, dev is meant to fail loud rather than quietly roll back.
+
+**What does not roll back:**
+
+- **Terraform (`apply-dev`/`apply-prod`).** A `terraform apply` is never reverted if a later job in the same run fails — the applied infra stays applied. This is ordinary Terraform behavior, not a gap specific to this pipeline: an automatic revert-apply can itself fail, or destroy something with live data. Recovery is a forward fix (a new PR/commit correcting the config), not an automatic revert.
+- **Database migrations (`migrate-dev`/`migrate-prod`).** `prisma migrate deploy` applies pending migrations and has no automatic "down." If it succeeds and a later job in the same run fails — including a CodeDeploy auto-rollback of the Lambda code that ran right after it — the schema stays on the new version while the _old_ code (now back in front of traffic) is what's actually running. This is why every migration in this repo must be **expand/contract**: additive and backward-compatible (new nullable columns, new tables, dual-write) for at least one full release, with any drop/rename of the old shape deferred to a follow-up migration once nothing references it. A migration that isn't safe for the previous release's code to run against — not the absence of a schema-rollback step — is what actually causes an incident here.
+
+**Recovering from a bad prod release** is manual and forward-only:
+
+1. If the Lambda deploy itself failed or tripped an alarm, CodeDeploy has already reverted the alias — `deploy-lambda.sh` prints the deployment's `errorInformation` on failure; check that or `aws deploy get-deployment` for what happened.
+2. If the release is otherwise bad (a logic bug the alarms didn't catch), re-run `deploy.yml` via `workflow_dispatch` **on the previous `v*` tag** with `scope: apps-only` — no rebuild needed (that tag's image already exists in the central registry), and it redeploys the last-known-good image through the same reviewer-gated, alarm-monitored CodeDeploy path. `migrate-prod` runs again on that re-dispatch too; it's a no-op since `prisma migrate deploy` only applies pending migrations.
+3. If a migration needs correcting, ship a new forward migration (never edit or delete one already applied) and let the next release carry it through `migrate-prod` the normal way.
+
+There is deliberately no "roll back the database" step — see the expand/contract note above.
 
 ## Setup
 

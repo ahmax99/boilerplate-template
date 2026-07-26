@@ -139,6 +139,41 @@ jobs:
           ecr-push-role-arn: ${{ vars.ECR_PUSH_ROLE_ARN }}
           apply-role-arn: ${{ vars.TF_APPLY_ROLE_ARN }}
 
+  # ── Migration gate (dev) — Prisma migrate deploy, before any dev backend deploy ─
+  migrate-dev:
+    name: Prisma Migrate → Dev
+    needs: [detect, apply-dev]
+    if: |
+      !cancelled() &&
+      needs.detect.outputs.backend == 'true' &&
+      github.ref_type == 'branch' &&
+      (needs.apply-dev.result == 'success' || needs.apply-dev.result == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: dev
+    permissions:
+      contents: read
+    concurrency:
+      group: neon-migrate-dev
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: 1.3.14
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Deploy pending migrations
+        run: bunx --bun turbo run db:deploy --filter=@shared/neon
+        env:
+          DATABASE_URL: ${{ secrets.TF_VAR_database_url }}
+
   # ── Build jobs — push once into the central (shared-services) registry ─────
   build-backend:
     name: Build Backend Image
@@ -239,13 +274,14 @@ jobs:
   # ── Dev deploy jobs ────────────────────────────────────────────────────────
   deploy-dev-backend:
     name: Deploy Backend → Dev
-    needs: [detect, build-backend, apply-dev]
+    needs: [detect, build-backend, apply-dev, migrate-dev]
     if: |
       !cancelled() &&
       github.ref_type == 'branch' &&
       needs.detect.outputs.backend == 'true' &&
       needs.build-backend.result == 'success' &&
-      (needs.apply-dev.result == 'success' || needs.apply-dev.result == 'skipped')
+      (needs.apply-dev.result == 'success' || needs.apply-dev.result == 'skipped') &&
+      (needs.migrate-dev.result == 'success' || needs.migrate-dev.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: dev
@@ -415,10 +451,47 @@ jobs:
           ecr-push-role-arn: ${{ vars.ECR_PUSH_ROLE_ARN }}
           apply-role-arn: ${{ vars.TF_APPLY_ROLE_ARN }}
 
+  # ── Migration gate (prod) — Prisma migrate deploy, before any prod backend deploy ─
+  migrate-prod:
+    name: Prisma Migrate → Prod
+    needs: [detect, apply-prod, verify-dev-healthy]
+    if: |
+      !cancelled() &&
+      github.ref_type == 'tag' && startsWith(github.ref_name, 'v') &&
+      needs.detect.outputs.backend == 'true' &&
+      needs.verify-dev-healthy.result == 'success' &&
+      (needs.apply-prod.result == 'success' ||
+       (github.event_name == 'workflow_dispatch' && needs.apply-prod.result == 'skipped'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: prod # required-reviewer gate
+    permissions:
+      contents: read
+    concurrency:
+      group: neon-migrate-prod
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: 1.3.14
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Deploy pending migrations
+        run: bunx --bun turbo run db:deploy --filter=@shared/neon
+        env:
+          DATABASE_URL: ${{ secrets.TF_VAR_database_url }}
+
   # ── Prod deploy jobs ───────────────────────────────────────────────────────
   deploy-prod-backend:
     name: Deploy Backend → Prod
-    needs: [detect, build-backend, apply-prod, verify-dev-healthy]
+    needs: [detect, build-backend, apply-prod, verify-dev-healthy, migrate-prod]
     if: |
       !cancelled() &&
       github.ref_type == 'tag' && startsWith(github.ref_name, 'v') &&
@@ -426,7 +499,9 @@ jobs:
       needs.build-backend.result == 'success' &&
       needs.verify-dev-healthy.result == 'success' &&
       (needs.apply-prod.result == 'success' ||
-       (github.event_name == 'workflow_dispatch' && needs.apply-prod.result == 'skipped'))
+       (github.event_name == 'workflow_dispatch' && needs.apply-prod.result == 'skipped')) &&
+      (needs.migrate-prod.result == 'success' ||
+       (github.event_name == 'workflow_dispatch' && needs.migrate-prod.result == 'skipped'))
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: prod
