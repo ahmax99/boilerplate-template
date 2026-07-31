@@ -14,7 +14,7 @@
     "@base-ui/react": "^1.6.0",
     "@casl/ability": "^7.0.1",
     "@casl/react": "^7.0.1",
-    "@hookform/resolvers": "^5.4.2",
+    "@hookform/resolvers": "^5.5.7",
     "@react-email/components": "^1.0.12",
     "@sentry/nextjs": "10.68.0",
     "@shared/config": "workspace:*",
