@@ -25,7 +25,7 @@
     "graphify:serve": "$HOME/.local/bin/graphify-mcp graphify-out/graph.json"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.1",
+    "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.0",
     "lefthook": "^2.1.10",
     "oxfmt": "^0.62.0",
