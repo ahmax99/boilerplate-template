@@ -22,7 +22,7 @@
     "aws4fetch": "^1.0.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "iron-session": "^8.0.4",
+    "iron-session": "^9.0.1",
     "ky": "^2.1.0",
     "lucide-react": "^1.35.0",
     "neverthrow": "^8.2.0",
