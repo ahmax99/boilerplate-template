@@ -29,10 +29,14 @@
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "lefthook": "^2.1.12",
-    "oxfmt": "^0.65.0",
-    "oxlint": "^1.80.0",
+    "oxfmt": "^0.67.0",
+    "oxlint": "^1.82.0",
     "turbo": "^2.10.12",
     "typescript": "^7.0.2"
+  },
+  "overrides": {
+    "deepmerge-ts": "^8.0.2",
+    "mysql2": "^3.24.4"
   },
   "engines": {
     "node": ">=24"
