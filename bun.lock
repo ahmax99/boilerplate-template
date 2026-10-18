@@ -71,7 +71,7 @@
         "pino": "^10.4.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "react-hook-form": "^7.87.0",
+        "react-hook-form": "^7.90.0",
         "resend": "^6.32.1",
         "server-only": "^0.0.1",
         "sonner": "^2.0.8",
@@ -1658,7 +1658,7 @@
 
     "react-dom": ["react-dom@19.3.0", "", { "dependencies": { "scheduler": "^0.28.0" }, "peerDependencies": { "react": "^19.3.0" } }, "sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q=="],
 
-    "react-hook-form": ["react-hook-form@7.87.0", "", { "peerDependencies": { "react": "^16.8.0 || ^17 || ^18 || ^19" } }, "sha512-zhFzWvLxNHH+8839OnZcUxgMZw88ah2jZWDWvKWgF3Tpbnd0vKL+dlcuU3nZVWESZQjd81EW8K+wU+cYfYAc0w=="],
+    "react-hook-form": ["react-hook-form@7.90.0", "", { "peerDependencies": { "@types/react": "*", "react": "^16.8.0 || ^17 || ^18 || ^19" }, "optionalPeers": ["@types/react"] }, "sha512-+NdG0FLzCPhFOp2NNxaUYLF9fyZhNjx9FTBBSYWF71/l6BBlmIc/j6xlp3DbaHWLJbIG7Zd8oznA19xJClU97w=="],
 
     "readdirp": ["readdirp@5.1.1", "", {}, "sha512-Kko+Y5XQ6fM+Ce3dq3m9YGxnacYZYl9cA1wZjaF3Vbry2L3i1qVg8+CAgNPsXRArPMUMCaOR7oa9Nqntc43JKA=="],
 
