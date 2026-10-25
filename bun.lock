@@ -23,7 +23,7 @@
         "@aws-sdk/client-secrets-manager": "^3.1149.0",
         "@aws-sdk/s3-request-presigner": "^3.1149.0",
         "@bogeychan/elysia-logger": "^0.1.10",
-        "@casl/ability": "^7.0.1",
+        "@casl/ability": "^7.0.2",
         "@casl/prisma": "^2.0.2",
         "@elysia/bearer": "^1.4.4",
         "@elysiajs/cors": "^1.4.2",
@@ -52,7 +52,7 @@
       "dependencies": {
         "@aws-sdk/client-cognito-identity-provider": "^3.1127.0",
         "@base-ui/react": "^1.9.0",
-        "@casl/ability": "^7.0.1",
+        "@casl/ability": "^7.0.2",
         "@casl/react": "^7.0.1",
         "@hookform/resolvers": "^5.9.1",
         "@react-email/components": "^1.0.12",
@@ -250,7 +250,7 @@
 
     "@borewit/text-codec": ["@borewit/text-codec@0.2.2", "", {}, "sha512-DDaRehssg1aNrH4+2hnj1B7vnUGEjU6OIlyRdkMd0aUdIUvKXrJfXsy8LVtXAy7DRvYVluWbMspsRhz2lcW0mQ=="],
 
-    "@casl/ability": ["@casl/ability@7.0.1", "", { "dependencies": { "@ucast/mongo2js": "^2.0.0" } }, "sha512-krOW1zQGEie5lH6fpryrcsPvc5r2pe5Vn5xbthuzc5X9gwzHIyZgGGgw9dMoSLHXdjB4BIVxGG/HBkG+1NuyZQ=="],
+    "@casl/ability": ["@casl/ability@7.0.2", "", { "dependencies": { "@ucast/mongo2js": "^2.0.0" } }, "sha512-NOYbLTaw080a1Na4CpBtyGpL+i9NZhtGGt/tPrrNpLEv8EawFusHZCgc58ewyPBiZ0NER0iudB0et+IP8xJbLg=="],
 
     "@casl/prisma": ["@casl/prisma@2.0.2", "", { "dependencies": { "@ucast/core": "^2.0.0", "@ucast/js": "^4.0.1" }, "peerDependencies": { "@casl/ability": "^7.0.0", "@prisma/client": "^4.16.0 || ^5.0.0 || ^6.0.0 || ^7.0.0" } }, "sha512-IYp9rABl8s9fF+4NubSahYMXqwLbmVCz8Hd9Xa4MbS6xMkSRTTa+tq9oKQFd/SJ6VoLe2oY+7Wg0eF9CjOCnYA=="],
 
