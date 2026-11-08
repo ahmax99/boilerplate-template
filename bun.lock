@@ -24,7 +24,7 @@
         "@aws-sdk/s3-request-presigner": "^3.1156.0",
         "@bogeychan/elysia-logger": "^0.1.10",
         "@casl/ability": "^7.0.2",
-        "@casl/prisma": "^2.0.2",
+        "@casl/prisma": "^2.2.0",
         "@elysia/bearer": "^1.4.4",
         "@elysiajs/cors": "^1.4.2",
         "@elysiajs/openapi": "^1.4.16",
@@ -252,7 +252,7 @@
 
     "@casl/ability": ["@casl/ability@7.0.2", "", { "dependencies": { "@ucast/mongo2js": "^2.0.0" } }, "sha512-NOYbLTaw080a1Na4CpBtyGpL+i9NZhtGGt/tPrrNpLEv8EawFusHZCgc58ewyPBiZ0NER0iudB0et+IP8xJbLg=="],
 
-    "@casl/prisma": ["@casl/prisma@2.0.2", "", { "dependencies": { "@ucast/core": "^2.0.0", "@ucast/js": "^4.0.1" }, "peerDependencies": { "@casl/ability": "^7.0.0", "@prisma/client": "^4.16.0 || ^5.0.0 || ^6.0.0 || ^7.0.0" } }, "sha512-IYp9rABl8s9fF+4NubSahYMXqwLbmVCz8Hd9Xa4MbS6xMkSRTTa+tq9oKQFd/SJ6VoLe2oY+7Wg0eF9CjOCnYA=="],
+    "@casl/prisma": ["@casl/prisma@2.2.0", "", { "dependencies": { "@ucast/core": "^2.0.0", "@ucast/js": "^4.0.1" }, "peerDependencies": { "@casl/ability": "^7.0.0", "@prisma/client": "^4.16.0 || ^5.0.0 || ^6.0.0 || ^7.0.0" } }, "sha512-WJjCgxQjp1rQUXnph7J7vkzIUcJ2gcdMlByCp6KSn4vRr0BeD3Yfyxo2KdZsyeAGjJBluUkXM4pYyWKr82TnXw=="],
 
     "@casl/react": ["@casl/react@7.0.1", "", { "peerDependencies": { "@casl/ability": "^4.0.0 || ^5.1.0 || ^6.0.0 || ^7.0.0", "react": "^18.0.0 || ^19.0.0" } }, "sha512-HFfBxQD5wFUIyd9gAPa5LDqMbB7CIOqRcocxzwMC589d8vLMzaz/OAdFLglGiBz9pAcumC0ULp5QLFiYZ46mUw=="],
 
